@@ -1,0 +1,38 @@
+﻿@page "/"
+@using PROWeb.Components.ViewModels.Voter
+@using PROWeb.Components.Navigation
+@using PROWeb.Components.Common
+@using PROWeb.Components.Voters.Filters
+@using PROWeb.Office.Components.Voter
+@using Telerik.Blazor.Components.PanelBar
+@inherits PRORegistryLayout<VoterFilterViewModel, VoterViewModel>
+
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <ToolBar>
+                <TelerikButtonGroup SelectionMode="@ButtonGroupSelectionMode.Single">
+                    <ButtonGroupToggleButton SelectedChanged="@OnSimpleFilterSelect" Selected="@SimpleFilterSelected">Simple Search</ButtonGroupToggleButton>
+                    <ButtonGroupToggleButton SelectedChanged="@OnAdvancedFilterSelect" Selected="@AdvancedFilterSelected">Advanced Search</ButtonGroupToggleButton>
+                </TelerikButtonGroup>
+            </ToolBar>
+            <Content>
+                @FilterTemplate
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <List>
+        <VoterList @ref="ListRef" />
+    </List>
+</FilterListLayout>
+
+
+@code
+{
+    private RenderFragment AdvancedFilterTemplate => @<VoterFilterAdvanced @ref="@FilterRef"></VoterFilterAdvanced>;
+
+    private RenderFragment SimpleFilterTemplate => @<VoterFilterSimple @ref="@FilterRef" ></VoterFilterSimple>;
+}

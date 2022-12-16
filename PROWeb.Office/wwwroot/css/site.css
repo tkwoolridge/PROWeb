@@ -1,0 +1,114 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body, app, .k-drawer-container, .k-drawer-content, .main {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
+
+a, .btn-link {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.k-input, .k-checkbox {
+    border: 1px solid #91C8EF;
+}
+
+k-input-solid.k-hover, .k-input-solid:hover {
+    border: 1px solid #317aac;
+}
+
+.k-drawer-item:hover, .k-drawer-item.k-state-hover, .text-info {
+    background-color: #91C8EF;
+}
+
+.main-grid {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px minmax(0, 1fr) auto;
+    grid-row-gap: 10px;
+}
+
+.main-header {
+    background-image: url(/images/header-background.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: #347bad;
+    color: white;
+}
+
+.main-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.main-footer {
+    background: #347bad;
+    color: white;
+}
+
+/*Grid*/
+
+.k-grid-header .k-header {
+    color: white;
+    background-color: #317aac;
+}
+
+
+.k-grid,
+.k-filter-row > td,
+.k-filter-row > th,
+.k-grid td,
+.k-grid-content-locked,
+.k-grid-footer,
+.k-grid-footer-locked,
+.k-grid-footer-wrap,
+.k-grid-header,
+.k-grid-header-locked,
+.k-grid-header-wrap,
+.k-grouping-header,
+.k-grouping-header
+.k-group-indicator,
+.k-header,
+th.k-header {
+    border-color: #317aac;
+}

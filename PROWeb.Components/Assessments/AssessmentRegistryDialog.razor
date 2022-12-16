@@ -1,0 +1,39 @@
+﻿@using PROWeb.Components.ViewModels.Assessment;
+@inherits PRORegistryLayout<AssessmentFilterViewModel, AssessmentViewModel>
+
+<TelerikWindow 
+    Width="800px"
+    Height="600px"
+    Centered="true" 
+    Modal="true" 
+    @bind-Visible="@ShowDialog">
+    <WindowTitle>
+        <strong>Assessment Dialog</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+    <WindowContent>
+        <FilterListLayout>
+            <Filter>
+                <ExpansionPanel>
+                    <Header>
+                        <strong>Filter:</strong>
+                    </Header>
+                    <Content>
+                        <AssessmentFilterAdvanced @ref="@FilterRef" />
+                    </Content>
+                 </ExpansionPanel>
+            </Filter>
+            <List>
+                <AssessmentGrid AssessmentSelected="@OnAssessmentSelected" @ref="ListRef" />
+            </List>
+            <Footer>
+                <div class="d-flex justify-content-between w-100">
+                    <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnConfirm" Enabled="@CanConfirm" ThemeColor="primary">Confirm</TelerikButton>
+                    <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnCancel">Cancel</TelerikButton>
+                </div>
+            </Footer>
+        </FilterListLayout>
+    </WindowContent>
+</TelerikWindow>

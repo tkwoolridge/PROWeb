@@ -1,0 +1,22 @@
+﻿@inherits PROContentLayout
+
+<div class="filter-list-layout">
+    <div class="filter-list-filter">
+       <CascadingValue Value="this">
+            @Filter
+        </CascadingValue>
+    </div>
+    <div class="filter-list-list">
+        <CascadingValue Value="this">
+            @List
+        </CascadingValue>
+    </div>
+    <div class="@(IsBusy ? "filter-list-loader-show" : "filter-list-loader-hide" )">
+        <PROLoader BusyMessage="@BusyMessage"/>
+    </div>
+    <div class="filter-list-footer">
+        <CascadingValue Value="this">
+            @Footer
+        </CascadingValue>
+    </div>
+</div>

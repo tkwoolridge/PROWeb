@@ -1,0 +1,41 @@
+﻿@using PROWeb.Components.ViewModels.Assessment
+@inherits PROFilterComponent<AssessmentFilterViewModel>
+
+<TelerikForm Model="@Filter" OnSubmit="@OnSearchAsync" ColumnSpacing="10px">
+    <FormItems>
+        <FormGroup Columns="12" ColumnSpacing="5px">
+       
+            <FormItem ColSpan="2" Field="@nameof(AssessmentFilterViewModel.AssessmentNo)" />
+            <FormItem ColSpan="4" Field="@nameof(AssessmentFilterViewModel.Address2)" />
+            <FormItem ColSpan="1" Field="@nameof(AssessmentFilterViewModel.HouseNo)" />
+            <FormItem ColSpan="2" Field="@nameof(AssessmentFilterViewModel.ConstituencyNo)">
+                <Template>
+                    <label for="constituency" class="k-label k-form-label">Constituency:</label>
+                    <TelerikComboBox Id="constituency" 
+                        TextField="@nameof(ConstituencyViewModel.Constituency)"
+                        ValueField="@nameof(ConstituencyViewModel.ConstituencyNo)"
+                        @bind-Value="@Filter.ConstituencyNo" 
+                        Data="@Constituencies" />
+                </Template>
+            </FormItem>
+            <FormItem ColSpan="1" Field="@nameof(AssessmentFilterViewModel.PostalCode)" />
+
+            <FormItem ColSpan="2" Field="@nameof(AssessmentFilterViewModel.ParishNo)">
+                <Template>
+                    <label for="parish" class="k-label k-form-label">Parish:</label>
+                    <TelerikComboBox Id="parish"
+                                     TextField="@nameof(ParishViewModel.ParishName)"
+                                     ValueField="@nameof(ParishViewModel.ParishNo)"
+                                     @bind-Value="@Filter.ParishNo"
+                                     Data="@Parishes" />
+                </Template>
+            </FormItem>
+        </FormGroup>
+    </FormItems>
+    <FormButtons>
+        <div class="d-flex justify-content-between w-100">
+            <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" Enabled="@CanSearch" ThemeColor="primary">Search</TelerikButton>
+            <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Button" OnClick="@OnClear">Clear</TelerikButton>
+        </div>
+    </FormButtons>
+ </TelerikForm>

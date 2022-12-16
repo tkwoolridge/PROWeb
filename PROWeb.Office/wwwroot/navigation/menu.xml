@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Menu xmlns="http://schemas.datacontract.org/2004/07/PROWeb.Data.Models.Navigation">
+
+	<MenuItem Name="Registry" Description="Parliamentary Registry">
+		<MenuItem Name="Registry" Description="Registry" Page="/"/>
+		<MenuItem Name="Forms" Description="Forms" Page="/registartions"/>
+	</MenuItem>
+
+	<!--<MenuItem Requirement="CanUseRatepayerRegistry" Name="Ratepayers" Description="Ratepayers">
+		<MenuItem Name="RatepayersRegistry" Description="Ratepayers Registry" Page="PRO.Client.Pages.Ratepayers.ViewModel.RatepayersPageViewModel" />
+		<MenuItem Name="Forms" Description="Ratepayers Forms" Page="PRO.Client.Pages.RatepayerApplications.ViewModel.RatepayerApplicationsPageViewModel"/>
+		<MenuItem Name="CreateRatepayerForm1" Description="Create Ratepayer Form 1" Page="Form1"/>
+		<MenuItem Name="CreateRatepayerForm2" Description="Create Ratepayer Form 2" Page="Form2"/>
+		<MenuItem Name="RatepayersReportsLauncherDialog" Description="Ratepayer Reports" Page="PRO.Client.Pages.Ratepayers.View.ReportLauncherDialogView;PRO.Client.Pages.Ratepayers.ViewModel.ReportLauncherDialogViewModel"/>
+	</MenuItem>-->
+	
+	<MenuItem Name="Imports" Description="Imports">
+		<MenuItem Name="CandidatesRegistry" Description="Eligible Poll" Page="/candidates"/>
+		<MenuItem Name="AssessmentsRegistry" Description="Address Registry" Page="/assessments"/>
+	</MenuItem>
+
+	<MenuItem Requirement="CanRunReports" Name="Reporting" Description="Reporting">
+		<MenuItem Name="Reports" Description="Reports" Page="/reports"/>
+		<MenuItem Name="Dashboard" Description="Dashboard" Page="/dashboard" />
+	</MenuItem>
+
+	<MenuItem Requirement="CanUseAdministration" IsExpanded="true" Name="Administration" Description="Administration">
+		<MenuItem Name="Users" Description="Users" Page="/users" />
+		<MenuItem Name="Lists" Description="Lists" Page="/lists" />
+		<MenuItem Name="EventLog" Description="Event Log" Page="/evenlog"/>
+		<MenuItem Name="OfficeSettings" Description="Office Settings" Page="/pro-office"/>
+		<MenuItem Name="Registry Snapshot" Description="Registry Snapshot" Page="/registry-snapshot"/>
+		<MenuItem Name="UpdateAssessment" Description="Update Assessment" Page="/update-assessments"/>
+	</MenuItem>
+
+	<MenuItem Requirement="CanUseFieldRegistration" Name="FieldRegistration" Description="Field Registration">
+        <MenuItem Name="OfficersActivity" Description="Officers Activity" Page="/officers-activity" />
+        <MenuItem Name="SendApplicationsToPendingList" Description="Transfer data to PRO" Page="/transfer-field-registrations"/>
+        <MenuItem Name="FieldRegistrationReportsLauncherDialog" Description="Field Registration Reports" Page="/field-registration-reports-launcher"/>
+    </MenuItem>
+
+	<MenuItem Name="Actions" Description="Actions">
+		<MenuItem Name="CreateForm1" Description="Create Form 1..." Page="/form1" />
+		<MenuItem Name="CreateForm2" Description="Create Form 2..." Page="/form2"/>
+		<MenuItem Name="Logoff" Description="Logoff" Page="Logoff"/>
+	</MenuItem>
+
+	<MenuItem IsExpanded="false" Name="Help" Description="Help">
+
+		<MenuItem IsExpanded="false" Name="HelpOverview" Description="Overview">
+			<MenuItem Name="PROPagesFeatures" Description="PRO Pages &amp; Features" Page ="Overview/PROPagesFeatures"/>
+			<MenuItem Name="Filtering" Description="Filtering &amp; Collapsing Groups" Page ="/filtering"/>
+			<MenuItem Name="Grids" Description="Grids" Page ="Overview/Grids"/>
+		</MenuItem>
+
+		<MenuItem IsExpanded="false" Name="HelpRegistry" Description="Parliamentary Registry">
+			<MenuItem Name="SearchRegistry" Description="Search Registry" Page ="Registry/SearchRegistry"/>
+			<MenuItem Name="VoterUpdating" Description="Updeting Voter Info" Page ="Registry/VoterUpdating"/>
+			<MenuItem Name="VoterHistory" Description="Voter History" Page ="Registry/VoterHistory"/>
+			<MenuItem Name="VoterCertificates" Description="Certificates" Page ="Registry/Certificates"/>
+			<MenuItem Name="VoterFlags" Description="Using Flags" Page ="Registry/VoterFlags"/>
+			<MenuItem Name="SearchForms" Description="Search Forms" Page ="Registry/SearchForms"/>
+			<MenuItem Name="UpdateForms" Description="Update Forms" Page ="Registry/UpdateForms"/>
+			<MenuItem Name="ApprovingRejecting" Description="Approve &amp; Reject Forms" Page ="Registry/ApproveReject"/>
+		</MenuItem>
+		
+		<MenuItem IsExpanded="false" Name="HelpForms" Description="Forms">
+			<MenuItem Name="PopulateForms" Description="Populate Forms 1 &amp; 2" Page ="Forms/PopulateForms"/>
+			<MenuItem Name="FormsFromRegisters" Description="Create Forms From Registers" Page ="Forms/FormsFromRegisters"/>
+		</MenuItem>
+
+		<MenuItem CommandType="Group" Name="HelpImports" Description="Imports">
+			<MenuItem Name="SearchBermudians" Description="Search For Bermudians" Page ="/imports-search-bermudians"/>
+			<MenuItem Name="SearchAddress" Description="Search For Address" Page ="Imports/SearchAddress"/>
+		</MenuItem>
+
+		<MenuItem IsExpanded="false" Name="HelpReporting" Description="Reporting">
+			<MenuItem Name="RunReportRreview" Description="Run Report Preview" Page ="Reporting/RunReportRreview"/>
+			<MenuItem Name="CreateReportSnapshot" Description="Create Report Snapshot" Page ="Reporting/CreateReportSnapshot"/>
+			<MenuItem Name="UsingDashboard" Description="Using Dashboard" Page ="Reporting/UsingDashboard"/>
+		</MenuItem>
+
+		<MenuItem IsExpanded="false" Name="HelpAdministration" Description="Administration">
+			<MenuItem Name="UserSecurityRights" Description="User Updates &amp; Security Rights" Page ="Administration/UserSecurityRights"/>
+			<MenuItem Name="UsingLists" Description="Using Lists" Page ="Administration/UsingLists"/>
+			<MenuItem Name="UsingOfficesSettings" Description="Using Offices Settings" Page ="Administration/UsingOfficeSettings"/>
+			<MenuItem Name="CreateRegistrySnapshot" Description="Create Registry Snapshot" Page ="Administration/CreateRegistrySnapshot"/>
+			<MenuItem Name="RegistryReportSnapshot" Description="Registry Report Snapshot" Page ="Administration/RegistryReportSnapshot"/>
+			<MenuItem Name="AssessmentUpdates" Description="Assessment Updates" Page ="Administration/AssessmentUpdates"/>
+		</MenuItem>
+
+		<MenuItem IsExpanded="false" Name="VideoHelp" Description="Video Help">
+			<MenuItem Name="UsingVideoHelp" Description="Using Video Help" Page ="VideoHelp/UsingVideoHelp"/>
+		</MenuItem>
+
+	</MenuItem>
+
+</Menu>

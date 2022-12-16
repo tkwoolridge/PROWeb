@@ -1,0 +1,11 @@
+﻿.voter-details-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(7, auto);
+    grid-auto-flow: column;
+    gap: 0px 5px;
+}
+
+.voter-details-title {
+    grid-area: 1/1 / 1/3
+}

@@ -1,0 +1,28 @@
+﻿@using PROWeb.Components.Navigation
+@layout TelerikLayout
+@inherits PROLayout
+@inject NavigationManager navigationManager
+
+<TelerikDrawer Data="@NavigablePages" 
+               MiniMode="false"
+               Mode="@DrawerMode.Overlay"
+               @ref="@DrawerRef">
+    <Template>
+        <div class="k-drawer-items">
+            <Navigation Items="NavigablePages" Page="@Page" SelectedItemChanged="@OnNavigate" />
+        </div>
+    </Template>
+    <DrawerContent>
+        <div class="main-grid">
+            <div class="main-header d-flex align-items-center">
+                <span @onclick="@( () => DrawerRef.ToggleAsync() )" class="k-icon k-i-menu mx-2"></span><span class="main-title">OFFICE - @Title</span>
+            </div>
+            <div class="main-content px-4">
+                <CascadingValue Value="this">
+                    @Body
+                </CascadingValue>
+            </div>
+            <div class="main-footer d-flex justify-content-center py-2"><span>PROWEB</span></div>
+        </div>
+    </DrawerContent>
+</TelerikDrawer>

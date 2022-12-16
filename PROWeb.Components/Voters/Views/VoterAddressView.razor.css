@@ -1,0 +1,46 @@
+﻿.voter-address-view {
+    display: grid;
+    grid-template-columns: repeat(2, 60px) 1fr repeat(2, 70px);
+    grid-template-rows: repeat(4, fr);
+    gap: 5px
+}
+
+.voter-address-title {
+    grid-column: 1 / span 5;
+}
+
+.voter-address-assessment {
+    grid-column: 1 / span 2;
+}
+
+.voter-address-address1 {
+    grid-column: 3 / span 3;
+}
+
+.voter-address-address1-edit {
+    grid-column: 3 / span 2;
+}
+
+.voter-open-assesment-dialog {
+    grid-column: 5;
+}
+
+.voter-address-address2 {
+    grid-column: 2 / span 4;
+}
+
+.voter-address-postal-code {
+    grid-column: 1 / span 2;
+}
+
+.voter-address-parish {
+    grid-column: 3;
+}
+
+.voter-address-country {
+    grid-column: 4 / span 2;
+}
+
+.voter-address-constituency {
+    grid-column: 2 / span 4;
+}

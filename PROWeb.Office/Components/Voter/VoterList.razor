@@ -1,0 +1,64 @@
+﻿@using PROWeb.Components.ViewModels.Voter
+@using PROWeb.Components.Voters.Views
+@inherits PROListComponent<VoterFilterViewModel, VoterViewModel>
+
+<style>
+    .voter-main-view {
+        float: left;
+        width: 600px;
+        margin:5px;
+        box-sizing: border-box;
+        position: relative;
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        grid-template-columns: auto 1fr;
+        gap: 5px 15px;
+    }
+
+    .voter-address-view
+    {
+        grid-area: 3/1 / 3/3;
+        align-content: start;
+    }
+
+    .voter-edit-toolbar
+    {
+        grid-area: 1/1 / 1/3
+    }
+
+    .voter-details-view {
+        align-content: start;
+    }
+</style>
+
+<TelerikListView 
+        OnUpdate="@OnUpdate"
+        Data=@Data
+        @bind-Page="@Page"
+        Pageable="true"
+        Height="100%">
+    <Template>
+        <div class="voter-main-view">
+            <div class="voter-edit-toolbar">
+                <ListViewCommandButton Command="Edit" Class="mb-sm">Edit</ListViewCommandButton>
+            </div>
+            <VoterPhotosView />
+            <VoterDetailsView DetailsContext="@context" />
+            <VoterAddressView DetailsContext="@context" />
+        </div>
+    </Template>
+    <EditTemplate>
+        <div class="voter-main-view">
+            <div class="voter-edit-toolbar">
+                <ListViewCommandButton Command="Save" Class="mb-sm">Save</ListViewCommandButton>
+                <ListViewCommandButton Command="Cancel" Class="mb-sm">Cancel</ListViewCommandButton>
+            </div>
+            <VoterPhotosView />
+            <VoterDetailsView Editable="true" DetailsContext="@context" />
+            <VoterAddressView Editable="true" DetailsContext="@context" />
+        </div>
+    </EditTemplate>
+</TelerikListView>
+
+
+

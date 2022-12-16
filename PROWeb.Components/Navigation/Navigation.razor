@@ -1,0 +1,22 @@
+﻿@using PROWeb.Components.ViewModels.Navigation;
+@inherits PROComponent;
+
+@foreach (var item in @DrawerSource)
+{
+    var selectedClass = item == SelectedItem ? "k-selected" : string.Empty;
+    <li @onclick="@(() => OnItemSelected(item))"
+        @onclick:stopPropagation
+        class="k-drawer-item @selectedClass k-level-@(item.Level)">
+       @* <TelerikIcon Icon="@item.Icon"></TelerikIcon>*@
+        <span class="k-item-text">@item.Description</span>
+        <span class='k-spacer'></span>
+        @if (item.IsExpanded && item.MenuItems.Any())
+        {
+            <span @onclick="@(() => OnItemExpand(item))" @onclick:stopPropagation class="k-icon k-i-arrow-chevron-down" style="line-height: inherit; margin: 0 8px"></span>
+        }
+        else if (!item.IsExpanded)
+        {
+            <span @onclick="@(() => OnItemExpand(item))" @onclick:stopPropagation class="k-icon k-i-arrow-chevron-right" style="line-height: inherit; margin: 0 8px"></span>
+        }
+    </li>
+}

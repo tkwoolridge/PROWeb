@@ -1,0 +1,18 @@
+﻿<div class="p-container">
+    <div class="w-100 p-header p-2 d-flex justify-content-between">
+        <div>@Header</div>
+        <div>@ToolBar</div>
+        <span @onclick="@OnExpand" @onclick:stopPropagation class="k-icon @ArrowClass" style="line-height: inherit; margin: 0 8px"></span>
+    </div>
+    <div class="p-2 @HideContentClass">
+        @Content
+    </div>
+</div>
+
+
+<style>
+    .hide-content
+    {
+        display: none;
+    }
+</style>

@@ -1,0 +1,52 @@
+﻿@using PROWeb.Components.ViewModels.Voter;
+@using PROWeb.Components.Voters.Views;
+@inherits VoterView<IVoterDetailsViewModel>
+
+<div class="voter-details-view">
+    <div class="voter-details-title mb-2">Voter details</div>
+    <label>Last Name:</label>
+    @if(Editable)
+    {
+        <TelerikTextBox @bind-Value="@DetailsContext.LastName"/>      
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.LastName" />
+    }
+    <label>Middle Name:</label>
+    @if(Editable)
+    {
+        <TelerikTextBox @bind-Value="@DetailsContext.MiddleName"/>
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.MiddleName" />
+    }
+    <label>First Name:</label>
+    @if(Editable)
+    {
+        <TelerikTextBox @bind-Value="@DetailsContext.FirstName"/>
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.FirstName" />
+    }
+    <label>Maiden Name:</label>
+    @if(Editable)
+    {
+        <TelerikTextBox @bind-Value="@DetailsContext.MaidenName"/>
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.MaidenName" />
+    }
+    <label>DOB:</label>
+    @if(Editable)
+    {
+        <TelerikDateInput @bind-Value="@DetailsContext.DateOfBirth"/>
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.DateOfBirth.ToString("dd MMM yyyy")" />
+    }
+</div>

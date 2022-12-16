@@ -1,0 +1,20 @@
+﻿@page "/assessments"
+@using PROWeb.Components.Assessments
+@using PROWeb.Components.ViewModels.Assessment
+@inherits PRORegistryLayout<AssessmentFilterViewModel, AssessmentViewModel>
+
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <Content>
+                <AssessmentFilterAdvanced @ref="@FilterRef" />
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <List>
+        <AssessmentGrid @ref="ListRef" />
+    </List>
+</FilterListLayout>

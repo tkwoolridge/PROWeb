@@ -1,0 +1,16 @@
+﻿
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PROWeb.Components\PROWeb.Components.csproj" />
+    <ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties UseCdnSupport="False" /></VisualStudio></ProjectExtensions>
+</Project>

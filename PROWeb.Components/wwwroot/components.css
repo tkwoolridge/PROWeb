@@ -1,0 +1,51 @@
+﻿.p-container {
+    border: 1px solid #317aac;
+    border-radius: 2px;
+}
+
+.p-header {
+    background: #317aac;
+    border-radius: 2px 2px 0px 0px;
+    color:white;
+}
+
+.k-form .k-form-field {
+    margin-top: 0;
+}
+
+.k-form .k-form-legend {
+    display: none;
+}
+
+.k-form .k-checkbox-label {
+    top: 13px;
+}
+
+.k-form .k-checkbox {
+    margin-top: 27px;
+}
+
+.k-form .k-form-fieldset {
+    margin-top: 0px;
+}
+
+.k-form-buttons {
+    margin-top: 1em;
+}
+
+.k-button-group > .k-button-md {
+    padding: 0px 8px;
+}
+
+.voter-view {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    position: relative;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.voter-view .k-input {
+    font-size: 12px;
+}
