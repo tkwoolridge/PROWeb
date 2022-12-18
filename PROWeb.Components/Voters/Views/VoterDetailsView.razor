@@ -7,46 +7,46 @@
     <label>Last Name:</label>
     @if(Editable)
     {
-        <TelerikTextBox @bind-Value="@DetailsContext.LastName"/>      
+        <TelerikTextBox @bind-Value="@Context.LastName"/>      
     }
     else
     {
-        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.LastName" />
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.LastName" />
     }
     <label>Middle Name:</label>
     @if(Editable)
     {
-        <TelerikTextBox @bind-Value="@DetailsContext.MiddleName"/>
+        <TelerikTextBox @bind-Value="@Context.MiddleName"/>
     }
     else
     {
-        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.MiddleName" />
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.MiddleName" />
     }
     <label>First Name:</label>
     @if(Editable)
     {
-        <TelerikTextBox @bind-Value="@DetailsContext.FirstName"/>
+        <TelerikTextBox @bind-Value="@Context.FirstName"/>
     }
     else
     {
-        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.FirstName" />
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.FirstName" />
     }
     <label>Maiden Name:</label>
     @if(Editable)
     {
-        <TelerikTextBox @bind-Value="@DetailsContext.MaidenName"/>
+        <TelerikTextBox @bind-Value="@Context.MaidenName"/>
     }
     else
     {
-        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.MaidenName" />
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.MaidenName" />
     }
     <label>DOB:</label>
     @if(Editable)
     {
-        <TelerikDateInput @bind-Value="@DetailsContext.DateOfBirth"/>
+        <TelerikDateInput @bind-Value="@Context.DateOfBirth"/>
     }
     else
     {
-        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.DateOfBirth.ToString("dd MMM yyyy")" />
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.DateOfBirth.ToString("dd MMM yyyy")" />
     }
 </div>

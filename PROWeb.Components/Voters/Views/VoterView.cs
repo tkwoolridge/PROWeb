@@ -4,11 +4,10 @@ using PROWeb.Components.ViewModels.Voter;
 
 namespace PROWeb.Components.Voters.Views
 {
-    public abstract class VoterView<TVoterViewModel> : PROComponent 
-        where TVoterViewModel : IVoterViewModel
+    public abstract class VoterView<TVoterViewModel> : PROComponent
     {
-        [Parameter]
-        public TVoterViewModel DetailsContext { get; set; } = default!;
+        [CascadingParameter]
+        public TVoterViewModel Context { get; set; } = default!;
 
         [Parameter]
         public bool Editable { get; set; } = false;

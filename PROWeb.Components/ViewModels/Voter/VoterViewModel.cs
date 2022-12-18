@@ -2,7 +2,7 @@
 
 namespace PROWeb.Components.ViewModels.Voter
 {
-    public class VoterViewModel : ViewModelBase, IVoterDetailsViewModel, IVoterAssessmentViewModel, IVoterViewModel
+    public class VoterViewModel : ViewModelBase, IVoterDetailsViewModel, IVoterAssessmentViewModel, IVoterContactInfoViewModel, IVoterFlagsViewModel, IVoterDocumentsViewModel
     {
         public int VoterId { get; set; }
 

@@ -6,7 +6,7 @@ using PROWeb.Office.Components.Voter;
 
 namespace PROWeb.Office.Pages
 {
-    public partial class VoterRegistry : PRORegistryLayout<VoterFilterViewModel, VoterViewModel>
+    public partial class VoterRegistry : PRORegistryLayout<VoterFilterViewModel, TabedVoterViewModel>
     {
         protected override string PageTitle => "Registry";
 

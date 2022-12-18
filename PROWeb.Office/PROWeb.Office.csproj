@@ -9,6 +9,7 @@
     <PackageReference Include="Telerik.UI.for.Blazor" Version="3.7.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PROWeb.Authentication\PROWeb.Authentication.csproj" />
     <ProjectReference Include="..\PROWeb.Components\PROWeb.Components.csproj" />
     <ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />
   </ItemGroup>

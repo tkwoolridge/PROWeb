@@ -7,7 +7,7 @@ namespace PROWeb.Data
     public class IdentityDataContext : IdentityDbContext<PROUser>
     {
 
-        public IdentityDataContext(DbContextOptions<DataContext> options)
+        public IdentityDataContext(DbContextOptions<IdentityDataContext> options)
             : base(options)
         {
         }

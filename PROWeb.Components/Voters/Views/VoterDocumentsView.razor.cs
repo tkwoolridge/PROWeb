@@ -1,8 +1,9 @@
 ﻿using PROWeb.Common.Components;
+using PROWeb.Components.ViewModels.Voter;
 
 namespace PROWeb.Components.Voters.Views
 {
-    public partial class VoterDocumentsView : PROComponent
+    public partial class VoterDocumentsView : VoterView<IVoterDocumentsViewModel>
     {
     }
 }

@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+}
+<body class="k-body">
+    <div class="main-grid">
+            <div class="main-header d-flex align-items-center">
+                <span class="main-title ms-4">PRO OFFICE - @ViewData["Title"]</span>
+            </div>
+            <div class="px-4">
+                @RenderBody()
+            </div>
+            <div class="main-footer d-flex justify-content-center py-2"><span>PROWEB</span></div>
+     </div>
+
+    @RenderSection("scripts", required: false)
+</body>

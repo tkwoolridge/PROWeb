@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using PROWeb.Data.Services.Assessments;
 using PROWeb.Data.Services.Configuration;
 using PROWeb.Data.Services.Logging;
@@ -6,10 +9,15 @@ using PROWeb.Data.Services.Voters;
 
 namespace PROWeb.Data.Services.Extensions
 {
-    public static class RegisterServicesExtension
+    public static class RegisterModuleExtension
     {
-        public static void AddPROWebServices(this IServiceCollection services)
+        public static void AddPROWebDataModule(this WebApplicationBuilder builder)
         {
+            var services = builder.Services;
+
+            services.AddDbContextFactory<DataContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("PROWebConnection")));
+
             //Register preload data service.
             services.AddHostedService<PreloadService>();
             
@@ -24,6 +32,12 @@ namespace PROWeb.Data.Services.Extensions
 
             // Register activity log.
             services.AddSingleton<IActivityLogServiceFactory, ActivityLogServiceFactory>();
+
+            // Register activity log factory.
+            services.AddSingleton<IActivityLogServiceFactory, ActivityLogServiceFactory>();
+
+            // Register activity log service.
+            services.AddTransient<IActivityLogService, ActivityLogService>();
         }
     }
 }

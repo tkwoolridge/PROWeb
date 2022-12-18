@@ -1,6 +1,6 @@
 ﻿namespace PROWeb.Components.ViewModels.Voter
 {
-    public interface IVoterContactInfoViewModel : IVoterViewModel
+    public interface IVoterContactInfoViewModel : IVoterDocumentsViewModel
     {
         string? Email { get; set; }
 

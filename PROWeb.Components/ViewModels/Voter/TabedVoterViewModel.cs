@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace PROWeb.Components.ViewModels.Voter
 {
-    public interface IVoterViewModel
+    public class TabedVoterViewModel : VoterViewModel
     {
+        public int TabIndex { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PROWeb.Components.ViewModels.Voter
 {
-    public interface IVoterDetailsViewModel : IVoterViewModel
+    public interface IVoterDetailsViewModel : IVoterDocumentsViewModel
     {
         int VoterId { get; set; }
         

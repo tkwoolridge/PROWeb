@@ -49,3 +49,11 @@
 .voter-view .k-input {
     font-size: 12px;
 }
+
+.k-button-md.k-icon-button {
+    padding: 0px;
+}
+
+textarea.k-input-inner {
+    height: 100px;
+}

@@ -8,21 +8,19 @@ using Telerik.Blazor.Components;
 
 namespace PROWeb.Office.Components.Voter
 {
-    public partial class VoterList : PROListComponent<VoterFilterViewModel, VoterViewModel>
+    public partial class VoterList : PROListComponent<VoterFilterViewModel, TabedVoterViewModel>
     {
         [Inject]
         private IVotersServiceFactory _voterServiceFactory { get; set; } = null!;
 
         protected int Page { get; set; }
 
-        protected IList<VoterViewModel> Voters { get; private set; }
-
         protected void OnUpdate(ListViewCommandEventArgs args)
         {
             var item = args.Item as VoterViewModel;
         }
 
-        protected override async Task<IList<VoterViewModel>> OnFilterAsync(VoterFilterViewModel filter)
+        protected override async Task<IList<TabedVoterViewModel>> OnFilterAsync(VoterFilterViewModel filter)
         {
             Page = 1;
 
@@ -47,7 +45,7 @@ namespace PROWeb.Office.Components.Voter
                     filter.ConstituencyNo,
                     filter.ParishNo,
                     filter.PostalCode)
-                    .ProjectToListAsync<VoterViewModel>();
+                    .ProjectToListAsync<TabedVoterViewModel>();
             }
         }
     }

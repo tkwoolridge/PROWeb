@@ -1,11 +1,21 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using PROWeb.Authentication.Extensions;
 using PROWeb.Data;
-using PROWeb.Data.Services.Configuration;
+using PROWeb.Data.Models;
 using PROWeb.Data.Services.Extensions;
+using Serilog;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, services, configuration) => configuration
+                    .ReadFrom.Configuration(context.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext()
+                    .WriteTo.Console());
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -28,10 +38,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTelerikBlazor();
 
-builder.Services.AddDbContextFactory<DataContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("PROWebConnection")));
-
-builder.Services.AddPROWebServices();
+builder.AddPROWebDataModule();
+builder.AddPROWebAuthetnticationModule();
 
 var app = builder.Build();
 
@@ -44,14 +52,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+app.AddPROWebAuthetnticationModule();
 
 app.Run();
 

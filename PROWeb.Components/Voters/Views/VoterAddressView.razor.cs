@@ -22,14 +22,14 @@ namespace PROWeb.Components.Voters.Views
         {
             Debug.Assert(AssessmentRegistryDialogRef != null);
 
-            DetailsContext.AssessmentNo = assessment.AssessmentNo;
-            DetailsContext.Address1 = assessment.Address1;
-            DetailsContext.Address2 = assessment.Address2;
-            DetailsContext.HouseNo = assessment.HouseNo;
-            DetailsContext.PostalCode = assessment.PostalCode;
-            DetailsContext.ParishName = assessment.ParishName;
-            DetailsContext.ConstituencyNo = assessment.ConstituencyNo;
-            DetailsContext.ConstituencyName = assessment.ConstituencyName;
+            Context.AssessmentNo = assessment.AssessmentNo;
+            Context.Address1 = assessment.Address1;
+            Context.Address2 = assessment.Address2;
+            Context.HouseNo = assessment.HouseNo;
+            Context.PostalCode = assessment.PostalCode;
+            Context.ParishName = assessment.ParishName;
+            Context.ConstituencyNo = assessment.ConstituencyNo;
+            Context.ConstituencyName = assessment.ConstituencyName;
 
             StateHasChanged();
         }

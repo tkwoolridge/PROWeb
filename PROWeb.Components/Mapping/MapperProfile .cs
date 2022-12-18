@@ -28,15 +28,20 @@ namespace PROWeb.Components.Mapping
 
             CreateMap<VoterFlag, VoterFlagViewModel>();
             CreateMap<VoterDocument, VoterDocumentViewModel>();
-            CreateMap<Constituency, VoterViewModel>();
-            CreateMap<Parish, VoterViewModel>();
-            CreateMap<Country, VoterViewModel>();
+
+            CreateMap<Constituency, VoterViewModel>().IncludeAllDerived();
+            CreateMap<Parish, VoterViewModel>().IncludeAllDerived();
+            CreateMap<Country, VoterViewModel>().IncludeAllDerived();
             CreateMap<Assessment, VoterViewModel>()
+            .IncludeAllDerived()
             .IncludeMembers(a => a.Constituency, a => a.Parish);
             CreateMap<Voter, VoterViewModel>()
+            .IncludeAllDerived()
             .IncludeMembers(v => v.Assessment, v => v.Country)
             .ForMember(vm => vm.BogusConstituencyNo, options => options.MapFrom(c => c.BogusConstituency != null ? c.BogusConstituency.ConstituencyNo : (int?)null))
             .ForMember(vm => vm.BogusConstituencyName, options => options.MapFrom(c => c.BogusConstituency != null ? c.BogusConstituency.ConstituencyName : null));
+
+            CreateMap<Voter, TabedVoterViewModel>();
         }
     }
 }
