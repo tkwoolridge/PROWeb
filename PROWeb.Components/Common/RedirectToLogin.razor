@@ -1,0 +1,29 @@
+﻿@page "/Autorization"
+@using Microsoft.AspNetCore.Http.Extensions;
+@inject NavigationManager _navigationManager
+@attribute [AllowAnonymous]
+@inherits PROComponent
+
+<PROLoader BusyMessage="Autorization check. Please wait..." />
+
+@code 
+{
+    protected override string PageTitle => "Autorization Check";
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        var returnUrl = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
+        var loginUrl = "/identity/account/login";
+
+        if(string.IsNullOrEmpty(returnUrl))
+        {
+            _navigationManager.NavigateTo(loginUrl, true);
+        }
+        else
+        {
+            _navigationManager.NavigateTo(loginUrl + $"?returnUrl={returnUrl}", true);
+        }
+    }
+}

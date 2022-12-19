@@ -112,3 +112,7 @@ k-input-solid.k-hover, .k-input-solid:hover {
 th.k-header {
     border-color: #317aac;
 }
+
+.k-loading-image {
+    color: #317aac;
+}

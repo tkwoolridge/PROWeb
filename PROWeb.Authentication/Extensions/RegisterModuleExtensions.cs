@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PROWeb.Authentication.Controllers;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace PROWeb.Authentication.Extensions
 {
@@ -24,12 +25,19 @@ namespace PROWeb.Authentication.Extensions
             app.MapControllers();
             app.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Navigation}/{action=Index}/{id?}");                    
+                    pattern: "{controller=Navigation}/{action=Index}/{id?}");
+            
+            app.MapControllerRoute(
+                name: "Identity",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
         }
 
         public static void AddPROWebAuthetnticationModule(this WebApplicationBuilder builder)
         {
             var services = builder.Services;
+
+            builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<PROUser>>();
+
 
             builder.Services.AddDbContext<IdentityDataContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("PROWebIdentityConnection")));
@@ -67,7 +75,7 @@ namespace PROWeb.Authentication.Extensions
                 options.SlidingExpiration = true;
             });
 
-            services.AddControllers();
+            services.AddControllersWithViews();
 
             services.AddKendo();
         }
