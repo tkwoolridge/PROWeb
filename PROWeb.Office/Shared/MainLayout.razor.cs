@@ -21,6 +21,8 @@ namespace PROWeb.Office.Shared
 
         List<MenuItemViewModel> NavigablePages { get; set; }
 
+        protected bool IsDrawerHidden = false;
+
         protected override void OnInitialized()
         {
             var menu = _navigationService.GetMenu()?.Project<MenuViewModel>();
@@ -37,9 +39,14 @@ namespace PROWeb.Office.Shared
             Page = "/" + string.Concat(_navigationManager.Uri.Split("//")[1].Split("/").Skip(1));
         }
 
+        private bool IsAuthenticationPage(string page)
+        {
+            return page.Contains("Identity/Account", StringComparison.InvariantCultureIgnoreCase);
+        }
+
         private async Task OnNavigate(MenuItemViewModel item)
         {
-            _navigationManager.NavigateTo(item.Page);
+            _navigationManager.NavigateTo(item.Page, IsAuthenticationPage(item.Page));
             await DrawerRef.ToggleAsync();
 
             SetCurrentPage();

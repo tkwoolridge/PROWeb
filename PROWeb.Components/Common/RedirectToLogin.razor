@@ -1,5 +1,4 @@
 ﻿@page "/Autorization"
-@using Microsoft.AspNetCore.Http.Extensions;
 @inject NavigationManager _navigationManager
 @attribute [AllowAnonymous]
 @inherits PROComponent
@@ -13,6 +12,11 @@
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
+
+        if(!firstRender)
+        {
+            return;
+        }
 
         var returnUrl = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
         var loginUrl = "/identity/account/login";

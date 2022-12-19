@@ -42,7 +42,7 @@
 	<MenuItem Name="Actions" Description="Actions">
 		<MenuItem Name="CreateForm1" Description="Create Form 1..." Page="/form1" />
 		<MenuItem Name="CreateForm2" Description="Create Form 2..." Page="/form2"/>
-		<MenuItem Name="Logoff" Description="Logoff" Page="Logoff"/>
+		<MenuItem Name="Logoff" Description="Logoff" Page="/Identity/Account/Logout"/>
 	</MenuItem>
 
 	<MenuItem IsExpanded="false" Name="Help" Description="Help">
