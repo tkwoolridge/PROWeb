@@ -3,7 +3,7 @@ using PROWeb.Components.ViewModels.Voter;
 
 namespace PROWeb.Components.Voters.Views
 {
-    public partial class VoterDocumentsView : VoterView<IVoterDocumentsViewModel>
+    public partial class VoterDocumentsView : PROView<IVoterDocumentsViewModel>
     {
     }
 }

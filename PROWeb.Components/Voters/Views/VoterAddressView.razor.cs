@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace PROWeb.Components.Voters.Views
 {
-    public partial class VoterAddressView : VoterView<IVoterAssessmentViewModel>
+    public partial class VoterAddressView : PROView<IVoterAssessmentViewModel>
     {
         protected AssessmentRegistryDialog? AssessmentRegistryDialogRef { get; set; }
 

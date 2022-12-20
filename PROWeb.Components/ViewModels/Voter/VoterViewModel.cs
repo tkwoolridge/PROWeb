@@ -1,4 +1,5 @@
 ﻿using PROWeb.Common.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Components.ViewModels.Voter
 {
@@ -16,6 +17,7 @@ namespace PROWeb.Components.ViewModels.Voter
 
         public char? Initial { get; set; }
 
+        [Required]
         public string? FirstName { get; set; }
 
         public string? LastName { get; set; }

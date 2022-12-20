@@ -1,6 +1,7 @@
 ﻿@using PROWeb.Components.ViewModels.Voter;
+@using PROWeb.Components.Common;
 @using PROWeb.Components.Voters.Views;
-@inherits VoterView<TabedVoterViewModel>
+@inherits PROView<TabedVoterViewModel>
 
 <style>
     .voter-main-view {
@@ -19,43 +20,57 @@
     .voter-details-view {
         align-content: start;
     }
+
 </style>
 
-<TelerikTabStrip @bind-ActiveTabIndex="@Context.TabIndex">
-        <TabStripTab Title="Voter">
+<TelerikTabStrip PersistTabContent="true" @bind-ActiveTabIndex="@Context.TabIndex">
+    <TabStripTab Title="Voter">
         @if (Editable)
         {
-            @EditToolBar
+            @EditToolBar()
         }
         else
         {
-            @ViewToolBar
+            @ViewToolBar()
         }
         <div class="voter-main-view">
             <VoterPhotosView />
-            <VoterDetailsView Editable="@Editable" />
-            <VoterAddressView Editable="@Editable" />
+            <VoterDetailsView/>
+            <VoterAddressView/>
         </div>
     </TabStripTab>
     <TabStripTab Title="Contact">
         @if(Editable)
         {
-            @EditToolBar
+            @EditToolBar()
         }
         else
         {
-            @ViewToolBar
+            @ViewToolBar()
         }
-        <VoterContactInfoView Editable="@Editable"/>
+        <VoterContactInfoView/>
     </TabStripTab>
 </TelerikTabStrip>
 
 @code {
-    protected RenderFragment ViewToolBar = @<div class="d-flex justify-content-end p-1">
-                                                    <ListViewCommandButton Icon="edit" Command="Edit">Edit</ListViewCommandButton>
-                                            </div>;
-    protected RenderFragment EditToolBar = @<div class="d-flex justify-content-end p-1">
-                                                    <ListViewCommandButton Icon="save" Command="Save" Class="me-1">Save</ListViewCommandButton> 
-                                                    <ListViewCommandButton Icon="cancel"  Command="Cancel">Cancel</ListViewCommandButton>
-                                            </div>;
+    protected RenderFragment ViewToolBar() => __builder =>
+    {
+        <div class="d-flex justify-content-end p-1">
+            <ListViewCommandButton Icon = "edit" Command="Edit">Edit</ListViewCommandButton>
+        </div>
+    }; 
+
+
+    protected RenderFragment EditToolBar() => __builder =>
+    {
+        <div class="d-flex justify-content-end p-1">
+            <ListViewCommandButton Icon="save" Enabled="@CanSave" Command="Save" OnClick="OnSave" Class="me-1">Save</ListViewCommandButton> 
+            <ListViewCommandButton Icon="cancel"  Command="Cancel">Cancel</ListViewCommandButton>
+        </div>
+    };
+
+    protected void OnSave(ListViewCommandEventArgs e)
+    {
+        e.IsCancelled = !IsEditValid();
+    }
 }
