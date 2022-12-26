@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PROWeb.Authentication.Extensions;
-using PROWeb.Data;
-using PROWeb.Data.Models;
 using PROWeb.Data.Services.Extensions;
+using PROWeb.Office.Mapper;
 using Serilog;
 using System.Globalization;
 
@@ -37,7 +36,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTelerikBlazor();
-
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<OfficeMapperProfile>());
 builder.AddPROWebDataModule();
 builder.AddPROWebAuthetnticationModule();
 

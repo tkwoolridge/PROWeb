@@ -42,7 +42,6 @@
     width: 50%;
     box-sizing: border-box;
     position: relative;
-    font-weight: bold;
     font-size: 12px;
 }
 
@@ -56,4 +55,9 @@
 
 textarea.k-input-inner {
     height: 100px;
+}
+
+.pro-view-title
+{
+    font-weight: bold;
 }

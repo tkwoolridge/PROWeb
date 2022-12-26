@@ -1,0 +1,56 @@
+﻿@using PROWeb.Components.ViewModels.Voter;
+@using PROWeb.Components.ViewModels.Person;
+@inherits PersonDetailsViewBase<TPersonViewModel>
+@typeparam TPersonViewModel where TPersonViewModel : class, IPersonDetailsViewModel
+
+<div class="person-details-view">
+    <div class="person-details-title pro-view-title mb-2">@Title</div>
+    <label>Last Name:</label>
+    @if(Editable)
+    {
+        <TelerikTextBox @bind-Value="@Context.LastName" Id="@(nameof(Context.LastName))" />
+        <TelerikValidationTooltip For="@(() => Context.FirstName)" TargetSelector="@("#" + nameof(Context.LastName))" />
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.LastName" />
+    }
+    <label>Middle Name:</label>
+    @if(Editable)
+    {
+        <TelerikTextBox @bind-Value="@Context.MiddleName" Id="@(nameof(Context.MiddleName))" />
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.MiddleName" />
+    }
+    <label>First Name:</label>
+    @if(Editable)
+    {
+        <TelerikTextBox @bind-Value="@Context.FirstName" Id="@(nameof(Context.FirstName))"/>
+        <TelerikValidationTooltip For="@(() => Context.FirstName)" TargetSelector="@("#" + nameof(Context.FirstName))" />
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.FirstName" />
+    }
+    <label>Maiden Name:</label>
+    @if(Editable)
+    {
+        <TelerikTextBox @bind-Value="@Context.MaidenName"/>
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.MaidenName" />
+    }
+    <label>DOB:</label>
+    @if(Editable)
+    {
+        <TelerikDateInput @bind-Value="@Context.DateOfBirth" Id="@(nameof(Context.DateOfBirth))" />
+        <TelerikValidationTooltip For="@(() => Context.DateOfBirth)" TargetSelector="@("#" + nameof(Context.DateOfBirth))" />
+    }
+    else
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.DateOfBirth.ToString("dd MMM yyyy")" />
+    }
+</div>

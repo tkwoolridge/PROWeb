@@ -42,7 +42,7 @@ namespace PROWeb.Components.Assessments
                         filter.ConstituencyNo,
                         filter.IsBogusNo
                     )
-                    .ProjectToListAsync<AssessmentViewModel>();
+                    .ProjectToListAsync<AssessmentViewModel>(Mapper);
             }
         }
     }

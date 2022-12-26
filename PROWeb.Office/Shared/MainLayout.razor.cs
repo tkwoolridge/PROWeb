@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using AutoMapper;
+using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
+using PROWeb.Components.Extensions;
 using PROWeb.Components.Mapping;
 using PROWeb.Components.ViewModels.Navigation;
 using PROWeb.Data.Services.Configuration;
@@ -25,7 +28,7 @@ namespace PROWeb.Office.Shared
 
         protected override void OnInitialized()
         {
-            var menu = _navigationService.GetMenu()?.Project<MenuViewModel>();
+            var menu = _navigationService.GetMenu()?.MapTo<MenuViewModel>(Mapper);
 
             NavigablePages = menu.MenuItems;
 

@@ -7,12 +7,9 @@ using PROWeb.Data.Models.Navigation;
 
 namespace PROWeb.Components.Mapping
 {
-    public class MapperProfile : Profile
+    public abstract class MapperProfile : Profile
     {
-        public readonly static MapperConfiguration Configuration = new MapperConfiguration(cfg => cfg.AddProfile(new MapperProfile()));
-        public readonly static IMapper Mapper = Configuration.CreateMapper();
-
-        private MapperProfile()
+        protected MapperProfile()
         {
             CreateMap<MenuItem, MenuItemViewModel>()
             .ForMember(vm => vm.Level, options => options.Ignore());
@@ -29,19 +26,15 @@ namespace PROWeb.Components.Mapping
             CreateMap<VoterFlag, VoterFlagViewModel>();
             CreateMap<VoterDocument, VoterDocumentViewModel>();
 
-            CreateMap<Constituency, VoterViewModel>().IncludeAllDerived();
-            CreateMap<Parish, VoterViewModel>().IncludeAllDerived();
-            CreateMap<Country, VoterViewModel>().IncludeAllDerived();
+            CreateMap<Constituency, VoterViewModel>();
+            CreateMap<Parish, VoterViewModel>();
+            CreateMap<Country, VoterViewModel>();
             CreateMap<Assessment, VoterViewModel>()
-            .IncludeAllDerived()
             .IncludeMembers(a => a.Constituency, a => a.Parish);
             CreateMap<Voter, VoterViewModel>()
-            .IncludeAllDerived()
             .IncludeMembers(v => v.Assessment, v => v.Country)
             .ForMember(vm => vm.BogusConstituencyNo, options => options.MapFrom(c => c.BogusConstituency != null ? c.BogusConstituency.ConstituencyNo : (int?)null))
             .ForMember(vm => vm.BogusConstituencyName, options => options.MapFrom(c => c.BogusConstituency != null ? c.BogusConstituency.ConstituencyName : null));
-
-            CreateMap<Voter, TabedVoterViewModel>();
         }
     }
 }

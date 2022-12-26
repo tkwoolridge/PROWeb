@@ -1,48 +1,41 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using PROWeb.Common.Components;
 
 namespace PROWeb.Common.Components
 {
     public abstract class PROView<TViewModel> : PROComponent where TViewModel : class
     {
         [CascadingParameter]
-        public EditContext? EditContext { get; set; }
+        public PROViewContext<TViewModel>? ViewContext { get; set; }
 
-        [CascadingParameter]
-        public TViewModel Context { get; set; } = default!;
+        [Parameter]
+        public string? Title { get; set; }
+
+        protected TViewModel Context { get; set; } = default!;
 
         protected bool Editable { get; set; }
-
-        protected bool CanSave { get; set; }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            Context ??= EditContext?.Model as TViewModel ?? default!;
+            Context = ViewContext?.Model as TViewModel ?? default!;
+            Editable = ViewContext?.IsEditable == true;
 
-            if (EditContext != null)
+            if(ViewContext !=null)
             {
-                EditContext.OnFieldChanged -= OnFieldChanged;
-                EditContext.OnFieldChanged += OnFieldChanged;
-                Editable = true;
+                ViewContext.AddView(this);
             }
         }
 
-        private void OnFieldChanged(object? sender, FieldChangedEventArgs e)
+        public virtual void OnSave()
         {
-            bool isEditValid = IsEditValid();
-
-            if (isEditValid != CanSave)
-            {
-                CanSave = isEditValid;
-                StateHasChanged();
-            }
         }
 
-        protected bool IsEditValid()
+        public List<string>? OnValidate()
         {
-            return EditContext?.Validate() == true;
+            return null;
         }
     }
 }

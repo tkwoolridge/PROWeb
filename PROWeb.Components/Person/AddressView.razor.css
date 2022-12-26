@@ -1,0 +1,46 @@
+﻿.address-view {
+    display: grid;
+    grid-template-columns: repeat(2, 60px) 1fr repeat(2, 70px);
+    grid-template-rows: auto repeat(3, fr);
+    gap: 5px
+}
+
+.address-title {
+    grid-column: 1 / span 5;
+}
+
+.address-assessment {
+    grid-column: 1 / span 2;
+}
+
+.address-address1 {
+    grid-column: 3 / span 3;
+}
+
+.address-address1-edit {
+    grid-column: 3 / span 2;
+}
+
+.open-assesment-dialog {
+    grid-column: 5;
+}
+
+.address-address2 {
+    grid-column: 2 / span 4;
+}
+
+.address-postal-code {
+    grid-column: 1 / span 2;
+}
+
+.address-parish {
+    grid-column: 3;
+}
+
+.address-country {
+    grid-column: 4 / span 2;
+}
+
+.address-constituency {
+    grid-column: 2 / span 4;
+}

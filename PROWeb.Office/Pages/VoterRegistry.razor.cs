@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Components.ViewModels.Assessment;
+using PROWeb.Components.ViewModels.Person;
 using PROWeb.Components.ViewModels.Voter;
-using PROWeb.Office.Components.Voter;
+using PROWeb.Office.ViewModels.Voter;
 
 namespace PROWeb.Office.Pages
 {
-    public partial class VoterRegistry : PRORegistryLayout<VoterFilterViewModel, TabedVoterViewModel>
+    public partial class VoterRegistry : PRORegistryLayout<PersonFilterViewModel, ListVoterViewModel>
     {
         protected override string PageTitle => "Registry";
 

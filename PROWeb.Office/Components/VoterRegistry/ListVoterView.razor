@@ -1,0 +1,84 @@
+﻿@using PROWeb.Components.Layouts;
+@using PROWeb.Components.Person;
+@using PROWeb.Office.Office.Voter
+@using PROWeb.Office.ViewModels.Voter;
+@inherits PROComponent
+
+<style>
+    .voter-main-view {
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        grid-template-columns: auto 1fr;
+        gap: 5px 15px;
+    }
+
+    .address-view
+    {
+        grid-area: 3/1 / 3/3;
+        align-content: start;
+    }
+
+    .voter-tab-view
+    {
+        height: 460px;
+    }
+
+    .person-details-view {
+        align-content: start;
+    }
+</style>
+
+<VoterViewLayout @ref="@ViewsLayout">
+    <Views>
+        <TelerikTabStrip Class="p-container voter-tab-view" PersistTabContent="true" @bind-ActiveTabIndex="@TabIndex">
+            <TabStripTab Title="Voter">
+                @ToolBar
+                <div class="voter-main-view">
+                    <VoterPhotosView />
+                    <VoterDetailsView Title="Voter Details:"/>
+                    <VoterAddressView Title="Address:" />
+                </div>
+            </TabStripTab>
+            <TabStripTab Title="Contact">
+                @ToolBar
+                <VoterContactInfoView/>
+            </TabStripTab>
+            <TabStripTab Title="Flags">
+                @ToolBar
+                <VoterFlagsView />
+            </TabStripTab>
+        </TelerikTabStrip>
+    </Views>
+</VoterViewLayout>
+
+@code {
+    protected int TabIndex 
+    { 
+        get => ViewsLayout.Model.TabIndex;
+        set => ViewsLayout.Model.TabIndex = value;
+    }
+
+    protected ViewsLayout<ListVoterViewModel> ViewsLayout { get; set; }
+
+    protected RenderFragment ToolBar => __builder =>
+    {
+        @if (ViewsLayout?.Editable == true)
+        {
+            <div class="d-flex justify-content-end">
+                <ListViewCommandButton Icon="save" Enabled="@ViewsLayout.CanSave" Command="Save" OnClick="@OnSave" Class="me-1">Save</ListViewCommandButton>
+                <ListViewCommandButton Icon="cancel" Command="Cancel">Cancel</ListViewCommandButton>
+            </div>
+        }
+        else
+        {
+            <div class="d-flex justify-content-end">
+                <ListViewCommandButton Icon="edit" Command="Edit">Edit</ListViewCommandButton>
+            </div>
+        }
+    };
+
+    protected void OnSave(ListViewCommandEventArgs e)
+    {
+        e.IsCancelled = ViewsLayout.OnSave();
+    }
+}

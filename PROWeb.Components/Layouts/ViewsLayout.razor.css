@@ -1,0 +1,22 @@
+﻿.views-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr);
+    grid-row-gap: 10px;
+    height: 100%;
+}
+
+.views-layout {
+    grid-area: 1/1;
+    z-index: 1;
+}
+
+.views-loader-show, .views-loader-hide {
+    grid-area: 1/1;
+    z-index: 2;
+    display: none;
+}
+
+.views-loader-show {
+    display: block;
+}

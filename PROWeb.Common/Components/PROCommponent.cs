@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using AutoMapper;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 
 namespace PROWeb.Common.Components
@@ -7,6 +8,9 @@ namespace PROWeb.Common.Components
     {
         [Inject]
         private NavigationManager _navigationManager { get; set; } = null!;
+
+        [Inject]
+        protected IMapper Mapper { get; set; } = null!;
 
         [CascadingParameter]
         public PROContentLayout? Layout { get; set; }

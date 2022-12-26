@@ -1,9 +1,11 @@
 ﻿using PROWeb.Common.ViewModels;
+using PROWeb.Components.ViewModels.Assessment;
+using PROWeb.Components.ViewModels.Person;
 using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Components.ViewModels.Voter
 {
-    public class VoterViewModel : ViewModelBase, IVoterDetailsViewModel, IVoterAssessmentViewModel, IVoterContactInfoViewModel, IVoterFlagsViewModel, IVoterDocumentsViewModel
+    public class VoterViewModel : ViewModelBase, IPersonDetailsViewModel, IAddressViewModel, IContactInfoViewModel, IPersonFlagsViewModel, IPersonDocumentsViewModel
     {
         public int VoterId { get; set; }
 
@@ -17,9 +19,10 @@ namespace PROWeb.Components.ViewModels.Voter
 
         public char? Initial { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voter name is requred!")]
         public string? FirstName { get; set; }
 
+        [Required(ErrorMessage = "Voter last name is requred!")]
         public string? LastName { get; set; }
 
         public string? MiddleName { get; set; }
@@ -28,6 +31,7 @@ namespace PROWeb.Components.ViewModels.Voter
 
         public char Gender { get; set; }
 
+        [Required(ErrorMessage = "DOB is required!")]
         public DateTime DateOfBirth { get; set; }
 
         public int AssessmentNo { get; set; }
@@ -56,8 +60,12 @@ namespace PROWeb.Components.ViewModels.Voter
 
         public string? BogusConstituencyName { get; set; }
 
+        [Required (ErrorMessage = "Voter email is required!")]
+        [EmailAddress(ErrorMessage = "Voter email is not in correct format!")]
         public string? Email { get; set; }
 
+        [Required(ErrorMessage = "Voter email is required")]
+        [Phone(ErrorMessage = "Contact phone is not in correct format!")]
         public string? ContactPhone { get; set; }
 
         public string? PhoneHome { get; set; }
@@ -87,8 +95,10 @@ namespace PROWeb.Components.ViewModels.Voter
 
         public string? LastUpdatedBy { get; set; }
 
-        public ICollection<VoterFlagViewModel> VoterFlags { get; set; } = null!;
+        public List<VoterFlagViewModel> VoterFlags { get; set; } = null!;
 
-        public ICollection<VoterDocumentViewModel> VoterDocuments { get; set; } = null!;
+        public List<int> VoterFlagsValues { get; set; } = null!;
+
+        public List<VoterDocumentViewModel> VoterDocuments { get; set; } = null!;
     }
 }

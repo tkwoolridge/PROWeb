@@ -1,0 +1,9 @@
+﻿.person-flags-view {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, auto);
+    gap: 10px 10px;
+}
+
+.person-flags-title {
+}

@@ -1,0 +1,89 @@
+﻿@using PROWeb.Components.ViewModels.Assessment
+@using PROWeb.Components.Person.Filters
+@using PROWeb.Components.ViewModels.Person
+@using PROWeb.Components.ViewModels.Voter
+@using PROWeb.Common.Components
+@using Telerik.Blazor
+@inherits PROFilterComponent<PersonFilterViewModel>
+
+<TelerikForm Model="@Filter"
+             OnSubmit="@OnSearchAsync"
+             Columns="3"
+             ColumnSpacing="10px">
+    <FormItems>
+        <FormGroup Columns="4" ColumnSpacing="5px">
+            <FormItem ColSpan="4" Field="@nameof(PersonFilterViewModel.LastName)" />
+            <FormItem ColSpan="4" Field="@nameof(PersonFilterViewModel.FirstName)" />
+            <FormItem ColSpan="4" Field="@nameof(PersonFilterViewModel.MiddleName)" />
+            <FormItem ColSpan="3" Field="@nameof(PersonFilterViewModel.DateOfBirth)">
+                <Template>
+                    <label for="dateOfBirth" class="k-label k-form-label">Date Of Birth:</label>
+                    <TelerikDateInput Id="dateOfBirth" @bind-Value="@Filter.DateOfBirth" Format="MM/dd/yyyy" />
+                </Template>
+            </FormItem>
+            <FormItem ColSpan="1" Field="@nameof(PersonFilterViewModel.IsEligible)">
+                <Template>
+                    <div class="d-flex justify-content-start mx-2">
+                        <TelerikCheckBox Id="isEligible" @bind-Value="@Filter.IsEligible" Title="Is Elegible" />
+                        <label class="mx-1 mt-4">Eligible</label>
+                    </div>    
+                </Template>
+            </FormItem>
+            <FormItem ColSpan="2" Field="@nameof(PersonFilterViewModel.AgeFrom)" />
+            <FormItem ColSpan="2" Field="@nameof(PersonFilterViewModel.AgeTo)" />
+        </FormGroup>
+        <FormGroup Columns="3" ColumnSpacing="5px">
+            <FormItem ColSpan="3" Field="@nameof(PersonFilterViewModel.Phone)" />
+            <FormItem ColSpan="3" Field="@nameof(PersonFilterViewModel.AssessmentNo)" />
+            <FormItem ColSpan="1" Field="@nameof(PersonFilterViewModel.HouseNo)" />
+            <FormItem ColSpan="2" Field="@nameof(PersonFilterViewModel.StreetName)" />
+            <FormItem ColSpan="3" Field="@nameof(PersonFilterViewModel.ConstituencyNo)">
+                <Template>
+                    <label for="constituency" class="k-label k-form-label">Constituency:</label>
+                    <TelerikComboBox Id="constituency" 
+                        TextField="@nameof(ConstituencyViewModel.Constituency)"
+                        ValueField="@nameof(ConstituencyViewModel.ConstituencyNo)"
+                        @bind-Value="@Filter.ConstituencyNo" 
+                        Data="@Constituencies" />
+                </Template>
+            </FormItem>
+            <FormItem ColSpan="1" Field="@nameof(PersonFilterViewModel.PostalCode)" />
+            <FormItem ColSpan="2" Field="@nameof(PersonFilterViewModel.ParishNo)">
+                <Template>
+                    <label for="parish" class="k-label k-form-label">Parish:</label>
+                    <TelerikComboBox Id="parish"
+                                     TextField="@nameof(ParishViewModel.ParishName)"
+                                     ValueField="@nameof(ParishViewModel.ParishNo)"
+                                     @bind-Value="@Filter.ParishNo"
+                                     Data="@Parishes" />
+                </Template>
+            </FormItem>
+        </FormGroup>
+        <FormGroup Columns="1" ColumnSpacing="5px">
+            <FormItem Field="@nameof(PersonFilterViewModel.RegistryYear)">
+                <Template>
+                    <label for="registryYear" class="k-label k-form-label">Registry Year:</label>
+                    <TelerikComboBox Id="registryYear" @bind-Value="@Filter.RegistryYear" Data="@RegistrationYears" />
+                </Template>
+            </FormItem>
+            <FormItem Field="@nameof(PersonFilterViewModel.VoterFlags)">
+                <Template>
+                    <label for="voterFlags" class="k-label k-form-label">Voter Flags:</label>
+                    <TelerikMultiSelect Data="@Flags"
+                        Placeholder="Select flags..." 
+                        Id="voterFlags" @bind-Value="@Filter.VoterFlags"
+                        TextField="@nameof(VoterFlagViewModel.FlagDescription)" 
+                        ValueField="@nameof(VoterFlagViewModel.VoterFlagId)"/>
+                </Template>
+            </FormItem>
+        </FormGroup>
+
+    </FormItems>
+    <FormButtons>
+        <div class="d-flex justify-content-between w-100">
+            <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" Enabled="@CanSearch" ThemeColor="primary">Search</TelerikButton>
+            <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Button" OnClick="@OnClear">Clear</TelerikButton>
+        </div>
+    </FormButtons>
+</TelerikForm>
+

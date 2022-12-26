@@ -1,11 +1,13 @@
 ﻿@page "/"
-@using PROWeb.Components.ViewModels.Voter
 @using PROWeb.Components.Navigation
 @using PROWeb.Components.Common
-@using PROWeb.Components.Voters.Filters
+@using PROWeb.Components.Person.Filters
+@using PROWeb.Components.ViewModels.Person
 @using PROWeb.Office.Components.Voter
+@using PROWeb.Office.ViewModels.Voter;
 @using Telerik.Blazor.Components.PanelBar
-@inherits PRORegistryLayout<VoterFilterViewModel, TabedVoterViewModel>
+@using PROWeb.Office.Components.VoterRegistry
+@inherits PRORegistryLayout<PersonFilterViewModel, ListVoterViewModel>
 
 <FilterListLayout>
     <Filter>
@@ -29,10 +31,9 @@
     </List>
 </FilterListLayout>
 
-
 @code
 {
-    private RenderFragment AdvancedFilterTemplate => @<VoterFilterAdvanced @ref="@FilterRef"></VoterFilterAdvanced>;
+    private RenderFragment AdvancedFilterTemplate => @<PersonFilterAdvanced @ref="@FilterRef"></PersonFilterAdvanced>;
 
-    private RenderFragment SimpleFilterTemplate => @<VoterFilterSimple @ref="@FilterRef" ></VoterFilterSimple>;
+    private RenderFragment SimpleFilterTemplate => @<PersonFilterSimple @ref="@FilterRef" ></PersonFilterSimple>;
 }

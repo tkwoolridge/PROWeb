@@ -1,0 +1,32 @@
+﻿@using PROWeb.Components.ViewModels.Voter;
+@using PROWeb.Components.ViewModels.Person;
+@inherits PersonFlagsViewBase<TPersonFlagsViewModel>;
+@typeparam TPersonFlagsViewModel where TPersonFlagsViewModel : class, IPersonFlagsViewModel
+
+<div class="person-flags-view">
+    <div class="person-flags-title pro-view-title">@Title</div>
+    <div>
+        <label>Flags:</label>
+        <TelerikMultiSelect Enabled="@Editable"
+            ValueField="@(nameof(VoterFlagViewModel.VoterFlagId))" 
+            TextField="@(nameof(VoterFlagViewModel.FlagDescription))" 
+            Data="@VoterFlags" @bind-Value="@Context.VoterFlagsValues" />
+    </div>
+    <div>
+        <TelerikCheckBox Id="@(nameof(IPersonFlagsViewModel.CommonwealthCitizen))" Enabled="@Editable" @bind-Value="@Context.CommonwealthCitizen" />
+        <label for="@(nameof(IPersonFlagsViewModel.CommonwealthCitizen))">Is Commonwealth Citizen</label>
+    </div>
+    <div>
+        <TelerikCheckBox Id="@(nameof(IPersonFlagsViewModel.RegisteredAsElector))" Enabled="@Editable" @bind-Value="@Context.RegisteredAsElector" />
+        <label for="@(nameof(IPersonFlagsViewModel.RegisteredAsElector))">Registered As Elector</label>
+    </div>
+    <div class="d-flex align-items-center">
+        <div class="me-2">
+            <TelerikCheckBox Id="@(nameof(IPersonFlagsViewModel.IsBermudianStatusGranted))" Enabled="@Editable" @bind-Value="@Context.IsBermudianStatusGranted" />
+            <label for="@(nameof(IPersonFlagsViewModel.IsBermudianStatusGranted))">Status Granted</label>
+        </div>
+        <div>
+            <TelerikDateInput @bind-Value="@Context.BermudianStatusGranted" />
+        </div>
+    </div>
+</div>

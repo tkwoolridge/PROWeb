@@ -6,6 +6,8 @@
     <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Telerik.UI.for.Blazor" Version="3.7.0" />
   </ItemGroup>
   <ItemGroup>

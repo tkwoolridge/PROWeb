@@ -1,0 +1,68 @@
+﻿@using PROWeb.Components.ViewModels.Voter;
+@using PROWeb.Components.ViewModels.Person;
+@inherits ContactInfoViewBase<TContactInfoViewModel>
+@typeparam TContactInfoViewModel where TContactInfoViewModel : class, IContactInfoViewModel
+
+<div class="contact-info-view">
+    <div class="contact-info-title pro-view-title mb-2">@Title</div>
+    <label>Home Phone:</label>
+    @if(!Editable)
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md" type="text" value="@Context.PhoneHome" />
+    }
+    else
+    {
+        <TelerikTextBox @bind-Value="@Context.PhoneHome"/>
+    }
+    <label>Work Phone:</label>
+    @if (!Editable)
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md" type="text" value="@Context.PhoneWork" />
+    }
+    else
+    {
+        <TelerikTextBox @bind-Value="@Context.PhoneWork" />
+    }
+    <label>Contact Phone:</label>
+    @if (!Editable)
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md" type="text" value="@Context.ContactPhone"/>
+    }
+    else
+    {
+        <TelerikTextBox @bind-Value="@Context.ContactPhone" Id="@(nameof(Context.ContactPhone))" />
+        <TelerikValidationTooltip For="@(() => Context.ContactPhone)" TargetSelector="@("#" + nameof(Context.ContactPhone))" />
+    }
+    <label>Driver License:</label>
+    @if (!Editable)
+    {
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md" type="text" value="@Context.ContactPhone" />
+    }
+    else
+    {
+        <TelerikTextBox @bind-Value="@Context.DriverLicense" />
+    }
+    <div class="contact-email-comment-view">
+        <label>Email:</label>
+        @if (!Editable)
+        {
+            <input readonly class="k-input k-input-solid k-input-md k-rounded-md" type="text" value="@Context.Email" />
+        }
+        else
+        {
+            <TelerikTextBox @bind-Value="@Context.Email" Id="@(nameof(Context.Email))" />
+            <TelerikValidationTooltip For="@(() => Context.Email)" TargetSelector="@("#" + nameof(Context.Email))" />
+        }
+        <label>Comment:</label>
+        <span class="k-textarea k-input telerik-blazor k-input-solid k-rounded-md k-input-md">
+        @if (!Editable)
+        {
+            <textarea readonly aria-multiline="true" class="k-input-inner">@Context.Comment</textarea>
+        }
+        else
+        {
+            <TelerikTextArea @bind-Value="@Context.Comment" />
+        }
+        </span>
+    </div>
+</div>
