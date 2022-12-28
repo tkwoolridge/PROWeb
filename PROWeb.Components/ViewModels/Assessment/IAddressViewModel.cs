@@ -7,7 +7,7 @@ using PROWeb.Components.ViewModels.Person;
 
 namespace PROWeb.Components.ViewModels.Assessment
 {
-    public interface IAddressViewModel : IPersonDocumentsViewModel
+    public interface IAddressViewModel 
     {
         int AssessmentNo { get; set; }
 

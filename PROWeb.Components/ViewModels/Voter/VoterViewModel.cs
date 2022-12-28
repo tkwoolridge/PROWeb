@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Components.ViewModels.Voter
 {
-    public class VoterViewModel : ViewModelBase, IPersonDetailsViewModel, IAddressViewModel, IContactInfoViewModel, IPersonFlagsViewModel, IPersonDocumentsViewModel
+    public class VoterViewModel : ViewModelBase, IPersonDetailsViewModel, IAddressViewModel, IContactInfoViewModel, IPersonFlagsViewModel, IPersonDocumentsViewModel<VoterDocumentViewModel>
     {
         public int VoterId { get; set; }
 
@@ -99,6 +99,6 @@ namespace PROWeb.Components.ViewModels.Voter
 
         public List<int> VoterFlagsValues { get; set; } = null!;
 
-        public List<VoterDocumentViewModel> VoterDocuments { get; set; } = null!;
+        public List<VoterDocumentViewModel> Documents { get; set; } = null!;
     }
 }

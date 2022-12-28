@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PROWeb.Authentication.Extensions;
@@ -39,6 +40,12 @@ builder.Services.AddTelerikBlazor();
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<OfficeMapperProfile>());
 builder.AddPROWebDataModule();
 builder.AddPROWebAuthetnticationModule();
+
+// SignalR message size for FileSelect
+builder.Services.Configure<HubOptions>(options =>
+{
+    options.MaximumReceiveMessageSize = 1024 * 1024; // 1MB
+});
 
 var app = builder.Build();
 

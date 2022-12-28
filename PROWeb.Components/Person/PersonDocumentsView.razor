@@ -1,4 +1,83 @@
 ﻿@using PROWeb.Components.ViewModels.Voter;
 @using PROWeb.Components.ViewModels.Person;
-@inherits PersonDocumentsViewBase<TPersonDocumentsViewModel>
-@typeparam TPersonDocumentsViewModel where TPersonDocumentsViewModel : class, IPersonDocumentsViewModel
+@typeparam TPersonDocumentsViewModel where TPersonDocumentsViewModel : class, IPersonDocumentsViewModel<TDocumentViewModel>
+@typeparam TDocumentViewModel where TDocumentViewModel : class, IDocumentViewModel
+@inherits PersonDocumentsViewBase<TPersonDocumentsViewModel, TDocumentViewModel>
+
+<div>
+    <TelerikGrid Data="@Documents">
+        <GridColumns>
+            <GridColumn Width="200px" Field="@nameof(IDocumentViewModel.DocumentName)" Title="Name" />
+            <GridColumn Field="@nameof(IDocumentViewModel.DocumentDescription)" Title="Description" />
+            <GridColumn Width="50px">
+                <Template>
+                    @{
+                        int personId = ((IDocumentViewModel)context).PersonId;
+                        int documetId = ((IDocumentViewModel)context).DocumentId;
+
+                        <TelerikButton Icon="download" OnClick="@(async _ => await DownloadDocumentAsync(personId, documetId) )"/>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Width="50px">
+                <Template>
+                    @{
+                        int personId = ((IDocumentViewModel)context).PersonId;
+                        int documetId = ((IDocumentViewModel)context).DocumentId;
+
+                        <TelerikButton Icon="delete" OnClick="@(_ => OnDeleteDocument(personId, documetId) )" />
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+    <div class="d-flex w-100 justify-content-end pt-2">
+        <TelerikButton OnClick="@AddDocument">Add Document</TelerikButton>
+    </div>
+</div>
+
+<TelerikWindow 
+    Width="500px"
+    Centered="true" 
+    Modal="true" 
+    @bind-Visible="@ShowUploadDialog">
+    <WindowTitle>
+        <strong>Add Document Dialog</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+    <WindowContent>
+        <EditForm EditContext="@DocumentEditContext" OnValidSubmit="@OnSubmitNewDocument">
+            <DataAnnotationsValidator />
+            <div class="k-form-field">
+                <label for="name" class="k-label k-form-label">Name:</label>
+                <div class="k-form-field-wrap">
+                    <TelerikTextBox @bind-Value="@NewDocument.DocumentName" Id="@(nameof(VoterDocumentViewModel.DocumentName))" />
+                    <TelerikValidationTooltip For="@(() => NewDocument.DocumentName)" TargetSelector="@("#" + nameof(VoterDocumentViewModel.DocumentName))" />
+                </div>
+            </div>
+            <div class="k-form-field">
+                <label for="email" class="k-label k-form-label">Description:</label>
+                <div class="k-form-field-wrap">
+                    <TelerikTextBox @bind-Value="@NewDocument.DocumentDescription" Id="description" />
+                </div>
+            </div>
+            <div class="k-form-field">
+                <label class="k-label k-form-label">Document File:</label>
+                <div class="k-form-field-wrap">
+                    <TelerikFileSelect AllowedExtensions="@( new List<string>() { ".pdf", ".docx" } )"
+                                   MaxFileSize="@(1024 * 1024)"
+                                   Multiple="false"
+                                   OnSelect="@OnSelectDocumentHandler"
+                                   OnRemove="@OnRemoveDocumentHandler" />
+                    <div class="k-form-hint">Accepted files: <strong>PDF and DOCX</strong>. Maximum file size is&nbsp;<strong>1MB</strong>.</div>
+                </div>
+            </div>
+            <div class="d-flex w-100 justify-content-end pt-2">
+                <TelerikButton Enabled="@AllowSubmitDocument" Class="me-2" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Submit Document</TelerikButton>
+                <TelerikButton OnClick="@OnCloseNewDocumentWindow">Cancel</TelerikButton>
+            </div>
+        </EditForm>
+    </WindowContent>
+</TelerikWindow>

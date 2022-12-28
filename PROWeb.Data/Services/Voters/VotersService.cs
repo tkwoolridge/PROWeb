@@ -41,6 +41,19 @@ namespace PROWeb.Data.Services.Voters
                 .FirstOrDefault();
         }
 
+        public async Task<VoterDocument?> GetVoterDocumentAsync(int id)
+        {
+            return await Context.VoterDocuments.FirstOrDefaultAsync(d => d.VoterDocumentId == id);
+        }
+
+        public async Task<byte[]?> GetVoterDocumentContentAsync(int id)
+        {
+            return await Context.VoterDocuments
+                .Where(d => d.VoterDocumentId == id)
+                .Select(d=>d.Content)
+                .FirstOrDefaultAsync();
+        }
+
         public IQueryable<Voter> GetVoters
            (
                int registryYear,

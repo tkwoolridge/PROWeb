@@ -24,7 +24,10 @@ namespace PROWeb.Components.Mapping
             .ForMember(vm => vm.ParishName, options => options.MapFrom(a => a.Parish.ParishName));
 
             CreateMap<VoterFlag, VoterFlagViewModel>();
-            CreateMap<VoterDocument, VoterDocumentViewModel>();
+            CreateMap<VoterDocument, VoterDocumentViewModel>()
+                //TODO: Change database.
+                .ForMember(vm => vm.DocumentId, options => options.MapFrom(c => c.VoterDocumentId))
+                .ForMember(vm => vm.PersonId, options => options.MapFrom(c => c.VoterId));
 
             CreateMap<Constituency, VoterViewModel>();
             CreateMap<Parish, VoterViewModel>();
@@ -33,6 +36,8 @@ namespace PROWeb.Components.Mapping
             .IncludeMembers(a => a.Constituency, a => a.Parish);
             CreateMap<Voter, VoterViewModel>()
             .IncludeMembers(v => v.Assessment, v => v.Country)
+            //TODO: Change database.
+            .ForMember(vm => vm.Documents, options => options.MapFrom(v => v.VoterDocuments))
             .ForMember(vm => vm.BogusConstituencyNo, options => options.MapFrom(c => c.BogusConstituency != null ? c.BogusConstituency.ConstituencyNo : (int?)null))
             .ForMember(vm => vm.BogusConstituencyName, options => options.MapFrom(c => c.BogusConstituency != null ? c.BogusConstituency.ConstituencyName : null));
         }

@@ -7,8 +7,9 @@ using PROWeb.Components.ViewModels.Voter;
 
 namespace PROWeb.Components.ViewModels.Person
 {
-    public interface IPersonDocumentsViewModel
+    public interface IPersonDocumentsViewModel<TDocumentViewModel>
+         where TDocumentViewModel : class, IDocumentViewModel
     {
-        List<VoterDocumentViewModel> VoterDocuments { get; set; }
+        List<TDocumentViewModel> Documents { get; set; }
     }
 }
