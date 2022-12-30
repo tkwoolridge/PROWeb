@@ -7,7 +7,7 @@ namespace PROWeb.Office.Office.Voter
     {
         public override void Save()
         {
-            
+
         }
     }
 }

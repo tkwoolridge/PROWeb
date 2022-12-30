@@ -17,7 +17,7 @@ namespace PROWeb.Data.Models
 
         [StringLength(50)]
         [Required]
-        public string FirstName { get; set;}
+        public string FirstName { get; set; }
 
         [StringLength(50)]
         [Required]

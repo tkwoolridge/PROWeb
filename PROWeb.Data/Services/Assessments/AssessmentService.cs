@@ -1,7 +1,6 @@
-﻿using PROWeb.Data;
-using PROWeb.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
 using PROWeb.Data.Extensions;
-using Microsoft.EntityFrameworkCore;
+using PROWeb.Data.Models;
 
 namespace PROWeb.Data.Services.Assessments
 {

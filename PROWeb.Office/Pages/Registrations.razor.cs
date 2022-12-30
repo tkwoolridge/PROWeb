@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Common.Components;
-using PROWeb.Data.Services.Voters;
+﻿using PROWeb.Common.Components;
 
 namespace PROWeb.Office.Pages
 {

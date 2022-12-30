@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Components.ViewModels.Assessment;
-using System.Diagnostics;
 
 namespace PROWeb.Components.Assessments
 {

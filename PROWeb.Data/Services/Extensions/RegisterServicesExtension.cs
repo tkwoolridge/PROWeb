@@ -20,7 +20,7 @@ namespace PROWeb.Data.Services.Extensions
 
             //Register preload data service.
             services.AddHostedService<PreloadService>();
-            
+
             // Register navigation service.
             services.AddSingleton<INavigationService, NavigationService>();
 

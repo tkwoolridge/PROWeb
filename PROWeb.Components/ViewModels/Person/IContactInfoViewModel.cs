@@ -1,6 +1,6 @@
 ﻿namespace PROWeb.Components.ViewModels.Person
 {
-    public interface IContactInfoViewModel 
+    public interface IContactInfoViewModel
     {
         string? Email { get; set; }
 

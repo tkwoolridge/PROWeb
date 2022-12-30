@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
-using PROWeb.Components.ViewModels.Assessment;
 using PROWeb.Components.ViewModels.Person;
-using PROWeb.Components.ViewModels.Voter;
 using PROWeb.Office.ViewModels.Voter;
 
 namespace PROWeb.Office.Pages
@@ -21,7 +19,7 @@ namespace PROWeb.Office.Pages
         {
             AdvancedFilterSelected = state;
 
-            if(AdvancedFilterSelected)
+            if (AdvancedFilterSelected)
             {
                 FilterTemplate = AdvancedFilterTemplate;
             }

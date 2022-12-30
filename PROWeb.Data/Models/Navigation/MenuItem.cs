@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
-using System.Xml.Schema;
 using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace PROWeb.Data.Models.Navigation

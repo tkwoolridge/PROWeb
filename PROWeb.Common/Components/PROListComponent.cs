@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PROWeb.Common.Components
+﻿namespace PROWeb.Common.Components
 {
     public abstract class PROListComponent<TFilter, TItem> : PROComponent where TFilter : class, new()
     {

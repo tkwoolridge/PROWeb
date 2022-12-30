@@ -27,7 +27,7 @@ namespace PROWeb.Components.Assessments
 
         protected override async Task<IList<AssessmentViewModel>> OnFilterAsync(AssessmentFilterViewModel filter)
         {
-            Page= 1;
+            Page = 1;
 
             using (var service = _assessmentServiceFactory.CreateService())
             {

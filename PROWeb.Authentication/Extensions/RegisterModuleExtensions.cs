@@ -1,17 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PROWeb.Data.Models;
-using PROWeb.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PROWeb.Authentication.Controllers;
-using Microsoft.AspNetCore.Components.Authorization;
+using PROWeb.Authentication.Models;
 
 namespace PROWeb.Authentication.Extensions
 {
@@ -26,23 +20,24 @@ namespace PROWeb.Authentication.Extensions
             app.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Navigation}/{action=Index}/{id?}");
-            
+
             app.MapControllerRoute(
                 name: "Identity",
                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
         }
 
-        public static void AddPROWebAuthetnticationModule(this WebApplicationBuilder builder)
+        public static void AddPROWebAuthetnticationModule<TIdentityDbContext, TUser>(this WebApplicationBuilder builder) 
+            where TUser : IdentityUser, IPROUser
+            where TIdentityDbContext : IdentityDbContext<TUser>
         {
             var services = builder.Services;
 
-            builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<PROUser>>();
+            builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<TUser>>();
 
 
-            builder.Services.AddDbContext<IdentityDataContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("PROWebIdentityConnection")));
+            builder.Services.AddDbContext<TIdentityDbContext>();
 
-            builder.Services.AddIdentity<PROUser, IdentityRole>(options =>
+            builder.Services.AddIdentity<TUser, IdentityRole>(options =>
             {
                 // Password settings.
                 options.SignIn.RequireConfirmedAccount = true;
@@ -64,7 +59,7 @@ namespace PROWeb.Authentication.Extensions
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<IdentityDataContext>();
+            }).AddEntityFrameworkStores<TIdentityDbContext>();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {

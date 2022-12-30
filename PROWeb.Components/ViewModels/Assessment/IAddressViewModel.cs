@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PROWeb.Components.ViewModels.Person;
-
-namespace PROWeb.Components.ViewModels.Assessment
+﻿namespace PROWeb.Components.ViewModels.Assessment
 {
-    public interface IAddressViewModel 
+    public interface IAddressViewModel
     {
         int AssessmentNo { get; set; }
 

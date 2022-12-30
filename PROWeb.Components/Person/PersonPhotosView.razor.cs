@@ -1,5 +1,4 @@
-﻿using PROWeb.Common.Commponents;
-using PROWeb.Common.Components;
+﻿using PROWeb.Common.Components;
 
 namespace PROWeb.Components.Person
 {

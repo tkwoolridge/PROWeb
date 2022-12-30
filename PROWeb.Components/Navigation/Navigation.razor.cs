@@ -33,7 +33,7 @@ namespace PROWeb.Components.Navigation
 
         private MenuItemViewModel? SelectCurrentPage(IList<MenuItemViewModel>? items)
         {
-            if(items == null)
+            if (items == null)
             {
                 return null;
             }
@@ -43,7 +43,7 @@ namespace PROWeb.Components.Navigation
                 return item.Page?.Equals(Page, StringComparison.CurrentCultureIgnoreCase) ?? false;
             }
 
-            MenuItemViewModel?IterateItem (MenuItemViewModel item)
+            MenuItemViewModel? IterateItem(MenuItemViewModel item)
             {
                 if (IsCurrentPage(item))
                 {
@@ -74,9 +74,9 @@ namespace PROWeb.Components.Navigation
                 return null;
             }
 
-            foreach(var item in items)
+            foreach (var item in items)
             {
-                if(IterateItem(item) is { } current)
+                if (IterateItem(item) is { } current)
                 {
                     return current;
                 }
@@ -109,12 +109,12 @@ namespace PROWeb.Components.Navigation
 
         private async Task OnItemSelected(MenuItemViewModel item)
         {
-            if(!string.IsNullOrWhiteSpace(item.Page))
+            if (!string.IsNullOrWhiteSpace(item.Page))
             {
                 SelectedItem = item;
                 await SelectedItemChanged.InvokeAsync(SelectedItem);
             }
-            else if(item.MenuItems.Any())
+            else if (item.MenuItems.Any())
             {
                 OnItemExpand(item);
             }
@@ -162,7 +162,7 @@ namespace PROWeb.Components.Navigation
         {
             IEnumerable<MenuItemViewModel> IterateMenu(MenuItemViewModel root, int level)
             {
-                root.Level= level;
+                root.Level = level;
 
                 yield return root;
 

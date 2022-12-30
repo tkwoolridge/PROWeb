@@ -1,7 +1,6 @@
 ﻿#nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PROWeb.Data.Models
 {
@@ -43,7 +42,7 @@ namespace PROWeb.Data.Models
 
         public int AssessmentNo { get; set; }
 
-        public Assessment Assessment { get; set;}
+        public Assessment Assessment { get; set; }
 
         [Required]
         public bool IsEligible { get; set; }
@@ -100,6 +99,6 @@ namespace PROWeb.Data.Models
 
         public ICollection<Registration> Registrations { get; set; }
 
-        public ICollection<VoterDocument> VoterDocuments { get; set; }
+        public ICollection<Document> Documents { get; set; }
     }
 }

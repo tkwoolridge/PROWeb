@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PROWeb.Common.Attributes
 {
@@ -16,7 +10,7 @@ namespace PROWeb.Common.Attributes
         {
             base.OnActionExecuted(filterContext);
 
-            if(filterContext.Controller is Controller controller)
+            if (filterContext.Controller is Controller controller)
             {
                 controller.TempData["ModelState"] = JsonConvert.SerializeObject(new SerializableError(controller.ViewData.ModelState));
             }

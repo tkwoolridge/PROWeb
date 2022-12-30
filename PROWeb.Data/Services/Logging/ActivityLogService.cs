@@ -1,6 +1,6 @@
-﻿using PROWeb.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
 using PROWeb.Data.Extensions;
-using Microsoft.EntityFrameworkCore;
+using PROWeb.Data.Models;
 
 namespace PROWeb.Data.Services.Logging
 {
@@ -40,12 +40,12 @@ namespace PROWeb.Data.Services.Logging
             return query;
         }
 
-        public async Task LogUserActivity(PROUser user, string activityDescription)
+        public async Task LogUserActivity(string userName, string activityDescription)
         {
             ActivityLog activityLog = new ActivityLog()
             {
                 Description = activityDescription,
-                UserName = user.UserName,
+                UserName = userName,
                 TypeId = (int)ActivityLogTypes.UserActivity,
                 LogDate = DateTime.Now
             };

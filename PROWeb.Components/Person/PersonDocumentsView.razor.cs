@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.JSInterop;
-using Newtonsoft.Json.Linq;
 using PROWeb.Common.Components;
 using PROWeb.Components.Extensions;
 using PROWeb.Components.ViewModels.Person;
@@ -14,7 +12,7 @@ using Telerik.Blazor.Components.FileSelect;
 
 namespace PROWeb.Components.Person
 {
-    public class PersonDocumentsViewBase<TPersonDocumentsViewModel, TDocumentViewModel> : PROView<TPersonDocumentsViewModel> 
+    public class PersonDocumentsViewBase<TPersonDocumentsViewModel, TDocumentViewModel> : PROView<TPersonDocumentsViewModel>
         where TPersonDocumentsViewModel : class, IPersonDocumentsViewModel<TDocumentViewModel>
         where TDocumentViewModel : class, IDocumentViewModel
     {
@@ -84,12 +82,12 @@ namespace PROWeb.Components.Person
 
         protected void OnCloseNewDocumentWindow()
         {
-            if(DocumentEditContext is { } context)
+            if (DocumentEditContext is { } context)
             {
                 context.OnValidationStateChanged -= OnNewDocumentValidationStateChanged;
                 context = null;
             }
-            
+
             ShowUploadDialog = false;
             AllowSubmitDocument = false;
         }
@@ -97,15 +95,15 @@ namespace PROWeb.Components.Person
         protected async Task DownloadDocumentAsync(int voterId, int documetId)
         {
             byte[]? content;
-            VoterDocument? document;
+            Document? document;
 
-            using(var service = _voterServiceFactory.CreateService())
+            using (var service = _voterServiceFactory.CreateService())
             {
                 document = await service.GetVoterDocumentAsync(documetId);
                 content = await service.GetVoterDocumentContentAsync(documetId);
             }
 
-            if(document == null || content == null)
+            if (document == null || content == null)
             {
                 return;
             }

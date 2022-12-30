@@ -1,10 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PROWeb.Components.Common
 {
@@ -28,8 +22,8 @@ namespace PROWeb.Components.Common
 
         public void OnExpand()
         {
-            HideContentClass = string.IsNullOrEmpty(HideContentClass) ? "hide-content" : null;  
-            ArrowClass = ArrowClass == ArrowDown ? ArrowUp: ArrowDown;
+            HideContentClass = string.IsNullOrEmpty(HideContentClass) ? "hide-content" : null;
+            ArrowClass = ArrowClass == ArrowDown ? ArrowUp : ArrowDown;
         }
     }
 }

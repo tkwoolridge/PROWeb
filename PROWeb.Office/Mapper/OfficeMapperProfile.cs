@@ -7,7 +7,7 @@ namespace PROWeb.Office.Mapper
 {
     public class OfficeMapperProfile : MapperProfile
     {
-        public OfficeMapperProfile() : base() 
+        public OfficeMapperProfile() : base()
         {
             CreateMap<Voter, ListVoterViewModel>().IncludeBase<Voter, VoterViewModel>();
         }

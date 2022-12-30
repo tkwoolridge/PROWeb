@@ -29,7 +29,7 @@ namespace PROWeb.Data.Services.Voters
                string? postalCode = null
            );
 
-        Task<VoterDocument?> GetVoterDocumentAsync(int id);
+        Task<Document?> GetVoterDocumentAsync(int id);
 
         Task<byte[]?> GetVoterDocumentContentAsync(int id);
 

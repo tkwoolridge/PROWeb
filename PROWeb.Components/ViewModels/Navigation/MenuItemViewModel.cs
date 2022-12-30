@@ -1,5 +1,4 @@
-﻿using PROWeb.Common.Primitives;
-using PROWeb.Common.ViewModels;
+﻿using PROWeb.Common.ViewModels;
 
 namespace PROWeb.Components.ViewModels.Navigation
 {

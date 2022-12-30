@@ -4,9 +4,9 @@ using PROWeb.Components.Extensions;
 using PROWeb.Components.ViewModels.Assessment;
 using PROWeb.Data.Services.Assessments;
 
-namespace PROWeb.Components.Assessments
+namespace PROWeb.Components.Assessments.Filters
 {
-    public partial class AssessmentFilterAdvanced : PROFilterComponent<AssessmentFilterViewModel> 
+    public partial class AssessmentFilterAdvanced : PROFilterComponent<AssessmentFilterViewModel>
     {
         [Inject]
         private IAssessmentServiceFactory _assessmentsServiceFactory { get; set; } = null!;

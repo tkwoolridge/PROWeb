@@ -60,7 +60,7 @@ namespace PROWeb.Components.ViewModels.Voter
 
         public string? BogusConstituencyName { get; set; }
 
-        [Required (ErrorMessage = "Voter email is required!")]
+        [Required(ErrorMessage = "Voter email is required!")]
         [EmailAddress(ErrorMessage = "Voter email is not in correct format!")]
         public string? Email { get; set; }
 

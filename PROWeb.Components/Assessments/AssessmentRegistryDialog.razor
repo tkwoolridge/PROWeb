@@ -1,4 +1,5 @@
 ﻿@using PROWeb.Components.ViewModels.Assessment;
+@using PROWeb.Components.Assessments.Filters;
 @inherits PRORegistryLayout<AssessmentFilterViewModel, AssessmentViewModel>
 
 <TelerikWindow 
@@ -21,7 +22,7 @@
                         <strong>Filter:</strong>
                     </Header>
                     <Content>
-                        <AssessmentFilterAdvanced @ref="@FilterRef" />
+                        <AssessmentFilterSimple @ref="@FilterRef" />
                     </Content>
                  </ExpansionPanel>
             </Filter>

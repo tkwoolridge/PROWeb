@@ -18,12 +18,12 @@ namespace PROWeb.Components.Person
         {
             await base.OnInitializedAsync();
 
-            using(var service = _voterServiceFactory.CreateService())
+            using (var service = _voterServiceFactory.CreateService())
             {
                 VoterFlags = await service.GetVoterFlags().ProjectToListAsync<VoterFlagViewModel>(Mapper);
             }
 
-            Context.VoterFlagsValues =  Context.VoterFlags.Select(f=>f.VoterFlagId).ToList();
+            Context.VoterFlagsValues = Context.VoterFlags.Select(f => f.VoterFlagId).ToList();
         }
     }
 }

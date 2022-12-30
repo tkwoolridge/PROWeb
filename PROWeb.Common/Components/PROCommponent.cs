@@ -22,7 +22,7 @@ namespace PROWeb.Common.Components
 
         protected override void OnInitialized()
         {
-            if (IsRouted() && 
+            if (IsRouted() &&
                 MainLayout is { } layout)
             {
                 PageTitle ??= _navigationManager.Uri.Split('/').Last().Humanize(LetterCasing.Title);

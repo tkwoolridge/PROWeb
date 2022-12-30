@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PROWeb.Common.Components
 {
@@ -23,7 +18,7 @@ namespace PROWeb.Common.Components
             Views.Add(view);
         }
 
-        public PROViewContext(TViewModel model, EditContext? context = null, bool isEditable = false) 
+        public PROViewContext(TViewModel model, EditContext? context = null, bool isEditable = false)
         {
             Model = model;
             EditContext = context;

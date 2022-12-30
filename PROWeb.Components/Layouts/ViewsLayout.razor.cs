@@ -26,11 +26,11 @@ namespace PROWeb.Components.Layouts
         {
             base.OnInitialized();
 
-            if(Model != null)
+            if (Model != null)
             {
                 ViewContext = new PROViewContext<TViewModel>(Model);
             }
-            else if(EditContext is { } context && context.Model is TViewModel model)
+            else if (EditContext is { } context && context.Model is TViewModel model)
             {
                 Model = EditContext.Model as TViewModel;
                 ViewContext = new PROViewContext<TViewModel>(model, context, true);
@@ -49,12 +49,12 @@ namespace PROWeb.Components.Layouts
 
         public virtual bool OnSave()
         {
-            if(EditContext == null || ViewContext == null || !Validate())
+            if (EditContext == null || ViewContext == null || !Validate())
             {
                 return false;
             }
 
-            foreach(var view in ViewContext.Views)
+            foreach (var view in ViewContext.Views)
             {
                 view.OnSave();
             }

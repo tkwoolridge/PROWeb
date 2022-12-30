@@ -1,11 +1,12 @@
 ﻿#nullable disable
 
 using Microsoft.AspNetCore.Identity;
+using PROWeb.Authentication.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace PROWeb.Data.Models
+namespace PROWeb.Office.Areas.Identity.Models
 {
-    public class PROUser : IdentityUser
+    public class PROUser : IdentityUser, IPROUser
     {
         [StringLength(50)]
         public string FirstName { get; set; }

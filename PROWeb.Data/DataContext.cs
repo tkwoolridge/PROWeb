@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PROWeb.Data.Models;
 
 namespace PROWeb.Data
@@ -7,7 +6,7 @@ namespace PROWeb.Data
     public class DataContext : DbContext
     {
         public DbSet<Voter> Voters => Set<Voter>();
-        
+
         public DbSet<Assessment> Assessments => Set<Assessment>();
 
         public DbSet<Country> Countries => Set<Country>();
@@ -32,7 +31,7 @@ namespace PROWeb.Data
 
         public DbSet<DriverLicense> DriverLicenses => Set<DriverLicense>();
 
-        public DbSet<VoterDocument> VoterDocuments => Set<VoterDocument>();
+        public DbSet<Document> Documents => Set<Document>();
 
         public DbSet<PROOffice> PROOffices => Set<PROOffice>();
 
@@ -57,8 +56,8 @@ namespace PROWeb.Data
                 // See https://go.microsoft.com/fwlink/?linkid=2134277, https://github.com/dotnet/efcore/issues/22580 for more information.
                 options.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
             });
-        //.EnableSensitiveDataLogging()
-        //.LogTo(Console.WriteLine, LogLevel.Information);
+            //.EnableSensitiveDataLogging()
+            //.LogTo(Console.WriteLine, LogLevel.Information);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -119,10 +118,10 @@ namespace PROWeb.Data
             .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear })
             .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<VoterDocument>()
+            modelBuilder.Entity<Document>()
             .HasOne(r => r.Voter)
-            .WithMany(v => v.VoterDocuments)
-            .HasForeignKey(r => new { r.VoterId, r.RegistryYear })
+            .WithMany(v => v.Documents)
+            .HasForeignKey(r => new { r.PersonId, r.RegistryYear })
             .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear })
             .OnDelete(DeleteBehavior.NoAction);
         }

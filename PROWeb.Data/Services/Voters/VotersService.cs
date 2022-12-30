@@ -1,7 +1,6 @@
-﻿using PROWeb.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
 using PROWeb.Data.Extensions;
-using Microsoft.EntityFrameworkCore;
-using PROWeb.Data.Services.Assessments;
+using PROWeb.Data.Models;
 
 namespace PROWeb.Data.Services.Voters
 {
@@ -41,16 +40,16 @@ namespace PROWeb.Data.Services.Voters
                 .FirstOrDefault();
         }
 
-        public async Task<VoterDocument?> GetVoterDocumentAsync(int id)
+        public async Task<Document?> GetVoterDocumentAsync(int id)
         {
-            return await Context.VoterDocuments.FirstOrDefaultAsync(d => d.VoterDocumentId == id);
+            return await Context.Documents.FirstOrDefaultAsync(d => d.DocumentId == id);
         }
 
         public async Task<byte[]?> GetVoterDocumentContentAsync(int id)
         {
-            return await Context.VoterDocuments
-                .Where(d => d.VoterDocumentId == id)
-                .Select(d=>d.Content)
+            return await Context.Documents
+                .Where(d => d.DocumentId == id)
+                .Select(d => d.Content)
                 .FirstOrDefaultAsync();
         }
 
@@ -105,7 +104,7 @@ namespace PROWeb.Data.Services.Voters
                 int? voterId = null,
                 string? firstName = null,
                 string? lastName = null,
-                string? middleName = null ,
+                string? middleName = null,
                 string? maidenName = null,
                 bool? isEligible = null,
                 DateTime? dateOfBirth = null,
@@ -122,8 +121,8 @@ namespace PROWeb.Data.Services.Voters
         {
             voters = voters.Where(v => v.RegistryYear == registryYear);
             voters = voters.WhereIfNotNull(voterId, v => v.VoterId == voterId);
-            
-            if(!voterId.HasValue)
+
+            if (!voterId.HasValue)
             {
 #nullable disable
                 voters =

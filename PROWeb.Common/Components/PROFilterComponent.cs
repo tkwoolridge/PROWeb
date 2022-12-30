@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PROWeb.Common.Components
 {
@@ -20,9 +15,9 @@ namespace PROWeb.Common.Components
 
         protected bool CanClear { get; set; } = true;
 
-        public void SetFilterCallBack(Func<TFilter,Task> onFiltered)
+        public void SetFilterCallBack(Func<TFilter, Task> onFiltered)
         {
-            Filtered = new EventCallback<TFilter>(this, onFiltered); 
+            Filtered = new EventCallback<TFilter>(this, onFiltered);
         }
 
         protected override void OnInitialized()

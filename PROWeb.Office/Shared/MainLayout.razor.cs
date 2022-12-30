@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Kendo.Mvc.UI;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Components.Extensions;
-using PROWeb.Components.Mapping;
 using PROWeb.Components.ViewModels.Navigation;
 using PROWeb.Data.Services.Configuration;
 using Telerik.Blazor.Components;

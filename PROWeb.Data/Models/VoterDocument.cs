@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PROWeb.Data.Models
 {
-    public class VoterDocument
+    public class Document
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int VoterDocumentId { get; set; }
+        public int DocumentId { get; set; }
 
         [Required]
-        public int VoterId { get; set; }
+        public int PersonId { get; set; }
 
         [Required]
         public int RegistryYear { get; set; }

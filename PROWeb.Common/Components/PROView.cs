@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using PROWeb.Common.Components;
 
 namespace PROWeb.Common.Components
 {
@@ -23,7 +21,7 @@ namespace PROWeb.Common.Components
             Context = ViewContext?.Model as TViewModel ?? default!;
             Editable = ViewContext?.IsEditable == true;
 
-            if(ViewContext !=null)
+            if (ViewContext != null)
             {
                 ViewContext.AddView(this);
             }

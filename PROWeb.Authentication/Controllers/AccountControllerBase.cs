@@ -2,28 +2,29 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PROWeb.Authentication.Models;
 using PROWeb.Authentication.Properties;
 using PROWeb.Authentication.ViewModels.Account;
 using PROWeb.Common.Extensions;
-using PROWeb.Data.Models;
 using PROWeb.Data.Services.Logging;
 using ILogger = Serilog.ILogger;
 
 namespace PROWeb.Authentication.Controllers
 {
     [Area("Identity")]
-    public class AccountController : Controller
+    public abstract class AccountControllerBase<TUser> : Controller
+        where TUser : IdentityUser, IPROUser
     {
         private const string AreaPath = "~/Identity/Account";
 
-        private readonly SignInManager<PROUser> _signInManager;
-        private readonly UserManager<PROUser> _userManager;
+        private readonly SignInManager<TUser> _signInManager;
+        private readonly UserManager<TUser> _userManager;
         private readonly ILogger _logger;
         private readonly IActivityLogService _activityLog;
 
-        public AccountController(
-            SignInManager<PROUser> signInManager,
-            UserManager<PROUser> userManager,
+        protected AccountControllerBase(
+            SignInManager<TUser> signInManager,
+            UserManager<TUser> userManager,
             ILogger logger,
             IActivityLogService activityLog)
         {
@@ -39,12 +40,12 @@ namespace PROWeb.Authentication.Controllers
             if (_signInManager.IsSignedIn(User))
             {
                 await _signInManager.SignOutAsync();
-  
+
 
                 if (User.Identity?.Name is { } userName &&
                     await _userManager.FindByNameAsync(userName) is { } user)
                 {
-                    await _activityLog.LogUserActivity(user, Messages.UserLoggedOutMessage);
+                    await _activityLog.LogUserActivity(userName, Messages.UserLoggedOutMessage);
 
                     await _userManager.UpdateSecurityStampAsync(user);
                 }
@@ -96,7 +97,7 @@ namespace PROWeb.Authentication.Controllers
                 var result = await _signInManager.PasswordSignInAsync(userName, password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    await _activityLog.LogUserActivity(user, Messages.UserLoggedInMessage);
+                    await _activityLog.LogUserActivity(user.UserName, Messages.UserLoggedInMessage);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
