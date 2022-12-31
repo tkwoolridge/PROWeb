@@ -23,19 +23,6 @@ namespace PROWeb.Components.Layouts
             }
         }
 
-        private void OnEditContextUpdate()
-        {
-            if (EditContext is { } context && context.Model is TViewModel model)
-            {
-                Model = EditContext.Model as TViewModel;
-                ViewContext = new PROViewContext<TViewModel>(model, context, true);
-
-                EditContext.OnFieldChanged -= OnFieldChanged;
-                EditContext.OnFieldChanged += OnFieldChanged;
-                Editable = true;
-            }
-        }
-
         [CascadingParameter]
         public TViewModel? Model 
         { 
@@ -47,14 +34,6 @@ namespace PROWeb.Components.Layouts
                     _model = value;
                     OnModelUpdate();
                 }
-            }
-        }
-
-        private void OnModelUpdate()
-        {
-            if(Model!= null)
-            {
-                ViewContext = new PROViewContext<TViewModel>(Model);
             }
         }
 
@@ -120,6 +99,27 @@ namespace PROWeb.Components.Layouts
             }
 
             return errors != null;
+        }
+
+        private void OnEditContextUpdate()
+        {
+            if (EditContext is { } context && context.Model is TViewModel model)
+            {
+                Model = EditContext.Model as TViewModel;
+                ViewContext = new PROViewContext<TViewModel>(model, context, true);
+
+                EditContext.OnFieldChanged -= OnFieldChanged;
+                EditContext.OnFieldChanged += OnFieldChanged;
+                Editable = true;
+            }
+        }
+
+        private void OnModelUpdate()
+        {
+            if (Model != null)
+            {
+                ViewContext = new PROViewContext<TViewModel>(Model);
+            }
         }
     }
 }
