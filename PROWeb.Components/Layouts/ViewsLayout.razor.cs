@@ -6,11 +6,57 @@ namespace PROWeb.Components.Layouts
 {
     public abstract partial class ViewsLayout<TViewModel> : PROContentLayout where TViewModel : class
     {
-        [CascadingParameter]
-        public EditContext? EditContext { get; set; }
+        private TViewModel? _model;
+        private EditContext? _editContext;
 
         [CascadingParameter]
-        public TViewModel? Model { get; set; }
+        public EditContext? EditContext 
+        { 
+            get => _editContext; 
+            set
+            {
+                if(_editContext != value)
+                {
+                    _editContext = value;
+                    OnEditContextUpdate();
+                }
+            }
+        }
+
+        private void OnEditContextUpdate()
+        {
+            if (EditContext is { } context && context.Model is TViewModel model)
+            {
+                Model = EditContext.Model as TViewModel;
+                ViewContext = new PROViewContext<TViewModel>(model, context, true);
+
+                EditContext.OnFieldChanged -= OnFieldChanged;
+                EditContext.OnFieldChanged += OnFieldChanged;
+                Editable = true;
+            }
+        }
+
+        [CascadingParameter]
+        public TViewModel? Model 
+        { 
+            get => _model;
+            set 
+            {
+                if(_model != value)
+                {
+                    _model = value;
+                    OnModelUpdate();
+                }
+            }
+        }
+
+        private void OnModelUpdate()
+        {
+            if(Model!= null)
+            {
+                ViewContext = new PROViewContext<TViewModel>(Model);
+            }
+        }
 
         [Parameter]
         public PROViewContext<TViewModel>? ViewContext { get; set; }
@@ -25,20 +71,6 @@ namespace PROWeb.Components.Layouts
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            if (Model != null)
-            {
-                ViewContext = new PROViewContext<TViewModel>(Model);
-            }
-            else if (EditContext is { } context && context.Model is TViewModel model)
-            {
-                Model = EditContext.Model as TViewModel;
-                ViewContext = new PROViewContext<TViewModel>(model, context, true);
-
-                EditContext.OnFieldChanged -= OnFieldChanged;
-                EditContext.OnFieldChanged += OnFieldChanged;
-                Editable = true;
-            }
         }
 
         private void OnFieldChanged(object? sender, FieldChangedEventArgs e)

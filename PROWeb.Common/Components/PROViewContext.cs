@@ -15,7 +15,10 @@ namespace PROWeb.Common.Components
 
         internal void AddView(PROView<TViewModel> view)
         {
-            Views.Add(view);
+            if(!Views.Contains(view))
+            {
+                Views.Add(view);
+            }
         }
 
         public PROViewContext(TViewModel model, EditContext? context = null, bool isEditable = false)

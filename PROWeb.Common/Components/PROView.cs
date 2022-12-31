@@ -4,8 +4,27 @@ namespace PROWeb.Common.Components
 {
     public abstract class PROView<TViewModel> : PROComponent where TViewModel : class
     {
+        private PROViewContext<TViewModel>? _viewContext;
+
         [CascadingParameter]
-        public PROViewContext<TViewModel>? ViewContext { get; set; }
+        public PROViewContext<TViewModel>? ViewContext 
+        { 
+            get => _viewContext; 
+            set
+            {
+                if (_viewContext != value)
+                {
+                    _viewContext = value;
+                    OnViewContextUpdate();
+                }
+            }       
+        }
+
+        private void OnViewContextUpdate()
+        {
+            Context = ViewContext?.Model as TViewModel ?? default!;
+            Editable = ViewContext?.IsEditable == true;
+        }
 
         [Parameter]
         public string? Title { get; set; }
@@ -17,9 +36,6 @@ namespace PROWeb.Common.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            Context = ViewContext?.Model as TViewModel ?? default!;
-            Editable = ViewContext?.IsEditable == true;
 
             if (ViewContext != null)
             {
