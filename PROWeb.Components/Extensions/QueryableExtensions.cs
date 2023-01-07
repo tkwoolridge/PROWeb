@@ -12,9 +12,9 @@ namespace PROWeb.Components.Extensions
             return source.ProjectTo<TViewModel>(mapper.ConfigurationProvider, parameters);
         }
 
-        public static TViewModel MapTo<TViewModel>(this object source, IMapper mapper) where TViewModel : ViewModelBase
+        public static TTarget MapTo<TTarget>(this object source, IMapper mapper) where TTarget : class
         {
-            return mapper.Map<TViewModel>(source);
+            return mapper.Map<TTarget>(source);
         }
 
         public static IList<TViewModel> ProjectToList<TViewModel>(this IQueryable source, IMapper mapper, IDictionary<string, object>? parameters = null) where TViewModel : ViewModelBase

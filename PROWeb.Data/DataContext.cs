@@ -68,7 +68,7 @@ namespace PROWeb.Data
 
             modelBuilder.Entity<VoterFlag>()
                 .HasMany<Voter>(v => v.Voters)
-                .WithMany(vf => vf.VoterFlags)
+                .WithMany(vf => vf.PersonFlags)
                 .UsingEntity<Dictionary<string, object>>(
                 "VoterVoterFlag",
                     j => j.HasOne<Voter>()
@@ -78,8 +78,8 @@ namespace PROWeb.Data
                     .OnDelete(DeleteBehavior.Cascade),
                     j => j.HasOne<VoterFlag>()
                     .WithMany()
-                    .HasForeignKey("VoterFlagId")
-                    .HasConstraintName("FK_VoterVoterFlag_VoterFlags_VoterFlagId")
+                    .HasForeignKey("FlagId")
+                    .HasConstraintName("FK_VoterVoterFlag_VoterFlags_FlagId")
                     .OnDelete(DeleteBehavior.Cascade)
                 );
 

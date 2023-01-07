@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PROWeb.Data;
 
@@ -11,9 +12,11 @@ using PROWeb.Data;
 namespace PROWeb.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230107205215_PersonFlags")]
+    partial class PersonFlags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -794,11 +797,11 @@ namespace PROWeb.Data.Migrations
 
             modelBuilder.Entity("PROWeb.Data.Models.VoterFlag", b =>
                 {
-                    b.Property<int>("FlagId")
+                    b.Property<int>("PersonFlagId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlagId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonFlagId"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -818,14 +821,14 @@ namespace PROWeb.Data.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
-                    b.HasKey("FlagId");
+                    b.HasKey("PersonFlagId");
 
                     b.ToTable("VoterFlags");
                 });
 
             modelBuilder.Entity("VoterVoterFlag", b =>
                 {
-                    b.Property<int>("FlagId")
+                    b.Property<int>("PersonFlagId")
                         .HasColumnType("int");
 
                     b.Property<int>("VoterId")
@@ -834,7 +837,7 @@ namespace PROWeb.Data.Migrations
                     b.Property<int>("RegistryYear")
                         .HasColumnType("int");
 
-                    b.HasKey("FlagId", "VoterId", "RegistryYear");
+                    b.HasKey("PersonFlagId", "VoterId", "RegistryYear");
 
                     b.HasIndex("VoterId", "RegistryYear");
 
@@ -953,10 +956,10 @@ namespace PROWeb.Data.Migrations
                 {
                     b.HasOne("PROWeb.Data.Models.VoterFlag", null)
                         .WithMany()
-                        .HasForeignKey("FlagId")
+                        .HasForeignKey("PersonFlagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_VoterVoterFlag_VoterFlags_FlagId");
+                        .HasConstraintName("FK_VoterVoterFlag_VoterFlags_PersonFlagId");
 
                     b.HasOne("PROWeb.Data.Models.Voter", null)
                         .WithMany()

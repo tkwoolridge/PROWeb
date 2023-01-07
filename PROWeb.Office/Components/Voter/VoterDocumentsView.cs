@@ -4,16 +4,16 @@ using PROWeb.Office.ViewModels.Voter;
 
 namespace PROWeb.Office.Components.Voter
 {
-    public class VoterDocumentsView : PersonDocumentsView<ListVoterViewModel, VoterDocumentViewModel>
+    public class VoterDocumentsView : PersonDocumentsView<ListVoterViewModel, DocumentViewModel>
     {
-        protected override void OnDeleteDocument(int personId, int documetId)
+        protected override async Task OnDeleteDocumentAsync(int personId, int documetId)
         {
-            base.OnDeleteDocument(personId, documetId);
+            await base.OnDeleteDocumentAsync(personId, documetId);
         }
 
-        protected override void OnSubmitNewDocument()
+        protected override async Task OnSubmitNewDocumentAsync()
         {
-            base.OnSubmitNewDocument();
+            await base.OnSubmitNewDocumentAsync();
         }
     }
 }

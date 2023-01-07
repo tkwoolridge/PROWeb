@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Components.ViewModels.Voter
 {
-    public class VoterDocumentViewModel : ViewModelBase, IDocumentViewModel
+    public class DocumentViewModel : ViewModelBase, IDocumentViewModel
     {
         public int DocumentId { get; set; }
 

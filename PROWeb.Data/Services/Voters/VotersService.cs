@@ -26,10 +26,7 @@ namespace PROWeb.Data.Services.Voters
         {
         }
 
-        public IQueryable<VoterFlag> GetVoterFlags()
-        {
-            return Context.VoterFlags;
-        }
+        #region Voters
 
         public Voter? GetVoter(int registryYear, int voterId)
         {
@@ -38,19 +35,6 @@ namespace PROWeb.Data.Services.Voters
                 registryYear,
                 voterId)
                 .FirstOrDefault();
-        }
-
-        public async Task<Document?> GetVoterDocumentAsync(int id)
-        {
-            return await Context.Documents.FirstOrDefaultAsync(d => d.DocumentId == id);
-        }
-
-        public async Task<byte[]?> GetVoterDocumentContentAsync(int id)
-        {
-            return await Context.Documents
-                .Where(d => d.DocumentId == id)
-                .Select(d => d.Content)
-                .FirstOrDefaultAsync();
         }
 
         public IQueryable<Voter> GetVoters
@@ -148,9 +132,50 @@ namespace PROWeb.Data.Services.Voters
             return voters;
         }
 
-        //public void UpdateVoter(VoterViewModel voter)
-        //{
+        #endregion
 
-        //}
+        #region VoterFlags
+
+        public IQueryable<VoterFlag> GetVoterFlags()
+        {
+            return Context.VoterFlags;
+        }
+
+        #endregion
+
+        #region Documents
+
+        public async Task<byte[]?> GetVoterDocumentContentAsync(int id)
+        {
+            return await Context.Documents
+                .Where(d => d.DocumentId == id)
+                .Select(d => d.Content)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<Document?> GetVoterDocumentAsync(int id)
+        {
+            return await Context.Documents.FirstOrDefaultAsync(d => d.DocumentId == id);
+        }
+
+        public async Task AddDocumentAsync(Document document)
+        {
+            Context.Documents.Add(document);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task DeleteDocumentAsync(int id)
+        {
+            Document? document = await Context.Documents.FirstOrDefaultAsync(d => d.DocumentId == id);
+
+            if (document != null)
+            {
+                Context.Documents.Remove(document);
+
+                await Context.SaveChangesAsync();
+            }
+        }
+
+        #endregion
     }
 }

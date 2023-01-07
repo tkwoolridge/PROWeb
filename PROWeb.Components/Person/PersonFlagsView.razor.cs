@@ -1,18 +1,20 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
+using PROWeb.Common.ViewModels;
 using PROWeb.Components.Extensions;
 using PROWeb.Components.ViewModels.Person;
-using PROWeb.Components.ViewModels.Voter;
 using PROWeb.Data.Services.Voters;
 
 namespace PROWeb.Components.Person
 {
-    public class PersonFlagsViewBase<TPersonFlagsViewModel> : PROView<TPersonFlagsViewModel> where TPersonFlagsViewModel : class, IPersonFlagsViewModel
+    public class PersonFlagsViewBase<TPersonFlagsViewModel,TPersonFlagViewModel> : PROView<TPersonFlagsViewModel> 
+        where TPersonFlagsViewModel : class, IPersonFlagsViewModel<TPersonFlagViewModel>
+        where TPersonFlagViewModel : ViewModelBase,IPersonFlagViewModel, new()
     {
         [Inject]
         private IVotersServiceFactory _voterServiceFactory { get; set; } = null!;
 
-        protected IList<VoterFlagViewModel>? VoterFlags { get; set; }
+        protected IList<TPersonFlagViewModel>? PersonFlags { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -20,10 +22,10 @@ namespace PROWeb.Components.Person
 
             using (var service = _voterServiceFactory.CreateService())
             {
-                VoterFlags = await service.GetVoterFlags().ProjectToListAsync<VoterFlagViewModel>(Mapper);
+                PersonFlags = await service.GetVoterFlags().ProjectToListAsync<TPersonFlagViewModel>(Mapper);
             }
 
-            Context.VoterFlagsValues = Context.VoterFlags.Select(f => f.VoterFlagId).ToList();
+            Context.PersonFlagsValues = Context.PersonFlags.Select(f => f.FlagId).ToList();
         }
     }
 }

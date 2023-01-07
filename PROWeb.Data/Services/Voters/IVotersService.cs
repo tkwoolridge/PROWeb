@@ -4,7 +4,7 @@ namespace PROWeb.Data.Services.Voters
 {
     public interface IVotersService
     {
-        IQueryable<VoterFlag> GetVoterFlags();
+        #region Voters
 
         Voter? GetVoter(int registryYear, int voterId);
 
@@ -29,10 +29,24 @@ namespace PROWeb.Data.Services.Voters
                string? postalCode = null
            );
 
+        #endregion
+
+        #region Voter Flags
+
+        IQueryable<VoterFlag> GetVoterFlags();
+
+        #endregion
+
+        #region Documents
+
         Task<Document?> GetVoterDocumentAsync(int id);
 
         Task<byte[]?> GetVoterDocumentContentAsync(int id);
 
-        //void UpdateVoter(VoterViewModel voter);
+        Task AddDocumentAsync(Document document);
+
+        Task DeleteDocumentAsync(int id);
+
+        #endregion
     }
 }

@@ -2,7 +2,8 @@
 
 namespace PROWeb.Components.ViewModels.Person
 {
-    public interface IPersonFlagsViewModel
+    public interface IPersonFlagsViewModel<TPersonFlagViewModel>
+        where TPersonFlagViewModel : IPersonFlagViewModel
     {
         bool? CommonwealthCitizen { get; set; }
 
@@ -12,8 +13,8 @@ namespace PROWeb.Components.ViewModels.Person
 
         bool? IsBermudianStatusGranted { get; set; }
 
-        List<VoterFlagViewModel> VoterFlags { get; set; }
+        List<TPersonFlagViewModel> PersonFlags { get; set; }
 
-        List<int> VoterFlagsValues { get; set; }
+        List<int> PersonFlagsValues { get; set; }
     }
 }

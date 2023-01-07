@@ -10,6 +10,11 @@ namespace PROWeb.Office.Mapper
         public OfficeMapperProfile() : base()
         {
             CreateMap<Voter, ListVoterViewModel>().IncludeBase<Voter, VoterViewModel>();
+
+            CreateMap<VoterFlagViewModel, VoterFlag>();
+            CreateMap<DocumentViewModel, Document>();
+
+            CreateMap<VoterViewModel, Voter>();
         }
     }
 }

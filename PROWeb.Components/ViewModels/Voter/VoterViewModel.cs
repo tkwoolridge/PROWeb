@@ -5,8 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Components.ViewModels.Voter
 {
-    public class VoterViewModel : ViewModelBase, IPersonDetailsViewModel, IAddressViewModel, IContactInfoViewModel, IPersonFlagsViewModel, IPersonDocumentsViewModel<VoterDocumentViewModel>
+    public class VoterViewModel : ViewModelBase, IPersonDetailsViewModel, IAddressViewModel, IContactInfoViewModel, IPersonFlagsViewModel<VoterFlagViewModel>, IPersonDocumentsViewModel<DocumentViewModel>
     {
+        public int PersonId => VoterId;
+
+        public string FullName => LastName + (!string.IsNullOrWhiteSpace(MiddleName) ? $" {MiddleName} " : "") + FirstName;
+
         public int VoterId { get; set; }
 
         public int RegistryYear { get; set; }
@@ -95,10 +99,10 @@ namespace PROWeb.Components.ViewModels.Voter
 
         public string? LastUpdatedBy { get; set; }
 
-        public List<VoterFlagViewModel> VoterFlags { get; set; } = null!;
+        public List<VoterFlagViewModel> PersonFlags { get; set; } = null!;
 
-        public List<int> VoterFlagsValues { get; set; } = null!;
+        public List<int> PersonFlagsValues { get; set; } = null!;
 
-        public List<VoterDocumentViewModel> Documents { get; set; } = null!;
+        public List<DocumentViewModel> Documents { get; set; } = null!;
     }
 }

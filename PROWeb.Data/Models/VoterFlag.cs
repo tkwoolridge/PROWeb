@@ -9,7 +9,7 @@ namespace PROWeb.Data.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int VoterFlagId { get; set; }
+        public int FlagId { get; set; }
 
         [Required]
         [StringLength(150)]

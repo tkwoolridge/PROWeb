@@ -24,7 +24,7 @@ namespace PROWeb.Components.Mapping
             .ForMember(vm => vm.ParishName, options => options.MapFrom(a => a.Parish.ParishName));
 
             CreateMap<VoterFlag, VoterFlagViewModel>();
-            CreateMap<Document, VoterDocumentViewModel>();
+            CreateMap<Document, DocumentViewModel>();
 
             CreateMap<Constituency, VoterViewModel>();
             CreateMap<Parish, VoterViewModel>();
