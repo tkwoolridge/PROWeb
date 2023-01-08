@@ -29,6 +29,8 @@ namespace PROWeb.Data.Services.Voters
                string? postalCode = null
            );
 
+        Task UpdateVoter(Voter voter, string userName);
+
         #endregion
 
         #region Voter Flags

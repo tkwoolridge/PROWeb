@@ -3,8 +3,9 @@
 @using PROWeb.Components.Common
 @using PROWeb.Components.Person.Filters
 @using PROWeb.Components.ViewModels.Person
-@using PROWeb.Office.Components.Voter
-@using PROWeb.Office.ViewModels.Voter;
+@using PROWeb.Office.Components.Voters
+@using PROWeb.Office.Components.Voters.Filters
+@using PROWeb.Office.ViewModels.Voters;
 @using Telerik.Blazor.Components.PanelBar
 @using PROWeb.Office.Components.VoterRegistry
 @inherits PRORegistryLayout<PersonFilterViewModel, ListVoterViewModel>
@@ -33,7 +34,7 @@
 
 @code
 {
-    private RenderFragment AdvancedFilterTemplate => @<PersonFilterAdvanced @ref="@FilterRef"></PersonFilterAdvanced>;
+    private RenderFragment AdvancedFilterTemplate => @<VoterFilterAdvanced @ref="@FilterRef"></VoterFilterAdvanced>;
 
     private RenderFragment SimpleFilterTemplate => @<PersonFilterSimple @ref="@FilterRef" ></PersonFilterSimple>;
 }

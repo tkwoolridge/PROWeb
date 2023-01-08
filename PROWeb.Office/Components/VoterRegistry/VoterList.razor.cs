@@ -2,9 +2,8 @@
 using PROWeb.Common.Components;
 using PROWeb.Components.Extensions;
 using PROWeb.Components.ViewModels.Person;
-using PROWeb.Components.ViewModels.Voter;
 using PROWeb.Data.Services.Voters;
-using PROWeb.Office.ViewModels.Voter;
+using PROWeb.Office.ViewModels.Voters;
 using Telerik.Blazor.Components;
 
 namespace PROWeb.Office.Components.VoterRegistry
@@ -16,9 +15,19 @@ namespace PROWeb.Office.Components.VoterRegistry
 
         protected int Page { get; set; }
 
+        protected TelerikListView<ListVoterViewModel> VoterListRef { get; set; }
+
         protected void OnUpdate(ListViewCommandEventArgs args)
         {
-            var item = args.Item as VoterViewModel;
+            if (args.Item is ListVoterViewModel current &&
+                Data.FirstOrDefault(m => m.VoterId == current.VoterId) is { } previous &&
+                Data.IndexOf(previous) is { } index && index > -1) 
+            {
+                Data.RemoveAt(index);
+                Data.Insert(index, current);
+
+                VoterListRef.Rebind();
+            }
         }
 
         protected override async Task<IList<ListVoterViewModel>> OnFilterAsync(PersonFilterViewModel filter)

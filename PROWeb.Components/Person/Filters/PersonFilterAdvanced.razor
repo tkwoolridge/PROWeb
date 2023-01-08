@@ -1,10 +1,11 @@
-﻿@using PROWeb.Components.ViewModels.Assessment
+﻿@using PROWeb.Common.ViewModels;
+@using PROWeb.Components.ViewModels.Assessment
 @using PROWeb.Components.Person.Filters
 @using PROWeb.Components.ViewModels.Person
-@using PROWeb.Components.ViewModels.Voter
 @using PROWeb.Common.Components
 @using Telerik.Blazor
-@inherits PROFilterComponent<PersonFilterViewModel>
+@typeparam TPersonFlagViewModel where TPersonFlagViewModel : ViewModelBase,IPersonFlagViewModel, new()
+@inherits PersonFilterAdvancedBase<TPersonFlagViewModel>
 
 <TelerikForm Model="@Filter"
              OnSubmit="@OnSearchAsync"
@@ -66,14 +67,14 @@
                     <TelerikComboBox Id="registryYear" @bind-Value="@Filter.RegistryYear" Data="@RegistrationYears" />
                 </Template>
             </FormItem>
-            <FormItem Field="@nameof(PersonFilterViewModel.VoterFlags)">
+            <FormItem Field="@nameof(PersonFilterViewModel.Flags)">
                 <Template>
                     <label for="voterFlags" class="k-label k-form-label">Voter Flags:</label>
                     <TelerikMultiSelect Data="@Flags"
                         Placeholder="Select flags..." 
-                        Id="voterFlags" @bind-Value="@Filter.VoterFlags"
-                        TextField="@nameof(VoterFlagViewModel.FlagDescription)" 
-                        ValueField="@nameof(VoterFlagViewModel.FlagId)"/>
+                        Id="voterFlags" @bind-Value="@Filter.Flags"
+                        TextField="@nameof(IPersonFlagViewModel.FlagDescription)"
+                        ValueField="@nameof(IPersonFlagViewModel.FlagId)" />
                 </Template>
             </FormItem>
         </FormGroup>

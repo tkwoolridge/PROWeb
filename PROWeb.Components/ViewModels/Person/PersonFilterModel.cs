@@ -57,8 +57,8 @@ namespace PROWeb.Components.ViewModels.Person
         [Display(Name = "Postal Code:")]
         public string? PostalCode { get; set; }
 
-        public int? VoterFlagId { get; set; }
+        public int? FlagId { get; set; }
 
-        public List<int>? VoterFlags { get; set; }
+        public List<int>? Flags { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("ActivityId");
 
-                    b.ToTable("ActivityLogs");
+                    b.ToTable("ActivityLogs", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Assessment", b =>
@@ -91,7 +91,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("ParishNo");
 
-                    b.ToTable("Assessments");
+                    b.ToTable("Assessments", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.AssessmentFlag", b =>
@@ -117,7 +117,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("AssessmentFlagId");
 
-                    b.ToTable("AssessmentFlags");
+                    b.ToTable("AssessmentFlags", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Birth", b =>
@@ -146,7 +146,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("BirthId");
 
-                    b.ToTable("Births");
+                    b.ToTable("Births", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Constituency", b =>
@@ -166,7 +166,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("ConstituencyNo");
 
-                    b.ToTable("Constituencies");
+                    b.ToTable("Constituencies", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Country", b =>
@@ -184,7 +184,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Document", b =>
@@ -225,7 +225,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("PersonId", "RegistryYear");
 
-                    b.ToTable("Documents");
+                    b.ToTable("Documents", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.DriverLicense", b =>
@@ -268,7 +268,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("DriverLicenseId");
 
-                    b.ToTable("DriverLicenses");
+                    b.ToTable("DriverLicenses", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.FormType", b =>
@@ -283,7 +283,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("FormTypeId");
 
-                    b.ToTable("FormTypes");
+                    b.ToTable("FormTypes", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Immigration", b =>
@@ -332,7 +332,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("ImmigrationId");
 
-                    b.ToTable("Immigrations");
+                    b.ToTable("Immigrations", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.OldPROUser", b =>
@@ -377,7 +377,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OldPROUsers");
+                    b.ToTable("OldPROUsers", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.PROOffice", b =>
@@ -457,7 +457,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("PROOfficeId");
 
-                    b.ToTable("PROOffices");
+                    b.ToTable("PROOffices", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Parish", b =>
@@ -475,7 +475,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("ParishNo");
 
-                    b.ToTable("Parishes");
+                    b.ToTable("Parishes", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Registration", b =>
@@ -633,7 +633,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("VoterId", "RegistryYear");
 
-                    b.ToTable("Registrations");
+                    b.ToTable("Registrations", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.RegistrationOrigin", b =>
@@ -648,7 +648,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("RegistrationOriginId");
 
-                    b.ToTable("RegistrationOrigins");
+                    b.ToTable("RegistrationOrigins", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.RegistrationStatus", b =>
@@ -666,7 +666,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("RegistrationStatusId");
 
-                    b.ToTable("RegistrationStatuses");
+                    b.ToTable("RegistrationStatuses", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Voter", b =>
@@ -789,7 +789,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Voters");
+                    b.ToTable("Voters", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.VoterFlag", b =>
@@ -820,7 +820,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("FlagId");
 
-                    b.ToTable("VoterFlags");
+                    b.ToTable("VoterFlags", (string)null);
                 });
 
             modelBuilder.Entity("VoterVoterFlag", b =>
@@ -838,7 +838,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("VoterId", "RegistryYear");
 
-                    b.ToTable("VoterVoterFlag");
+                    b.ToTable("VoterVoterFlag", (string)null);
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Assessment", b =>

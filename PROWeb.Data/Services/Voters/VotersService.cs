@@ -132,6 +132,25 @@ namespace PROWeb.Data.Services.Voters
             return voters;
         }
 
+        public async Task UpdateVoter(Voter voter, string userName)
+        {
+            var flags = voter.Flags.ToList();
+
+            voter.Flags.Clear();
+            Context.AttachRange(flags);
+            Context.Attach(voter);
+
+            voter.LastUpdated= DateTime.Now;
+            voter.LastUpdatedBy = userName;
+
+            voter = await Context.Voters.Include(l => l.Flags).SingleAsync(v => voter.Equals(v));
+            voter.Flags = flags;
+
+            Context.Update(voter);
+
+            await Context.SaveChangesAsync();
+        }
+
         #endregion
 
         #region VoterFlags

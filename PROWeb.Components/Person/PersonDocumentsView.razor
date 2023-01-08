@@ -1,5 +1,4 @@
-﻿@using PROWeb.Components.ViewModels.Voter;
-@using PROWeb.Components.ViewModels.Person;
+﻿@using PROWeb.Components.ViewModels.Person;
 @typeparam TPersonDocumentsViewModel where TPersonDocumentsViewModel : class, IPersonDocumentsViewModel<TDocumentViewModel>
 @typeparam TDocumentViewModel where TDocumentViewModel : class, IDocumentViewModel, new()
 @inherits PersonDocumentsViewBase<TPersonDocumentsViewModel, TDocumentViewModel>
@@ -12,20 +11,18 @@
             <GridColumn Width="50px">
                 <Template>
                     @{
-                        int personId = ((IDocumentViewModel)context).PersonId;
                         int documetId = ((IDocumentViewModel)context).DocumentId;
 
-                        <TelerikButton Icon="download" OnClick="@(async _ => await DownloadDocumentAsync(personId, documetId) )"/>
+                        <TelerikButton Icon="download" OnClick="@(async _ => await OnDownloadDocumentAsync(documetId) )"/>
                     }
                 </Template>
             </GridColumn>
             <GridColumn Width="50px">
                 <Template>
                     @{
-                        int personId = ((IDocumentViewModel)context).PersonId;
                         int documetId = ((IDocumentViewModel)context).DocumentId;
 
-                        <TelerikButton Icon="delete" OnClick="@(_ => OnDeleteDocumentAsync(personId, documetId) )" />
+                        <TelerikButton Icon="delete" OnClick="@(_ => OnDeleteDocumentAsync(documetId) )" />
                     }
                 </Template>
             </GridColumn>
@@ -53,8 +50,8 @@
             <div class="k-form-field">
                 <label for="name" class="k-label k-form-label">Name:</label>
                 <div class="k-form-field-wrap">
-                    <TelerikTextBox @bind-Value="@NewDocument.DocumentName" Id="@(nameof(DocumentViewModel.DocumentName))" />
-                    <TelerikValidationTooltip For="@(() => NewDocument.DocumentName)" TargetSelector="@("#" + nameof(DocumentViewModel.DocumentName))" />
+                    <TelerikTextBox @bind-Value="@NewDocument.DocumentName" Id="@(nameof(IDocumentViewModel.DocumentName))" />
+                    <TelerikValidationTooltip For="@(() => NewDocument.DocumentName)" TargetSelector="@("#" + nameof(IDocumentViewModel.DocumentName))" />
                 </div>
             </div>
             <div class="k-form-field">

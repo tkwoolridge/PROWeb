@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Components.ViewModels.Person;
-using PROWeb.Office.ViewModels.Voter;
+using PROWeb.Office.ViewModels.Voters;
 
 namespace PROWeb.Office.Pages
 {

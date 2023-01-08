@@ -2,8 +2,6 @@
 {
     public interface IDocumentViewModel
     {
-        int PersonId { get; set; }
-
         int DocumentId { get; set; }
 
         DateTime DocumentDate { get; set; }
@@ -13,5 +11,7 @@
         string? DocumentDescription { get; set; }
 
         string? ExportFormat { get; set; }
+
+        byte[]? Content { get; set; }
     }
 }

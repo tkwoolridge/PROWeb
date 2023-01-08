@@ -68,7 +68,7 @@ namespace PROWeb.Data
 
             modelBuilder.Entity<VoterFlag>()
                 .HasMany<Voter>(v => v.Voters)
-                .WithMany(vf => vf.PersonFlags)
+                .WithMany(vf => vf.Flags)
                 .UsingEntity<Dictionary<string, object>>(
                 "VoterVoterFlag",
                     j => j.HasOne<Voter>()

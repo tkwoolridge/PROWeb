@@ -1,5 +1,4 @@
 ﻿@using PROWeb.Common.ViewModels;
-@using PROWeb.Components.ViewModels.Voter;
 @using PROWeb.Components.ViewModels.Person;
 @typeparam TPersonFlagsViewModel where TPersonFlagsViewModel : class, IPersonFlagsViewModel<TPersonFlagViewModel>
 @typeparam TPersonFlagViewModel where TPersonFlagViewModel : ViewModelBase,IPersonFlagViewModel, new()
@@ -10,9 +9,9 @@
     <div>
         <label>Flags:</label>
         <TelerikMultiSelect Enabled="@Editable"
-            ValueField="@(nameof(VoterFlagViewModel.FlagId))" 
-            TextField="@(nameof(VoterFlagViewModel.FlagDescription))"
-            Data="@PersonFlags" @bind-Value="@Context.PersonFlagsValues" />
+            ValueField="@(nameof(IPersonFlagViewModel.FlagId))"
+            TextField="@(nameof(IPersonFlagViewModel.FlagDescription))"
+            Data="@Flags" @bind-Value="@FlagsValues" />
     </div>
     <div>
         <TelerikCheckBox Id="@(nameof(IPersonFlagsViewModel<TPersonFlagViewModel>.CommonwealthCitizen))" Enabled="@Editable" @bind-Value="@Context.CommonwealthCitizen" />

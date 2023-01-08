@@ -2,25 +2,25 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using PROWeb.Common.Components;
-using PROWeb.Components.Extensions;
 using PROWeb.Components.Properties;
 using PROWeb.Components.ViewModels.Person;
-using PROWeb.Components.ViewModels.Voter;
-using PROWeb.Data.Models;
-using PROWeb.Data.Services.Voters;
+using System.Diagnostics;
 using Telerik.Blazor;
 using Telerik.Blazor.Components;
 using Telerik.Blazor.Components.FileSelect;
 
 namespace PROWeb.Components.Person
 {
-    public class PersonDocumentsViewBase<TPersonDocumentsViewModel, TDocumentViewModel> : PROView<TPersonDocumentsViewModel>
+    public abstract partial class PersonDocumentsView<TPersonDocumentsViewModel, TDocumentViewModel> : PersonDocumentsViewBase<TPersonDocumentsViewModel, TDocumentViewModel>
         where TPersonDocumentsViewModel : class, IPersonDocumentsViewModel<TDocumentViewModel>
         where TDocumentViewModel : class, IDocumentViewModel, new()
     {
-        [Inject]
-        private IVotersServiceFactory _voterServiceFactory { get; set; } = null!;
+    }
 
+    public abstract class PersonDocumentsViewBase<TPersonDocumentsViewModel, TDocumentViewModel> : PROView<TPersonDocumentsViewModel>
+        where TPersonDocumentsViewModel : class, IPersonDocumentsViewModel<TDocumentViewModel>
+        where TDocumentViewModel : class, IDocumentViewModel, new()
+    {
         [Inject]
         private IJSRuntime _js { get; set; } = null!;
 
@@ -55,28 +55,26 @@ namespace PROWeb.Components.Person
             OnShowNewDocumentWindow();
         }
 
-        protected virtual async Task OnSubmitNewDocumentAsync()
+        protected async Task OnSubmitNewDocumentAsync()
         {
             OnCloseNewDocumentWindow();
 
-            Document document = NewDocument.MapTo<Document>(Mapper);
-
-            document.PersonId = Context.PersonId;
-            document.DocumentDate = DateTime.Now;
-            document.RegistryYear= Context.RegistryYear;
-            document.Content = _newDocStream?.ToArray();
-
-            using (var service = _voterServiceFactory.CreateService())
+            if(_newDocStream is not { } stream)
             {
-                await service.AddDocumentAsync(document);
-                Context.Documents.Add(NewDocument);
-                NewDocument.DocumentId = document.DocumentId;
+                return;
             }
+
+            int documentId = await AddDocumentAsync(NewDocument, stream);
+
+            Context.Documents.Add(NewDocument);
+            NewDocument.DocumentId = documentId;
 
             DocumentsGridRef?.Rebind();
         }
 
-        protected virtual async Task OnDeleteDocumentAsync(int personId, int documetId)
+        protected abstract Task<int> AddDocumentAsync(TDocumentViewModel vmDocument, MemoryStream stream);
+
+        protected async Task OnDeleteDocumentAsync(int documetId)
         {
             if (Context.Documents.FirstOrDefault(d => d.DocumentId == documetId) is not { } document)
             {
@@ -85,19 +83,18 @@ namespace PROWeb.Components.Person
 
             bool isConfirmed = await Dialogs.ConfirmAsync(string.Format(Messages.DeleteDocumentMessage, document.DocumentName, Context.FullName), "Delete Document.");
 
-            if(!isConfirmed)
+            if (!isConfirmed)
             {
                 return;
             }
 
-            using (var service = _voterServiceFactory.CreateService())
-            {
-                await service.DeleteDocumentAsync(documetId);
-                Context.Documents.Remove(document);
-            }
+            await DeleteDocumentAsync(document);
+            Context.Documents.Remove(document);
 
             DocumentsGridRef?.Rebind();
         }
+
+        protected abstract Task DeleteDocumentAsync(TDocumentViewModel vmDocument);
 
         protected async Task OnSelectDocumentHandler(FileSelectEventArgs args)
         {
@@ -133,24 +130,20 @@ namespace PROWeb.Components.Person
             AllowSubmitDocument = false;
         }
 
-        protected async Task DownloadDocumentAsync(int voterId, int documetId)
+        protected async Task OnDownloadDocumentAsync(int documetId)
         {
-            byte[]? content;
-            Document? document;
+            TDocumentViewModel? document = await DownloadDocumentAsync(documetId);
 
-            using (var service = _voterServiceFactory.CreateService())
-            {
-                document = await service.GetVoterDocumentAsync(documetId);
-                content = await service.GetVoterDocumentContentAsync(documetId);
-            }
-
-            if (document == null || content == null)
+            if (document?.Content is null)
             {
                 return;
             }
 
-            await DownloadFileFromStreamAsync(document.MapTo<DocumentViewModel>(Mapper), new MemoryStream(content));
+            await DownloadFileFromStreamAsync(document);
         }
+
+        protected abstract Task<TDocumentViewModel?> DownloadDocumentAsync(int documetId);
+
 
         private async Task ReadFileAsync(FileSelectFileInfo file)
         {
@@ -190,11 +183,13 @@ namespace PROWeb.Components.Person
             AllowSubmitDocument = DocumentEditContext?.GetValidationMessages().Any() == false && _newDocStream != null;
         }
 
-        private async Task DownloadFileFromStreamAsync(DocumentViewModel document, Stream stream)
+        private async Task DownloadFileFromStreamAsync(TDocumentViewModel document)
         {
             var fileName = $"{document.DocumentName}.{document.ExportFormat}";
 
-            using var streamRef = new DotNetStreamReference(stream: stream);
+            Debug.Assert(document.Content != null);
+
+            using var streamRef = new DotNetStreamReference(stream: new MemoryStream(document.Content));
 
             await _js.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
         }

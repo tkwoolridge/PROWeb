@@ -1,6 +1,4 @@
-﻿using PROWeb.Components.ViewModels.Voter;
-
-namespace PROWeb.Components.ViewModels.Person
+﻿namespace PROWeb.Components.ViewModels.Person
 {
     public interface IPersonFlagsViewModel<TPersonFlagViewModel>
         where TPersonFlagViewModel : IPersonFlagViewModel
@@ -13,8 +11,6 @@ namespace PROWeb.Components.ViewModels.Person
 
         bool? IsBermudianStatusGranted { get; set; }
 
-        List<TPersonFlagViewModel> PersonFlags { get; set; }
-
-        List<int> PersonFlagsValues { get; set; }
+        List<TPersonFlagViewModel>? Flags { get; set; }
     }
 }

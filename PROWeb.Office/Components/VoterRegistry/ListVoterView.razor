@@ -1,7 +1,8 @@
 ﻿@using PROWeb.Components.Layouts;
 @using PROWeb.Components.Person;
-@using PROWeb.Office.Office.Voter
-@using PROWeb.Office.ViewModels.Voter;
+@using PROWeb.Office.Components.Voters
+@using PROWeb.Office.Office.Voters
+@using PROWeb.Office.ViewModels.Voters;
 @inherits PROComponent
 
 <style>
@@ -80,8 +81,8 @@
         }
     };
 
-    protected void OnSave(ListViewCommandEventArgs e)
+    protected async Task OnSave(ListViewCommandEventArgs e)
     {
-        e.IsCancelled = ViewsLayout.OnSave();
+        e.IsCancelled = !(await ViewsLayout.OnSaveAsync());
     }
 }

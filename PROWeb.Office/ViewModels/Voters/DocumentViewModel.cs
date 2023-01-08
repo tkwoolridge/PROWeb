@@ -2,7 +2,7 @@
 using PROWeb.Components.ViewModels.Person;
 using System.ComponentModel.DataAnnotations;
 
-namespace PROWeb.Components.ViewModels.Voter
+namespace PROWeb.Office.ViewModels.Voters
 {
     public class DocumentViewModel : ViewModelBase, IDocumentViewModel
     {
@@ -16,10 +16,12 @@ namespace PROWeb.Components.ViewModels.Voter
 
         [Required(ErrorMessage = "Document name is required!")]
         [StringLength(50, ErrorMessage = "Maximum name size is {0} characters!")]
-        public string? DocumentName { get; set; }
+        public string DocumentName { get; set; }
 
-        public string? DocumentDescription { get; set; }
+        public string DocumentDescription { get; set; }
 
-        public string? ExportFormat { get; set; }
+        public string ExportFormat { get; set; }
+
+        public byte[] Content { get; set; }
     }
 }

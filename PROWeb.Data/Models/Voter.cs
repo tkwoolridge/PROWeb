@@ -95,7 +95,7 @@ namespace PROWeb.Data.Models
         [Required]
         public string LastUpdatedBy { get; set; }
 
-        public ICollection<VoterFlag> PersonFlags { get; set; }
+        public ICollection<VoterFlag> Flags { get; set; }
 
         public ICollection<Registration> Registrations { get; set; }
 

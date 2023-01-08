@@ -58,7 +58,7 @@ namespace PROWeb.Components.Layouts
             StateHasChanged();
         }
 
-        public virtual bool OnSave()
+        public virtual async Task<bool> OnSaveAsync()
         {
             if (EditContext == null || ViewContext == null || !Validate())
             {
@@ -70,12 +70,12 @@ namespace PROWeb.Components.Layouts
                 view.OnSave();
             }
 
-            Save();
+            await SaveAsync();
 
             return true;
         }
 
-        public abstract void Save();
+        public abstract Task SaveAsync();
 
         public bool Validate()
         {

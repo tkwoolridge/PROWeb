@@ -20,7 +20,7 @@ namespace PROWeb.Common.Components
             }       
         }
 
-        private void OnViewContextUpdate()
+        protected virtual void OnViewContextUpdate()
         {
             Context = ViewContext?.Model as TViewModel ?? default!;
             Editable = ViewContext?.IsEditable == true;

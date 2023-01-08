@@ -1,6 +1,6 @@
 ﻿using PROWeb.Components.Person;
 
-namespace PROWeb.Office.Components.Voter
+namespace PROWeb.Office.Components.Voters
 {
     public class VoterPhotosView : PersonPhotosView
     {
