@@ -1,0 +1,26 @@
+﻿@using PROWeb.Common.Components;
+@using PROWeb.Components.ViewModels.Assessment
+@using PROWeb.Components.Person.Filters
+@inherits PROFilterComponent<FilterModel>
+
+<TelerikForm Model="@Filter"
+            OnSubmit="@OnSearchAsync">
+    <FormItems>
+        <FormGroup Columns="6" ColumnSpacing="10px">
+            <FormItem ColSpan="3" Field="@nameof(FilterModel.LastName)"/>
+            <FormItem ColSpan="2" Field="@nameof(FilterModel.FirstName)"/>
+            <FormItem ColSpan="1" Field="@nameof(FilterModel.DateOfBirth)">
+                <Template>
+                    <label for="dateOfBirth" class="k-label k-form-label">Date Of Birth:</label>
+                    <TelerikDateInput Id="dateOfBirth" @bind-Value="@Filter.DateOfBirth" Format="MM/dd/yyyy"/>
+                </Template>
+            </FormItem>
+        </FormGroup>
+    </FormItems>
+    <FormButtons>
+        <div class="d-flex justify-content-between w-100">
+            <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" ThemeColor="primary" Enabled="@CanSearch">Search</TelerikButton>
+            <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Button" OnClick="@OnClear">Clear</TelerikButton>
+        </div>
+    </FormButtons>
+</TelerikForm>

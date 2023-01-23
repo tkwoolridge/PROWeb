@@ -1,104 +1,357 @@
 ﻿using PROWeb.Common.ViewModels;
-using PROWeb.Components.ViewModels.Assessment;
-using PROWeb.Components.ViewModels.Person;
-using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Office.ViewModels.Voters
 {
-    public class VoterViewModel : ViewModelBase, IPersonDetailsViewModel, IAddressViewModel, IContactInfoViewModel, IPersonFlagsViewModel<VoterFlagViewModel>, IPersonDocumentsViewModel<DocumentViewModel>
+    public class VoterViewModel : SlimViewModelBase
     {
-        public int VoterId { get; set; }
+        private int _voterId;
+        
+        public int VoterId
+        {
+            get => _voterId;
+            set => RaiseAndSetIfChanged(ref _voterId, value);
+        }
 
-        public int RegistryYear { get; set; }
+        private int _registryYear;
 
-        public int? BirthID { get; set; }
+        public int RegistryYear
+        {
+            get => _registryYear;
+            set => RaiseAndSetIfChanged(ref _registryYear, value);
+        }
 
-        public int? ImmigrationID { get; set; }
+        private int? _birthId;
 
-        public string Title { get; set; }
+        public int? BirthId
+        {
+            get => _birthId;
+            set => RaiseAndSetIfChanged(ref _birthId, value);
+        }
 
-        public char? Initial { get; set; }
+        private int? _immigartionId;
 
-        [Required(ErrorMessage = "Voter name is requred!")]
-        public string FirstName { get; set; }
+        public int? ImmigrationId
+        {
+            get => _immigartionId;
+            set => RaiseAndSetIfChanged(ref _immigartionId, value);
+        }
 
-        [Required(ErrorMessage = "Voter last name is requred!")]
-        public string LastName { get; set; }
+        private string? _title;
 
-        public string MiddleName { get; set; }
+        public string? Title
+        {
+            get => _title;
+            set => RaiseAndSetIfChanged(ref _title, value);
+        }
 
-        public string MaidenName { get; set; }
+        private char? _initial;
+
+        public char? Initial
+        {
+            get => _initial;
+            set => RaiseAndSetIfChanged(ref _initial, value);
+        }
+
+        private string? _firstName;
+
+        public string? FirstName
+        {
+            get => _firstName;
+            set => RaiseAndSetIfChanged(ref _firstName, value);
+        }
+
+        private string? _lastName;
+
+        public string? LastName
+        {
+            get => _lastName;
+            set => RaiseAndSetIfChanged(ref _lastName, value);
+        }
+
+        private string? _middleName;
+
+        public string? MiddleName
+        {
+            get => _middleName;
+            set => RaiseAndSetIfChanged(ref _middleName, value);
+        }
+
+        private string? _maidenName;
+
+        public string? MaidenName
+        {
+            get => _maidenName;
+            set => RaiseAndSetIfChanged(ref _maidenName, value);
+        }
 
         public string FullName => LastName + (!string.IsNullOrWhiteSpace(MiddleName) ? $" {MiddleName} " : "") + FirstName;
 
-        public char Gender { get; set; }
+        private char? _gender;
 
-        [Required(ErrorMessage = "DOB is required!")]
-        public DateTime DateOfBirth { get; set; }
+        public char? Gender
+        {
+            get => _gender;
+            set => RaiseAndSetIfChanged(ref _gender, value);
+        }
 
-        public int AssessmentNo { get; set; }
+        private DateTime _dateOfBirth;
 
-        public string Address1 { get; set; }
+        public DateTime DateOfBirth
+        {
+            get => _dateOfBirth;
+            set => RaiseAndSetIfChanged(ref _dateOfBirth, value);
+        }
 
-        public string HouseNo { get; set; }
+        public int Age => DateTime.Now.Year - DateOfBirth.Year;
 
-        public string Address2 { get; set; }
+        public string Address => $"{HouseNo} {Address2}, {ParishName} {PostalCode}";
 
-        public string PostalCode { get; set; }
+        private int _assessmentNo;
 
-        public string ParishName { get; set; }
+        public int AssessmentNo
+        {
+            get => _assessmentNo;
+            set => RaiseAndSetIfChanged(ref _assessmentNo, value);
+        }
 
-        public int ConstituencyNo { get; set; }
+        private string? _address1;
 
-        public string ConstituencyName { get; set; }
+        public string? Address1
+        {
+            get => _address1;
+            set => RaiseAndSetIfChanged(ref _address1, value);
+        }
 
-        public bool IsEligible { get; set; }
+        private string? _houseNo;
 
-        public bool? IsBogusNo { get; set; }
+        public string? HouseNo
+        {
+            get => _houseNo;
+            set => RaiseAndSetIfChanged(ref _houseNo, value);
+        }
 
-        public string BogusNo { get; set; }
+        private string? _address2;
 
-        public int? BogusConstituencyNo { get; set; }
+        public string? Address2
+        {
+            get => _address2;
+            set => RaiseAndSetIfChanged(ref _address2, value);
+        }
 
-        public string BogusConstituencyName { get; set; }
+        private string? _postalCode;
 
-        [Required(ErrorMessage = "Voter email is required!")]
-        [EmailAddress(ErrorMessage = "Voter email is not in correct format!")]
-        public string Email { get; set; }
+        public string? PostalCode
+        {
+            get => _postalCode;
+            set => RaiseAndSetIfChanged(ref _postalCode, value);
+        }
 
-        [Required(ErrorMessage = "Voter email is required")]
-        [Phone(ErrorMessage = "Contact phone is not in correct format!")]
-        public string ContactPhone { get; set; }
+        private string? _parishName;
 
-        public string PhoneHome { get; set; }
+        public string? ParishName
+        {
+            get => _parishName;
+            set => RaiseAndSetIfChanged(ref _parishName, value);
+        }
 
-        public string PhoneWork { get; set; }
+        private int _constituencyNo;
 
-        public string PhoneMobile { get; set; }
+        public int ConstituencyNo
+        {
+            get => _constituencyNo;
+            set => RaiseAndSetIfChanged(ref _constituencyNo, value);
+        }
 
-        public string DriverLicense { get; set; }
+        private string? _constituencyName;
 
-        public string Comment { get; set; }
+        public string? ConstituencyName
+        {
+            get => _constituencyName;
+            set => RaiseAndSetIfChanged(ref _constituencyName, value);
+        }
 
-        public bool? WasBornIn { get; set; }
+        private bool _isEligible;
 
-        public int CountryId { get; set; }
-        public string CountryName { get; set; }
+        public bool IsEligible
+        {
+            get => _isEligible;
+            set => RaiseAndSetIfChanged(ref _isEligible, value);
+        }
 
-        public bool? CommonwealthCitizen { get; set; }
+        private bool? _isBogusNo;
 
-        public DateTime? BermudianStatusGranted { get; set; }
+        public bool? IsBogusNo
+        {
+            get => _isBogusNo;
+            set => RaiseAndSetIfChanged(ref _isBogusNo, value);
+        }
 
-        public bool? RegisteredAsElector { get; set; }
+        private string? _bogusNo;
 
-        public bool? IsBermudianStatusGranted { get; set; }
+        public string? BogusNo
+        {
+            get => _bogusNo;
+            set => RaiseAndSetIfChanged(ref _bogusNo, value);
+        }
 
-        public DateTime LastUpdated { get; set; }
+        private int? _bogusConstituencyNo;
 
-        public string LastUpdatedBy { get; set; }
+        public int? BogusConstituencyNo
+        {
+            get => _bogusConstituencyNo;
+            set => RaiseAndSetIfChanged(ref _bogusConstituencyNo, value);
+        }
 
-        public List<VoterFlagViewModel> Flags { get; set; } = null!;
+        private string? _bogusConstituencyName;
 
-        public List<DocumentViewModel> Documents { get; set; } = null!;
+        public string? BogusConstituencyName
+        {
+            get => _bogusConstituencyName;
+            set => RaiseAndSetIfChanged(ref _bogusConstituencyName, value);
+        }
+
+        private string? _email;
+
+        public string? Email
+        {
+            get => _email;
+            set => RaiseAndSetIfChanged(ref _email, value);
+        }
+
+        private string? _contactPhone;
+
+        public string? ContactPhone
+        {
+            get => _contactPhone;
+            set => RaiseAndSetIfChanged(ref _contactPhone, value);
+        }
+
+        private string? _phoneHome;
+
+        public string? PhoneHome
+        {
+            get => _phoneHome;
+            set => RaiseAndSetIfChanged(ref _phoneHome, value);
+        }
+
+        private string? _phoneWork;
+
+        public string? PhoneWork
+        {
+            get => _phoneWork;
+            set => RaiseAndSetIfChanged(ref _phoneWork, value);
+        }
+
+        private string? _phoneMobile;
+
+        public string? PhoneMobile
+        {
+            get => _phoneMobile;
+            set => RaiseAndSetIfChanged(ref _phoneMobile, value);
+        }
+
+        private string? _driverLicense;
+
+        public string? DriverLicense
+        {
+            get => _driverLicense;
+            set => RaiseAndSetIfChanged(ref _driverLicense, value);
+        }
+
+        private string? _comment;
+
+        public string? Comment
+        {
+            get => _comment;
+            set => RaiseAndSetIfChanged(ref _comment, value);
+        }
+
+        private bool? _wasBornIn;
+
+        public bool? WasBornIn
+        {
+            get => _wasBornIn;
+            set => RaiseAndSetIfChanged(ref _wasBornIn, value);
+        }
+
+        private int? _countryId;
+
+        public int? CountryId
+        {
+            get => _countryId;
+            set => RaiseAndSetIfChanged(ref _countryId, value);
+        }
+
+        private string? _countryName;
+
+        public string? CountryName
+        {
+            get => _countryName;
+            set => RaiseAndSetIfChanged(ref _countryName, value);
+        }
+
+        private bool? _commonwealthCitizen;
+
+        public bool? CommonwealthCitizen
+        {
+            get => _commonwealthCitizen;
+            set => RaiseAndSetIfChanged(ref _commonwealthCitizen, value);
+        }
+
+        private DateTime? _bermudianStatusGranted;
+
+        public DateTime? BermudianStatusGranted
+        {
+            get => _bermudianStatusGranted;
+            set => RaiseAndSetIfChanged(ref _bermudianStatusGranted, value);
+        }
+
+        private bool? _registeredAsElector;
+
+        public bool? RegisteredAsElector
+        {
+            get => _registeredAsElector;
+            set => RaiseAndSetIfChanged(ref _registeredAsElector, value);
+        }
+
+        private bool? _isBermudianStatusGranted;
+
+        public bool? IsBermudianStatusGranted
+        {
+            get => _isBermudianStatusGranted;
+            set => RaiseAndSetIfChanged(ref _isBermudianStatusGranted, value);
+        }
+
+        private DateTime _lastUpdated;
+
+        public DateTime LastUpdated
+        {
+            get => _lastUpdated;
+            set => RaiseAndSetIfChanged(ref _lastUpdated, value);
+        }
+
+        private string? _lastUpdatedBy;
+
+        public string? LastUpdatedBy
+        {
+            get => _lastUpdatedBy;
+            set => RaiseAndSetIfChanged(ref _lastUpdatedBy, value);
+        }
+
+        private List<VoterFlagViewModel>? _flags;
+
+        public List<VoterFlagViewModel>? Flags
+        {
+            get => _flags;
+            set => RaiseAndSetIfChanged(ref _flags, value);
+        }
+
+        private List<DocumentViewModel>? _documents;
+
+        public List<DocumentViewModel>? Documents
+        {
+            get => _documents;
+            set => RaiseAndSetIfChanged(ref _documents, value);
+        }
     }
 }

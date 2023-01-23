@@ -37,10 +37,11 @@ namespace PROWeb.Data
 
         public DbSet<OldPROUser> OldPROUsers => Set<OldPROUser>();
 
+        public DbSet<Candidate> Candidates=> Set<Candidate>();
+
         public DbSet<AssessmentFlag> AssessmentFlags => Set<AssessmentFlag>();
 
         public DbSet<ActivityLog> ActivityLogs => Set<ActivityLog>();
-
 
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
@@ -63,6 +64,10 @@ namespace PROWeb.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Candidate>()
+                .ToTable(nameof(Candidates), t => t.ExcludeFromMigrations())
+                .HasNoKey();
 
             modelBuilder.Entity<Voter>().HasKey(v => new { v.VoterId, v.RegistryYear });
 

@@ -2,7 +2,7 @@
 
 namespace PROWeb.Components.ViewModels.Assessment
 {
-    public class AssessmentViewModel : ViewModelBase
+    public class AssessmentViewModel : SlimViewModelBase
     {
         public int AssessmentNo { get; set; }
 

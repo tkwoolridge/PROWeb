@@ -2,7 +2,7 @@
 
 namespace PROWeb.Components.ViewModels.Assessment
 {
-    public class ParishViewModel : ViewModelBase
+    public class ParishViewModel : SlimViewModelBase
     {
         public int ParishNo { get; set; }
 

@@ -1,5 +1,7 @@
 ﻿#nullable disable
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PROWeb.Data.Models
 {
@@ -23,8 +25,12 @@ namespace PROWeb.Data.Models
         public string FirstName { get; set; }
 
         [StringLength(50)]
-        [Required]
         public string MiddleName { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         public char Gender { get; set; }

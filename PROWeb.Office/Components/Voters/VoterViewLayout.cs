@@ -14,7 +14,9 @@ namespace PROWeb.Office.Office.Voters
 
         public override async Task SaveAsync()
         {
-            Voter voter = Model.MapTo<Voter>(Mapper);
+            Voter? voter = Model?.MapTo<Voter>(Mapper);
+
+            if (voter == null) { return; }
 
             using (var service = _voterServiceFactory.CreateService())
             {

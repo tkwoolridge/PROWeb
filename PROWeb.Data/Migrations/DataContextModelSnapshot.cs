@@ -48,7 +48,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("ActivityId");
 
-                    b.ToTable("ActivityLogs", (string)null);
+                    b.ToTable("ActivityLogs");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Assessment", b =>
@@ -91,7 +91,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("ParishNo");
 
-                    b.ToTable("Assessments", (string)null);
+                    b.ToTable("Assessments");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.AssessmentFlag", b =>
@@ -117,13 +117,16 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("AssessmentFlagId");
 
-                    b.ToTable("AssessmentFlags", (string)null);
+                    b.ToTable("AssessmentFlags");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Birth", b =>
                 {
                     b.Property<int>("BirthId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("Date");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -140,13 +143,12 @@ namespace PROWeb.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("BirthId");
 
-                    b.ToTable("Births", (string)null);
+                    b.ToTable("Births");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Constituency", b =>
@@ -166,7 +168,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("ConstituencyNo");
 
-                    b.ToTable("Constituencies", (string)null);
+                    b.ToTable("Constituencies");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Country", b =>
@@ -184,7 +186,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Document", b =>
@@ -225,7 +227,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("PersonId", "RegistryYear");
 
-                    b.ToTable("Documents", (string)null);
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.DriverLicense", b =>
@@ -238,6 +240,9 @@ namespace PROWeb.Data.Migrations
 
                     b.Property<DateTime>("AuditDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("Date");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -258,7 +263,6 @@ namespace PROWeb.Data.Migrations
                         .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -268,7 +272,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("DriverLicenseId");
 
-                    b.ToTable("DriverLicenses", (string)null);
+                    b.ToTable("DriverLicenses");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.FormType", b =>
@@ -283,19 +287,25 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("FormTypeId");
 
-                    b.ToTable("FormTypes", (string)null);
+                    b.ToTable("FormTypes");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Immigration", b =>
                 {
                     b.Property<int>("ImmigrationId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImmigrationId"));
 
                     b.Property<DateTime>("AuditAddDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("AuditChangeDate")
+                    b.Property<DateTime?>("AuditChangeDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("Date");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -306,6 +316,9 @@ namespace PROWeb.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
+                    b.Property<int?>("ImmigrationRecordId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeceased")
                         .HasColumnType("bit");
 
@@ -315,7 +328,6 @@ namespace PROWeb.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -323,7 +335,7 @@ namespace PROWeb.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("StatusAcquired")
+                    b.Property<DateTime?>("StatusAcquired")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("StatusDescription")
@@ -332,7 +344,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("ImmigrationId");
 
-                    b.ToTable("Immigrations", (string)null);
+                    b.ToTable("Immigrations");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.OldPROUser", b =>
@@ -377,7 +389,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OldPROUsers", (string)null);
+                    b.ToTable("OldPROUsers");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.PROOffice", b =>
@@ -457,7 +469,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("PROOfficeId");
 
-                    b.ToTable("PROOffices", (string)null);
+                    b.ToTable("PROOffices");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Parish", b =>
@@ -475,7 +487,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("ParishNo");
 
-                    b.ToTable("Parishes", (string)null);
+                    b.ToTable("Parishes");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Registration", b =>
@@ -633,7 +645,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("VoterId", "RegistryYear");
 
-                    b.ToTable("Registrations", (string)null);
+                    b.ToTable("Registrations");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.RegistrationOrigin", b =>
@@ -648,7 +660,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("RegistrationOriginId");
 
-                    b.ToTable("RegistrationOrigins", (string)null);
+                    b.ToTable("RegistrationOrigins");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.RegistrationStatus", b =>
@@ -666,7 +678,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("RegistrationStatusId");
 
-                    b.ToTable("RegistrationStatuses", (string)null);
+                    b.ToTable("RegistrationStatuses");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Voter", b =>
@@ -705,7 +717,7 @@ namespace PROWeb.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("Date");
 
                     b.Property<string>("DriverLicense")
                         .HasMaxLength(20)
@@ -789,7 +801,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Voters", (string)null);
+                    b.ToTable("Voters");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.VoterFlag", b =>
@@ -820,7 +832,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasKey("FlagId");
 
-                    b.ToTable("VoterFlags", (string)null);
+                    b.ToTable("VoterFlags");
                 });
 
             modelBuilder.Entity("VoterVoterFlag", b =>
@@ -838,7 +850,7 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("VoterId", "RegistryYear");
 
-                    b.ToTable("VoterVoterFlag", (string)null);
+                    b.ToTable("VoterVoterFlag");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Assessment", b =>

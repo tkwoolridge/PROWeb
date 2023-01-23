@@ -1,6 +1,8 @@
-﻿@using PROWeb.Components.ViewModels.Assessment;
+﻿@using PROWeb.Common.ViewModels;
+@using PROWeb.Components.ViewModels.Assessment;
 @using PROWeb.Components.Assessments;
-@typeparam TAddressViewModel where TAddressViewModel : class, IAddressViewModel
+@using Telerik.FontIcons;
+@typeparam TAddressViewModel where TAddressViewModel : SlimViewModelBase
 @inherits AddressViewBase<TAddressViewModel>
 
 <div class="address-view">
@@ -9,7 +11,7 @@
     <input type="textbox" readonly class="@(Editable? "address-address1-edit" : "address-address1" ) k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address1" />
     @if (Editable)
     {
-        <TelerikButton Class="open-assesment-dialog" OnClick="@OnUpdate" Icon="home" />
+        <TelerikButton Class="open-assesment-dialog" OnClick="@OnUpdate" Icon="@FontIcon.Home" />
     }
     <input type="textbox" readonly class="w-100 k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.HouseNo" />
     <input type="textbox" readonly class="address-address2 k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address2" />

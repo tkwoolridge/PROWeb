@@ -2,7 +2,7 @@
 
 namespace PROWeb.Components.ViewModels.Assessment
 {
-    public class ConstituencyViewModel : ViewModelBase
+    public class ConstituencyViewModel : SlimViewModelBase
     {
         public int ConstituencyNo { get; set; }
 

@@ -8,10 +8,21 @@ using PROWeb.Office.ViewModels.Voters;
 
 namespace PROWeb.Office.Office.Voters
 {
-    public class VoterFlagsView : PersonFlagsView<ListVoterViewModel, VoterFlagViewModel>
+    public class VoterFlagsView : FlagsView<ListVoterViewModel, VoterFlagViewModel>
     {
         [Inject]
         private IVotersServiceFactory _voterServiceFactory { get; set; } = null!;
+
+        public VoterFlagsView() : base(
+            v => v.Flags, 
+            v => v.CommonwealthCitizen, 
+            v => v.BermudianStatusGranted, 
+            v => v.RegisteredAsElector, 
+            v => v.IsBermudianStatusGranted, 
+            f => f.FlagId, 
+            f => f.FlagDescription)
+        {
+        }
 
 
         protected override async Task<IList<VoterFlagViewModel>?> GetFlagsAsync()

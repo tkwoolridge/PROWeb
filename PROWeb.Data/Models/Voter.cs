@@ -1,6 +1,8 @@
 ﻿#nullable disable
 
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PROWeb.Data.Models
 {
@@ -38,6 +40,8 @@ namespace PROWeb.Data.Models
 
 
         [Required]
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
         public DateTime DateOfBirth { get; set; }
 
         public int AssessmentNo { get; set; }

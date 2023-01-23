@@ -1,5 +1,6 @@
 ﻿using PROWeb.Components.Mapping;
 using PROWeb.Data.Models;
+using PROWeb.Office.ViewModels.Candidates;
 using PROWeb.Office.ViewModels.Voters;
 
 namespace PROWeb.Office.Mapper
@@ -27,6 +28,7 @@ namespace PROWeb.Office.Mapper
             CreateMap<DocumentViewModel, Document>();
 
             CreateMap<VoterViewModel, Voter>();
+            CreateMap<Candidate, CandidateViewModel>();
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@page "/candidates"
+@using PROWeb.Components.Person.Filters;
+@using PROWeb.Components.Assessments;
+@using PROWeb.Components.ViewModels.Assessment;
+@using PROWeb.Office.ViewModels.Candidates;
+@using PROWeb.Office.Components.Candidates;
+@using PROWeb.Office.Components.Candidates.Filters;
+@inherits PRORegistryLayout<FilterModel, CandidateViewModel>
+
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <Content>
+                <CandidateFilterSimple @ref="@FilterRef" />
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <List>
+        <CandidatesGrid @ref="ListRef" />
+    </List>
+</FilterListLayout>

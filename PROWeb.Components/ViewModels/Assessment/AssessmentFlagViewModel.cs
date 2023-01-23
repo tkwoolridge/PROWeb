@@ -2,7 +2,7 @@
 
 namespace PROWeb.Components.ViewModels.Assessment
 {
-    public class AssessmentFlagViewModel : ViewModelBase
+    public class AssessmentFlagViewModel : SlimViewModelBase
     {
         public int AssessmentFlagId { get; set; }
 

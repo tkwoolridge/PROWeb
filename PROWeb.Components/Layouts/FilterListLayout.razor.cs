@@ -9,6 +9,9 @@ namespace PROWeb.Components.Layouts
         public RenderFragment? Filter { get; set; }
 
         [Parameter]
+        public RenderFragment? Toolbox { get; set; }
+
+        [Parameter]
         public RenderFragment? List { get; set; }
 
         [Parameter]

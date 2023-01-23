@@ -1,22 +1,27 @@
 ﻿.filter-list-layout {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
     grid-row-gap: 10px;
     height: 100%;
 }
 
-.filter-list-list {
+.filter-list-toolbox {
     grid-area: 2/1;
     z-index: 1;
 }
 
-.filter-list-footer {
+.filter-list-list {
     grid-area: 3/1;
+    z-index: 1;
+}
+
+.filter-list-footer {
+    grid-area: 4/1;
 }
 
 .filter-list-loader-hide, .filter-list-loader-show {
-    grid-area: 2/1;
+    grid-area: 3/1;
     z-index: 2;
     display: none;
 }

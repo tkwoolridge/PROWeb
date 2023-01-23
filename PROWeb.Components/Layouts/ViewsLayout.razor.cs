@@ -1,44 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.Components;
+using PROWeb.Components.Common;
 
 namespace PROWeb.Components.Layouts
 {
     public abstract partial class ViewsLayout<TViewModel> : PROContentLayout where TViewModel : class
     {
-        private TViewModel? _model;
-        private EditContext? _editContext;
+        private IList<PROView<TViewModel>> _views = new List<PROView<TViewModel>>();
 
         [CascadingParameter]
-        public EditContext? EditContext 
-        { 
-            get => _editContext; 
-            set
-            {
-                if(_editContext != value)
-                {
-                    _editContext = value;
-                    OnEditContextUpdate();
-                }
-            }
-        }
-
-        [CascadingParameter]
-        public TViewModel? Model 
-        { 
-            get => _model;
-            set 
-            {
-                if(_model != value)
-                {
-                    _model = value;
-                    OnModelUpdate();
-                }
-            }
-        }
-
-        [Parameter]
-        public PROViewContext<TViewModel>? ViewContext { get; set; }
+        public TViewModel? Model { get; set; }
 
         [Parameter]
         public RenderFragment? Views { get; set; }
@@ -55,17 +27,23 @@ namespace PROWeb.Components.Layouts
         private void OnFieldChanged(object? sender, FieldChangedEventArgs e)
         {
             CanSave = true;
+
             StateHasChanged();
+        }
+
+        internal void AddView(PROView<TViewModel> view)
+        {
+            _views.Add(view);
         }
 
         public virtual async Task<bool> OnSaveAsync()
         {
-            if (EditContext == null || ViewContext == null || !Validate())
+            if (!Validate())
             {
                 return false;
             }
 
-            foreach (var view in ViewContext.Views)
+            foreach (var view in _views)
             {
                 view.OnSave();
             }
@@ -79,47 +57,17 @@ namespace PROWeb.Components.Layouts
 
         public bool Validate()
         {
-            if (EditContext == null || ViewContext == null)
-            {
-                return false;
-            }
+            List<string>? errors = new List<string>();
 
-            EditContext.Validate();
-
-            List<string>? errors = EditContext.GetValidationMessages().ToList();
-
-            foreach (var view in ViewContext.Views)
+            foreach (var view in _views)
             {
                 if (view.OnValidate() is { } viewErrors)
                 {
-                    errors ??= viewErrors;
-
                     errors?.AddRange(viewErrors);
                 }
             }
 
             return errors != null;
-        }
-
-        private void OnEditContextUpdate()
-        {
-            if (EditContext is { } context && context.Model is TViewModel model)
-            {
-                Model = EditContext.Model as TViewModel;
-                ViewContext = new PROViewContext<TViewModel>(model, context, true);
-
-                EditContext.OnFieldChanged -= OnFieldChanged;
-                EditContext.OnFieldChanged += OnFieldChanged;
-                Editable = true;
-            }
-        }
-
-        private void OnModelUpdate()
-        {
-            if (Model != null)
-            {
-                ViewContext = new PROViewContext<TViewModel>(Model);
-            }
         }
     }
 }

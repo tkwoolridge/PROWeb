@@ -1,7 +1,6 @@
 ﻿namespace PROWeb.Data.Services.Voters
 {
-    public interface IVotersServiceFactory
+    public interface IVotersServiceFactory : IDbContextServiceFactory<VotersService, DataContext>
     {
-        VotersService CreateService();
     }
 }

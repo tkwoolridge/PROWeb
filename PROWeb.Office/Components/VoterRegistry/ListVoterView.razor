@@ -3,6 +3,7 @@
 @using PROWeb.Office.Components.Voters
 @using PROWeb.Office.Office.Voters
 @using PROWeb.Office.ViewModels.Voters;
+@using Telerik.FontIcons;
 @inherits PROComponent
 
 <style>
@@ -58,31 +59,40 @@
 @code {
     protected int TabIndex 
     { 
-        get => ViewsLayout.Model.TabIndex;
-        set => ViewsLayout.Model.TabIndex = value;
+        get => ViewsLayout?.Model?.TabIndex ?? 0;
+        set
+        {
+            if (ViewsLayout?.Model is { } model)
+            {
+                model.TabIndex = value;
+            }
+        }
     }
 
-    protected ViewsLayout<ListVoterViewModel> ViewsLayout { get; set; }
+    protected ViewsLayout<ListVoterViewModel>? ViewsLayout { get; set; }
 
     protected RenderFragment ToolBar => __builder =>
     {
         @if (ViewsLayout?.Editable == true)
         {
             <div class="d-flex justify-content-end">
-                <ListViewCommandButton Icon="save" Enabled="@ViewsLayout.CanSave" Command="Save" OnClick="@OnSave" Class="me-1">Save</ListViewCommandButton>
-                <ListViewCommandButton Icon="cancel" Command="Cancel">Cancel</ListViewCommandButton>
+                <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@ViewsLayout.CanSave" Command="Save" OnClick="@OnSave" Class="me-1">Save</ListViewCommandButton>
+                <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
             </div>
         }
         else
         {
             <div class="d-flex justify-content-end">
-                <ListViewCommandButton Icon="edit" Command="Edit">Edit</ListViewCommandButton>
+                <ListViewCommandButton Icon="@FontIcon.Pencil" Command="Edit">Edit</ListViewCommandButton>
             </div>
         }
     };
 
     protected async Task OnSave(ListViewCommandEventArgs e)
     {
-        e.IsCancelled = !(await ViewsLayout.OnSaveAsync());
+        if(ViewsLayout is { } layout)
+        {
+            e.IsCancelled = !(await layout.OnSaveAsync());
+        }
     }
 }

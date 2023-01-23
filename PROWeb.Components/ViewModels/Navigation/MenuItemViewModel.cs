@@ -2,7 +2,7 @@
 
 namespace PROWeb.Components.ViewModels.Navigation
 {
-    public class MenuItemViewModel : ViewModelBase
+    public class MenuItemViewModel : SlimViewModelBase
     {
         public List<MenuItemViewModel> MenuItems { get; set; } = null!;
 

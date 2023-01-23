@@ -3,13 +3,15 @@
 
 <div class="views-layout">
     <div class="views-layout-views">
-        @if (Views != null && ViewContext!=null)
+        @if (Views != null && Model!=null)
         {
-            <CascadingValue Value="@ViewContext">
-                @if(Views != null)
-                {
-                    @Views
-                }
+            <CascadingValue Value="@this">
+                <CascadingValue Value="@Model">
+                    @if(Views != null)
+                    {
+                        @Views
+                    }
+                </CascadingValue>
             </CascadingValue>
         }
     </div>

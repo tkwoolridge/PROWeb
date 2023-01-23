@@ -1,16 +1,28 @@
-﻿#nullable enable
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Components.Extensions;
 using PROWeb.Components.Person;
 using PROWeb.Data.Models;
 using PROWeb.Data.Services.Voters;
 using PROWeb.Office.ViewModels.Voters;
+using System.Linq.Expressions;
 
 namespace PROWeb.Office.Components.Voters
 {
-    public class VoterDocumentsView : PersonDocumentsView<ListVoterViewModel, DocumentViewModel>
+    public class VoterDocumentsView : DocumentsView<ListVoterViewModel, DocumentViewModel>
     {
+        public VoterDocumentsView() : 
+            base(v => v.Documents, 
+                v => v.RegistryYear, 
+                v => v.FullName, 
+                d => d.DocumentId, 
+                d => d.DocumentDate, 
+                d => d.DocumentName, 
+                d => d.DocumentDescription, 
+                d => d.ExportFormat, 
+                d => d.Content)
+        {
+        }
+
         [Inject]
         private IVotersServiceFactory _voterServiceFactory { get; set; } = null!;
 
@@ -18,9 +30,9 @@ namespace PROWeb.Office.Components.Voters
         {
             Document document = vmDocument.MapTo<Document>(Mapper);
 
-            document.PersonId = Context.VoterId;
+            document.PersonId = Model!.VoterId;
             document.DocumentDate = DateTime.Now;
-            document.RegistryYear = Context.RegistryYear;
+            document.RegistryYear = Model.RegistryYear;
             document.Content = stream?.ToArray();
 
             using (var service = _voterServiceFactory.CreateService())

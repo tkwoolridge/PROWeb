@@ -15,19 +15,19 @@ namespace PROWeb.Office.Shared
         [Inject]
         private NavigationManager _navigationManager { get; set; } = null!;
 
-        private string Page { get; set; }
+        private string? Page { get; set; }
 
-        TelerikDrawer<MenuItemViewModel> DrawerRef { get; set; }
+        TelerikDrawer<MenuItemViewModel>? DrawerRef { get; set; }
 
-        List<MenuItemViewModel> NavigablePages { get; set; }
+        List<MenuItemViewModel>? NavigablePages { get; set; }
 
         protected bool IsDrawerHidden = false;
 
         protected override void OnInitialized()
         {
-            var menu = _navigationService.GetMenu()?.MapTo<MenuViewModel>(Mapper);
+            MenuViewModel? menu = _navigationService.GetMenu()?.MapTo<MenuViewModel>(Mapper);
 
-            NavigablePages = menu.MenuItems;
+            NavigablePages = menu?.MenuItems;
 
             SetCurrentPage();
 
@@ -46,10 +46,13 @@ namespace PROWeb.Office.Shared
 
         private async Task OnNavigate(MenuItemViewModel item)
         {
-            _navigationManager.NavigateTo(item.Page, IsAuthenticationPage(item.Page));
-            await DrawerRef.ToggleAsync();
+            if(item.Page is { } page && DrawerRef is { } drawer)
+            {
+                _navigationManager.NavigateTo(item.Page, IsAuthenticationPage(item.Page));
+                await DrawerRef.ToggleAsync();
 
-            SetCurrentPage();
+                SetCurrentPage();
+            }
         }
     }
 }

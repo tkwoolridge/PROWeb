@@ -18,8 +18,6 @@ namespace PROWeb.Components.Assessments
         [Parameter]
         public int PageSize { get; set; } = 20;
 
-        protected int Page { get; set; }
-
         private async Task OnSelectionChanged(IEnumerable<AssessmentViewModel> selectedItems)
         {
             await AssessmentSelected.InvokeAsync(selectedItems.First());

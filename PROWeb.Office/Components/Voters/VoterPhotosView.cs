@@ -2,7 +2,7 @@
 
 namespace PROWeb.Office.Components.Voters
 {
-    public class VoterPhotosView : PersonPhotosView
+    public class VoterPhotosView : PhotosView
     {
     }
 }

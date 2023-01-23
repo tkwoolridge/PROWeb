@@ -5,7 +5,7 @@
         protected PROFilterComponent<TFilter>? FilterRef { get; set; }
         protected PROListComponent<TFilter, TItem>? ListRef { get; set; }
 
-        public async Task OnFilterAsync(TFilter filter)
+        public virtual async Task OnFilterAsync(TFilter filter)
         {
             if (ListRef == null)
             {

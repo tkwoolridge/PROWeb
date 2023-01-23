@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Authentication.ViewModels.Account
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : SlimViewModelBase
     {
         [Required]
         [EmailAddress]

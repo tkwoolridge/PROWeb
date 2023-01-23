@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PROWeb.Data.Services.Assessments;
+using PROWeb.Data.Services.Candidates;
 using PROWeb.Data.Services.Configuration;
 using PROWeb.Data.Services.Logging;
 using PROWeb.Data.Services.Voters;
@@ -29,6 +30,9 @@ namespace PROWeb.Data.Services.Extensions
 
             // Register voters service.
             services.AddSingleton<IVotersServiceFactory, VotersServiceFactory>();
+
+            // Register candidates service.
+            services.AddSingleton<ICandidatesServiceFactory, CandidatesServiceFactory>();
 
             // Register activity log.
             services.AddSingleton<IActivityLogServiceFactory, ActivityLogServiceFactory>();

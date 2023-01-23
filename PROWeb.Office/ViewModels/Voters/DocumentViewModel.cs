@@ -1,27 +1,71 @@
 ﻿using PROWeb.Common.ViewModels;
-using PROWeb.Components.ViewModels.Person;
-using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Office.ViewModels.Voters
 {
-    public class DocumentViewModel : ViewModelBase, IDocumentViewModel
+    public class DocumentViewModel : SlimViewModelBase
     {
-        public int DocumentId { get; set; }
+        private int _documentId;
 
-        public int PersonId { get; set; }
+        public int DocumentId
+        {
+            get => _documentId;
+            set => RaiseAndSetIfChanged(ref _documentId, value);
+        }
 
-        public int RegistryYear { get; set; }
+        private int _personId;
 
-        public DateTime DocumentDate { get; set; }
+        public int PersonId
+        {
+            get => _personId;
+            set => RaiseAndSetIfChanged(ref _personId, value);
+        }
 
-        [Required(ErrorMessage = "Document name is required!")]
-        [StringLength(50, ErrorMessage = "Maximum name size is {0} characters!")]
-        public string DocumentName { get; set; }
+        private int _registryYear;
 
-        public string DocumentDescription { get; set; }
+        public int RegistryYear
+        {
+            get => _registryYear;
+            set => RaiseAndSetIfChanged(ref _registryYear, value);
+        }
 
-        public string ExportFormat { get; set; }
+        private DateTime _documentDate;
 
-        public byte[] Content { get; set; }
+        public DateTime DocumentDate
+        {
+            get => _documentDate;
+            set => RaiseAndSetIfChanged(ref _documentDate, value);
+        }
+
+        private string? _documentName;
+
+        public string? DocumentName
+        {
+            get => _documentName;
+            set => RaiseAndSetIfChanged(ref _documentName, value);
+        }
+
+        private string? _documentDescription;
+
+        public string? DocumentDescription
+        {
+            get => _documentDescription;
+            set => RaiseAndSetIfChanged(ref _documentDescription, value);
+        }
+
+        private string? _exportFormat;
+
+        public string? ExportFormat
+        {
+            get => _exportFormat;
+            set => RaiseAndSetIfChanged(ref _exportFormat, value);
+        }
+
+        private byte[]? _content;
+
+        public byte[]? Content
+        {
+            get => _content;
+            set => RaiseAndSetIfChanged(ref _content, value);
+        }
     }
 }

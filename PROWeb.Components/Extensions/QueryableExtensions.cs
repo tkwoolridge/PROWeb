@@ -7,7 +7,7 @@ namespace PROWeb.Components.Extensions
 {
     public static class QueryableExtensions
     {
-        public static IQueryable<TViewModel> ProjectToQueryable<TViewModel>(this IQueryable source, IMapper mapper, IDictionary<string, object>? parameters = null) where TViewModel : ViewModelBase
+        public static IQueryable<TViewModel> ProjectToQueryable<TViewModel>(this IQueryable source, IMapper mapper, IDictionary<string, object>? parameters = null) where TViewModel : SlimViewModelBase
         {
             return source.ProjectTo<TViewModel>(mapper.ConfigurationProvider, parameters);
         }
@@ -17,14 +17,21 @@ namespace PROWeb.Components.Extensions
             return mapper.Map<TTarget>(source);
         }
 
-        public static IList<TViewModel> ProjectToList<TViewModel>(this IQueryable source, IMapper mapper, IDictionary<string, object>? parameters = null) where TViewModel : ViewModelBase
+        public static IList<TViewModel> ProjectToList<TViewModel>(this IQueryable source, IMapper mapper, IDictionary<string, object>? parameters = null) where TViewModel : SlimViewModelBase
         {
             return source.ProjectToQueryable<TViewModel>(mapper, parameters).ToList();
         }
 
-        public static async Task<IList<TViewModel>> ProjectToListAsync<TViewModel>(this IQueryable source, IMapper mapper, IDictionary<string, object>? parameters = null) where TViewModel : ViewModelBase
+        public static async Task<IList<TViewModel>> ProjectToListAsync<TViewModel>(this IQueryable source, IMapper mapper, IDictionary<string, object>? parameters = null) where TViewModel : SlimViewModelBase
         {
             return await source.ProjectToQueryable<TViewModel>(mapper, parameters).ToListAsync();
+        }
+
+        public static IList<TViewModel> ProjectToList<TModel, TViewModel>(this IList<TModel> models, IMapper mapper)
+            where TModel : class
+            where TViewModel : class
+        {
+            return mapper.Map<IList<TModel>, IList<TViewModel>>(models);
         }
     }
 }

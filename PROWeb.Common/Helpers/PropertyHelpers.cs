@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PROWeb.Common.Helpers
+{
+    public static class PropertyHelpers
+    {
+        public static Func<TObject, TProperty> GetPropGetter<TObject, TProperty>(string propertyName)
+        {
+            ParameterExpression paramExpression = Expression.Parameter(typeof(TObject), "value");
+
+            Expression propertyGetterExpression = Expression.Property(paramExpression, propertyName);
+
+            Func<TObject, TProperty> result =
+                Expression.Lambda<Func<TObject, TProperty>>(propertyGetterExpression, paramExpression).Compile();
+
+
+            return result;
+        }
+
+        public static Action<TObject, TProperty> GetPropSetter<TObject, TProperty>(string propertyName)
+        {
+            ParameterExpression paramExpression = Expression.Parameter(typeof(TObject));
+
+            ParameterExpression paramExpression2 = Expression.Parameter(typeof(TProperty), propertyName);
+
+            MemberExpression propertyGetterExpression = Expression.Property(paramExpression, propertyName);
+
+            Action<TObject, TProperty> result = Expression.Lambda<Action<TObject, TProperty>>
+            (
+                Expression.Assign(propertyGetterExpression, paramExpression2), paramExpression, paramExpression2
+            ).Compile();
+
+            return result;
+        }
+    }
+}

@@ -1,6 +1,6 @@
-﻿@using PROWeb.Components.ViewModels.Person;
+﻿@using PROWeb.Common.ViewModels;
 @inherits ContactInfoViewBase<TContactInfoViewModel>
-@typeparam TContactInfoViewModel where TContactInfoViewModel : class, IContactInfoViewModel
+@typeparam TContactInfoViewModel where TContactInfoViewModel : SlimViewModelBase
 
 <div class="contact-info-view">
     <div class="contact-info-title pro-view-title mb-2">@Title</div>
