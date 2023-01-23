@@ -25,15 +25,22 @@ namespace PROWeb.Components.Person.Contexts
             set => RaiseAndSetIfChanged(ref _fullName, value);
         }
 
-        private IList<DocumentContext<TDocumentViewModel>> _documents = new List<DocumentContext<TDocumentViewModel>>();
+        private IList<DocumentContext<TDocumentViewModel>> _contextDocuments = new List<DocumentContext<TDocumentViewModel>>();
 
-        public IList<DocumentContext<TDocumentViewModel>> Documents
+        public IList<DocumentContext<TDocumentViewModel>> ContextDocuments
+        {
+            get => _contextDocuments;
+            set => RaiseAndSetIfChanged(ref _contextDocuments, value);
+        }
+
+
+        private IList<TDocumentViewModel>? _documents;
+
+        public IList<TDocumentViewModel>? Documents
         {
             get => _documents;
             set => RaiseAndSetIfChanged(ref _documents, value);
         }
-
-        private IEnumerable<TDocumentViewModel>? _sourceDocuments { get; }
 
         private IDisposable? _documentsBinding;
         private IDisposable? _registryYearBinding;
@@ -54,18 +61,18 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model;
 
-            _documentsBinding = Model?.Bind(this, documentsPath, c => c._sourceDocuments, StrongBindingMode.OneWay);
+            _documentsBinding = Model?.Bind(this, documentsPath, c => c.Documents, StrongBindingMode.TwoWay);
             _registryYearBinding = Model?.Bind(this, registryYearPath, c => c.RegistryYear, StrongBindingMode.OneWay);
             _fullNameBinding = Model?.Bind(this, fullNamePath, c => c.FullName, StrongBindingMode.OneWay);
 
-            if(_sourceDocuments is not { } models)
+            if(_documents is not { } models)
             {
                 return;
             }
 
             foreach (var dModel in models)
             {
-                Documents.Add(new DocumentContext<TDocumentViewModel>(
+                ContextDocuments.Add(new DocumentContext<TDocumentViewModel>(
                     dModel,
                     documentIdPath,
                     documentDatePath,
@@ -82,7 +89,7 @@ namespace PROWeb.Components.Person.Contexts
             _registryYearBinding?.Dispose();
             _fullNameBinding?.Dispose();
 
-            foreach (var document in Documents)
+            foreach (var document in ContextDocuments)
             {
                 document.UnBind();
             }

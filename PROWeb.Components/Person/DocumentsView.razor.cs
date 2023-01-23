@@ -92,16 +92,17 @@ namespace PROWeb.Components.Person
                 model,
                 _modelsPath,
                 _registryYearPath,
-                _fullNamePath
+                _fullNamePath,
+                 _documentIdPath,
+                _documentDatePath,
+                _documentNamePath,
+                _documentDescriptionPath,
+                _exportFormatPath,
+                _contentPath
                 );
+
+                Documents = Context.ContextDocuments;
             }
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
-
-            Documents = Context.Documents;
         }
 
         protected void AddDocument()
@@ -120,7 +121,7 @@ namespace PROWeb.Components.Person
 
             int documentId = await AddDocumentAsync(model, stream);
 
-            Context.Documents?.Add(NewDocument);
+            Context.ContextDocuments?.Add(NewDocument);
             NewDocument.DocumentId = documentId;
 
             DocumentsGridRef?.Rebind();
@@ -130,7 +131,7 @@ namespace PROWeb.Components.Person
 
         protected async Task OnDeleteDocumentAsync(int documetId)
         {
-            if (Context.Documents?.FirstOrDefault(d => d.DocumentId == documetId) is not { } document || document.Model is not { } model)
+            if (Context.ContextDocuments?.FirstOrDefault(d => d.DocumentId == documetId) is not { } document || document.Model is not { } model)
             {
                 return;
             }
@@ -143,7 +144,7 @@ namespace PROWeb.Components.Person
             }
 
             await DeleteDocumentAsync(model);
-            Context.Documents.Remove(document);
+            Context.ContextDocuments.Remove(document);
 
             DocumentsGridRef?.Rebind();
         }

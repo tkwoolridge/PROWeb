@@ -79,7 +79,7 @@ namespace PROWeb.Components.Person.Contexts
             
             _documentIdBinding = Model?.Bind(this, documentIdPath, c => c.DocumentId, StrongBindingMode.TwoWay);
             _documentDateBinding = Model?.Bind(this, documentDatePath, c => c.DocumentDate, StrongBindingMode.TwoWay);
-            _documentNameBinding = Model?.Bind(this, documentNamePath, c => c.DocumentDate, StrongBindingMode.TwoWay);
+            _documentNameBinding = Model?.Bind(this, documentNamePath, c => c.DocumentName, StrongBindingMode.TwoWay);
             _documentDescriptionBinding = Model?.Bind(this, documentDescriptionPath, c => c.DocumentDescription, StrongBindingMode.TwoWay);
             _exportFormatBinding = Model?.Bind(this, exportFormatPath, c => c.ExportFormat, StrongBindingMode.TwoWay);
             _contentBinding = Model?.Bind(this, contentPath, c => c.Content, StrongBindingMode.TwoWay);
