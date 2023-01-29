@@ -37,7 +37,7 @@ namespace PROWeb.Data
 
         public DbSet<OldPROUser> OldPROUsers => Set<OldPROUser>();
 
-        public DbSet<Candidate> Candidates=> Set<Candidate>();
+        public DbSet<Eligible> EligiblePoll=> Set<Eligible>();
 
         public DbSet<AssessmentFlag> AssessmentFlags => Set<AssessmentFlag>();
 
@@ -65,8 +65,8 @@ namespace PROWeb.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Candidate>()
-                .ToTable(nameof(Candidates), t => t.ExcludeFromMigrations())
+            modelBuilder.Entity<Eligible>()
+                .ToTable(nameof(EligiblePoll), t => t.ExcludeFromMigrations())
                 .HasNoKey();
 
             modelBuilder.Entity<Voter>().HasKey(v => new { v.VoterId, v.RegistryYear });

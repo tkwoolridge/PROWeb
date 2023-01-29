@@ -1,16 +1,17 @@
-﻿using PROWeb.Common.StrongBindings;
+﻿using PROWeb.Common.Extensions;
+using PROWeb.Common.StrongBindings;
 using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
 using System.Linq.Expressions;
 
-namespace PROWeb.Components.Person.Contexts
+namespace PROWeb.Components.Assessments.Contexts
 {
     internal class AddressContext<TAddressViewModel> : BindableContext<TAddressViewModel> where TAddressViewModel : SlimViewModelBase
     {
-        private int _assessmentNo;
+        private int? _assessmentNo;
 
-        public int AssessmentNo
+        public int? AssessmentNo
         {
             get => _assessmentNo;
             set => RaiseAndSetIfChanged(ref _assessmentNo, value);
@@ -21,7 +22,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? Address1
         {
             get => _address1;
-            set => RaiseAndSetIfChanged(ref _address1, value);
+            set => RaiseAndSetIfChanged(ref _address1, value.ToNullIfWhiteSpace());
         }
 
         private string? _houseNo;
@@ -29,7 +30,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? HouseNo
         {
             get => _houseNo;
-            set => RaiseAndSetIfChanged(ref _houseNo, value);
+            set => RaiseAndSetIfChanged(ref _houseNo, value.ToNullIfWhiteSpace());
         }
 
         private string? _address2;
@@ -37,7 +38,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? Address2
         {
             get => _address2;
-            set => RaiseAndSetIfChanged(ref _address2, value);
+            set => RaiseAndSetIfChanged(ref _address2, value.ToNullIfWhiteSpace());
         }
 
         private string? _postalCode;
@@ -45,7 +46,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? PostalCode
         {
             get => _postalCode;
-            set => RaiseAndSetIfChanged(ref _postalCode, value);
+            set => RaiseAndSetIfChanged(ref _postalCode, value.ToNullIfWhiteSpace());
         }
 
         private string? _parishName;
@@ -53,12 +54,12 @@ namespace PROWeb.Components.Person.Contexts
         public string? ParishName
         {
             get => _parishName;
-            set => RaiseAndSetIfChanged(ref _parishName, value);
+            set => RaiseAndSetIfChanged(ref _parishName, value.ToNullIfWhiteSpace());
         }
 
-        private int _constituencyNo;
+        private int? _constituencyNo;
 
-        public int ConstituencyNo
+        public int? ConstituencyNo
         {
             get => _constituencyNo;
             set => RaiseAndSetIfChanged(ref _constituencyNo, value);
@@ -69,7 +70,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? ConstituencyName
         {
             get => _constituencyName;
-            set => RaiseAndSetIfChanged(ref _constituencyName, value);
+            set => RaiseAndSetIfChanged(ref _constituencyName, value.ToNullIfWhiteSpace());
         }
 
         private bool? _isBogusNo;
@@ -85,7 +86,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? BogusNo
         {
             get => _bogusNo;
-            set => RaiseAndSetIfChanged(ref _bogusNo, value);
+            set => RaiseAndSetIfChanged(ref _bogusNo, value.ToNullIfWhiteSpace());
         }
 
         private int? _bogusConstituencyNo;
@@ -101,7 +102,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? BogusConstituencyName
         {
             get => _bogusConstituencyName;
-            set => RaiseAndSetIfChanged(ref _bogusConstituencyName, value);
+            set => RaiseAndSetIfChanged(ref _bogusConstituencyName, value.ToNullIfWhiteSpace());
         }
 
         private IDisposable? _assessmentNoBinding;
@@ -119,13 +120,13 @@ namespace PROWeb.Components.Person.Contexts
 
         public void Bind(
             TAddressViewModel model,
-            Expression<Func<TAddressViewModel, int>>? assessmentNoPath = null,
+            Expression<Func<TAddressViewModel, int?>>? assessmentNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? address1Path = null,
             Expression<Func<TAddressViewModel, string?>>? houseNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? address2Path = null,
             Expression<Func<TAddressViewModel, string?>>? postalCodePath = null,
             Expression<Func<TAddressViewModel, string?>>? parishNamePath = null,
-            Expression<Func<TAddressViewModel, int>>? constituencyNoPath = null,
+            Expression<Func<TAddressViewModel, int?>>? constituencyNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? constituencyNamePath = null,
             Expression<Func<TAddressViewModel, bool?>>? isBogusNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? bogusNoPath = null,
@@ -162,7 +163,7 @@ namespace PROWeb.Components.Person.Contexts
             _bogusNoBinding?.Dispose();
             _bogusConstituencyNoBinding?.Dispose();
             _bogusConstituencyNameBinding?.Dispose();
-            
+
         }
     }
 }

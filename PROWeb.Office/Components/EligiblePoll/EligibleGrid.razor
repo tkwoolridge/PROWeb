@@ -1,0 +1,39 @@
+﻿@using PROWeb.Components.Person.Filters;
+@using PROWeb.Office.Components.EligiblePoll.Views;
+@using PROWeb.Office.ViewModels.EligiblePoll;
+@inherits PROListComponent<FilterModel, EligibleViewModel>
+
+<TelerikGrid Data="@Data">
+    <GridColumns>
+        <GridColumn Title="Birth register">
+            <Template>
+                @{
+                    var eligible = (EligibleViewModel) context;
+                    <CascadingValue Value="@eligible">
+                        <BirthDetailsView />
+                     </CascadingValue>
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Title="Status register">
+            <Template>
+                @{
+                    var eligible = (EligibleViewModel)context;
+                    <CascadingValue Value="@eligible">
+                        <ImmigrationsDetailsView/>
+                    </CascadingValue>
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Title="Driver licenses register">
+            <Template>
+                @{
+                    var eligible = (EligibleViewModel)context;
+                    <CascadingValue Value="@eligible">
+                        <DriversLicenseDetailsView />
+                    </CascadingValue>
+                }
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</TelerikGrid>

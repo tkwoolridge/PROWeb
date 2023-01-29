@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
+using PROWeb.Common.Extensions;
 using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
@@ -9,9 +10,9 @@ namespace PROWeb.Components.Person.Contexts
 {
     internal class DetailsContext<TPersonViewModel> : BindableContext<TPersonViewModel> where TPersonViewModel : SlimViewModelBase
     {
-        private int _personId;
+        private int? _personId;
 
-        public int PersonId
+        public int? PersonId
         {
             get => _personId;
             set => RaiseAndSetIfChanged(ref _personId, value);
@@ -22,7 +23,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? Title
         {
             get => _title;
-            set => RaiseAndSetIfChanged(ref _title, value);
+            set => RaiseAndSetIfChanged(ref _title, value.ToNullIfWhiteSpace());
         }
 
         private string? _firstName;
@@ -31,7 +32,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? FirstName
         {
             get => _firstName;
-            set => RaiseAndSetIfChanged(ref _firstName, value);
+            set => RaiseAndSetIfChanged(ref _firstName, value.ToNullIfWhiteSpace());
         }
 
         private string? _lastName;
@@ -40,7 +41,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? LastName
         {
             get => _lastName;
-            set => RaiseAndSetIfChanged(ref _lastName, value);
+            set => RaiseAndSetIfChanged(ref _lastName, value.ToNullIfWhiteSpace());
         }
 
         private string? _maidenName;
@@ -48,7 +49,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? MaidenName
         {
             get => _maidenName;
-            set => RaiseAndSetIfChanged(ref _maidenName, value);
+            set => RaiseAndSetIfChanged(ref _maidenName, value.ToNullIfWhiteSpace());
         }
 
         private string? _middleName;
@@ -56,7 +57,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? MiddleName
         {
             get => _middleName;
-            set => RaiseAndSetIfChanged(ref _middleName, value);
+            set => RaiseAndSetIfChanged(ref _middleName, value.ToNullIfWhiteSpace());
         }
 
         private char? _gender;
@@ -67,10 +68,10 @@ namespace PROWeb.Components.Person.Contexts
             set => RaiseAndSetIfChanged(ref _gender, value);
         }
 
-        private DateTime _dateOfBirth;
+        private DateTime? _dateOfBirth;
 
         [Required(ErrorMessage = "DOB is required!")]
-        public DateTime DateOfBirth
+        public DateTime? DateOfBirth
         {
             get => _dateOfBirth;
             set => RaiseAndSetIfChanged(ref _dateOfBirth, value);
@@ -87,14 +88,14 @@ namespace PROWeb.Components.Person.Contexts
 
         public void Bind(
             TPersonViewModel? model,
-            Expression<Func<TPersonViewModel, int>>? personIdPath = null,
+            Expression<Func<TPersonViewModel, int?>>? personIdPath = null,
             Expression<Func<TPersonViewModel, string?>>? titlePath = null,
             Expression<Func<TPersonViewModel, string?>>? firstNamePath = null,
             Expression<Func<TPersonViewModel, string?>>? lastNamePath = null,
             Expression<Func<TPersonViewModel, string?>>? middleNamePath = null,
             Expression<Func<TPersonViewModel, string?>>? maidenNamePath = null,
             Expression<Func<TPersonViewModel, char?>>? genderPath = null,
-            Expression<Func<TPersonViewModel, DateTime>>? dateOfBirthPath = null)
+            Expression<Func<TPersonViewModel, DateTime?>>? dateOfBirthPath = null)
         {
             Model = model;
 

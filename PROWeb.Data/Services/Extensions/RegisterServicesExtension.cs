@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PROWeb.Data.Services.Assessments;
-using PROWeb.Data.Services.Candidates;
 using PROWeb.Data.Services.Configuration;
+using PROWeb.Data.Services.EligiblePoll;
 using PROWeb.Data.Services.Logging;
 using PROWeb.Data.Services.Voters;
 
@@ -32,7 +32,7 @@ namespace PROWeb.Data.Services.Extensions
             services.AddSingleton<IVotersServiceFactory, VotersServiceFactory>();
 
             // Register candidates service.
-            services.AddSingleton<ICandidatesServiceFactory, CandidatesServiceFactory>();
+            services.AddSingleton<IEligiblePollServiceFactory, EligiblePollServiceFactory>();
 
             // Register activity log.
             services.AddSingleton<IActivityLogServiceFactory, ActivityLogServiceFactory>();

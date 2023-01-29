@@ -4,9 +4,9 @@ namespace PROWeb.Office.ViewModels.Voters
 {
     public class VoterViewModel : SlimViewModelBase
     {
-        private int _voterId;
+        private int? _voterId;
         
-        public int VoterId
+        public int? VoterId
         {
             get => _voterId;
             set => RaiseAndSetIfChanged(ref _voterId, value);
@@ -94,15 +94,15 @@ namespace PROWeb.Office.ViewModels.Voters
             set => RaiseAndSetIfChanged(ref _gender, value);
         }
 
-        private DateTime _dateOfBirth;
+        private DateTime? _dateOfBirth;
 
-        public DateTime DateOfBirth
+        public DateTime? DateOfBirth
         {
             get => _dateOfBirth;
             set => RaiseAndSetIfChanged(ref _dateOfBirth, value);
         }
 
-        public int Age => DateTime.Now.Year - DateOfBirth.Year;
+        public int Age => DateTime.Now.Year - DateOfBirth?.Year ?? 0;
 
         public string Address => $"{HouseNo} {Address2}, {ParishName} {PostalCode}";
 

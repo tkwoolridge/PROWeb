@@ -17,14 +17,14 @@
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            await base.OnAfterRenderAsync(firstRender);
+
             if (FilterRef == null)
             {
                 return;
             }
 
             FilterRef.SetFilterCallBack(OnFilterAsync);
-
-            await base.OnAfterRenderAsync(firstRender);
         }
     }
 }

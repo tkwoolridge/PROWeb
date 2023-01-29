@@ -57,7 +57,14 @@ textarea.k-input-inner {
     height: 100px;
 }
 
-.pro-view-title
-{
+.pro-view-title {
     font-weight: bold;
+}
+
+.k-window-actions {
+    margin: 0px;
+}
+
+.k-dialog-content {
+    white-space: pre-line;
 }

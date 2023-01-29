@@ -28,9 +28,14 @@ namespace PROWeb.Office.Components.Voters
 
         protected override async Task<int> AddDocumentAsync(DocumentViewModel vmDocument, MemoryStream stream)
         {
+            if (Model?.VoterId is not { } voterId)
+            {
+                return -1;
+            }
+
             Document document = vmDocument.MapTo<Document>(Mapper);
 
-            document.PersonId = Model!.VoterId;
+            document.PersonId = voterId;
             document.DocumentDate = DateTime.Now;
             document.RegistryYear = Model.RegistryYear;
             document.Content = stream?.ToArray();

@@ -27,7 +27,7 @@ namespace PROWeb.Components.Common
         }
 
         [CascadingParameter]
-        public ViewsLayout<TViewModel>? Parent { get; set; }
+        public ViewsLayout<TViewModel>? ParentLayout { get; set; }
 
         public EditContext? EditContext { get; set; }
 
@@ -36,12 +36,14 @@ namespace PROWeb.Components.Common
 
         protected virtual void OnModelUpdate()
         {
-            if ((Editable || Parent?.Editable == true) && Model is { } model)
-            {
-                EditContext = GetEditContext();
-            } 
+            PrepareContext();
         }
-        
+
+        private void OnEditContextFieldChanged(object? sender, FieldChangedEventArgs e)
+        {
+            ParentLayout?.OnFieldChanged(sender, e);
+        }
+
         protected virtual EditContext? GetEditContext()
         {
             return null;
@@ -51,9 +53,25 @@ namespace PROWeb.Components.Common
         {
             base.OnInitialized();
 
-            if (Parent != null)
+            if (ParentLayout is { } layout)
             {
-                Parent.AddView(this);
+                layout.AddView(this);
+                Editable = layout.Editable;
+            }
+        }
+
+        private void PrepareContext()
+        {
+            if (EditContext is { } oldContext)
+            {
+                oldContext.OnFieldChanged -= OnEditContextFieldChanged;
+            }
+
+            EditContext = GetEditContext();
+
+            if (EditContext is { } context)
+            {
+                context.OnFieldChanged += OnEditContextFieldChanged;
             }
         }
 

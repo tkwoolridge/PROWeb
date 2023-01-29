@@ -1,4 +1,7 @@
-﻿using PROWeb.Common.StrongBindings.Enums;
+﻿using Newtonsoft.Json;
+using PROWeb.Common.Converters;
+using PROWeb.Common.Extensions;
+using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
 using System.ComponentModel.DataAnnotations;
@@ -10,22 +13,20 @@ namespace PROWeb.Components.Person.Contexts
     {
         private string? _email;
 
-        [Required(ErrorMessage = "Voter email is required!")]
         [EmailAddress(ErrorMessage = "Voter email is not in correct format!")]
         public string? Email
         {
             get => _email;
-            set => RaiseAndSetIfChanged(ref _email, value);
+            set => RaiseAndSetIfChanged(ref _email, value.ToNullIfWhiteSpace());
         }
 
         private string? _contactPhone;
 
-        [Required(ErrorMessage = "Voter email is required")]
         [Phone(ErrorMessage = "Contact phone is not in correct format!")]
         public string? ContactPhone
         {
             get => _contactPhone;
-            set => RaiseAndSetIfChanged(ref _contactPhone, value);
+            set => RaiseAndSetIfChanged(ref _contactPhone, value.ToNullIfWhiteSpace());
         }
 
         private string? _phoneHome;
@@ -33,7 +34,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? PhoneHome
         {
             get => _phoneHome;
-            set => RaiseAndSetIfChanged(ref _phoneHome, value);
+            set => RaiseAndSetIfChanged(ref _phoneHome, value.ToNullIfWhiteSpace());
         }
 
         private string? _phoneWork;
@@ -41,7 +42,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? PhoneWork
         {
             get => _phoneWork;
-            set => RaiseAndSetIfChanged(ref _phoneWork, value);
+            set => RaiseAndSetIfChanged(ref _phoneWork, value.ToNullIfWhiteSpace());
         }
 
         private string? _phoneMobile;
@@ -49,7 +50,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? PhoneMobile
         {
             get => _phoneMobile;
-            set => RaiseAndSetIfChanged(ref _phoneMobile, value);
+            set => RaiseAndSetIfChanged(ref _phoneMobile, value.ToNullIfWhiteSpace());
         }
 
         private string? _driverLicense;
@@ -57,7 +58,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? DriverLicense
         {
             get => _driverLicense;
-            set => RaiseAndSetIfChanged(ref _driverLicense, value);
+            set => RaiseAndSetIfChanged(ref _driverLicense, value.ToNullIfWhiteSpace());
         }
 
         private string? _comment;
@@ -65,7 +66,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? Comment
         {
             get => _comment;
-            set => RaiseAndSetIfChanged(ref _comment, value);
+            set => RaiseAndSetIfChanged(ref _comment, value.ToNullIfWhiteSpace());
         }
 
         private IDisposable? _emailBinding;

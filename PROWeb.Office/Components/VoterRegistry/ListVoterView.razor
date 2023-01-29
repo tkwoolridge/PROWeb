@@ -30,7 +30,7 @@
     }
 </style>
 
-<VoterViewLayout @ref="@ViewsLayout">
+<VoterViewLayout Editable="@Editable" @ref="@ViewsLayout">
     <Views>
         <TelerikTabStrip Class="p-container voter-tab-view" PersistTabContent="true" @bind-ActiveTabIndex="@TabIndex">
             <TabStripTab Title="Voter">
@@ -57,6 +57,9 @@
 </VoterViewLayout>
 
 @code {
+    [Parameter]
+    public bool Editable { get; set; }
+
     protected int TabIndex 
     { 
         get => ViewsLayout?.Model?.TabIndex ?? 0;
@@ -73,10 +76,10 @@
 
     protected RenderFragment ToolBar => __builder =>
     {
-        @if (ViewsLayout?.Editable == true)
+        @if (Editable == true && ViewsLayout is { } viewLayout)
         {
             <div class="d-flex justify-content-end">
-                <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@ViewsLayout.CanSave" Command="Save" OnClick="@OnSave" Class="me-1">Save</ListViewCommandButton>
+                <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@viewLayout.CanSave" Command="Save" OnClick="@OnSave" Class="me-1">Save</ListViewCommandButton>
                 <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
             </div>
         }

@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
-using PROWeb.Components.Assessments;
+using PROWeb.Components.Assessments.Contexts;
 using PROWeb.Components.Common;
-using PROWeb.Components.Person.Contexts;
 using PROWeb.Components.ViewModels.Assessment;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
-namespace PROWeb.Components.Person
+namespace PROWeb.Components.Assessments
 {
     public abstract class AddressViewBase<TAddressViewModel> : PROView<TAddressViewModel>
         where TAddressViewModel : SlimViewModelBase
@@ -18,13 +17,13 @@ namespace PROWeb.Components.Person
     {
         internal AddressContext<TAddressViewModel> Context { get; set; } = new();
 
-        private readonly Expression<Func<TAddressViewModel, int>>? _assessmentNoPath;
+        private readonly Expression<Func<TAddressViewModel, int?>>? _assessmentNoPath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _address1Path;
         private readonly Expression<Func<TAddressViewModel, string?>>? _houseNoPath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _address2Path;
         private readonly Expression<Func<TAddressViewModel, string?>>? _postalCodePath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _parishNamePath;
-        private readonly Expression<Func<TAddressViewModel, int>>? _constituencyNoPath;
+        private readonly Expression<Func<TAddressViewModel, int?>>? _constituencyNoPath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _constituencyNamePath;
         private readonly Expression<Func<TAddressViewModel, bool?>>? _isBogusNoPath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _bogusNoPath;
@@ -32,19 +31,19 @@ namespace PROWeb.Components.Person
         private readonly Expression<Func<TAddressViewModel, string?>>? _bogusConstituencyNamePath;
 
         public AddressView(
-            Expression<Func<TAddressViewModel, int>>? assessmentNoPath = null,
+            Expression<Func<TAddressViewModel, int?>>? assessmentNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? address1Path = null,
             Expression<Func<TAddressViewModel, string?>>? houseNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? address2Path = null,
             Expression<Func<TAddressViewModel, string?>>? postalCodePath = null,
             Expression<Func<TAddressViewModel, string?>>? parishNamePath = null,
-            Expression<Func<TAddressViewModel, int>>? constituencyNoPath = null,
+            Expression<Func<TAddressViewModel, int?>>? constituencyNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? constituencyNamePath = null,
             Expression<Func<TAddressViewModel, bool?>>? isBogusNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? bogusNoPath = null,
             Expression<Func<TAddressViewModel, int?>>? bogusConstituencyNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? bogusConstituencyNamePath = null
-            ) 
+            )
         {
             _assessmentNoPath = assessmentNoPath;
             _address1Path = address1Path;

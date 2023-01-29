@@ -1,4 +1,4 @@
-﻿using PROWeb.Components.Person;
+﻿using PROWeb.Components.Assessments;
 using PROWeb.Office.ViewModels.Voters;
 
 namespace PROWeb.Office.Components.Voters

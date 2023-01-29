@@ -15,7 +15,7 @@
 	</MenuItem>-->
 	
 	<MenuItem Name="Imports" Description="Imports">
-		<MenuItem Name="CandidatesRegistry" Description="Eligible Poll" Page="/candidates"/>
+		<MenuItem Name="EligiblePool" Description="Eligible Poll" Page="/eligiblepoll"/>
 		<MenuItem Name="AssessmentsRegistry" Description="Address Registry" Page="/assessments"/>
 	</MenuItem>
 

@@ -54,9 +54,7 @@ namespace PROWeb.Components.Person
 
             IList<TFlagViewModel>? flags = await GetFlagsAsync();
 
-            Flags = flags?.Select(f => new FlagContext<TFlagViewModel>(f)).ToList();
-
-            FlagsValues = Context?.ContextFlags?.Select(f => f.FlagId).ToList() ?? Enumerable.Empty<int>().ToList();
+            Flags = flags?.Select(f => new FlagContext<TFlagViewModel>(f, _flagIdPath, _flagDescriptionPath)).ToList();
         }
 
         protected abstract Task<IList<TFlagViewModel>?> GetFlagsAsync();
@@ -84,6 +82,8 @@ namespace PROWeb.Components.Person
                 _flagIdPath,
                 _flagDescriptionPath
                 );
+
+                FlagsValues = Context?.ContextFlags?.Select(f => f.FlagId).ToList() ?? Enumerable.Empty<int>().ToList();
             }
         }
 

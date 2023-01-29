@@ -1,11 +1,11 @@
-﻿@page "/candidates"
+﻿@page "/eligiblepoll"
 @using PROWeb.Components.Person.Filters;
 @using PROWeb.Components.Assessments;
 @using PROWeb.Components.ViewModels.Assessment;
-@using PROWeb.Office.ViewModels.Candidates;
-@using PROWeb.Office.Components.Candidates;
-@using PROWeb.Office.Components.Candidates.Filters;
-@inherits PRORegistryLayout<FilterModel, CandidateViewModel>
+@using PROWeb.Office.ViewModels.EligiblePoll;
+@using PROWeb.Office.Components.EligiblePoll.Filters;
+@using PROWeb.Office.Components.EligiblePoll;
+@inherits PRORegistryLayout<FilterModel, EligibleViewModel>
 
 <FilterListLayout>
     <Filter>
@@ -14,11 +14,11 @@
                 <strong>Filter:</strong>
             </Header>
             <Content>
-                <CandidateFilterSimple @ref="@FilterRef" />
+                <EligibleFilterSimple @ref="@FilterRef" />
             </Content>
         </ExpansionPanel>
     </Filter>
     <List>
-        <CandidatesGrid @ref="ListRef" />
+        <EligibleGrid @ref="ListRef" />
     </List>
 </FilterListLayout>

@@ -1,12 +1,7 @@
 ﻿using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PROWeb.Components.Person.Contexts
 {

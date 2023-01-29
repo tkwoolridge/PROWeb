@@ -28,10 +28,9 @@
     </Template>
     <EditTemplate>
         <div class="voter-view">
-            <EditForm Model="@context" Context="formContext">
-                <DataAnnotationsValidator />
-                <ListVoterView />
-            </EditForm>
+           <CascadingValue Value="@context">
+                <ListVoterView Editable="true"/>
+            </CascadingValue>
         </div>
     </EditTemplate>
 </TelerikListView>

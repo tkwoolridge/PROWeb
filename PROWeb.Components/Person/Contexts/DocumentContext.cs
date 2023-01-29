@@ -1,4 +1,5 @@
-﻿using PROWeb.Common.StrongBindings.Enums;
+﻿using PROWeb.Common.Extensions;
+using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
 using System.ComponentModel.DataAnnotations;
@@ -27,11 +28,11 @@ namespace PROWeb.Components.Person.Contexts
         private string? _documentName;
 
         [Required(ErrorMessage = "Document name is required!")]
-        [StringLength(50, ErrorMessage = "Maximum name size is {0} characters!")]
+        [StringLength(50, ErrorMessage = "Maximum name size is 50 characters!")]
         public string? DocumentName
         {
             get => _documentName;
-            set => RaiseAndSetIfChanged(ref _documentName, value);
+            set => RaiseAndSetIfChanged(ref _documentName, value.ToNullIfWhiteSpace());
         }
 
         private string? _documentDescription;
@@ -39,7 +40,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? DocumentDescription
         {
             get => _documentDescription;
-            set => RaiseAndSetIfChanged(ref _documentDescription, value);
+            set => RaiseAndSetIfChanged(ref _documentDescription, value.ToNullIfWhiteSpace());
         }
 
         private string? _exportFormat;
@@ -47,7 +48,7 @@ namespace PROWeb.Components.Person.Contexts
         public string? ExportFormat
         {
             get => _exportFormat;
-            set => RaiseAndSetIfChanged(ref _exportFormat, value);
+            set => RaiseAndSetIfChanged(ref _exportFormat, value.ToNullIfWhiteSpace());
         }
 
         private byte[]? _content;
