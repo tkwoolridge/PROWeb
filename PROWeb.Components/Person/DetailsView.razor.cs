@@ -8,7 +8,7 @@ using Telerik.Blazor.Components;
 
 namespace PROWeb.Components.Person
 {
-    public abstract class DetailsViewBase<TPersonViewModel> : PROView<TPersonViewModel> where TPersonViewModel : SlimViewModelBase
+    public abstract class DetailsViewBase<TPersonViewModel> : PROEditableView<TPersonViewModel> where TPersonViewModel : SlimViewModelBase
     {
     }
 
@@ -23,6 +23,7 @@ namespace PROWeb.Components.Person
 
         internal DetailsContext<TPersonViewModel> Context { get; set; } = new();
 
+        private string _viewClass => ShowMaidenName ? "person-details-view" : "person-details-view-no-maiden-name";
         private readonly Expression<Func<TPersonViewModel, int?>>? _personIdPath;
         private readonly Expression<Func<TPersonViewModel, string?>>? _titlePath;
         private readonly Expression<Func<TPersonViewModel, string?>>? _firstNamePath;

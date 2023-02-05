@@ -1,0 +1,19 @@
+﻿.drivers-license-id-view {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+    gap: 0px 5px;
+}
+
+.drivers-license-person-view {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 10px;
+}
+
+.drivers-license-address-view
+{
+    height: 178px;
+}

@@ -1,0 +1,43 @@
+﻿@using PROWeb.Office.Components.Forms.Views;
+@inherits PROComponent
+
+    <TelerikWizard @bind-Value="@Page" Height="100%" OnFinish="@OnWizardFinish">
+        <WizardSteps>
+            <WizardStep Label="Action" OnChange="@OnRegistrationStepChange">
+                <Content>
+                    <CascadingValue Value="@WizardModel">
+                      <RegistrationActionView/>
+                    </CascadingValue>
+                </Content>
+            </WizardStep>
+            <WizardStep Label="@SecundStepLabel" OnChange="@OnRegistrationStepChange">
+                <Content>
+                    <CascadingValue Value="@WizardModel">
+                        @SecundStepView
+                    </CascadingValue>
+                </Content>
+            </WizardStep>
+            <WizardStep Label="Review Form" OnChange="@OnRegistrationStepChange">
+                <Content>
+
+                </Content>
+            </WizardStep>
+        </WizardSteps>
+        <WizardSettings>
+            <WizardStepperSettings Linear="true" StepType="@StepperStepType.Steps" />
+        </WizardSettings>
+        <WizardButtons>
+            @{
+                var index = context;
+                <TelerikButton Enabled="@( index > 0 )" ButtonType="ButtonType.Button" OnClick="@(() => Page --)">Previous</TelerikButton>
+                <TelerikButton Enabled="@( index < 2 )" ButtonType="ButtonType.Button" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" OnClick="@(() => Page++)">Next</TelerikButton>
+            }
+        </WizardButtons>
+    </TelerikWizard>
+
+@code
+{
+    protected RenderFragment AddressTemplate { get; } = @<AddressDetailsView/>;
+
+    protected RenderFragment NameChangeTemplate { get; } = @<NameChangeView />;
+}

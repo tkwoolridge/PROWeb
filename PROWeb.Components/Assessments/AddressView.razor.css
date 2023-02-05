@@ -34,7 +34,7 @@
 }
 
 .address-parish {
-    grid-column: 3;
+    grid-column: 3 / span 3;
 }
 
 .address-country {

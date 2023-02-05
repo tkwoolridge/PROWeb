@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person
 {
-    public abstract class ContactInfoViewBase<TContactInfoViewModel> : PROView<TContactInfoViewModel> where TContactInfoViewModel : SlimViewModelBase
+    public abstract class ContactInfoViewBase<TContactInfoViewModel> : PROEditableView<TContactInfoViewModel> where TContactInfoViewModel : SlimViewModelBase
     {
     }
 

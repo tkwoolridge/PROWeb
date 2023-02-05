@@ -3,21 +3,11 @@
 @inherits DetailsViewBase<TPersonViewModel>
 @typeparam TPersonViewModel where TPersonViewModel : SlimViewModelBase
 
-<style>
-    .person-details-view {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(@RowCount, auto);
-        grid-auto-flow: column;
-        gap: 0px 5px;
-    }
-</style>
-
 @if(Editable)
 {
     <EditForm EditContext="@EditContext">
         <DataAnnotationsValidator />
-        <div class="person-details-view">
+        <div class="@_viewClass">
             <div class="person-details-title pro-view-title mb-2">@Title</div>
 
             <label>Last Name:</label>
@@ -45,7 +35,7 @@
 }
 else
 {
-    <div class="person-details-view">
+    <div class="@_viewClass">
         <div class="person-details-title pro-view-title mb-2">@Title</div>
 
         <label>Last Name:</label>

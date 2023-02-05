@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Assessments
 {
-    public abstract class AddressViewBase<TAddressViewModel> : PROView<TAddressViewModel>
+    public abstract class AddressViewBase<TAddressViewModel> : PROEditableView<TAddressViewModel>
         where TAddressViewModel : SlimViewModelBase
     {
     }

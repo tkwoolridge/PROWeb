@@ -3,34 +3,58 @@
 @using PROWeb.Office.ViewModels.EligiblePoll;
 @inherits PROListComponent<FilterModel, EligibleViewModel>
 
-<TelerikGrid Data="@Data">
+<style>
+    .eligible-grid td.vertical-aligned-cell {
+        vertical-align: top;
+    }
+
+    .eligible-grid th.align-center {
+        text-align: center;
+    }
+</style>
+
+
+<TelerikGrid Data="@Data"
+             @bind-Page="@Page"
+             PageSize="@PageSize"
+             Class="eligible-grid"
+             Height="100%"
+             SelectedItems="@SelectedItems"
+             TItem="EligibleViewModel"
+             SelectedItemsChanged="@OnSelectionChanged"
+             SelectionMode="@(EnableSelection ? GridSelectionMode.Single : GridSelectionMode.None)"
+             Pageable="true">
     <GridColumns>
-        <GridColumn Title="Birth register">
+        @if(EnableSelection)
+        {
+            <GridCheckboxColumn Width="30px" SelectAll="false" />
+        }
+        <GridColumn HeaderClass="align-center" Title="BIRTHS REGISTER" OnCellRender="@( (GridCellRenderEventArgs e) => e.Class = "vertical-aligned-cell" )">
             <Template>
                 @{
                     var eligible = (EligibleViewModel) context;
                     <CascadingValue Value="@eligible">
-                        <BirthDetailsView />
+                        <BirthView />
                      </CascadingValue>
                 }
             </Template>
         </GridColumn>
-        <GridColumn Title="Status register">
+        <GridColumn HeaderClass="align-center" Title="STATUS REGISTER" OnCellRender="@( (GridCellRenderEventArgs e) => e.Class = "vertical-aligned-cell" )">
             <Template>
                 @{
                     var eligible = (EligibleViewModel)context;
                     <CascadingValue Value="@eligible">
-                        <ImmigrationsDetailsView/>
+                        <ImmigrationView/>
                     </CascadingValue>
                 }
             </Template>
         </GridColumn>
-        <GridColumn Title="Driver licenses register">
+        <GridColumn HeaderClass="align-center" Title="DRIVERS REGISTER" OnCellRender="@( (GridCellRenderEventArgs e) => e.Class = "vertical-aligned-cell" )">
             <Template>
                 @{
                     var eligible = (EligibleViewModel)context;
                     <CascadingValue Value="@eligible">
-                        <DriversLicenseDetailsView />
+                        <DriverLicenseView />
                     </CascadingValue>
                 }
             </Template>

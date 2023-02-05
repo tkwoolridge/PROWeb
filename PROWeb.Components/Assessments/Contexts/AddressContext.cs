@@ -57,6 +57,14 @@ namespace PROWeb.Components.Assessments.Contexts
             set => RaiseAndSetIfChanged(ref _parishName, value.ToNullIfWhiteSpace());
         }
 
+        private string? _countryName;
+
+        public string? CountryName
+        {
+            get => _countryName;
+            set => RaiseAndSetIfChanged(ref _countryName, value);
+        }
+
         private int? _constituencyNo;
 
         public int? ConstituencyNo

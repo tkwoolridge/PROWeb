@@ -16,11 +16,21 @@ namespace PROWeb.Components.Assessments
         public EventCallback<AssessmentViewModel> AssessmentSelected { get; set; }
 
         [Parameter]
-        public int PageSize { get; set; } = 20;
+        public bool EnableSelection { get; set; }
 
-        private async Task OnSelectionChanged(IEnumerable<AssessmentViewModel> selectedItems)
+        protected override void OnSelectionChanged(IEnumerable<AssessmentViewModel> selectedItems)
         {
-            await AssessmentSelected.InvokeAsync(selectedItems.First());
+            base.OnSelectionChanged(selectedItems);
+
+            if (selectedItems.FirstOrDefault() is { } eligible)
+            {
+                AssessmentSelected.InvokeAsync(eligible);
+            }
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
         }
 
         protected override async Task<IList<AssessmentViewModel>> OnFilterAsync(AssessmentFilterViewModel filter)

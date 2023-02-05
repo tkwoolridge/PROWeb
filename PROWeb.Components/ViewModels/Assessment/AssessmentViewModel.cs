@@ -2,7 +2,7 @@
 
 namespace PROWeb.Components.ViewModels.Assessment
 {
-    public class AssessmentViewModel : SlimViewModelBase
+    public class AssessmentViewModel : SlimViewModelBase, IEquatable<AssessmentViewModel>
     {
         public int AssessmentNo { get; set; }
 
@@ -25,5 +25,20 @@ namespace PROWeb.Components.ViewModels.Assessment
         public string? ParishName { get; set; }
 
         public bool IsBogus { get; set; }
+
+        public bool Equals(AssessmentViewModel? other)
+        {
+            return AssessmentNo == other?.AssessmentNo;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as AssessmentViewModel);
+        }
+
+        public override int GetHashCode()
+        {
+            return AssessmentNo.GetHashCode();
+        }
     }
 }

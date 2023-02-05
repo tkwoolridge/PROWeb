@@ -1,0 +1,17 @@
+﻿@using PROWeb.Office.ViewModels.Registration;
+
+@inherits PROView<RegistrationWizardViewModel>
+
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="k-form k-form-md k-form-vertical p-container p-5">
+        <div class="k-form-field">
+            <label class="label text-primary mb-4">Please choose registration action:</label>
+            <div class="k-form-field-wrap">
+                <TelerikRadioGroup Data="@RegistrationActions"
+                                   TextField="@nameof(RegistrationAction.Action)"
+                                   ValueField="@nameof(RegistrationAction.ActionId)"
+                                   @bind-Value="@Model!.RegistrationActionId" />
+            </div>
+        </div>
+    </div>
+</div>

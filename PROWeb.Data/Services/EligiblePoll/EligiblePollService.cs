@@ -18,7 +18,7 @@ namespace PROWeb.Data.Services.EligiblePoll
         }
     }
 
-    #endregion Service Factory
+    #endregion
 
     public class EligiblePollService : DbContextService<DataContext>, IEligiblePollService
     {

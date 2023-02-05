@@ -1,0 +1,21 @@
+﻿@using PROWeb.Components.Person.Filters;
+@using PROWeb.Office.Components.EligiblePoll.Views;
+@using PROWeb.Office.Components.EligiblePoll.Filters;
+@using PROWeb.Office.ViewModels.EligiblePoll;
+@inherits PRORegistryLayout<FilterModel, EligibleViewModel>
+
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <Content>
+                <EligibleFilterSimple @ref="@FilterRef" />
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <List>
+        <EligibleGrid EnableSelection="@EnableSelection" EligibleSelected="@OnSelectionChanged" @ref="ListRef" />
+    </List>
+</FilterListLayout>

@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PROWeb.Data.Services.Assessments;
 using PROWeb.Data.Services.Configuration;
 using PROWeb.Data.Services.EligiblePoll;
 using PROWeb.Data.Services.Logging;
+using PROWeb.Data.Services.Registration;
 using PROWeb.Data.Services.Voters;
 
 namespace PROWeb.Data.Services.Extensions
@@ -30,6 +32,9 @@ namespace PROWeb.Data.Services.Extensions
 
             // Register voters service.
             services.AddSingleton<IVotersServiceFactory, VotersServiceFactory>();
+
+            // Register registration service.
+            services.AddSingleton<IRegistrationServiceFactory, RegistrationServiceFactory>();
 
             // Register candidates service.
             services.AddSingleton<IEligiblePollServiceFactory, EligiblePollServiceFactory>();

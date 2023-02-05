@@ -1,0 +1,11 @@
+﻿@using PROWeb.Office.ViewModels.Registration;
+@inherits PROView<RegistrationWizardViewModel>
+
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="name-change-view">
+        <label>Please type new last name: </label>
+        <div>
+            <TelerikTextBox @bind-Value="@Model!.NewLastName"/>
+        </div>
+    </div>
+</div>

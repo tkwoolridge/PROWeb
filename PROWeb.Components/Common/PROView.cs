@@ -1,16 +1,25 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.EntityFrameworkCore.Metadata;
 using PROWeb.Common.Components;
+using PROWeb.Common.ViewModels;
 using PROWeb.Components.Layouts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PROWeb.Components.Common
 {
-    public abstract class PROView<TViewModel> : PROComponent where TViewModel : class
+    public abstract class PROView<TViewModel> : PROComponent where TViewModel : SlimViewModelBase
     {
         private TViewModel? _model;
 
         [Parameter]
         public string? Title { get; set; }
+
+        [CascadingParameter]
+        public ViewsLayout<TViewModel>? ParentLayout { get; set; }
 
         [CascadingParameter]
         public TViewModel? Model
@@ -26,29 +35,6 @@ namespace PROWeb.Components.Common
             }
         }
 
-        [CascadingParameter]
-        public ViewsLayout<TViewModel>? ParentLayout { get; set; }
-
-        public EditContext? EditContext { get; set; }
-
-        [Parameter]
-        public bool Editable { get; set; }
-
-        protected virtual void OnModelUpdate()
-        {
-            PrepareContext();
-        }
-
-        private void OnEditContextFieldChanged(object? sender, FieldChangedEventArgs e)
-        {
-            ParentLayout?.OnFieldChanged(sender, e);
-        }
-
-        protected virtual EditContext? GetEditContext()
-        {
-            return null;
-        }
-
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -56,34 +42,11 @@ namespace PROWeb.Components.Common
             if (ParentLayout is { } layout)
             {
                 layout.AddView(this);
-                Editable = layout.Editable;
             }
         }
 
-        private void PrepareContext()
+        protected virtual void OnModelUpdate()
         {
-            if (EditContext is { } oldContext)
-            {
-                oldContext.OnFieldChanged -= OnEditContextFieldChanged;
-            }
-
-            EditContext = GetEditContext();
-
-            if (EditContext is { } context)
-            {
-                context.OnFieldChanged += OnEditContextFieldChanged;
-            }
-        }
-
-        public virtual void OnSave()
-        {
-        }
-
-        public IEnumerable<string>? OnValidate()
-        {
-            EditContext?.Validate();
-
-            return EditContext?.GetValidationMessages();
         }
     }
 }

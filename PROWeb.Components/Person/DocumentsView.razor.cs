@@ -13,7 +13,7 @@ using Telerik.Blazor.Components.FileSelect;
 
 namespace PROWeb.Components.Person
 {
-    public abstract class DocumentsViewBase<TDocumentsViewModel, TDocumentViewModel> : PROView<TDocumentsViewModel>
+    public abstract class DocumentsViewBase<TDocumentsViewModel, TDocumentViewModel> : PROEditableView<TDocumentsViewModel>
         where TDocumentsViewModel : SlimViewModelBase
         where TDocumentViewModel : SlimViewModelBase
     {

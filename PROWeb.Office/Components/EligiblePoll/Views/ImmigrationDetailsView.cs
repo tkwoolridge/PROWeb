@@ -4,9 +4,9 @@ using PROWeb.Office.ViewModels.Voters;
 
 namespace PROWeb.Office.Components.EligiblePoll.Views
 {
-    public class ImmigrationsDetailsView : EligibleDetailsView
+    public class ImmigrationDetailsView : EligibleDetailsView
     {
-        public ImmigrationsDetailsView()
+        public ImmigrationDetailsView()
             : base(
                 e => e.ImmigrationId,
                 null,

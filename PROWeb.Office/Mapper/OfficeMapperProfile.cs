@@ -1,6 +1,7 @@
 ﻿using PROWeb.Components.Mapping;
 using PROWeb.Data.Models;
 using PROWeb.Office.ViewModels.EligiblePoll;
+using PROWeb.Office.ViewModels.Registration;
 using PROWeb.Office.ViewModels.Voters;
 
 namespace PROWeb.Office.Mapper
@@ -29,6 +30,8 @@ namespace PROWeb.Office.Mapper
 
             CreateMap<VoterViewModel, Voter>();
             CreateMap<Eligible, EligibleViewModel>();
+
+            CreateMap<FormType, FormTypeViewModel>();
         }
     }
 }

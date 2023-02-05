@@ -68,3 +68,7 @@ textarea.k-input-inner {
 .k-dialog-content {
     white-space: pre-line;
 }
+
+.k-grid .k-grid-table .k-master-row.k-alt {
+    background-color: lightgray;
+}

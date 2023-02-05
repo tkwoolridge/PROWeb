@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.Components;
+using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common;
 using Telerik.Blazor;
 
 namespace PROWeb.Components.Layouts
 {
-    public abstract partial class ViewsLayout<TViewModel> : PROContentLayout where TViewModel : class
+    public abstract partial class ViewsLayout<TViewModel> : PROContentLayout where TViewModel : SlimViewModelBase
     {
         [CascadingParameter]
         public DialogFactory Dialogs { get; set; } = null!;
@@ -50,7 +51,7 @@ namespace PROWeb.Components.Layouts
                 return false;
             }
 
-            foreach (var view in _views)
+            foreach (var view in _views.OfType<PROEditableView<TViewModel>>())
             {
                 view.OnSave();
             }
@@ -60,13 +61,16 @@ namespace PROWeb.Components.Layouts
             return true;
         }
 
-        public abstract Task SaveAsync();
+        public virtual Task SaveAsync()
+        {
+            throw new NotImplementedException();
+        }
 
         public List<string>? Validate()
         {
             List<string>? errors = new List<string>();
 
-            foreach (var view in _views)
+            foreach (var view in _views.OfType<PROEditableView<TViewModel>>())
             {
                 if (view.OnValidate() is { } viewErrors)
                 {

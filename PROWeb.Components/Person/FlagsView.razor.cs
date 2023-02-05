@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person
 {
-    public abstract class FlagsViewBase<TFlagsViewModel, TFlagViewModel> : PROView<TFlagsViewModel>
+    public abstract class FlagsViewBase<TFlagsViewModel, TFlagViewModel> : PROEditableView<TFlagsViewModel>
         where TFlagsViewModel : SlimViewModelBase
         where TFlagViewModel : SlimViewModelBase, new()
     {

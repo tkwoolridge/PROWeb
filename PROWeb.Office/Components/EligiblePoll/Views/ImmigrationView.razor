@@ -1,0 +1,14 @@
+﻿@using PROWeb.Office.ViewModels.EligiblePoll;
+@inherits PROView<EligibleViewModel>
+
+<div>
+    <div>
+        <ImmigrationDetailsView Title="Status Details"/>
+    </div>
+    <div class="immigration-status-view">
+        <label>Status:</label>
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Model?.ImmigrationStatus" />
+        <label>Status Acquired:</label>
+        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Model?.ImmigrationStatusAcquired?.ToString("dd MMM yyyy")" />
+    </div>
+</div>

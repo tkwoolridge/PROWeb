@@ -13,6 +13,22 @@ namespace PROWeb.Office.Components.EligiblePoll
         [Inject]
         private IEligiblePollServiceFactory _candidatesServiceFactory { get; set; } = null!;
 
+        [Parameter]
+        public EventCallback<EligibleViewModel> EligibleSelected { get; set; }
+
+        [Parameter]
+        public bool EnableSelection { get; set; }
+
+        protected override void OnSelectionChanged(IEnumerable<EligibleViewModel> selectedItems)
+        {
+            base.OnSelectionChanged(selectedItems);
+
+            if(selectedItems.FirstOrDefault() is { } eligible)
+            {
+                EligibleSelected.InvokeAsync(eligible);
+            }
+        }
+
         protected override async Task<IList<EligibleViewModel>> OnFilterAsync(FilterModel filter)
         {
             Page = 1;
