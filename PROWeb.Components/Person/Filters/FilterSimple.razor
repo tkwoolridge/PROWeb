@@ -1,26 +1,26 @@
 ﻿@using PROWeb.Common.Components;
-@using PROWeb.Components.ViewModels.Assessment
-@using PROWeb.Components.Person.Filters
-@inherits PROFilterComponent<FilterModel>
+@using PROWeb.Components.ViewModels.Assessments;
+@using PROWeb.Components.Person.Filters;
+@inherits PROFilterComponentWithState<FilterModel>
 
-<TelerikForm Model="@Filter"
-            OnSubmit="@OnSearchAsync">
-    <FormItems>
-        <FormGroup Columns="6" ColumnSpacing="10px">
-            <FormItem ColSpan="3" Field="@nameof(FilterModel.LastName)"/>
-            <FormItem ColSpan="2" Field="@nameof(FilterModel.FirstName)"/>
-            <FormItem ColSpan="1" Field="@nameof(FilterModel.DateOfBirth)">
-                <Template>
-                    <label for="dateOfBirth" class="k-label k-form-label">Date Of Birth:</label>
-                    <TelerikDateInput Id="dateOfBirth" @bind-Value="@Filter.DateOfBirth" Format="MM/dd/yyyy"/>
-                </Template>
-            </FormItem>
-        </FormGroup>
-    </FormItems>
-    <FormButtons>
-        <div class="d-flex justify-content-between w-100">
-            <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" ThemeColor="primary" Enabled="@CanSearch">Search</TelerikButton>
-            <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Button" OnClick="@OnClear">Clear</TelerikButton>
+<EditForm Model="@Filter">
+    <div class="d-flex justify-content-start">
+        <div class="person-filter-simple">
+            <label for="lastName" class="k-label k-form-label">Last Name:</label>
+            <TelerikTextBox Id="lastName" @bind-Value="@Filter.LastName" />
+
+            <label for="firstName" class="k-label k-form-label">First Name:</label>
+            <TelerikTextBox Id="firstName" @bind-Value="@Filter.FirstName" />
+
+            <label for="middleName" class="k-label k-form-label">Middle Name:</label>
+            <TelerikTextBox Id="middleName" @bind-Value="@Filter.MiddleName" />
+
+            <label for="dateOfBirth" class="k-label k-form-label">Date Of Birth:</label>
+            <TelerikDateInput Id="dateOfBirth" @bind-Value="@Filter.DateOfBirth" Format="MM/dd/yyyy" />
         </div>
-    </FormButtons>
-</TelerikForm>
+    </div>
+    <div class="d-flex justify-content-between w-100 mt-2">
+        <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnSearchAsync" Enabled="@CanSearch" ThemeColor="primary">Search</TelerikButton>
+        <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnClear">Clear</TelerikButton>
+    </div>
+</EditForm>

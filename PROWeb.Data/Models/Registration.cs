@@ -12,8 +12,6 @@ namespace PROWeb.Data.Models
 
         public int VoterId { get; set; }
 
-        public Voter Voter { get; set; }
-
         public int BirthId { get; set; }
 
         public int ImmigrationID { get; set; }
@@ -66,9 +64,6 @@ namespace PROWeb.Data.Models
         public string OldBogusNo { get; set; }
 
         public Constituency OldBogusConstituency { get; set; }
-
-        [Required]
-        public bool IsEligible { get; set; }
 
         [Required]
         [StringLength(255)]

@@ -7,7 +7,7 @@ using PROWeb.Data.Services.Assessments;
 using PROWeb.Data.Services.Configuration;
 using PROWeb.Data.Services.EligiblePoll;
 using PROWeb.Data.Services.Logging;
-using PROWeb.Data.Services.Registration;
+using PROWeb.Data.Services.Registrations;
 using PROWeb.Data.Services.Voters;
 
 namespace PROWeb.Data.Services.Extensions

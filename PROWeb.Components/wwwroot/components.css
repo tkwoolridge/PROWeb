@@ -72,3 +72,8 @@ textarea.k-input-inner {
 .k-grid .k-grid-table .k-master-row.k-alt {
     background-color: lightgray;
 }
+
+
+.assessment-filter-postal-code, .assessment-filter-house-no {
+    width: 50px;
+}

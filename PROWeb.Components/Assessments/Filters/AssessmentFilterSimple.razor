@@ -1,18 +1,21 @@
-﻿@using PROWeb.Components.ViewModels.Assessment
-@inherits PROFilterComponent<AssessmentFilterViewModel>
+﻿@using PROWeb.Components.ViewModels.Assessments
+@inherits PROFilterComponentWithState<AssessmentFilterViewModel>
 
-<TelerikForm Model="@Filter" OnSubmit="@OnSearchAsync" ColumnSpacing="10px">
-    <FormItems>
-        <FormGroup Columns="7" ColumnSpacing="5px">
-            <FormItem ColSpan="2" Field="@nameof(AssessmentFilterViewModel.AssessmentNo)" />
-            <FormItem ColSpan="4" Field="@nameof(AssessmentFilterViewModel.Address2)" />
-            <FormItem ColSpan="1" Field="@nameof(AssessmentFilterViewModel.HouseNo)" />
-        </FormGroup>
-    </FormItems>
-    <FormButtons>
-        <div class="d-flex justify-content-between w-100">
-            <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" Enabled="@CanSearch" ThemeColor="primary">Search</TelerikButton>
-            <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Button" OnClick="@OnClear">Clear</TelerikButton>
+<EditForm Model="@Filter">
+    <div class="d-flex justify-content-start">
+        <div class="assessment-filter-simple">
+            <label for="assessmentNo" class="k-label k-form-label">Ass. No:</label>
+            <TelerikNumericTextBox Id="assessmentNo" @bind-Value="@Filter.AssessmentNo" />
+
+            <label for="address2" class="k-label k-form-label">Street:</label>
+            <TelerikTextBox Id="address2" @bind-Value="@Filter.Address2" />
+
+            <label for="houseNo" class="k-label k-form-label">H. No:</label>
+            <TelerikTextBox Class="assessment-filter-house-no" Id="houseNo" @bind-Value="@Filter.HouseNo" />
         </div>
-    </FormButtons>
-</TelerikForm>
+    </div>
+    <div class="d-flex justify-content-between w-100 mt-2">
+        <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnSearchAsync" Enabled="@CanSearch" ThemeColor="primary">Search</TelerikButton>
+        <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnClear">Clear</TelerikButton>
+    </div>
+</EditForm>

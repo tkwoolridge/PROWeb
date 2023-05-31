@@ -101,8 +101,6 @@ namespace PROWeb.Data.Models
 
         public ICollection<VoterFlag> Flags { get; set; }
 
-        public ICollection<Registration> Registrations { get; set; }
-
         public ICollection<Document> Documents { get; set; }
     }
 }

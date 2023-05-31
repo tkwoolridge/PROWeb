@@ -1,7 +1,7 @@
 ﻿@page "/assessments"
 @using PROWeb.Components.Assessments.Filters;
 @using PROWeb.Components.Assessments;
-@using PROWeb.Components.ViewModels.Assessment;
+@using PROWeb.Components.ViewModels.Assessments;
 @inherits PRORegistryLayout<AssessmentFilterViewModel, AssessmentViewModel>
 
 <FilterListLayout>
@@ -16,6 +16,6 @@
         </ExpansionPanel>
     </Filter>
     <List>
-        <AssessmentGrid @ref="ListRef" />
+        <AssessmentsGrid @ref="ListRef" />
     </List>
 </FilterListLayout>

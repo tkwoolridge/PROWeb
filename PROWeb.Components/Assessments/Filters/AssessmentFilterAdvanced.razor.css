@@ -1,0 +1,8 @@
+﻿.assessment-filter-advanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, auto);
+    grid-template-rows: 1fr;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 2px 15px;
+}

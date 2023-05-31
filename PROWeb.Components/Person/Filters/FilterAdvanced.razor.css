@@ -1,0 +1,15 @@
+﻿.person-filter-advanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, auto);
+    grid-template-rows: repeat(5, 1fr);
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 2px 15px;
+}
+
+.person-filter-flags {
+    grid-column: 6 / 6;
+    grid-row: 2 / 6;
+    align-self: start;
+    max-width: 216px;
+}

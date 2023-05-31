@@ -1,6 +1,35 @@
-﻿@page "/registartions"
-@using PROWeb.Office.Components.Forms;
+﻿@page "/registrations"
+@using PROWeb.Office.Components.Registrations
+@using PROWeb.Office.Components.Registrations.Filters;
+@using PROWeb.Office.ViewModels.Forms;
+@using PROWeb.Office.ViewModels.Registrations;
+@using Telerik.FontIcons;
 
-@inherits PROComponent;
+@inherits PRORegistryLayout<RegistrationFilterModel, ListRegistrationViewModel>
 
-<Form2Wizard/>
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <Content>
+                <RegistrationsFilter @ref="@FilterRef" />
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <Toolbox>
+        <TelerikButtonGroup SelectionMode="@ButtonGroupSelectionMode.Single">
+            <ButtonGroupToggleButton @bind-Selected="@GridSelected" Icon="@FontIcon.Rows" />
+            <ButtonGroupToggleButton Icon="@FontIcon.Group" />
+        </TelerikButtonGroup>
+    </Toolbox>
+    <List>
+        @ListTemplate
+    </List>
+</FilterListLayout>
+
+@code{
+    private RenderFragment List => @<List @ref="ListRef" />;
+    private RenderFragment Grid => @<Grid @ref="ListRef" />;
+}

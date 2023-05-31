@@ -116,12 +116,12 @@ namespace PROWeb.Data
             .HasPrincipalKey(c => c.BogusNo)
             .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Registration>()
-            .HasOne(r => r.Voter)
-            .WithMany(v => v.Registrations)
-            .HasForeignKey(r => new { r.VoterId, r.RegistryYear })
-            .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear })
-            .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Registration>()
+            //.HasOne(r => r.Voter)
+            //.WithMany(v => v.Registrations)
+            //.HasForeignKey(r => new { r.VoterId, r.RegistryYear })
+            //.HasPrincipalKey(v => new { v.VoterId, v.RegistryYear })
+            //.OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Document>()
             .HasOne(r => r.Voter)

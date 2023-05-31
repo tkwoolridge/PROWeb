@@ -1,5 +1,5 @@
-﻿@using PROWeb.Components.ViewModels.Assessment;
-@using PROWeb.Components.Assessments.Filters;
+﻿@using PROWeb.Components.Assessments.Filters;
+@using PROWeb.Components.ViewModels.Assessments;
 @inherits PRORegistryLayout<AssessmentFilterViewModel, AssessmentViewModel>
 
 <TelerikWindow 
@@ -27,7 +27,7 @@
                  </ExpansionPanel>
             </Filter>
             <List>
-                <AssessmentGrid EnableSelection="true" AssessmentSelected="@OnAssessmentSelected" @ref="ListRef" />
+                <AssessmentsGrid EnableSelection="true" AssessmentSelected="@OnAssessmentSelected" @ref="ListRef" />
             </List>
             <Footer>
                 <div class="d-flex justify-content-between w-100">

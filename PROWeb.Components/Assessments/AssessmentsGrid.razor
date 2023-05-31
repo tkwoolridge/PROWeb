@@ -1,0 +1,28 @@
+﻿@using PROWeb.Common.Components;
+@using PROWeb.Components.ViewModels.Assessments;
+@inherits PROGridComponent<AssessmentFilterViewModel, AssessmentViewModel>
+
+<TelerikGrid 
+    @bind-Page="@Page"
+    PageSize="@PageSize"
+    Height="100%"
+    @ref="@GridRef"
+    TItem="AssessmentViewModel"
+    Pageable="true"
+    OnStateChanged="@OnStateChanged"
+    SelectionMode="@(EnableSelection ? GridSelectionMode.Single : GridSelectionMode.None)"
+    SelectedItemsChanged="@OnSelectionChanged"
+    Data="@Data">
+    <GridColumns>
+        @if (EnableSelection)
+        {
+            <GridCheckboxColumn Width="30px" SelectAll="false" />
+        }
+        <GridColumn Width="90px" Field=@nameof(AssessmentViewModel.AssessmentNo) Title="Ass.No" />
+        <GridColumn Field=@nameof(AssessmentViewModel.Address2) Title="Street" />
+        <GridColumn Width="60px" Field=@nameof(AssessmentViewModel.HouseNo) Title="H.No" />
+        <GridColumn Width="250px" Field=@nameof(AssessmentViewModel.Constituency) Title="Constituency" />
+        <GridColumn Width="80px" Field=@nameof(AssessmentViewModel.PostalCode) Title="P.Code" />
+        <GridColumn Width="100px" Field=@nameof(AssessmentViewModel.ParishName) Title="Parish" />
+    </GridColumns>
+</TelerikGrid>

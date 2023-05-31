@@ -3,7 +3,9 @@
 
 	<MenuItem Name="Registry" Description="Parliamentary Registry">
 		<MenuItem Name="Registry" Description="Registry" Page="/"/>
-		<MenuItem Name="Forms" Description="Forms" Page="/registartions"/>
+		<MenuItem Name="Registrations" Description="Registrations" Page="/registrations"/>
+		<MenuItem Name="Form1" Description="Form 1" Page="/form1"/>
+		<MenuItem Name="Form2" Description="Form 2" Page="/form2"/>
 	</MenuItem>
 
 	<!--<MenuItem Requirement="CanUseRatepayerRegistry" Name="Ratepayers" Description="Ratepayers">
@@ -15,7 +17,7 @@
 	</MenuItem>-->
 	
 	<MenuItem Name="Imports" Description="Imports">
-		<MenuItem Name="EligiblePool" Description="Eligible Poll" Page="/eligiblepoll"/>
+		<MenuItem Name="EligiblePool" Description="Eligible Poll" Page="/eligible"/>
 		<MenuItem Name="AssessmentsRegistry" Description="Address Registry" Page="/assessments"/>
 	</MenuItem>
 

@@ -1,0 +1,21 @@
+﻿@using PROWeb.Components.ViewModels.Assessments;
+@using PROWeb.Components.Person.Filters;
+@using PROWeb.Components.ViewModels.Voters;
+@using PROWeb.Components.Voters.Filters;
+@inherits PRORegistryLayout<FilterModel, VoterViewModel>
+
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <Content>
+                <VoterFilterSimple PersistState="@PersistState" @ref="@FilterRef" />
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <List>
+        <VotersGrid PersistState="@PersistState" EnableSelection="@EnableSelection" VoterSelected="@OnSelectionChanged" @ref="@ListRef" />
+    </List>
+</FilterListLayout>

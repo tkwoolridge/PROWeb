@@ -86,6 +86,11 @@ k-input-solid.k-hover, .k-input-solid:hover {
     color: white;
 }
 
+.pro-header {
+    background-color: #347bad;
+    color: white;
+}
+
 /*Grid*/
 
 .k-grid-header .k-header {

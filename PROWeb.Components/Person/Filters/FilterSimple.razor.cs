@@ -1,14 +1,13 @@
-﻿using PROWeb.Common.Components;
+﻿using PROWeb.Components.Common;
 
 namespace PROWeb.Components.Person.Filters
 {
-    public abstract partial class FilterSimple : PROFilterComponent<FilterModel>
+    public abstract partial class FilterSimple : PROFilterComponentWithState<FilterModel>
     {
         protected override void OnInitialized()
         {
-            base.OnInitialized();
-
             ResetFilter();
+            base.OnInitialized();
         }
 
         protected override void ResetFilter()

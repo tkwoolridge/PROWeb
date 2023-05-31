@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Common.Components;
+using PROWeb.Components.Common;
 using PROWeb.Components.Person.Filters;
 using PROWeb.Office.ViewModels.Voters;
-using System.Collections.Generic;
 
 namespace PROWeb.Office.Pages
 {
     public partial class VoterRegistry : PRORegistryLayout<FilterModel, ListVoterViewModel>
     {
-        private RenderFragment? FilterTemplate;
-
-        private RenderFragment? ListTemplate;
-
         private bool _gridSelected;
 
         private bool _simpleFilterSelected;
@@ -19,7 +14,7 @@ namespace PROWeb.Office.Pages
         private IList<ListVoterViewModel>? _data;
         private int _page;
 
-        bool GridSelected
+        private bool GridSelected
         {
             get => _gridSelected;
             set
@@ -30,7 +25,7 @@ namespace PROWeb.Office.Pages
             }
         }
 
-        bool SimpleFilterSelected
+        private bool SimpleFilterSelected
         {
             get => _simpleFilterSelected;
             set
@@ -40,6 +35,10 @@ namespace PROWeb.Office.Pages
                 FilterTemplate = value ? SimpleFilterTemplate : AdvancedFilterTemplate;
             }
         }
+
+        protected RenderFragment? FilterTemplate;
+
+        protected RenderFragment? ListTemplate;
 
         protected override void OnAfterRender(bool firstRender)
         {

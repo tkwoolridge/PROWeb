@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Components.Common;
 using PROWeb.Components.Extensions;
-using PROWeb.Data.Services.Registration;
-using PROWeb.Office.ViewModels.Registration;
+using PROWeb.Data.Services.Registrations;
+using PROWeb.Office.Components.Forms.ViewModels;
 
 namespace PROWeb.Office.Components.Forms.Views
 {
@@ -19,7 +19,7 @@ namespace PROWeb.Office.Components.Forms.Views
     }
 
 
-    public partial class RegistrationActionView : PROView<RegistrationWizardViewModel>
+    public partial class RegistrationActionView : PROView<FormWizardViewModel>
     {
         public IList<RegistrationAction>? RegistrationActions { get; set; }
 

@@ -1,35 +1,18 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Common.Components;
-using PROWeb.Components.ViewModels.Assessment;
-using PROWeb.Data.Models.Enums;
-using PROWeb.Office.Components.Forms.Views;
-using PROWeb.Office.ViewModels.Registration;
-using Telerik.Blazor.Components;
+using PROWeb.Components.ViewModels.Voters;
+using PROWeb.Office.ViewModels.Forms;
 
 namespace PROWeb.Office.Components.Forms
 {
-    public partial class Form2Wizard : PROComponent
+    public partial class Form2Wizard : FormWizard
     {
-        protected int Page { get; set; }
-
         public string? SecundStepLabel { get; set; }
 
         protected RenderFragment? SecundStepView { get; set; }
 
-        protected RegistrationWizardViewModel WizardModel { get; set; } = 
-            new RegistrationWizardViewModel()
-            {
-                RegistrationActionId = 1
-            };
+        protected VoterViewModel? SelectedVoter { get; set; }
 
-        protected override void OnInitialized()
-        {
-            WizardModel.SubscribeFast(nameof(WizardModel.RegistrationActionId), OnActionChanged);
-
-            base.OnInitialized();
-        }
-
-        private void OnActionChanged()
+        protected override void OnActionChanged()
         {
             SecundStepLabel = WizardModel.RegistrationActionId switch
             {
@@ -46,12 +29,34 @@ namespace PROWeb.Office.Components.Forms
             StateHasChanged();
         }
 
-        private void OnWizardFinish()
+        protected override void OnPageChanged(int page)
         {
+            if (page != 3)
+            {
+                return;
+            }
+
+            if(SelectedVoter is { } voter)
+            {
+                Registration = Mapper.Map<RegistrationViewModel>(voter);
+            }
+            
+            if(SelectedAssessment is { } assessment)
+            {
+                Registration.Address1 = assessment.Address1;
+                Registration.Address2 = assessment.Address2;
+                Registration.HouseNo = assessment.HouseNo;
+                Registration.ParishName = assessment.ParishName;
+                Registration.PostalCode = assessment.PostalCode;
+                Registration.AssessmentNo = assessment.AssessmentNo;
+                Registration.ConstituencyNo = assessment.ConstituencyNo;
+                Registration.ConstituencyName = assessment.ConstituencyName;
+            }
         }
 
-        public void OnRegistrationStepChange(WizardStepChangeEventArgs args)
+        protected void OnVoterSelected(object? sender, VoterViewModel voter)
         {
+            SelectedVoter = voter;
         }
     }
 }

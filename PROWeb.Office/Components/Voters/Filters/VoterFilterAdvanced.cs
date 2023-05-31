@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Components.Extensions;
 using PROWeb.Components.Person.Filters;
+using PROWeb.Components.ViewModels.Voters;
 using PROWeb.Data.Services.Voters;
-using PROWeb.Office.ViewModels.Voters;
 
 namespace PROWeb.Office.Components.Voters.Filters
 {

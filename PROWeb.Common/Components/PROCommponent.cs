@@ -9,7 +9,7 @@ using PROWeb.Common.ViewModels;
 
 namespace PROWeb.Common.Components
 {
-    public abstract class PROComponent : ComponentBase, ISlimReactiveObject
+    public abstract class PROComponent : PROComponentBase, ISlimReactiveObject
     {
         [Inject]
         private NavigationManager _navigationManager { get; set; } = null!;

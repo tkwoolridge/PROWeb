@@ -1,4 +1,6 @@
-﻿namespace PROWeb.Office.ViewModels.Voters
+﻿using PROWeb.Components.ViewModels.Voters;
+
+namespace PROWeb.Office.ViewModels.Voters
 {
     public class ListVoterViewModel : VoterViewModel
     {

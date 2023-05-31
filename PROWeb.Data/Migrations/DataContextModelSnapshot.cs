@@ -17,7 +17,7 @@ namespace PROWeb.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -273,6 +273,122 @@ namespace PROWeb.Data.Migrations
                     b.HasKey("DriverLicenseId");
 
                     b.ToTable("DriverLicenses");
+                });
+
+            modelBuilder.Entity("PROWeb.Data.Models.Eligible", b =>
+                {
+                    b.Property<DateTime?>("BirthDateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BirthFirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BirthGender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BirthId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BirthLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BirthMiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicenseAddress1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicenseAddress2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DriverLicenseAssessmentNo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DriverLicenseAuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DriverLicenseConstituencyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DriverLicenseConstituencyNo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DriverLicenseDateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DriverLicenseFirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicenseGender")
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("DriverLicenseHouseNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicenseId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicenseLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicenseLicenseType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicenseMiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicenseParishName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicensePhotoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicensePostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ImmigrationAuditAddDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ImmigrationAuditChangeDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ImmigrationDateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImmigrationFirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImmigrationGender")
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<int?>("ImmigrationId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("ImmigrationIsDeceased")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ImmigrationLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImmigrationMiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImmigrationStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ImmigrationStatusAcquired")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImmigrationStatusDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SortIndex")
+                        .HasColumnType("int");
+
+                    b.ToTable("EligiblePoll", null, t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.FormType", b =>
@@ -562,9 +678,6 @@ namespace PROWeb.Data.Migrations
                     b.Property<bool>("IsBogusNo")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsEligible")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -642,8 +755,6 @@ namespace PROWeb.Data.Migrations
                     b.HasIndex("OldAssessmentNo");
 
                     b.HasIndex("OldBogusNo");
-
-                    b.HasIndex("VoterId", "RegistryYear");
 
                     b.ToTable("Registrations");
                 });
@@ -915,12 +1026,6 @@ namespace PROWeb.Data.Migrations
                         .HasPrincipalKey("BogusNo")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("PROWeb.Data.Models.Voter", "Voter")
-                        .WithMany("Registrations")
-                        .HasForeignKey("VoterId", "RegistryYear")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Assessment");
 
                     b.Navigation("BogusConstituency");
@@ -930,8 +1035,6 @@ namespace PROWeb.Data.Migrations
                     b.Navigation("OldAssessment");
 
                     b.Navigation("OldBogusConstituency");
-
-                    b.Navigation("Voter");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Voter", b =>
@@ -1013,8 +1116,6 @@ namespace PROWeb.Data.Migrations
             modelBuilder.Entity("PROWeb.Data.Models.Voter", b =>
                 {
                     b.Navigation("Documents");
-
-                    b.Navigation("Registrations");
                 });
 #pragma warning restore 612, 618
         }

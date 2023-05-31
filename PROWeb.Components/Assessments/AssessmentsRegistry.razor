@@ -1,0 +1,19 @@
+﻿@using PROWeb.Components.ViewModels.Assessments;
+@using PROWeb.Components.Assessments.Filters;
+@inherits PRORegistryLayout<AssessmentFilterViewModel, AssessmentViewModel>
+
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <Content>
+                <AssessmentFilterAdvanced PersistState="@PersistState" @ref="@FilterRef" />
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <List>
+        <AssessmentsGrid PersistState="@PersistState" EnableSelection="@EnableSelection" AssessmentSelected="@OnSelectionChanged" @ref="@ListRef" />
+    </List>
+</FilterListLayout>

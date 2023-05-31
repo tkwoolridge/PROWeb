@@ -1,14 +1,9 @@
-﻿using PROWeb.Common.Components;
-using PROWeb.Components.ViewModels.Assessment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PROWeb.Components.Common;
+using PROWeb.Components.ViewModels.Assessments;
 
 namespace PROWeb.Components.Assessments.Filters
 {
-    public partial class AssessmentFilterSimple : PROFilterComponent<AssessmentFilterViewModel>
+    public partial class AssessmentFilterSimple : PROFilterComponentWithState<AssessmentFilterViewModel>
     {
     }
 }

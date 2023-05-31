@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Components;
 using PROWeb.Components.Extensions;
 using PROWeb.Components.Person;
+using PROWeb.Components.ViewModels.Voters;
 using PROWeb.Data.Services.Voters;
 using PROWeb.Office.ViewModels.Voters;
 

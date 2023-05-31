@@ -1,5 +1,5 @@
-﻿using PROWeb.Common.Components;
-using PROWeb.Components.ViewModels.Assessment;
+﻿using PROWeb.Components.Common;
+using PROWeb.Components.ViewModels.Assessments;
 
 namespace PROWeb.Office.Pages
 {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
+using PROWeb.Components.Common;
 using PROWeb.Components.Extensions;
 using PROWeb.Components.Person.Contexts;
-using PROWeb.Components.ViewModels.Assessment;
+using PROWeb.Components.ViewModels.Assessments;
 using PROWeb.Data.Services.Assessments;
 using System.Linq.Expressions;
 

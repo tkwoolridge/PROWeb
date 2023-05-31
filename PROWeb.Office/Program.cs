@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SignalR;
 using PROWeb.Authentication.Extensions;
 using PROWeb.Common.Converters;
+using PROWeb.Components.Extensions;
 using PROWeb.Data.Services.Extensions;
 using PROWeb.Office.Areas.Identity.Models;
 using PROWeb.Office.Mapper;
@@ -39,6 +40,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddTelerikBlazor();
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<OfficeMapperProfile>());
 builder.AddPROWebDataModule();
+builder.AddPROWebComponentsModule();
 builder.AddPROWebAuthetnticationModule<IdentityDataContext, PROUser>();
 
 // SignalR message size for FileSelect

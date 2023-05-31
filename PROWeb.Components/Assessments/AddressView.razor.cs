@@ -2,7 +2,8 @@
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Assessments.Contexts;
 using PROWeb.Components.Common;
-using PROWeb.Components.ViewModels.Assessment;
+using PROWeb.Components.ViewModels.Voters;
+using PROWeb.Components.ViewModels.Assessments;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
