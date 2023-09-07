@@ -24,15 +24,15 @@ namespace PROWeb.Components.Common
 
         protected string? ArrowClass { get; set; } = _arrowDown;
 
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
-            UpdateExpandState();
-        }
-
         public void OnExpand()
         {
             IsExpanded = !IsExpanded;
+            UpdateExpandState();
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
             UpdateExpandState();
         }
 

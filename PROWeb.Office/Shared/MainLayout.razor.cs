@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Components.Extensions;
-using PROWeb.Components.ViewModels.Navigation;
+using PROWeb.Components.Navigation.ViewModels;
 using PROWeb.Data.Services.Configuration;
 using Telerik.Blazor.Components;
 

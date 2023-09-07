@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
-using PROWeb.Components.Services;
+using PROWeb.Components.Services.State;
 using Telerik.Blazor.Components;
 
 namespace PROWeb.Components.Common

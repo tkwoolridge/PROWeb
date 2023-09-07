@@ -121,3 +121,37 @@ th.k-header {
 .k-loading-image {
     color: #317aac;
 }
+
+/*Forms*/
+
+.form-header
+{
+    background-color: black;
+    color: white;
+}
+
+.form-group-header {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+}
+
+.form1-row {
+    background-color: #B3E49F !important;
+    ;
+}
+
+.form2-row {
+    background-color: #CDE6F6 !important;
+}
+
+.form1-container {
+    background-color: #B3E49F;
+    border-radius: 5px;
+    border-color: black;
+}
+
+.form2-container {
+    background-color: #CDE6F6;
+    border-radius: 5px;
+    border-color: black;
+}

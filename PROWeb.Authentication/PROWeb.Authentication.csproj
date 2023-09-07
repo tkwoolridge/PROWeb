@@ -13,13 +13,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
-    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
-    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2023.1.425" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2023.2.718" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PROWeb.Common\PROWeb.Common.csproj" />
+    <ProjectReference Include="..\PROWeb.Components\PROWeb.Components.csproj" />
     <ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,9 @@
 ﻿@using PROWeb.Common.ViewModels;
 @using PROWeb.Components.Person.Contexts;
+@using Telerik.FontIcons;
+@using PROWeb.Components.EligiblePolls;
 @inherits DetailsViewBase<TPersonViewModel>
-@typeparam TPersonViewModel where TPersonViewModel : SlimViewModelBase
+@typeparam TPersonViewModel
 
 @if(Editable)
 {
@@ -28,8 +30,13 @@
             }
 
             <label>DOB:</label>
-            <TelerikDateInput @bind-Value="@Context.DateOfBirth" Id="@(nameof(Context.DateOfBirth))" />
-            <TelerikValidationTooltip For="@(() => Context.DateOfBirth)" TargetSelector="@("#" + nameof(Context.DateOfBirth))" />
+            <div class="update-view">
+                <div>
+                    <TelerikDateInput @bind-Value="@Context.DateOfBirth" Id="@(nameof(Context.DateOfBirth))" />
+                    <TelerikValidationTooltip For="@(() => Context.DateOfBirth)" TargetSelector="@("#" + nameof(Context.DateOfBirth))" />
+                </div>
+                <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.User" />
+            </div>
         </div>
     </EditForm>
 }
@@ -57,3 +64,5 @@ else
         <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@Context.DateOfBirth?.ToString("dd MMM yyyy")" />
     </div>
 }
+
+<EligiblePollsDialog @ref="@DetailsRegistryDialogRef" Confirm="@OnEligibleSelectionConfirm" />

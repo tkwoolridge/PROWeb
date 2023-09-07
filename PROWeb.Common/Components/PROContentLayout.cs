@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace PROWeb.Common.Components
 {
-    public class PROContentLayout : ComponentBase
+    public class PROContentLayout : PROComponentBase
     {
         [Inject]
         protected IMapper Mapper { get; set; } = null!;

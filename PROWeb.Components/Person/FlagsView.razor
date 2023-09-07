@@ -1,7 +1,7 @@
 ﻿@using PROWeb.Common.ViewModels;
 @using PROWeb.Components.Person.Contexts;
-@typeparam TFlagsViewModel where TFlagsViewModel : SlimViewModelBase
-@typeparam TFlagViewModel where TFlagViewModel : SlimViewModelBase, new()
+@typeparam TFlagsViewModel
+@typeparam TFlagViewModel
 @inherits FlagsViewBase<TFlagsViewModel, TFlagViewModel>;
 
 <EditForm EditContext="@EditContext">

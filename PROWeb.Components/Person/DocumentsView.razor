@@ -1,12 +1,12 @@
 ﻿@using PROWeb.Common.ViewModels;
 @using Telerik.FontIcons;
 @using PROWeb.Components.Person.Contexts;
-@typeparam TDocumentsViewModel where TDocumentsViewModel : SlimViewModelBase
-@typeparam TDocumentViewModel where TDocumentViewModel : SlimViewModelBase, new()
+@typeparam TDocumentsViewModel
+@typeparam TDocumentViewModel
 @inherits DocumentsViewBase<TDocumentsViewModel, TDocumentViewModel>
 
 <div>
-    <TelerikGrid @ref="DocumentsGridRef" Data="@Documents" Height="350px">
+    <TelerikGrid @ref="DocumentsGridRef" Data="@Documents" Height="290px">
         <GridColumns>
             <GridColumn Width="200px" Field="@nameof(DocumentContext<TDocumentViewModel>.DocumentName)" Title="Name" />
             <GridColumn Field="@nameof(DocumentContext<TDocumentViewModel>.DocumentDescription)" Title="Description" />

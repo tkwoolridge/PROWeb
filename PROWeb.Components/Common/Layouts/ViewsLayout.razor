@@ -1,0 +1,33 @@
+﻿@inherits PROContentLayout
+@typeparam TViewModel
+
+<div class="@(!string.IsNullOrEmpty(Class) ? $"{Class} " : "")views-layout">
+    <div class="views-layout-views">
+        @if (@Header != null)
+        {
+            <div>
+                @Header(this)
+            </div>
+        }
+        <div>
+            @if (Views != null && Model != null)
+            {
+                <CascadingValue Value="@this">
+                    @if (Views != null)
+                    {
+                        @Views(@Model)
+                    }
+                </CascadingValue>
+            }
+        </div>
+        @if (@Footer != null)
+        {
+            <div>
+                @Footer(this)
+            </div>
+        }
+    </div>
+    <div class="@(IsBusy ? "views-loader-show" : "views-loader-hide" )">
+        <PROLoader BusyMessage="@BusyMessage" />
+    </div>
+</div>

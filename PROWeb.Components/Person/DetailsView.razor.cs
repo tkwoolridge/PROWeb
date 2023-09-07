@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
-using PROWeb.Components.Common;
+using PROWeb.Components.Common.Views;
+using PROWeb.Components.EligiblePolls;
+using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Person.Contexts;
+using System.Diagnostics;
 using System.Linq.Expressions;
-using Telerik.Blazor.Components;
 
 namespace PROWeb.Components.Person
 {
@@ -20,6 +22,8 @@ namespace PROWeb.Components.Person
 
         [Parameter]
         public int RowCount { get; set; } = 7;
+
+        protected EligiblePollsDialog? DetailsRegistryDialogRef { get; set; }
 
         internal DetailsContext<TPersonViewModel> Context { get; set; } = new();
 
@@ -56,6 +60,56 @@ namespace PROWeb.Components.Person
         protected override EditContext? GetEditContext()
         {
             return new EditContext(Context);
+        }
+
+        protected void OnUpdate()
+        {
+            Debug.Assert(DetailsRegistryDialogRef != null) ;
+
+            DetailsRegistryDialogRef.Show();
+        }
+
+        public virtual void UpdateFromEligible(EligibleViewModel eligible)
+        {
+            Debug.Assert(DetailsRegistryDialogRef != null);
+
+            if (eligible.ImmigrationId != null)
+            {
+                Context.Gender = eligible.ImmigrationGender;
+                Context.FirstName = eligible.ImmigrationFirstName;
+                Context.LastName = eligible.ImmigrationLastName;
+                Context.MiddleName = eligible.ImmigrationMiddleName;
+                Context.DateOfBirth = eligible.ImmigrationDateOfBirth;
+            }
+            else if (eligible.BirthId != null)
+            {
+                Context.Gender = eligible.BirthGender;
+                Context.FirstName = eligible.BirthFirstName;
+                Context.LastName = eligible.BirthLastName;
+                Context.MiddleName = eligible.BirthMiddleName;
+                Context.DateOfBirth = eligible.BirthDateOfBirth;
+            }
+            else if (eligible.DriverLicenseId != null)
+            {
+                Context.Gender = eligible.DriverLicenseGender;
+                Context.FirstName = eligible.DriverLicenseFirstName;
+                Context.LastName = eligible.DriverLicenseLastName;
+                Context.MiddleName = eligible.DriverLicenseMiddleName;
+                Context.DateOfBirth = eligible.DriverLicenseDateOfBirth;
+            }
+
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.Gender)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.FirstName)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.LastName)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.MiddleName)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.DateOfBirth)));
+        }
+
+        protected void OnEligibleSelectionConfirm(EligibleViewModel eligible)
+        {
+            UpdateFromEligible(eligible);
+
+            StateHasChanged();
         }
 
         protected override void OnModelUpdate()

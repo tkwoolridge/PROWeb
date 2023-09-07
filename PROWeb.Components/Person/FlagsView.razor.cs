@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
-using PROWeb.Components.Common;
+using PROWeb.Components.Common.Views;
 using PROWeb.Components.Person.Contexts;
 using System.Linq.Expressions;
 
@@ -57,7 +57,10 @@ namespace PROWeb.Components.Person
             Flags = flags?.Select(f => new FlagContext<TFlagViewModel>(f, _flagIdPath, _flagDescriptionPath)).ToList();
         }
 
-        protected abstract Task<IList<TFlagViewModel>?> GetFlagsAsync();
+        protected virtual Task<IList<TFlagViewModel>?> GetFlagsAsync()
+        {
+            return Task.FromResult<IList<TFlagViewModel>?>(null);
+        }
 
         protected override EditContext? GetEditContext()
         {

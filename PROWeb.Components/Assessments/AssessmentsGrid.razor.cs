@@ -2,7 +2,7 @@
 using PROWeb.Components.Extensions;
 using PROWeb.Data.Services.Assessments;
 using PROWeb.Components.Common;
-using PROWeb.Components.ViewModels.Assessments;
+using PROWeb.Components.Assessments.ViewModels;
 
 namespace PROWeb.Components.Assessments
 {

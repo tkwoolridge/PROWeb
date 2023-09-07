@@ -1,5 +1,4 @@
 ﻿.voter-photos-view {
-    background-color: white;
     height:100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, 1fr);

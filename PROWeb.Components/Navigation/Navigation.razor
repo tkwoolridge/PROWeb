@@ -1,22 +1,39 @@
-﻿@using PROWeb.Components.ViewModels.Navigation;
+﻿@using PROWeb.Components.Navigation.ViewModels;
 @inherits PROComponent;
 
-@foreach (var item in @DrawerSource)
-{
-    var selectedClass = item == SelectedItem ? "k-selected" : string.Empty;
-    <li @onclick="@(() => OnItemSelected(item))"
-        @onclick:stopPropagation
-        class="k-drawer-item @selectedClass k-level-@(item.Level)">
-       @* <TelerikIcon Icon="@item.Icon"></TelerikIcon>*@
-        <span class="k-item-text">@item.Description</span>
-        <span class='k-spacer'></span>
-        @if (item.IsExpanded && item.MenuItems.Any())
-        {
-            <span @onclick="@(() => OnItemExpand(item))" @onclick:stopPropagation class="k-icon k-i-arrow-chevron-down" style="line-height: inherit; margin: 0 8px"></span>
-        }
-        else if (!item.IsExpanded)
-        {
-            <span @onclick="@(() => OnItemExpand(item))" @onclick:stopPropagation class="k-icon k-i-arrow-chevron-right" style="line-height: inherit; margin: 0 8px"></span>
-        }
-    </li>
-}
+<style>
+    .drawer-header
+    {
+        font-weight: bold;
+    }
+
+    .k-drawer , .k-drawer-start {
+        background-color: #CDE6F6;
+    }
+</style>
+
+<div>
+    <div class="m-2">
+        <img src="/images/logo.png" style="width: 100%" />
+        <hr/>
+    </div>
+
+    @foreach (var item in @DrawerSource)
+    {
+        var selectedClass = item == SelectedItem ? "k-selected" : string.Empty;
+        <li @onclick="@(() => OnItemSelected(item))"
+            @onclick:stopPropagation
+            class="k-drawer-item @selectedClass k-level-@(item.Level)">
+            <span class="k-item-text @(item.Level == 1 ? "drawer-header" : "" )">@item.Description</span>
+            <span class='k-spacer'></span>
+            @if (item.IsExpanded && item.MenuItems.Any())
+            {
+                <span @onclick="@(() => OnItemExpand(item))" @onclick:stopPropagation class="k-icon k-i-arrow-chevron-down" style="line-height: inherit; margin: 0 8px"></span>
+            }
+            else if (!item.IsExpanded)
+            {
+                <span @onclick="@(() => OnItemExpand(item))" @onclick:stopPropagation class="k-icon k-i-arrow-chevron-right" style="line-height: inherit; margin: 0 8px"></span>
+            }
+        </li>
+    }
+</div>

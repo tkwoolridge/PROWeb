@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using PROWeb.Common.ViewModels;
-using PROWeb.Components.Common;
+using PROWeb.Components.Common.Views;
 using PROWeb.Components.Person.Contexts;
 using PROWeb.Components.Properties;
 using System.Diagnostics;

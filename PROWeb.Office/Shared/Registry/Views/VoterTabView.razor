@@ -1,0 +1,73 @@
+﻿@using PROWeb.Components.Common.Views;
+@using PROWeb.Components.Layouts;
+@using PROWeb.Components.Person;
+@using PROWeb.Office.Shared.Registry.ViewModels;
+@using Telerik.FontIcons;
+@using PROWeb.Components.Common.Layouts;
+@inherits PROCompositView<ListVoterViewModel>;
+
+<style>
+    .voter-main-view {
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        grid-template-columns: auto 1fr;
+        gap: 5px 15px;
+    }
+
+    .address-view
+    {
+        grid-area: 3/1 / 3/3;
+        align-content: start;
+    }
+
+    .voter-tab-view
+    {
+        height: 400px;
+    }
+
+    .person-details-view {
+        align-content: start;
+    }
+</style>
+
+<ViewsLayout TViewModel="ListVoterViewModel" Class="p-container" Editable="@Editable" @ref="@LayoutRef">
+    <Views>
+        <TelerikTabStrip 
+            Class="voter-tab-view" PersistTabContent="true" @bind-ActiveTabIndex="@TabIndex">
+            <TabStripTab Title="Voter">
+                
+                <div class="voter-main-view">
+                    <VoterPhotosView />
+                    <VoterDetailsView Title="Voter Details:"/>
+                    <VoterAddressView Title="Address:" />
+                </div>
+            </TabStripTab>
+            <TabStripTab Title="Contact">
+               
+                <VoterContactInfoView/>
+            </TabStripTab>
+            <TabStripTab Title="Flags">
+                
+                <VoterFlagsView />
+            </TabStripTab>
+            <TabStripTab Title="Documents">
+                <VoterDocumentsView />
+            </TabStripTab>
+        </TelerikTabStrip>                                                                                                  
+    </Views>
+    <Footer>
+        <div class="d-flex justify-content-end mt-1 mb-2 mx-2">
+            @if (Editable == true)
+            {
+                <ListViewCommandButton Icon="@FontIcon.Save" 
+                    Enabled="@CanSave" Command="Save" OnClick="@OnSaveAsync" Class="me-1">Save</ListViewCommandButton>
+                    <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
+
+                }
+            else
+            {
+                <ListViewCommandButton Icon="@FontIcon.Pencil" Command="Edit">Edit</ListViewCommandButton>
+            }
+        </div>
+    </Footer>
+</ViewsLayout>

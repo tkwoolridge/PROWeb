@@ -17,3 +17,10 @@
     grid-auto-flow: column;
     gap: 0px 5px;
 }
+
+.update-view {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    gap: 5px;
+}

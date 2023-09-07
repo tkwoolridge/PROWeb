@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.Json;
-using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SignalR;
 using PROWeb.Authentication.Extensions;
-using PROWeb.Common.Converters;
 using PROWeb.Components.Extensions;
 using PROWeb.Data.Services.Extensions;
 using PROWeb.Office.Areas.Identity.Models;
@@ -69,4 +67,3 @@ app.MapFallbackToPage("/_Host");
 app.AddPROWebAuthetnticationModule();
 
 app.Run();
-

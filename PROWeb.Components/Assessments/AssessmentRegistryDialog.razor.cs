@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Components.Common;
-using PROWeb.Components.ViewModels.Assessments;
+using PROWeb.Components.Assessments.ViewModels;
+using PROWeb.Components.Layouts;
 
 namespace PROWeb.Components.Assessments
 {

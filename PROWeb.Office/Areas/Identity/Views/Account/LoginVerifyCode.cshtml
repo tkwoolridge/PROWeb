@@ -1,0 +1,17 @@
+﻿@using PROWeb.Authentication.ViewModels.Account;
+@model LoginVerificationCodeViewModel
+
+@{
+    ViewData["Title"] = "Login Verify Code";
+}
+
+<div class="d-flex justify-content-center align-items-center h-75">
+    <div>
+        <div class="d-flex justify-content-center p-3">
+            <partial name="_BermudaCrest" />
+        </div>
+        <div class="d-flex justify-content-center">
+            <vc:login-verify-code name="Login" model="@Model" />
+        </div>
+    </div>
+</div>

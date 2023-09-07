@@ -16,14 +16,11 @@ namespace PROWeb.Authentication.Extensions
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllers();
-            app.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Navigation}/{action=Index}/{id?}");
-
-            app.MapControllerRoute(
+            app.MapAreaControllerRoute(
                 name: "Identity",
-                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                areaName: "Identity",
+                pattern: "Identity/{controller=Sales}/{action=Index}"
+            );
         }
 
         public static void AddPROWebAuthetnticationModule<TIdentityDbContext, TUser>(this WebApplicationBuilder builder) 
@@ -59,7 +56,9 @@ namespace PROWeb.Authentication.Extensions
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<TIdentityDbContext>();
+            })
+            .AddEntityFrameworkStores<TIdentityDbContext>()
+            .AddTokenProvider<EmailTokenProvider<TUser>>("Email");
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
@@ -70,6 +69,7 @@ namespace PROWeb.Authentication.Extensions
                 options.SlidingExpiration = true;
             });
 
+            
             services.AddControllersWithViews();
 
             services.AddKendo();

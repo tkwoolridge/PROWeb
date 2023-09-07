@@ -1,0 +1,65 @@
+﻿@using PROWeb.Office.Registrations.Views;
+@inherits PROComponent;
+
+<style>
+    .form-background {
+        background-color: #B3E49F;
+        border-radius: 5px;
+    }
+</style>
+
+<FormView FormDescription="NEW REGITRATION"
+          FormName="FORM 1">
+    <Form>
+        <ExpansionPanel Class="my-1">
+            <Header>
+                <strong>VOTER PHOTOS</strong>
+            </Header>
+            <Content>
+                <div class="d-flex justify-content-center">
+                    <FormPhotosView />
+                </div>
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1">
+            <Header>
+                <strong>VOTER DETAILS</strong>
+            </Header>
+            <Content>
+                <FormDetailsView AddressView="AddressViewRef" Editable="true" />
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1" IsExpanded="false">
+            <Header>
+                <strong>OLD ADDRESS</strong>
+            </Header>
+            <Content>
+                <FormOldAddressView />
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1">
+            <Header>
+                <strong>ADDRESS</strong>
+            </Header>
+            <Content>
+                <FormAddressView @ref="AddressViewRef" />
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1" IsExpanded="false">
+            <Header>
+                <strong>CONTACT INFO</strong>
+            </Header>
+            <Content>
+                <FormContactInfoView Editable="true" />
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1" IsExpanded="false">
+            <Header>
+                <strong>FLAGS</strong>
+            </Header>
+            <Content>
+                <FormFlagsView Editable="true" />
+            </Content>
+        </ExpansionPanel>
+    </Form>
+</FormView>

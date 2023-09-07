@@ -1,12 +1,16 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PROWeb.Authentication.Models;
 using PROWeb.Authentication.Properties;
 using PROWeb.Authentication.ViewModels.Account;
 using PROWeb.Common.Extensions;
+using PROWeb.Common.Helpers;
+using PROWeb.Common.Transformations;
 using PROWeb.Data.Services.Logging;
+using PROWeb.Components.Services.Emails;
 using ILogger = Serilog.ILogger;
 
 namespace PROWeb.Authentication.Controllers
@@ -15,19 +19,25 @@ namespace PROWeb.Authentication.Controllers
     public abstract class AccountControllerBase<TUser> : Controller
         where TUser : IdentityUser, IPROUser
     {
-        private const string AreaPath = "~/Identity/Account";
+        private const string AreaPath = "/Identity/Account";
 
+        private readonly IWebHostEnvironment _environment;
+        private readonly EmailService _emailService;
         private readonly SignInManager<TUser> _signInManager;
         private readonly UserManager<TUser> _userManager;
         private readonly ILogger _logger;
         private readonly IActivityLogService _activityLog;
 
         protected AccountControllerBase(
+            IWebHostEnvironment environment,
+            EmailService emailService,
             SignInManager<TUser> signInManager,
             UserManager<TUser> userManager,
             ILogger logger,
             IActivityLogService activityLog)
         {
+            _environment = environment;
+            _emailService = emailService;
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
@@ -40,7 +50,7 @@ namespace PROWeb.Authentication.Controllers
             if (_signInManager.IsSignedIn(User))
             {
                 await _signInManager.SignOutAsync();
-
+                await _signInManager.ForgetTwoFactorClientAsync();
 
                 if (User.Identity?.Name is { } userName &&
                     await _userManager.FindByNameAsync(userName) is { } user)
@@ -94,22 +104,24 @@ namespace PROWeb.Authentication.Controllers
 
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(userName, password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    await _activityLog.LogUserActivity(user.UserName, Messages.UserLoggedInMessage);
-                    return LocalRedirect(returnUrl);
-                }
+                var result = await _signInManager.PasswordSignInAsync(userName, password, model.RememberMe, lockoutOnFailure: true);
+
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage(AreaPath + "/LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("LoginVerifyCode", new { email, rememberMe = model.RememberMe, returnUrl } );
                 }
+
                 if (result.IsLockedOut)
                 {
                     _logger.Warning(Messages.UserAccountLockedOutMessage);
 
                     //TODO: create page.
                     return LocalRedirect(AreaPath + "/Lockout");
+                }
+                else if (result.Succeeded)
+                {
+                    await _activityLog.LogUserActivity(user.UserName, Messages.UserLoggedInMessage);
+                    return LocalRedirect(returnUrl);
                 }
                 else
                 {
@@ -124,6 +136,66 @@ namespace PROWeb.Authentication.Controllers
             }
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginVerifyCode(string  email, bool rememberMe, string? returnUrl = null)
+        {
+            // make sure the user email is valid
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return RedirectToAction("Error", new { code = "403" });
+
+            // generate the 2fa token
+            var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
+
+            //// send the user the 2fa token via email
+            await SendVerificationCodeMessage(token, email);
+
+            var model = new LoginVerificationCodeViewModel()
+            {
+                Email = email,
+                RememberMe = rememberMe,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginVerifyCode(LoginVerificationCodeViewModel model, string returnUrl)
+        {
+            if (model.ResendCode
+                && model.Email is { } email &&
+                await _userManager.FindByEmailAsync(model.Email) is { } user)
+            {
+                var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
+
+                await SendVerificationCodeMessage(token, email);
+
+                model.ResendCode = false;
+
+                return View(model);
+            }
+
+            model.ResendCode = false;
+
+            if (!ModelState.IsValid || model.VerificationCode is not { } code)
+            {
+                return View(model);
+            }
+
+            var result = await _signInManager.TwoFactorSignInAsync("Email", code, false, model.RememberMe);
+            
+            if (result.Succeeded)
+            {
+                return Redirect(returnUrl ?? "/");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid Login Attempt");
+                return View(model);
+            }
+        }
+
         protected string GetReturnUrl(string? returnUrl)
         {
             return string.IsNullOrWhiteSpace(returnUrl) ? Url.Content("~/") : returnUrl;
@@ -132,6 +204,24 @@ namespace PROWeb.Authentication.Controllers
         private bool IsRequestAuthenticated()
         {
             return Request.HttpContext.User?.Identity?.IsAuthenticated == true;
+        }
+
+        private async Task SendVerificationCodeMessage(string code, string email)
+        {
+            VerificationCodeEmail xml = new VerificationCodeEmail()
+            {
+                Code = code
+            };
+
+            if(_environment
+                .WebRootFileProvider
+                .GetFileInfo($"{RazorLibHelpers.GetWebRootPath()}/templates/VerifyCodeEmail.xslt")
+                .PhysicalPath is { } xsltPath)
+            {
+                string html = ObjectToHtml.ToHtml(xml, xsltPath);
+
+                await _emailService.SendEmailAsync("PRO Verification Code", html, email);
+            }
         }
     }
 }

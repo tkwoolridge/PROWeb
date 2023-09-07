@@ -44,3 +44,10 @@
 .address-constituency {
     grid-column: 2 / span 4;
 }
+
+.update-view {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    gap: 5px;
+}

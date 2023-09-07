@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common;
 using PROWeb.Components.Extensions;
-using PROWeb.Components.ViewModels.Assessments;
 using PROWeb.Data.Services.Assessments;
 
 namespace PROWeb.Components.Assessments.Filters

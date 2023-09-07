@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Components.Common;
-using PROWeb.Office.Components.Registrations.Filters;
-using PROWeb.Office.ViewModels.Registrations;
+using PROWeb.Components.Layouts;
+using PROWeb.Office.Shared.Registrations.Filters;
+using PROWeb.Office.Shared.Registrations.ViewModels;
 
 namespace PROWeb.Office.Pages
 {

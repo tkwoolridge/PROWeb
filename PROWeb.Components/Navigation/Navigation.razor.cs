@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
-using PROWeb.Components.ViewModels.Navigation;
+using PROWeb.Components.Navigation.ViewModels;
 
 namespace PROWeb.Components.Navigation
 {

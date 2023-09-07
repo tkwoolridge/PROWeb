@@ -1,12 +1,12 @@
-﻿.p-container {
+﻿.p-container, .ep-container {
     border: 1px solid #317aac;
     border-radius: 2px;
 }
 
-.p-header {
+.p-header, .ep-header {
     background: #317aac;
     border-radius: 2px 2px 0px 0px;
-    color:white;
+    color: white;
 }
 
 .k-form .k-form-field {
@@ -73,7 +73,10 @@ textarea.k-input-inner {
     background-color: lightgray;
 }
 
-
 .assessment-filter-postal-code, .assessment-filter-house-no {
+    width: 50px;
+}
+
+.edit-update-button {
     width: 50px;
 }

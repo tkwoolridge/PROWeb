@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Assessments.Contexts;
-using PROWeb.Components.Common;
-using PROWeb.Components.ViewModels.Voters;
-using PROWeb.Components.ViewModels.Assessments;
+using PROWeb.Components.Assessments.ViewModels;
+using PROWeb.Components.Common.Views;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
@@ -101,6 +100,11 @@ namespace PROWeb.Components.Assessments
         }
 
         protected void OnAssessmentSelectionConfirm(AssessmentViewModel assessment)
+        {
+            UpdateAddress(assessment);
+        }
+
+        public void UpdateAddress(AssessmentViewModel assessment)
         {
             Debug.Assert(AssessmentRegistryDialogRef != null);
 

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using PROWeb.Components.ViewModels.Assessments;
-using PROWeb.Components.ViewModels.Navigation;
-using PROWeb.Components.ViewModels.Voters;
+using PROWeb.Components.Assessments.ViewModels;
+using PROWeb.Components.EligiblePolls.ViewModels;
+using PROWeb.Components.Navigation.ViewModels;
+using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Models;
 using PROWeb.Data.Models.Navigation;
 
@@ -32,6 +33,8 @@ namespace PROWeb.Components.Mapping
             .IncludeMembers(v => v.Assessment, v => v.Country)
             .ForMember(vm => vm.BogusConstituencyNo, options => options.MapFrom(c => c.BogusConstituency != null ? c.BogusConstituency.ConstituencyNo : (int?)null))
             .ForMember(vm => vm.BogusConstituencyName, options => options.MapFrom(c => c.BogusConstituency != null ? c.BogusConstituency.ConstituencyName : null));
+
+            CreateMap<Eligible, EligibleViewModel>();
         }
     }
 }

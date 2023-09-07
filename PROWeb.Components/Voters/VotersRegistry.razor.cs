@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Components.Common;
+using PROWeb.Components.Layouts;
 using PROWeb.Components.Person.Filters;
-using PROWeb.Components.ViewModels.Voters;
+using PROWeb.Components.Voters.ViewModels;
 
 namespace PROWeb.Components.Voters
 {

@@ -2,7 +2,7 @@
 using PROWeb.Components.Common;
 using PROWeb.Components.Extensions;
 using PROWeb.Components.Person.Filters;
-using PROWeb.Components.ViewModels.Voters;
+using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Services.Voters;
 
 namespace PROWeb.Components.Voters

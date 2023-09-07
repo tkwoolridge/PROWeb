@@ -1,0 +1,47 @@
+﻿@using PROWeb.Authentication.ViewModels.Account;
+@model LoginVerificationCodeViewModel;
+
+<div>
+    <div class="text-center">
+        Verification code is send to your email inbox. If you did not receive it after fiew minutes, please click on resend code button to send it again.
+    </div>
+    <div class="d-flex justify-content-center">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    </div>
+    <div class="d-flex justify-content-center">
+        <kendo-form asp-antiforgery="true"
+                    buttons-template-id="login-button-template"
+                    class="login-form"
+                    name="LoginVerificationCode"
+                    form-data="@Model"
+                    method="POST">
+            <form-items>
+                <form-item hidden-editor="true" field="Email" />
+                <form-item hidden-editor="true" field="ResendCode" />
+                <form-item class="form-control" field="VerificationCode">
+                    <item-label text="Verification Code:" />
+                </form-item>
+                <form-item field="RememberMe">
+                    <item-label text="Remember Me" />
+                </form-item>
+            </form-items>
+            <validatable validate-on-blur="true" />
+        </kendo-form>
+    </div>
+</div>
+
+<style>
+    .login-form {
+        width: 350px;
+    }
+</style>
+
+<script id="login-button-template" type="text/html">
+    <div class="d-flex justify-content-end  w-100">
+        <div>
+            <button class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary k-form-submit'>Verify</button>
+            <button onclick="$('\#ResendCode').val(true)" id="ResendCodeButton" class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-form-submit'>Resend code</button>
+            <button class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-form-clear'>Clear</button>
+        </div>
+    </div>
+</script>

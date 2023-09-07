@@ -1,8 +1,8 @@
 ﻿@using PROWeb.Common.ViewModels;
-@using PROWeb.Components.ViewModels.Assessments;
 @using PROWeb.Components.Assessments;
+@using PROWeb.Components.Assessments.ViewModels;
 @using Telerik.FontIcons;
-@typeparam TAddressViewModel where TAddressViewModel : SlimViewModelBase
+@typeparam TAddressViewModel
 @inherits AddressViewBase<TAddressViewModel>
 
 <CascadingValue Value="@EditContext">
@@ -13,10 +13,16 @@
     <div class="address-view">
         <div class="address-title pro-view-title w-100">@Title</div>
         <input type="textbox" readonly class="address-assessment k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.AssessmentNo" />
-        <input type="textbox" readonly class="@(Editable? "address-address1-edit" : "address-address1" ) k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address1" />
         @if (Editable)
         {
-            <TelerikButton Class="open-assesment-dialog" OnClick="@OnUpdate" Icon="@FontIcon.Home" />
+            <div class="address-address1 update-view">
+                <input type="textbox" readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address1" />
+                <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.Home" />
+            </div>
+        }
+        else
+        {
+            <input type="textbox" readonly class="address-address1 k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address1" />
         }
         <input type="textbox" readonly class="w-100 k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.HouseNo" />
         <input type="textbox" readonly class="address-address2 k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address2" />
