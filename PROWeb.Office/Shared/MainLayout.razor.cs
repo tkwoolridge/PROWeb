@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
-using PROWeb.Components.Extensions;
+using PROWeb.Components.DependencyInjection;
 using PROWeb.Components.Navigation.ViewModels;
 using PROWeb.Data.Services.Configuration;
 using Telerik.Blazor.Components;
@@ -25,7 +26,7 @@ namespace PROWeb.Office.Shared
 
         protected override void OnInitialized()
         {
-            MenuViewModel? menu = _navigationService.GetMenu()?.MapTo<MenuViewModel>(Mapper);
+            MenuViewModel? menu = _navigationService.GetMenu()?.Adapt<MenuViewModel>();
 
             NavigablePages = menu?.MenuItems;
 

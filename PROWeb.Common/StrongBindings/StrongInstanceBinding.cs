@@ -47,6 +47,10 @@ public class StrongInstanceBinding<TSource, TTarget, TSourceProperty, TTargetPro
 
     protected bool IsSourceUpdateSuspended { get; set; }
 
+    IStrongBindingPath IStrongInstanceBinding.SourcePath => SourcePath;
+
+    IStrongBindingPath IStrongInstanceBinding.TargetPath => TargetPath;
+
     public void Sync()
     {
         if (Mode == StrongBindingMode.OneWayToSource)

@@ -1,15 +1,25 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common.Views;
 using PROWeb.Components.EligiblePolls;
 using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Person.Contexts;
+using PROWeb.Components.Voters;
+using PROWeb.Components.Voters.ViewModels;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 
 namespace PROWeb.Components.Person
 {
+    public enum PopulateDetailsDialogs
+    {
+        EligiblePolls,
+        Voters
+    }
+
     public abstract class DetailsViewBase<TPersonViewModel> : PROEditableView<TPersonViewModel> where TPersonViewModel : SlimViewModelBase
     {
     }
@@ -18,12 +28,20 @@ namespace PROWeb.Components.Person
         where TPersonViewModel : SlimViewModelBase
     {
         [Parameter]
-        public bool ShowMaidenName { get; set; } = true;
+        public bool ShowMaidenName { get; set; }
 
         [Parameter]
-        public int RowCount { get; set; } = 7;
+        public int RowCount { get; set; }
 
-        protected EligiblePollsDialog? DetailsRegistryDialogRef { get; set; }
+        [Parameter]
+        public PopulateDetailsDialogs PopulateDialog { get; set; } 
+
+        [Parameter]
+        public bool ShowPopulateDialogButton { get; set; } 
+
+        protected EligiblePollsDialog? EligiblePollsDialogRef { get; set; }
+
+        protected VoterRegistryDialog? VoterRegistryDialogRef { get; set; }
 
         internal DetailsContext<TPersonViewModel> Context { get; set; } = new();
 
@@ -36,6 +54,15 @@ namespace PROWeb.Components.Person
         private readonly Expression<Func<TPersonViewModel, string?>>? _maidenNamePath;
         private readonly Expression<Func<TPersonViewModel, char?>>? _genderPath;
         private readonly Expression<Func<TPersonViewModel, DateTime?>>? _dateOfBirthPath;
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            PopulateDialog = PopulateDetailsDialogs.EligiblePolls;
+            ShowMaidenName = true;
+            RowCount = 7;
+        }
 
         protected DetailsView(
             Expression<Func<TPersonViewModel, int?>>? personIdPath = null,
@@ -64,15 +91,22 @@ namespace PROWeb.Components.Person
 
         protected void OnUpdate()
         {
-            Debug.Assert(DetailsRegistryDialogRef != null) ;
-
-            DetailsRegistryDialogRef.Show();
+            switch(PopulateDialog)
+            {
+                case PopulateDetailsDialogs.EligiblePolls:
+                    Debug.Assert(EligiblePollsDialogRef != null);
+                    EligiblePollsDialogRef.Show();
+                    break;
+                case PopulateDetailsDialogs.Voters:
+                    Debug.Assert(VoterRegistryDialogRef != null);
+                    VoterRegistryDialogRef.Show();
+                    break;
+            }
+            
         }
 
-        public virtual void UpdateFromEligible(EligibleViewModel eligible)
+        protected virtual void UpdateFromEligible(EligibleViewModel eligible)
         {
-            Debug.Assert(DetailsRegistryDialogRef != null);
-
             if (eligible.ImmigrationId != null)
             {
                 Context.Gender = eligible.ImmigrationGender;
@@ -98,6 +132,18 @@ namespace PROWeb.Components.Person
                 Context.DateOfBirth = eligible.DriverLicenseDateOfBirth;
             }
 
+            NotifyFieldsChanged();
+        }
+
+        protected virtual void UpdateFromVoter(VoterViewModel voter)
+        {
+            voter.Adapt(Context);
+
+            NotifyFieldsChanged();
+        }
+
+        private void NotifyFieldsChanged()
+        {
             EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.Gender)));
             EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.FirstName)));
             EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.LastName)));
@@ -108,6 +154,13 @@ namespace PROWeb.Components.Person
         protected void OnEligibleSelectionConfirm(EligibleViewModel eligible)
         {
             UpdateFromEligible(eligible);
+
+            StateHasChanged();
+        }
+
+        protected void OnVoterSelectionConfirm(VoterViewModel voter)
+        {
+            UpdateFromVoter(voter);
 
             StateHasChanged();
         }

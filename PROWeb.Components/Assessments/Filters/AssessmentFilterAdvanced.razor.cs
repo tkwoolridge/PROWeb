@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using PROWeb.Common.Extensions;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common;
-using PROWeb.Components.Extensions;
 using PROWeb.Data.Services.Assessments;
 
 namespace PROWeb.Components.Assessments.Filters
@@ -19,8 +19,8 @@ namespace PROWeb.Components.Assessments.Filters
         {
             using (var assessments = _assessmentsServiceFactory.CreateService())
             {
-                Constituencies = await assessments.GetConstituencies().ProjectToListAsync<ConstituencyViewModel>(Mapper);
-                Parishes = await assessments.GetParishes().ProjectToListAsync<ParishViewModel>(Mapper);
+                Constituencies = await assessments.GetConstituencies().ProjectToListAsync<ConstituencyViewModel>();
+                Parishes = await assessments.GetParishes().ProjectToListAsync<ParishViewModel>();
             }
 
             ResetFilter();

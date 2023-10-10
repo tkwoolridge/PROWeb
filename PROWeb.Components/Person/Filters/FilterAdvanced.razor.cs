@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
+using PROWeb.Common.Extensions;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common;
-using PROWeb.Components.Extensions;
+using PROWeb.Components.DependencyInjection;
 using PROWeb.Components.Person.Contexts;
 using PROWeb.Data.Services.Assessments;
 using System.Linq.Expressions;
@@ -44,8 +47,8 @@ namespace PROWeb.Components.Person.Filters
         {
             using (var assessments = _assessmentsServiceFactory.CreateService())
             {
-                Constituencies = await assessments.GetConstituencies().ProjectToListAsync<ConstituencyViewModel>(Mapper);
-                Parishes = await assessments.GetParishes().ProjectToListAsync<ParishViewModel>(Mapper);
+                Constituencies = await assessments.GetConstituencies().ProjectToListAsync<ConstituencyViewModel>();
+                Parishes = await assessments.GetParishes().ProjectToListAsync<ParishViewModel>();
             }
 
             IList<TFlagViewModel>? flags = await GetFlags();

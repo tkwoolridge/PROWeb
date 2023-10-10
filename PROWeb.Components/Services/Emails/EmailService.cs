@@ -1,19 +1,11 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using PROWeb.Common.Helpers;
 using Serilog;
-using System;
-using System.IO;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace PROWeb.Components.Services.Emails
 {
@@ -26,14 +18,12 @@ namespace PROWeb.Components.Services.Emails
         private readonly IOptionsMonitor<SmtpSettings> _smtpSettings;
         private readonly ILogger _logger;
         private readonly IWebHostEnvironment _environment;
-        private readonly IMapper _mapper;
 
-        public EmailService(ILogger logger, IOptionsMonitor<SmtpSettings> smtpSettings, IWebHostEnvironment environment, IMapper mapper)
+        public EmailService(ILogger logger, IOptionsMonitor<SmtpSettings> smtpSettings, IWebHostEnvironment environment)
         {
             _smtpSettings = smtpSettings;
             _logger = logger;
             _environment = environment;
-            _mapper = mapper;
 
             _mailMessages = new BufferBlock<MailMessage>();
         }

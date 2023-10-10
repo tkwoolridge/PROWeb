@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using PROWeb.Common.Extensions;
+﻿using PROWeb.Common.Extensions;
 using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
@@ -8,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Contexts
 {
-    internal class DetailsContext<TPersonViewModel> : BindableContext<TPersonViewModel> where TPersonViewModel : SlimViewModelBase
+    internal class DetailsContext<TPersonViewModel> : ViewModelContext<TPersonViewModel> where TPersonViewModel : SlimViewModelBase
     {
         private int? _personId;
 
@@ -77,15 +76,6 @@ namespace PROWeb.Components.Person.Contexts
             set => RaiseAndSetIfChanged(ref _dateOfBirth, value);
         }
 
-        private IDisposable? _personIdBinding;
-        private IDisposable? _titleIdBinding;
-        private IDisposable? _firstNameBinding;
-        private IDisposable? _lastNameBinding;
-        private IDisposable? _middleNameBinding;
-        private IDisposable? _maidenNameBinding;
-        private IDisposable? _genderBinding;
-        private IDisposable? _dateOfBirthBinding;
-
         public void Bind(
             TPersonViewModel? model,
             Expression<Func<TPersonViewModel, int?>>? personIdPath = null,
@@ -99,26 +89,14 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model;
 
-            _personIdBinding = Model?.Bind(this, personIdPath, c => c.PersonId, StrongBindingMode.TwoWay);
-            _titleIdBinding = Model?.Bind(this, titlePath, c => c.Title, StrongBindingMode.TwoWay);
-            _firstNameBinding = Model?.Bind(this, firstNamePath, c => c.FirstName, StrongBindingMode.TwoWay);
-            _lastNameBinding = Model?.Bind(this, lastNamePath, c => c.LastName, StrongBindingMode.TwoWay);
-            _middleNameBinding = Model?.Bind(this, middleNamePath, c => c.MiddleName, StrongBindingMode.TwoWay);
-            _genderBinding = Model?.Bind(this, genderPath, c => c.Gender, StrongBindingMode.TwoWay);
-            _maidenNameBinding = Model?.Bind(this, maidenNamePath, c => c.MaidenName, StrongBindingMode.TwoWay);
-            _dateOfBirthBinding = Model?.Bind(this, dateOfBirthPath, c => c.DateOfBirth, StrongBindingMode.TwoWay);
-        }
-
-        public override void UnBind()
-        {
-            _personIdBinding?.Dispose();
-            _titleIdBinding?.Dispose();
-            _firstNameBinding?.Dispose();
-            _lastNameBinding?.Dispose();
-            _genderBinding?.Dispose();
-            _dateOfBirthBinding?.Dispose();
-            _middleNameBinding?.Dispose();
-            _maidenNameBinding?.Dispose();
+            AddBinding(Model?.Bind(this, personIdPath, c => c.PersonId, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, titlePath, c => c.Title, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, firstNamePath, c => c.FirstName, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, lastNamePath, c => c.LastName, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, middleNamePath, c => c.MiddleName, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, genderPath, c => c.Gender, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, maidenNamePath, c => c.MaidenName, StrongBindingMode.TwoWay));   
+            AddBinding(Model?.Bind(this, dateOfBirthPath, c => c.DateOfBirth, StrongBindingMode.TwoWay));
         }
     }
 }

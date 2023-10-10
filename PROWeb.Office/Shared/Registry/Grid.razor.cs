@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
-using PROWeb.Components.Extensions;
+using PROWeb.Common.Extensions;
 using PROWeb.Components.Person.Filters;
 using PROWeb.Data.Services.Voters;
 using PROWeb.Office.Shared.Registry.ViewModels;
@@ -35,7 +35,7 @@ namespace PROWeb.Office.Shared.Registry
                     filter.ConstituencyNo,
                     filter.ParishNo,
                     filter.PostalCode)
-                    .ProjectToListAsync<ListVoterViewModel>(Mapper);
+                    .ProjectToListAsync<ListVoterViewModel>();
             }
         }
     }

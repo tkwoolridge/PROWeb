@@ -1,11 +1,17 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
 using PROWeb.Components.Common.Views;
+using PROWeb.Data.Models;
+using PROWeb.Data.Services.Registrations;
 using PROWeb.Office.Shared.Registrations.ViewModels;
 
 namespace PROWeb.Office.Shared.Registrations.Views
 {
     public partial class FormView : PROCompositView<RegistrationViewModel>
     {
+        [Inject]
+        private IRegistrationServiceFactory _registrationServiceFactory { get; set; } = null!;
+
         [Parameter]
         public RegistrationViewModel? Model { get; set; } = new RegistrationViewModel();
 
@@ -42,9 +48,16 @@ namespace PROWeb.Office.Shared.Registrations.Views
             await Task.CompletedTask;
         }
 
-        protected override Task SaveAsync(RegistrationViewModel model)
+        protected override async Task SaveAsync(RegistrationViewModel model)
         {
-            throw new NotImplementedException();
+            Registration? registration = LayoutRef?.Model?.Adapt<Registration>();
+
+            if (registration == null) { return; }
+
+            using (var service = _registrationServiceFactory.CreateService())
+            {
+                await service.UpdateRegistration(registration, "pro1");
+            }
         }
     }
 }

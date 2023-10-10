@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Layouts;
 using PROWeb.Components.Person.Filters;
+using PROWeb.Components.Voters.ViewModels;
 
-namespace PROWeb.Components.EligiblePolls
+namespace PROWeb.Components.Voters
 {
-    partial class EligiblePollsDialog : PRORegistryLayout<FilterModel, EligibleViewModel>
+    public partial class VoterRegistryDialog : PRORegistryLayout<FilterModel, VoterViewModel>
     {
-        private EligibleViewModel? _eligible;
+        private VoterViewModel? _voter;
 
         public bool CanConfirm { get; set; }
 
         [Parameter]
-        public EventCallback<EligibleViewModel> Confirm { get; set; }
+        public EventCallback<VoterViewModel> Confirm { get; set; }
 
         [Parameter]
         public EventCallback Cancel { get; set; }
@@ -26,16 +26,9 @@ namespace PROWeb.Components.EligiblePolls
             StateHasChanged();
         }
 
-        public void Hide()
+        private void OnSelectionChanged(VoterViewModel voter)
         {
-            ShowDialog = false;
-
-            StateHasChanged();
-        }
-
-        protected void OnEligibleSelected(EligibleViewModel eligible)
-        {
-            _eligible = eligible;
+            _voter = voter;
 
             CanConfirm = true;
         }
@@ -44,7 +37,7 @@ namespace PROWeb.Components.EligiblePolls
         {
             ShowDialog = false;
 
-            await Confirm.InvokeAsync(_eligible);
+            await Confirm.InvokeAsync(_voter);
         }
 
         protected async Task OnCancel()

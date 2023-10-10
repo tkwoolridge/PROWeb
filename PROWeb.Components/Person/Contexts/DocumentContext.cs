@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Contexts
 {
-    internal class DocumentContext<TDocumentViewModel> : BindableContext<TDocumentViewModel> where TDocumentViewModel : SlimViewModelBase, new()
+    internal class DocumentContext<TDocumentViewModel> : ViewModelContext<TDocumentViewModel> where TDocumentViewModel : SlimViewModelBase, new()
     {
         private int _documentId;
 
@@ -59,13 +59,6 @@ namespace PROWeb.Components.Person.Contexts
             set => RaiseAndSetIfChanged(ref _content, value);
         }
 
-        private IDisposable? _documentIdBinding;
-        private IDisposable? _documentDateBinding;
-        private IDisposable? _documentNameBinding;
-        private IDisposable? _documentDescriptionBinding;
-        private IDisposable? _exportFormatBinding;
-        private IDisposable? _contentBinding;
-
         public DocumentContext(
             TDocumentViewModel? model = null,
             Expression<Func<TDocumentViewModel, int>>? documentIdPath = null,
@@ -78,22 +71,12 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model ?? new TDocumentViewModel();
             
-            _documentIdBinding = Model?.Bind(this, documentIdPath, c => c.DocumentId, StrongBindingMode.TwoWay);
-            _documentDateBinding = Model?.Bind(this, documentDatePath, c => c.DocumentDate, StrongBindingMode.TwoWay);
-            _documentNameBinding = Model?.Bind(this, documentNamePath, c => c.DocumentName, StrongBindingMode.TwoWay);
-            _documentDescriptionBinding = Model?.Bind(this, documentDescriptionPath, c => c.DocumentDescription, StrongBindingMode.TwoWay);
-            _exportFormatBinding = Model?.Bind(this, exportFormatPath, c => c.ExportFormat, StrongBindingMode.TwoWay);
-            _contentBinding = Model?.Bind(this, contentPath, c => c.Content, StrongBindingMode.TwoWay);
-        }
-
-        public override void UnBind()
-        {
-            _documentIdBinding?.Dispose();
-            _documentDateBinding?.Dispose();
-            _documentNameBinding?.Dispose();
-            _documentDescriptionBinding?.Dispose();
-            _exportFormatBinding?.Dispose();
-            _contentBinding?.Dispose();
+            AddBinding(Model?.Bind(this, documentIdPath, c => c.DocumentId, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, documentDatePath, c => c.DocumentDate, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, documentNamePath, c => c.DocumentName, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, documentDescriptionPath, c => c.DocumentDescription, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, exportFormatPath, c => c.ExportFormat, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, contentPath, c => c.Content, StrongBindingMode.TwoWay));
         }
     }
 }

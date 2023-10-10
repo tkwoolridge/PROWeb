@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Components.Extensions;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
+using PROWeb.Components.DependencyInjection;
 using PROWeb.Components.Person;
 using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Models;
@@ -33,7 +34,7 @@ namespace PROWeb.Office.Shared.Registry.Views
                 return -1;
             }
 
-            Document document = vmDocument.MapTo<Document>(Mapper);
+            Document document = vmDocument.Adapt<Document>();
 
             document.PersonId = voterId;
             document.DocumentDate = DateTime.Now;
@@ -72,7 +73,7 @@ namespace PROWeb.Office.Shared.Registry.Views
                 return null;
             }
 
-            DocumentViewModel vmDocument = document.MapTo<DocumentViewModel>(Mapper);
+            DocumentViewModel vmDocument = document.Adapt<DocumentViewModel>();
             vmDocument.Content = content;
 
             return vmDocument;

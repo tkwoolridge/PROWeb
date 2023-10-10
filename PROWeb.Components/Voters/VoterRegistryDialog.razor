@@ -1,0 +1,42 @@
+﻿@using PROWeb.Components.Common.Layouts
+@using PROWeb.Components.Person.Filters;
+@using PROWeb.Components.Voters.ViewModels;
+@using PROWeb.Components.Voters.Filters;
+@inherits PRORegistryLayout<FilterModel, VoterViewModel>
+
+    <TelerikWindow Width="1100px"
+               Height="700px"
+               Centered="true"
+               Resizable = "false"
+               Modal="true"
+               @bind-Visible="@ShowDialog">
+    <WindowTitle>
+        <strong>Voter Dialog</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+    <WindowContent>
+        <FilterListLayout>
+            <Filter>
+                <ExpansionPanel>
+                    <Header>
+                        <strong>Filter:</strong>
+                    </Header>
+                    <Content>
+                        <VoterFilterSimple @ref="@FilterRef" />
+                    </Content>
+                </ExpansionPanel>
+            </Filter>
+            <List>
+                <VotersGrid EnableSelection="true" VoterSelected="@OnSelectionChanged" @ref="ListRef" />
+            </List>
+            <Footer>
+                <div class="d-flex justify-content-between w-100">
+                    <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnConfirm" Enabled="@CanConfirm" ThemeColor="primary">Confirm</TelerikButton>
+                    <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnCancel">Cancel</TelerikButton>
+                </div>
+            </Footer>
+        </FilterListLayout>
+    </WindowContent>
+</TelerikWindow>

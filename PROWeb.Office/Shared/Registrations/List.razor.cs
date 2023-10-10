@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 using PROWeb.Common.Components;
-using PROWeb.Components.Extensions;
+using PROWeb.Common.Extensions;
 using PROWeb.Data.Services.Registrations;
 using PROWeb.Office.Shared.Registrations.Filters;
 using PROWeb.Office.Shared.Registrations.ViewModels;
@@ -51,7 +53,7 @@ namespace PROWeb.Office.Shared.Registrations
                     filter.ConstituencyNo,
                     filter.ParishNo,
                     filter.PostalCode)
-                    .ProjectToListAsync<ListRegistrationViewModel>(Mapper);
+                    .ProjectToListAsync<ListRegistrationViewModel>();
             }
         }
     }

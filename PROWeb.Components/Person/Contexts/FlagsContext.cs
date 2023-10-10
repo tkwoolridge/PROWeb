@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Contexts
 {
-    internal class FlagsContext<TFlagsViewModel, TFlagViewModel> : BindableContext<TFlagsViewModel> 
+    internal class FlagsContext<TFlagsViewModel, TFlagViewModel> : ViewModelContext<TFlagsViewModel> 
         where TFlagsViewModel : SlimViewModelBase
         where TFlagViewModel : SlimViewModelBase, new()
     {
@@ -58,14 +58,6 @@ namespace PROWeb.Components.Person.Contexts
             set => RaiseAndSetIfChanged(ref _flags, value);
         }
 
-        //private List<TFlagViewModel>? _sourceFlags { get; }
-
-        private IDisposable? _flagsBinding;
-        private IDisposable? _commonwealthCitizenBinding;
-        private IDisposable? _bermudianStatusGrantedBinding;
-        private IDisposable? _registeredAsElectorBinding;
-        private IDisposable? _isBermudianStatusGrantedBinding;
-
         public void Bind(
             TFlagsViewModel model,
             Expression<Func<TFlagsViewModel, List<TFlagViewModel>?>>? flagsPath = null,
@@ -78,11 +70,11 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model;
 
-            _flagsBinding = Model?.Bind(this, flagsPath, c => c.Flags, StrongBindingMode.TwoWay);
-            _commonwealthCitizenBinding = Model?.Bind(this, commonwealthCitizenPath, c => c.CommonwealthCitizen, StrongBindingMode.TwoWay);
-            _bermudianStatusGrantedBinding = Model?.Bind(this, bermudianStatusGrantedPath, c => c.BermudianStatusGranted, StrongBindingMode.TwoWay);
-            _registeredAsElectorBinding = Model?.Bind(this, registeredAsElectorPath, c => c.RegisteredAsElector, StrongBindingMode.TwoWay);
-            _isBermudianStatusGrantedBinding = Model?.Bind(this, isBermudianStatusGrantedPath, c => c.IsBermudianStatusGranted, StrongBindingMode.TwoWay);
+            AddBinding(Model?.Bind(this, flagsPath, c => c.Flags, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, commonwealthCitizenPath, c => c.CommonwealthCitizen, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, bermudianStatusGrantedPath, c => c.BermudianStatusGranted, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, registeredAsElectorPath, c => c.RegisteredAsElector, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, isBermudianStatusGrantedPath, c => c.IsBermudianStatusGranted, StrongBindingMode.TwoWay));
 
             if(Flags is not { } flags)
             {
@@ -97,15 +89,6 @@ namespace PROWeb.Components.Person.Contexts
                     flagDescriptionPath
                     ));
             }
-        }
-
-        public override void UnBind()
-        {
-            _flagsBinding?.Dispose();
-            _commonwealthCitizenBinding?.Dispose();
-            _bermudianStatusGrantedBinding?.Dispose();
-            _registeredAsElectorBinding?.Dispose();
-            _isBermudianStatusGrantedBinding?.Dispose();
         }
     }
 }

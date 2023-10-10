@@ -125,6 +125,18 @@ namespace PROWeb.Data.Services.Registrations
 
             return registrations;
         }
+
+        public async Task UpdateRegistration(Registration registration, string userName)
+        {
+            Context.Attach(registration);
+
+            registration.LastUpdated = DateTime.Now;
+            registration.LastUpdatedBy = userName;
+
+            Context.Update(registration);
+
+            await Context.SaveChangesAsync();
+        }
     }
 
 }

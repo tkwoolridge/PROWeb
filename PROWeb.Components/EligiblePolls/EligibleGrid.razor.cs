@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Components.EligiblePolls.ViewModels;
-using PROWeb.Components.Extensions;
+using Mapster;
 using PROWeb.Components.Person.Filters;
-using PROWeb.Data.Models;
 using PROWeb.Data.Services.EligiblePoll;
 
 namespace PROWeb.Components.EligiblePolls
@@ -34,7 +33,7 @@ namespace PROWeb.Components.EligiblePolls
             using (var service = _candidatesServiceFactory.CreateService())
             {
                 var candidates = await service.GetVoterCandidatesAsync(filter.FirstName, filter.LastName, filter.DateOfBirth);
-                return candidates.ProjectToList<Eligible, EligibleViewModel>(Mapper);
+                return candidates.Adapt<List<EligibleViewModel>>();
             }
         }
     }

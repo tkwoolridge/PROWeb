@@ -1,5 +1,4 @@
 ﻿using PROWeb.Common.Extensions;
-using PROWeb.Common.StrongBindings;
 using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
@@ -7,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Assessments.Contexts
 {
-    internal class AddressContext<TAddressViewModel> : BindableContext<TAddressViewModel> where TAddressViewModel : SlimViewModelBase
+    internal class AddressContext<TAddressViewModel> : ViewModelContext<TAddressViewModel> where TAddressViewModel : SlimViewModelBase
     {
         private int? _assessmentNo;
 
@@ -113,19 +112,6 @@ namespace PROWeb.Components.Assessments.Contexts
             set => RaiseAndSetIfChanged(ref _bogusConstituencyName, value.ToNullIfWhiteSpace());
         }
 
-        private IDisposable? _assessmentNoBinding;
-        private IDisposable? _address1Binding;
-        private IDisposable? _houseNoBinding;
-        private IDisposable? _address2Binding;
-        private IDisposable? _postalCodeBinding;
-        private IDisposable? _parishNameBinding;
-        private IDisposable? _constituencyNoBinding;
-        private IDisposable? _constituencyNameBinding;
-        private IDisposable? _isBogusNoBinding;
-        private IDisposable? _bogusNoBinding;
-        private IDisposable? _bogusConstituencyNoBinding;
-        private IDisposable? _bogusConstituencyNameBinding;
-
         public void Bind(
             TAddressViewModel model,
             Expression<Func<TAddressViewModel, int?>>? assessmentNoPath = null,
@@ -143,35 +129,18 @@ namespace PROWeb.Components.Assessments.Contexts
         {
             Model = model;
 
-            _assessmentNoBinding = Model?.Bind(this, assessmentNoPath, c => c.AssessmentNo, StrongBindingMode.TwoWay);
-            _address1Binding = Model?.Bind(this, address1Path, c => c.Address1, StrongBindingMode.TwoWay);
-            _houseNoBinding = Model?.Bind(this, houseNoPath, c => c.HouseNo, StrongBindingMode.TwoWay);
-            _address2Binding = Model?.Bind(this, address2Path, c => c.Address2, StrongBindingMode.TwoWay);
-            _postalCodeBinding = Model?.Bind(this, postalCodePath, c => c.PostalCode, StrongBindingMode.TwoWay);
-            _parishNameBinding = Model?.Bind(this, parishNamePath, c => c.ParishName, StrongBindingMode.TwoWay);
-            _constituencyNoBinding = Model?.Bind(this, constituencyNoPath, c => c.ConstituencyNo, StrongBindingMode.TwoWay);
-            _constituencyNameBinding = Model?.Bind(this, constituencyNamePath, c => c.ConstituencyName, StrongBindingMode.TwoWay);
-            _isBogusNoBinding = Model?.Bind(this, isBogusNoPath, c => c.IsBogusNo, StrongBindingMode.TwoWay);
-            _bogusNoBinding = Model?.Bind(this, bogusNoPath, c => c.BogusNo, StrongBindingMode.TwoWay);
-            _bogusConstituencyNoBinding = Model?.Bind(this, bogusConstituencyNoPath, c => c.BogusConstituencyNo, StrongBindingMode.TwoWay);
-            _bogusConstituencyNameBinding = Model?.Bind(this, bogusConstituencyNamePath, c => c.BogusConstituencyName, StrongBindingMode.TwoWay);
-        }
-
-        public override void UnBind()
-        {
-            _assessmentNoBinding?.Dispose();
-            _address1Binding?.Dispose();
-            _houseNoBinding?.Dispose();
-            _address2Binding?.Dispose();
-            _postalCodeBinding?.Dispose();
-            _parishNameBinding?.Dispose();
-            _constituencyNoBinding?.Dispose();
-            _constituencyNameBinding?.Dispose();
-            _isBogusNoBinding?.Dispose();
-            _bogusNoBinding?.Dispose();
-            _bogusConstituencyNoBinding?.Dispose();
-            _bogusConstituencyNameBinding?.Dispose();
-
+            AddBinding(Model?.Bind(this, assessmentNoPath, c => c.AssessmentNo, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, address1Path, c => c.Address1, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, houseNoPath, c => c.HouseNo, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, address2Path, c => c.Address2, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, postalCodePath, c => c.PostalCode, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, parishNamePath, c => c.ParishName, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, constituencyNoPath, c => c.ConstituencyNo, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, constituencyNamePath, c => c.ConstituencyName, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, isBogusNoPath, c => c.IsBogusNo, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, bogusNoPath, c => c.BogusNo, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, bogusConstituencyNoPath, c => c.BogusConstituencyNo, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, bogusConstituencyNamePath, c => c.BogusConstituencyName, StrongBindingMode.TwoWay));
         }
     }
 }

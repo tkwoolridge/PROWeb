@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Assessments.Contexts;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common.Views;
+using PROWeb.Components.Services.Undo;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
@@ -16,6 +19,11 @@ namespace PROWeb.Components.Assessments
     public abstract partial class AddressView<TAddressViewModel> : AddressViewBase<TAddressViewModel> where TAddressViewModel : SlimViewModelBase
     {
         internal AddressContext<TAddressViewModel> Context { get; set; } = new();
+
+        [Parameter]
+        public bool ShowPopulateDialogButton { get; set; }
+
+        private IUndoContext? _undoContext;
 
         private readonly Expression<Func<TAddressViewModel, int?>>? _assessmentNoPath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _address1Path;
@@ -87,7 +95,23 @@ namespace PROWeb.Components.Assessments
 
         protected override EditContext? GetEditContext()
         {
+            Context.ModelChanged -= OnContext;
+            Context.ModelChanged += OnContext;
             return new EditContext(Context);
+        }
+
+        private void OnContext(object? sender, ModelChangedEventArgs e)
+        {
+            var action = new UndoAction(e.PropertyName, e.PropertyValue);
+
+            if (_undoContext is { } context)
+            {
+                context.AddAction(action);
+            }
+            else
+            {
+                UndoService.AddAction(action);
+            }
         }
 
         protected AssessmentRegistryDialog? AssessmentRegistryDialogRef { get; set; }
@@ -108,14 +132,12 @@ namespace PROWeb.Components.Assessments
         {
             Debug.Assert(AssessmentRegistryDialogRef != null);
 
-            Context.AssessmentNo = assessment.AssessmentNo;
-            Context.Address1 = assessment.Address1;
-            Context.Address2 = assessment.Address2;
-            Context.HouseNo = assessment.HouseNo;
-            Context.PostalCode = assessment.PostalCode;
-            Context.ParishName = assessment.ParishName;
-            Context.ConstituencyNo = assessment.ConstituencyNo;
-            Context.ConstituencyName = assessment.ConstituencyName;
+            using (_undoContext = UndoService.NewScope())
+            {
+                assessment.Adapt(Context);
+            }
+
+            _undoContext = null;
 
             EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.AssessmentNo)));
 

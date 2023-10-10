@@ -1,42 +1,46 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Assessments;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.EligiblePolls.ViewModels;
+using PROWeb.Components.Voters.ViewModels;
 using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person
 {
-    public abstract class DetailsViewWithAddress<TPersonViewModel,TAddressViewModel> : DetailsView<TPersonViewModel>
+    public abstract class DetailsView<TPersonViewModel, TAddressViewModel> : DetailsView<TPersonViewModel>
         where TPersonViewModel : SlimViewModelBase
         where TAddressViewModel : SlimViewModelBase
     {
         [Parameter]
         public AddressView<TAddressViewModel>? AddressView { get; set; }
 
-        public override void UpdateFromEligible(EligibleViewModel eligible)
+        protected override void UpdateFromEligible(EligibleViewModel eligible)
         {
             base.UpdateFromEligible(eligible);
 
             if (AddressView != null && eligible.DriverLicenseAssessmentNo != null)
             {
-                AssessmentViewModel assesssemnt = new AssessmentViewModel
-                {
-                    AssessmentNo = eligible.DriverLicenseAssessmentNo.Value,
-                    HouseNo = eligible.DriverLicenseHouseNo,
-                    Address1 = eligible.DriverLicenseAddress1,
-                    Address2 = eligible.DriverLicenseAddress2,
-                    ParishName = eligible.DriverLicenseParishName,
-                    PostalCode = eligible.DriverLicensePostalCode,
-                    ConstituencyNo = eligible.DriverLicenseConstituencyNo!.Value,
-                    ConstituencyName = eligible.DriverLicenseConstituencyName
-                };
+                AssessmentViewModel assesssemnt = eligible.Adapt<AssessmentViewModel>();
 
                 AddressView.UpdateAddress(assesssemnt);
             }
         }
 
-        protected DetailsViewWithAddress(
+        protected override void UpdateFromVoter(VoterViewModel voter)
+        {
+            base.UpdateFromVoter(voter);
+
+            if (AddressView != null)
+            {
+                AssessmentViewModel assesssemnt = voter.Adapt<AssessmentViewModel>();
+
+                AddressView.UpdateAddress(assesssemnt);
+            }
+        }
+
+        protected DetailsView(
             Expression<Func<TPersonViewModel, int?>>? personIdPath = null,
             Expression<Func<TPersonViewModel, string?>>? titlePath = null,
             Expression<Func<TPersonViewModel, string?>>? firstNamePath = null,

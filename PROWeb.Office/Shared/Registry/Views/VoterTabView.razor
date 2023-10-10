@@ -35,7 +35,6 @@
         <TelerikTabStrip 
             Class="voter-tab-view" PersistTabContent="true" @bind-ActiveTabIndex="@TabIndex">
             <TabStripTab Title="Voter">
-                
                 <div class="voter-main-view">
                     <VoterPhotosView />
                     <VoterDetailsView Title="Voter Details:"/>
@@ -43,11 +42,9 @@
                 </div>
             </TabStripTab>
             <TabStripTab Title="Contact">
-               
                 <VoterContactInfoView/>
             </TabStripTab>
             <TabStripTab Title="Flags">
-                
                 <VoterFlagsView />
             </TabStripTab>
             <TabStripTab Title="Documents">
@@ -59,11 +56,9 @@
         <div class="d-flex justify-content-end mt-1 mb-2 mx-2">
             @if (Editable == true)
             {
-                <ListViewCommandButton Icon="@FontIcon.Save" 
-                    Enabled="@CanSave" Command="Save" OnClick="@OnSaveAsync" Class="me-1">Save</ListViewCommandButton>
-                    <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
-
-                }
+                <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@CanSave" Command="Save" OnClick="@OnSaveAsync" Class="me-1">Save</ListViewCommandButton>
+                <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
+            }
             else
             {
                 <ListViewCommandButton Icon="@FontIcon.Pencil" Command="Edit">Edit</ListViewCommandButton>

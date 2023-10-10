@@ -106,9 +106,9 @@ namespace PROWeb.Office.Shared.Registrations.ViewModels
 
         public string Address => $"{HouseNo} {Address2}, {ParishName} {PostalCode}";
 
-        private int _assessmentNo;
+        private int? _assessmentNo;
 
-        public int AssessmentNo
+        public int? AssessmentNo
         {
             get => _assessmentNo;
             set => RaiseAndSetIfChanged(ref _assessmentNo, value);
@@ -154,9 +154,9 @@ namespace PROWeb.Office.Shared.Registrations.ViewModels
             set => RaiseAndSetIfChanged(ref _parishName, value);
         }
 
-        private int _constituencyNo;
+        private int? _constituencyNo;
 
-        public int ConstituencyNo
+        public int? ConstituencyNo
         {
             get => _constituencyNo;
             set => RaiseAndSetIfChanged(ref _constituencyNo, value);
@@ -202,9 +202,9 @@ namespace PROWeb.Office.Shared.Registrations.ViewModels
             set => RaiseAndSetIfChanged(ref _bogusConstituencyName, value);
         }
 
-        private int _oldAssessmentNo;
+        private int? _oldAssessmentNo;
 
-        public int OldAssessmentNo
+        public int? OldAssessmentNo
         {
             get => _oldAssessmentNo;
             set => RaiseAndSetIfChanged(ref _oldAssessmentNo, value);
@@ -250,9 +250,9 @@ namespace PROWeb.Office.Shared.Registrations.ViewModels
             set => RaiseAndSetIfChanged(ref _oldParishName, value);
         }
 
-        private int _oldConstituencyNo;
+        private int? _oldConstituencyNo;
 
-        public int OldConstituencyNo
+        public int? OldConstituencyNo
         {
             get => _oldConstituencyNo;
             set => RaiseAndSetIfChanged(ref _oldConstituencyNo, value);

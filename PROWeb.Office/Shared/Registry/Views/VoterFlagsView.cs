@@ -1,7 +1,7 @@
 ﻿#nullable enable
 
 using Microsoft.AspNetCore.Components;
-using PROWeb.Components.Extensions;
+using PROWeb.Common.Extensions;
 using PROWeb.Components.Person;
 using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Services.Voters;
@@ -30,7 +30,7 @@ namespace PROWeb.Office.Shared.Registry.Views
         {
             using (var service = _voterServiceFactory.CreateService())
             {
-                return await service.GetVoterFlags().ProjectToListAsync<VoterFlagViewModel>(Mapper);
+                return await service.GetVoterFlags().ProjectToListAsync<VoterFlagViewModel>();
             }
         }
 

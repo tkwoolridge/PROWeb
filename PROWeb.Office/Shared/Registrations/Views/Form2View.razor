@@ -1,4 +1,5 @@
-﻿@using PROWeb.Office.Registrations.Views;
+﻿@using PROWeb.Components.Person;
+@using PROWeb.Office.Registrations.Views;
 @inherits PROComponent;
 
 <style>
@@ -26,7 +27,12 @@
                 <strong>VOTER DETAILS</strong>
             </Header>
             <Content>
-                <FormDetailsView />
+                <FormDetailsView Editable="false" 
+                    ShowPopulateDialogButton="true" 
+                    PopulateDialog="PopulateDetailsDialogs.Voters"
+                    ContactInfoView="@ContactInfoViewRef"
+                    AddressView="@OldAddressViewRef"
+                    FlagsView="@FormFlagsViewRef" />
             </Content>
         </ExpansionPanel>
         <ExpansionPanel Class="my-1" IsExpanded="false">
@@ -34,7 +40,7 @@
                 <strong>OLD ADDRESS</strong>
             </Header>
             <Content>
-                <FormOldAddressView />
+                <FormOldAddressView Editable="false" @ref="@OldAddressViewRef" />
             </Content>
         </ExpansionPanel>
         <ExpansionPanel Class="my-1">
@@ -42,7 +48,7 @@
                 <strong>ADDRESS</strong>
             </Header>
             <Content>
-                <FormAddressView />
+                <FormAddressView ShowPopulateDialogButton="true" />
             </Content>
         </ExpansionPanel>
         <ExpansionPanel Class="my-1" IsExpanded="false">
@@ -50,7 +56,7 @@
                 <strong>CONTACT INFO</strong>
             </Header>
             <Content>
-                <FormContactInfoView Editable="true" />
+                <FormContactInfoView Editable="true" @ref="@ContactInfoViewRef" />
             </Content>
         </ExpansionPanel>
         <ExpansionPanel Class="my-1" IsExpanded="false">
@@ -58,8 +64,17 @@
                 <strong>FLAGS</strong>
             </Header>
             <Content>
-                <FormFlagsView Editable="true" />
+                <FormFlagsView @ref="FormFlagsViewRef" Editable="true" />
             </Content>
         </ExpansionPanel>
     </Form>
 </FormView>
+
+@code
+{
+    protected FormOldAddressView? OldAddressViewRef { get; set; }
+
+    protected FormContactInfoView? ContactInfoViewRef { get; set; }
+
+    protected FormFlagsView? FormFlagsViewRef { get; set; }
+}

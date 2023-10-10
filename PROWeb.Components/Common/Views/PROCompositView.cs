@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common.Layouts;
+using PROWeb.Components.Services.Undo;
 using System.Diagnostics;
 using Telerik.Blazor;
 
@@ -11,6 +12,9 @@ namespace PROWeb.Components.Common.Views
     public abstract class PROCompositView<TViewModel> : PROComponent 
         where TViewModel : SlimViewModelBase
     {
+        [Inject]
+        private IUndoService<TViewModel> _undoService { get; set; } = null!;
+
         [CascadingParameter]
         public DialogFactory Dialogs { get; set; } = null!;
 
@@ -35,6 +39,11 @@ namespace PROWeb.Components.Common.Views
         {
             CanSave = true;
 
+            if(sender is EditContext eContext && eContext.Model is ViewModelContext<TViewModel> context)
+            {
+                var value = context.GetValue(e.FieldIdentifier.FieldName);
+            }
+            
             StateHasChanged();
         }
 

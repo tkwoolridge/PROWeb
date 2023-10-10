@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common.Views;
+using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Person.Contexts;
+using PROWeb.Components.Voters.ViewModels;
 using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person
@@ -38,6 +41,29 @@ namespace PROWeb.Components.Person
             _phoneMobilePath = phoneMobilePath;
             _driverLicensePath = driverLicensePath;
             _commentPath = commentPath;
+        }
+
+        public void UpdateFromVoter(VoterViewModel voter)
+        {
+            voter.Adapt(Context);
+
+            NotifyFieldsChanged();
+        }
+
+        public void UpdateFromEligible(EligibleViewModel eligible)
+        {
+            Context.DriverLicense = eligible.DriverLicenseId;
+
+            NotifyFieldsChanged();
+        }
+
+        private void NotifyFieldsChanged()
+        {
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.PhoneHome)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.PhoneWork)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.PhoneMobile)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.Email)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.DriverLicense)));
         }
 
         protected override EditContext? GetEditContext()

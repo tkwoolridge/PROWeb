@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Components.Extensions;
 using PROWeb.Data.Services.Assessments;
 using PROWeb.Components.Common;
 using PROWeb.Components.Assessments.ViewModels;
+using Mapster;
+using Microsoft.EntityFrameworkCore;
+using PROWeb.Common.Extensions;
+using PROWeb.Data.Models;
 
 namespace PROWeb.Components.Assessments
 {
@@ -42,7 +45,7 @@ namespace PROWeb.Components.Assessments
                         filter.ConstituencyNo,
                         filter.IsBogusNo
                     )
-                .ProjectToListAsync<AssessmentViewModel>(Mapper);
+                .ProjectToListAsync<AssessmentViewModel>();
 
                 return data;
             }

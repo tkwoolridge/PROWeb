@@ -23,6 +23,16 @@ public interface IStrongInstanceBinding : IDisposable
     /// Sync source and target values.
     /// </summary>
     void Sync();
+
+    /// <summary>
+    /// Source property path.
+    /// </summary>
+    IStrongBindingPath SourcePath { get; }
+
+    /// <summary>
+    /// Target property path.
+    /// </summary>
+    IStrongBindingPath TargetPath { get; }
 }
 
 /// <summary>
@@ -53,10 +63,10 @@ public interface IStrongInstanceBinding<TSource, TTarget, TSourceProperty, TTarg
     /// <summary>
     /// Source property path.
     /// </summary>
-    StrongBindingPath<TSource, TSourceProperty> SourcePath { get; }
+    new StrongBindingPath<TSource, TSourceProperty> SourcePath { get ; }
 
     /// <summary>
     /// Target property path.
     /// </summary>
-    StrongBindingPath<TTarget, TTargetProperty> TargetPath { get; }
+    new StrongBindingPath<TTarget, TTargetProperty> TargetPath { get; }
 }

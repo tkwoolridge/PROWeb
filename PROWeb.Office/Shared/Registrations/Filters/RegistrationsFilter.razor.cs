@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
+using PROWeb.Common.Extensions;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common;
-using PROWeb.Components.Extensions;
 using PROWeb.Data.Services.Assessments;
 
 namespace PROWeb.Office.Shared.Registrations.Filters
@@ -23,8 +25,8 @@ namespace PROWeb.Office.Shared.Registrations.Filters
         {
             using (var assessments = _assessmentsServiceFactory.CreateService())
             {
-                Constituencies = await assessments.GetConstituencies().ProjectToListAsync<ConstituencyViewModel>(Mapper);
-                Parishes = await assessments.GetParishes().ProjectToListAsync<ParishViewModel>(Mapper);
+                Constituencies = await assessments.GetConstituencies().ProjectToListAsync<ConstituencyViewModel>();
+                Parishes = await assessments.GetParishes().ProjectToListAsync<ParishViewModel>();
             }
 
             RegistrationYears = Enumerable.Range(DateTime.Now.Year - 1, 3).Cast<object>();

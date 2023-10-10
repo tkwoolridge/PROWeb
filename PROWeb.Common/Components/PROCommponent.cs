@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Humanizer;
+﻿using Humanizer;
 using Microsoft.AspNetCore.Components;
 using static PROWeb.Common.ViewModels.ISlimReactiveObject;
 using System.ComponentModel;
@@ -13,9 +12,6 @@ namespace PROWeb.Common.Components
     {
         [Inject]
         private NavigationManager _navigationManager { get; set; } = null!;
-
-        [Inject]
-        protected IMapper Mapper { get; set; } = null!;
 
         [CascadingParameter]
         public PROContentLayout? Layout { get; set; }

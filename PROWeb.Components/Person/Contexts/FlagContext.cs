@@ -5,9 +5,8 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Contexts
 {
-    internal class FlagContext<TFlagViewModel> : BindableContext<TFlagViewModel> where TFlagViewModel : SlimViewModelBase, new()
+    internal class FlagContext<TFlagViewModel> : ViewModelContext<TFlagViewModel> where TFlagViewModel : SlimViewModelBase, new()
     {
-
         private int _flagId;
 
         public int FlagId
@@ -24,9 +23,6 @@ namespace PROWeb.Components.Person.Contexts
             set => RaiseAndSetIfChanged(ref _flagDescription, value);
         }
 
-        private IDisposable? _flagIdBinding;
-        private IDisposable? _flagDescriptionBinding;
-
         public FlagContext(
             TFlagViewModel? model = null,
             Expression<Func<TFlagViewModel, int>>? flagIdPath = null,
@@ -35,14 +31,8 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model ?? new TFlagViewModel();
 
-            _flagIdBinding = Model?.Bind(this, flagIdPath, c => c.FlagId, StrongBindingMode.TwoWay);            
-            _flagDescriptionBinding = Model?.Bind(this, flagDescriptionPath, c => c.FlagDescription, StrongBindingMode.TwoWay);
-        }
-
-        public override void UnBind()
-        {
-            _flagIdBinding?.Dispose();
-            _flagDescriptionBinding?.Dispose();
+            AddBinding(Model?.Bind(this, flagIdPath, c => c.FlagId, StrongBindingMode.TwoWay));            
+            AddBinding(Model?.Bind(this, flagDescriptionPath, c => c.FlagDescription, StrongBindingMode.TwoWay));
         }
     }
 }

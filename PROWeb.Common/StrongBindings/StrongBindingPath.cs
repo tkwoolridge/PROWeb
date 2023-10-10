@@ -9,7 +9,7 @@ namespace PROWeb.Common.StrongBindings;
 /// <summary>
 /// Binding path implementation.
 /// </summary>
-public class StrongBindingPath<TSource, TProperty>
+public class StrongBindingPath<TSource, TProperty> : IStrongBindingPath
 {
     private readonly PropertyInfo _property;
 
@@ -89,5 +89,30 @@ public class StrongBindingPath<TSource, TProperty>
             arg2).CompileFast();
 
         return result;
+    }
+
+    object? IStrongBindingPath.ReadProperty(object source)
+    {
+        if (source is not TSource tSource)
+        {
+            throw new ArgumentException($"Property source must be of type {typeof(TSource)}");
+        }
+
+        return ReadProperty(tSource);
+    }
+
+    void IStrongBindingPath.WriteProperty(object source, object? value)
+    {
+        if(source is not TSource tSource)
+        {
+            throw new ArgumentException($"Property source must be of type {typeof(TSource)}");
+        }
+
+        if (value is not TProperty tValue)
+        {
+            throw new ArgumentException($"Property source must be of type {typeof(TSource)}");
+        }
+
+        WriteProperty(tSource, tValue);
     }
 }

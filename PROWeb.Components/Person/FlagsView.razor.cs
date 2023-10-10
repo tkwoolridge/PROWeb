@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common.Views;
 using PROWeb.Components.Person.Contexts;
+using PROWeb.Components.Voters.ViewModels;
 using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person
@@ -23,6 +25,21 @@ namespace PROWeb.Components.Person
         private readonly Expression<Func<TFlagsViewModel, bool?>>? _isBermudianStatusGrantedPath;
         private readonly Expression<Func<TFlagViewModel, int>>? _flagIdPath;
         private readonly Expression<Func<TFlagViewModel, string?>>? _flagDescriptionPath;
+
+        public void UpdateFromVoter(VoterViewModel voter)
+        {
+            voter.Adapt(Context);
+
+            NotifyFieldsChanged();
+        }
+
+        private void NotifyFieldsChanged()
+        {
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.BermudianStatusGranted)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.CommonwealthCitizen)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.RegisteredAsElector)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.IsBermudianStatusGranted)));
+        }
 
         internal FlagsContext<TFlagsViewModel, TFlagViewModel> Context { get; } = new();
 

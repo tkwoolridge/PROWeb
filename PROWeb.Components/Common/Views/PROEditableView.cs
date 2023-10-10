@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.ViewModels;
+using PROWeb.Components.Services.Undo;
 
 namespace PROWeb.Components.Common.Views
 {
     public abstract class PROEditableView<TViewModel> : PROView<TViewModel> where TViewModel : SlimViewModelBase
     {
         public EditContext? EditContext { get; set; }
+
+        [Inject]
+        protected IUndoService<TViewModel> UndoService { get; set; } = null!;
 
         [Parameter]
         public bool Editable { get; set; }

@@ -1,4 +1,5 @@
-﻿@using PROWeb.Office.Registrations.Views;
+﻿@using PROWeb.Components.Person;
+@using PROWeb.Office.Registrations.Views;
 @inherits PROComponent;
 
 <style>
@@ -26,7 +27,7 @@
                 <strong>VOTER DETAILS</strong>
             </Header>
             <Content>
-                <FormDetailsView AddressView="AddressViewRef" Editable="true" />
+                <FormDetailsView AddressView="AddressViewRef" ShowPopulateDialogButton="true" PopulateDialog="PopulateDetailsDialogs.EligiblePolls" Editable="true" />
             </Content>
         </ExpansionPanel>
         <ExpansionPanel Class="my-1" IsExpanded="false">
@@ -42,7 +43,7 @@
                 <strong>ADDRESS</strong>
             </Header>
             <Content>
-                <FormAddressView @ref="AddressViewRef" />
+                <FormAddressView ShowPopulateDialogButton="true" @ref="AddressViewRef" />
             </Content>
         </ExpansionPanel>
         <ExpansionPanel Class="my-1" IsExpanded="false">
@@ -63,3 +64,8 @@
         </ExpansionPanel>
     </Form>
 </FormView>
+
+@code
+{
+    protected FormAddressView? AddressViewRef { get; set; }
+}

@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Mapster;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SignalR;
 using PROWeb.Authentication.Extensions;
-using PROWeb.Components.Extensions;
+using PROWeb.Components.DependencyInjection;
 using PROWeb.Data.Services.Extensions;
 using PROWeb.Office.Areas.Identity.Models;
 using PROWeb.Office.Mapper;
@@ -36,10 +37,13 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTelerikBlazor();
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<OfficeMapperProfile>());
 builder.AddPROWebDataModule();
 builder.AddPROWebComponentsModule();
 builder.AddPROWebAuthetnticationModule<IdentityDataContext, PROUser>();
+
+var config = TypeAdapterConfig.GlobalSettings;
+config.Scan(typeof(OfficeMapper).Assembly);
+builder.Services.AddSingleton(config);
 
 // SignalR message size for FileSelect
 builder.Services.Configure<HubOptions>(options =>

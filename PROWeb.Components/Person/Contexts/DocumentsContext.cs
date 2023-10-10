@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Contexts
 {
-    internal class DocumentsContext<TDocumentsViewModel, TDocumentViewModel> : BindableContext<TDocumentsViewModel> 
+    internal class DocumentsContext<TDocumentsViewModel, TDocumentViewModel> : ViewModelContext<TDocumentsViewModel> 
         where TDocumentsViewModel : SlimViewModelBase
         where TDocumentViewModel : SlimViewModelBase, new()
     {
@@ -42,10 +42,6 @@ namespace PROWeb.Components.Person.Contexts
             set => RaiseAndSetIfChanged(ref _documents, value);
         }
 
-        private IDisposable? _documentsBinding;
-        private IDisposable? _registryYearBinding;
-        private IDisposable? _fullNameBinding;
-
         public void Bind(
             TDocumentsViewModel model,
             Expression<Func<TDocumentsViewModel, IEnumerable<TDocumentViewModel>?>>? documentsPath = null,
@@ -61,9 +57,9 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model;
 
-            _documentsBinding = Model?.Bind(this, documentsPath, c => c.Documents, StrongBindingMode.TwoWay);
-            _registryYearBinding = Model?.Bind(this, registryYearPath, c => c.RegistryYear, StrongBindingMode.OneWay);
-            _fullNameBinding = Model?.Bind(this, fullNamePath, c => c.FullName, StrongBindingMode.OneWay);
+            AddBinding(Model?.Bind(this, documentsPath, c => c.Documents, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, registryYearPath, c => c.RegistryYear, StrongBindingMode.OneWay));
+            AddBinding(Model?.Bind(this, fullNamePath, c => c.FullName, StrongBindingMode.OneWay));
 
             if(_documents is not { } models)
             {
@@ -80,18 +76,6 @@ namespace PROWeb.Components.Person.Contexts
                     documentDescriptionPath,
                     exportFormatPath,
                     contentPath));
-            }
-        }
-
-        public override void UnBind()
-        {
-            _documentsBinding?.Dispose();
-            _registryYearBinding?.Dispose();
-            _fullNameBinding?.Dispose();
-
-            foreach (var document in ContextDocuments)
-            {
-                document.UnBind();
             }
         }
     }

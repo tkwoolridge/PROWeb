@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using PROWeb.Common.Converters;
-using PROWeb.Common.Extensions;
+﻿using PROWeb.Common.Extensions;
 using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
@@ -9,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Contexts
 {
-    internal class ContactInfoContext<TContactInfoViewModel> : BindableContext<TContactInfoViewModel> where TContactInfoViewModel : SlimViewModelBase
+    internal class ContactInfoContext<TContactInfoViewModel> : ViewModelContext<TContactInfoViewModel> where TContactInfoViewModel : SlimViewModelBase
     {
         private string? _email;
 
@@ -19,16 +17,13 @@ namespace PROWeb.Components.Person.Contexts
             get => _email;
             set => RaiseAndSetIfChanged(ref _email, value.ToNullIfWhiteSpace());
         }
-
         private string? _contactPhone;
-
         [Phone(ErrorMessage = "Contact phone is not in correct format!")]
         public string? ContactPhone
         {
             get => _contactPhone;
             set => RaiseAndSetIfChanged(ref _contactPhone, value.ToNullIfWhiteSpace());
         }
-
         private string? _phoneHome;
 
         public string? PhoneHome
@@ -69,14 +64,6 @@ namespace PROWeb.Components.Person.Contexts
             set => RaiseAndSetIfChanged(ref _comment, value.ToNullIfWhiteSpace());
         }
 
-        private IDisposable? _emailBinding;
-        private IDisposable? _contactPhoneBinding;
-        private IDisposable? _phoneHomeBinding;
-        private IDisposable? _phoneWorkBinding;
-        private IDisposable? _phoneMobileBinding;
-        private IDisposable? _driverLicenseBinding;
-        private IDisposable? _commentBinding;
-
         public void Bind(
             TContactInfoViewModel model,
             Expression<Func<TContactInfoViewModel, string?>>? emailPath = null,
@@ -89,24 +76,13 @@ namespace PROWeb.Components.Person.Contexts
         { 
             Model = model;
 
-            _emailBinding = Model?.Bind(this, emailPath, c => c.Email, StrongBindingMode.TwoWay);
-            _contactPhoneBinding = Model?.Bind(this, contactPhonePath, c => c.ContactPhone, StrongBindingMode.TwoWay);
-            _phoneHomeBinding = Model?.Bind(this, phoneHomePath, c => c.PhoneHome, StrongBindingMode.TwoWay);
-            _phoneWorkBinding = Model?.Bind(this, phoneWorkPath, c => c.PhoneWork, StrongBindingMode.TwoWay);  
-            _phoneMobileBinding = Model?.Bind(this, phoneMobilePath, c => c.PhoneMobile, StrongBindingMode.TwoWay);
-            _driverLicenseBinding = Model?.Bind(this, driverLicensePath, c => c.DriverLicense, StrongBindingMode.TwoWay);
-            _commentBinding = Model?.Bind(this, commentPath, c => c.Comment, StrongBindingMode.TwoWay);
-        }
-
-        public override void UnBind()
-        {
-            _emailBinding?.Dispose();
-            _contactPhoneBinding?.Dispose();
-            _phoneHomeBinding?.Dispose();
-            _phoneWorkBinding?.Dispose();
-            _phoneMobileBinding?.Dispose();
-            _driverLicenseBinding?.Dispose();
-            _commentBinding?.Dispose();
+            AddBinding(Model?.Bind(this, emailPath, c => c.Email, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, contactPhonePath, c => c.ContactPhone, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, phoneHomePath, c => c.PhoneHome, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, phoneWorkPath, c => c.PhoneWork, StrongBindingMode.TwoWay));  
+            AddBinding(Model?.Bind(this, phoneMobilePath, c => c.PhoneMobile, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, driverLicensePath, c => c.DriverLicense, StrongBindingMode.TwoWay));
+            AddBinding(Model?.Bind(this, commentPath, c => c.Comment, StrongBindingMode.TwoWay));
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
 using PROWeb.Components.Common.Views;
-using PROWeb.Components.Extensions;
 using PROWeb.Data.Models;
 using PROWeb.Data.Services.Voters;
 using PROWeb.Office.Shared.Registry.ViewModels;
@@ -29,7 +29,7 @@ namespace PROWeb.Office.Shared.Registry.Views
 
         protected override async Task SaveAsync(ListVoterViewModel model)
         {
-            Voter? voter = LayoutRef?.Model?.MapTo<Voter>(Mapper);
+            Voter? voter = LayoutRef?.Model?.Adapt<Voter>();
 
             if (voter == null) { return; }
 
