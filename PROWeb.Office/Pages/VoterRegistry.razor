@@ -1,12 +1,12 @@
 ﻿@page "/"
 @using PROWeb.Components.Common.Layouts
 @using PROWeb.Components.Person.Filters;
-@using PROWeb.Office.Shared.Registry.ViewModels;
+@using PROWeb.Components.Voters.ViewModels;
 @using Telerik.FontIcons;
 @using PROWeb.Office.Shared.Registry;
 @using PROWeb.Office.Shared.Registry.Filters;
 @using PROWeb.Components.Voters.Filters;
-@inherits PRORegistryLayout<FilterModel, ListVoterViewModel>
+@inherits PRORegistryLayout<FilterModel, VoterViewModel>
 
 <FilterListLayout>
     <Filter>
@@ -42,7 +42,7 @@
 
     private RenderFragment SimpleFilterTemplate => @<VoterFilterSimple @ref="@FilterRef"></VoterFilterSimple>;
 
-    private RenderFragment List => @<List @ref="ListRef" />;
+    private RenderFragment List => @<RegistryList @ref="ListRef" />;
 
-    private RenderFragment Grid => @<Grid @ref="ListRef" />;
+    private RenderFragment Grid => @<RegistryGrid @ref="ListRef" />;
 }

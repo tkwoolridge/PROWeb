@@ -12,27 +12,31 @@
     }
     <div class="address-view">
         <div class="address-title pro-view-title w-100">@Title</div>
-        <input type="textbox" readonly class="address-assessment k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.AssessmentNo" />
+        <input type="textbox" readonly class="address-assessment k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.AssessmentNo" />
         @if (Editable)
         {
-            <div class="address-address1 update-view">
-                <input type="textbox" readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address1" />
-                @if (ShowPopulateDialogButton)
-                {
+            @if (ShowPopulateDialogButton)
+            {
+                <div class="address-address1 update-view">
+                    <input type="textbox" readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.Address1" />
                     <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.Home" />
-                }
-            </div>
+                </div>
+            }
+            else
+            {
+                <input type="textbox" readonly class="address-address1 k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.Address1" />
+            }
         }
         else
         {
-            <input type="textbox" readonly class="address-address1 k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address1" />
+            <input type="textbox" readonly class="address-address1 k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.Address1" />
         }
-        <input type="textbox" readonly class="w-100 k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.HouseNo" />
-        <input type="textbox" readonly class="address-address2 k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.Address2" />
-        <input type="textbox" readonly class="address-postal-code k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.PostalCode" />
-        <input type="textbox" readonly class="address-parish k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.ParishName" />
-        <input type="textbox" readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.ConstituencyNo" />
-        <input type="textbox" readonly class="address-constituency k-input k-input-solid k-input-md k-rounded-md w-100" value="@Context.ConstituencyName" />
+        <input type="textbox" readonly class="w-100 k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.HouseNo" />
+        <input type="textbox" readonly class="address-address2 k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.Address2" />
+        <input type="textbox" readonly class="address-postal-code k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.PostalCode" />
+        <input type="textbox" readonly class="address-parish k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.ParishName" />
+        <input type="textbox" readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.ConstituencyNo" />
+        <input type="textbox" readonly class="address-constituency k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.ConstituencyName" />
     </div>
 </CascadingValue>
 

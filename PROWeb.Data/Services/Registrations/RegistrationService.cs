@@ -6,13 +6,13 @@ namespace PROWeb.Data.Services.Registrations
 {
     #region Service Factory
 
-    public class RegistrationServiceFactory : DbContextServiceFactory<RegistrationService, DataContext>, IRegistrationServiceFactory
+    public class RegistrationServiceFactory : DbContextServiceFactory<IRegistrationService, DataContext>, IRegistrationServiceFactory
     {
         public RegistrationServiceFactory(IDbContextFactory<DataContext> contextFactory) : base(contextFactory)
         {
         }
 
-        public override RegistrationService CreateService()
+        public override IRegistrationService CreateService()
         {
             return new RegistrationService(ContextFactory);
         }
@@ -97,6 +97,7 @@ namespace PROWeb.Data.Services.Registrations
                 string? postalCode = null
             )
         {
+            registrations = registrations.Include(r => r.Assessment);
             registrations = registrations.Where(v => v.RegistryYear == registryYear);
             registrations = registrations.WhereIfNotNull(voterId, v => v.VoterId == voterId);
 
@@ -126,12 +127,22 @@ namespace PROWeb.Data.Services.Registrations
             return registrations;
         }
 
-        public async Task UpdateRegistration(Registration registration, string userName)
+        public async Task AddRegistration(Registration registration, string user)
+        {
+            registration.LastUpdated = DateTime.Now;
+            registration.LastUpdatedBy = user;
+
+            Context.Add(registration);
+
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task UpdateRegistration(Registration registration, string user)
         {
             Context.Attach(registration);
 
             registration.LastUpdated = DateTime.Now;
-            registration.LastUpdatedBy = userName;
+            registration.LastUpdatedBy = user;
 
             Context.Update(registration);
 

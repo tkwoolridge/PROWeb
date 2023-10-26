@@ -6,13 +6,13 @@ namespace PROWeb.Data.Services.Voters
 {
     #region Service Factory
 
-    public class VotersServiceFactory : DbContextServiceFactory<VotersService, DataContext>, IVotersServiceFactory
+    public class VotersServiceFactory : DbContextServiceFactory<IVotersService, DataContext>, IVotersServiceFactory
     {
         public VotersServiceFactory(IDbContextFactory<DataContext> contextFactory) : base(contextFactory)
         {
         }
 
-        public override VotersService CreateService()
+        public override IVotersService CreateService()
         {
             return new VotersService(ContextFactory);
         }
@@ -193,6 +193,16 @@ namespace PROWeb.Data.Services.Voters
 
                 await Context.SaveChangesAsync();
             }
+        }
+
+        public async Task AddVoter(Voter voter , string user)
+        {
+            voter.LastUpdated = DateTime.Now;
+            voter.LastUpdatedBy = user;
+
+            Context.Voters.Add(voter);
+
+            await Context.SaveChangesAsync();
         }
 
         #endregion

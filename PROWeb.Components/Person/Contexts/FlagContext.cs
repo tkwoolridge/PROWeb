@@ -24,15 +24,18 @@ namespace PROWeb.Components.Person.Contexts
         }
 
         public FlagContext(
-            TFlagViewModel? model = null,
+            TFlagViewModel model,
             Expression<Func<TFlagViewModel, int>>? flagIdPath = null,
             Expression<Func<TFlagViewModel, string?>>? flagDescriptionPath = null
             )
         {
-            Model = model ?? new TFlagViewModel();
+            Model = model;
 
-            AddBinding(Model?.Bind(this, flagIdPath, c => c.FlagId, StrongBindingMode.TwoWay));            
-            AddBinding(Model?.Bind(this, flagDescriptionPath, c => c.FlagDescription, StrongBindingMode.TwoWay));
+            using (SuspendSubscriptions())
+            {
+                AddBinding(Model?.Bind(this, flagIdPath, c => c.FlagId, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, flagDescriptionPath, c => c.FlagDescription, StrongBindingMode.TwoWay));
+            }
         }
     }
 }

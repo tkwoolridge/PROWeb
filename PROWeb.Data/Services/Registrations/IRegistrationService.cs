@@ -2,7 +2,7 @@
 
 namespace PROWeb.Data.Services.Registrations
 {
-    public interface IRegistrationService
+    public interface IRegistrationService : IDbContextService<DataContext>
     {
         IQueryable<FormType> GetFormTypes();
 
@@ -26,5 +26,9 @@ namespace PROWeb.Data.Services.Registrations
                int? parishNo = null,
                string? postalCode = null
             );
+
+        Task AddRegistration(Registration registration, string user);
+
+        Task UpdateRegistration(Registration registration, string user);
     }
 }

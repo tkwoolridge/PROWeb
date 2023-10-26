@@ -1,9 +1,9 @@
 ﻿using PROWeb.Components.Person;
-using PROWeb.Office.Shared.Registry.ViewModels;
+using PROWeb.Components.Voters.ViewModels;
 
 namespace PROWeb.Office.Shared.Registry.Views
 {
-    public class VoterContactInfoView : ContactInfoView<ListVoterViewModel>
+    public class VoterContactInfoView : ContactInfoView<VoterViewModel>
     {
         public VoterContactInfoView() : base(
                 v => v.Email,

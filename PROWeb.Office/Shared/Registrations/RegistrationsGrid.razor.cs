@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
 using PROWeb.Common.Components;
 using PROWeb.Common.Extensions;
 using PROWeb.Data.Services.Registrations;
@@ -10,27 +9,12 @@ using Telerik.Blazor.Components;
 
 namespace PROWeb.Office.Shared.Registrations
 {
-    public partial class List : PROListComponent<RegistrationFilterModel, ListRegistrationViewModel>
+    public partial class RegistrationsGrid : PROListComponent<RegistrationFilterModel, RegistrationViewModel>
     {
         [Inject]
         private IRegistrationServiceFactory _registrationServiceFactory { get; set; } = null!;
 
-        protected TelerikListView<ListRegistrationViewModel>? ListRef { get; set; }
-
-        protected void OnUpdate(ListViewCommandEventArgs args)
-        {
-            if (args.Item is ListRegistrationViewModel current &&
-                Data?.FirstOrDefault(m => m.VoterId == current.VoterId) is { } previous &&
-                Data?.IndexOf(previous) is { } index && index > -1)
-            {
-                Data?.RemoveAt(index);
-                Data?.Insert(index, current);
-
-                ListRef?.Rebind();
-            }
-        }
-
-        protected override async Task<IList<ListRegistrationViewModel>> GetDataAsync(RegistrationFilterModel filter)
+        protected override async Task<IList<RegistrationViewModel>> GetDataAsync(RegistrationFilterModel filter)
         {
             using (var service = _registrationServiceFactory.CreateService())
             {
@@ -53,8 +37,15 @@ namespace PROWeb.Office.Shared.Registrations
                     filter.ConstituencyNo,
                     filter.ParishNo,
                     filter.PostalCode)
-                    .ProjectToListAsync<ListRegistrationViewModel>();
+                    .ProjectToListAsync<RegistrationViewModel>();
             }
+        }
+
+        protected void OnRowRenderHandler(GridRowRenderEventArgs row)
+        {
+            RegistrationViewModel? registration = row.Item as RegistrationViewModel;
+
+            row.Class = registration?.FormTypeId == 1 ? "form1-row" : "form2-row";
         }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace PROWeb.Components.Services.State
 {
-    internal interface IStateService<TState> where TState : class
+    public interface IStateService<TComponent, TState> where TComponent : IPROComponentWithState<TState>
     {
-        TState? GetState();
+        TState? GetState(string key);
 
-        void RegisterComponent(IPROComponentWithState<TState> component);
+        void SetState(string key, TState state);
 
         void Clear();
     }

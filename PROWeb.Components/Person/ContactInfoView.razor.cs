@@ -5,6 +5,7 @@ using PROWeb.Components.Common.Views;
 using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Person.Contexts;
 using PROWeb.Components.Voters.ViewModels;
+using PROWeb.Data.Models;
 using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person
@@ -23,7 +24,7 @@ namespace PROWeb.Components.Person
         private readonly Expression<Func<TContactInfoViewModel, string?>>? _driverLicensePath;
         private readonly Expression<Func<TContactInfoViewModel, string?>>? _commentPath;
 
-        internal ContactInfoContext<TContactInfoViewModel> Context { get; set; } = new();
+        internal ContactInfoContext<TContactInfoViewModel> ContactInfoContext { get; set; } = new();
 
         protected ContactInfoView(
             Expression<Func<TContactInfoViewModel, string?>>? emailPath = null,
@@ -43,42 +44,58 @@ namespace PROWeb.Components.Person
             _commentPath = commentPath;
         }
 
+        internal void OnUpdateFromVoter(VoterViewModel voter)
+        {
+            voter.Adapt(ContactInfoContext);
+
+            NotifyFieldsChanged();
+        }
+
         public void UpdateFromVoter(VoterViewModel voter)
         {
-            voter.Adapt(Context);
+            using (UndoService.CreateScope())
+            {
+                OnUpdateFromVoter(voter);
+            }
+        }
+
+        internal void OnUpdateFromEligible(EligibleViewModel eligible)
+        {
+            ContactInfoContext.DriverLicense = eligible.DriverLicenseId;
 
             NotifyFieldsChanged();
         }
 
         public void UpdateFromEligible(EligibleViewModel eligible)
         {
-            Context.DriverLicense = eligible.DriverLicenseId;
-
-            NotifyFieldsChanged();
+            using (UndoService.CreateScope())
+            {
+                OnUpdateFromEligible(eligible);
+            }
         }
 
         private void NotifyFieldsChanged()
         {
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.PhoneHome)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.PhoneWork)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.PhoneMobile)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.Email)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.DriverLicense)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(ContactInfoContext, nameof(ContactInfoContext.PhoneHome)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(ContactInfoContext, nameof(ContactInfoContext.PhoneWork)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(ContactInfoContext, nameof(ContactInfoContext.PhoneMobile)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(ContactInfoContext, nameof(ContactInfoContext.Email)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(ContactInfoContext, nameof(ContactInfoContext.DriverLicense)));
         }
 
         protected override EditContext? GetEditContext()
         {
-            return new EditContext(Context);
+            return new EditContext(ContactInfoContext);
         }
 
         protected override void OnModelUpdate()
         {
             base.OnModelUpdate();
 
-            Context.UnBind();
+            ContactInfoContext.UnBind();
             if (Model is { } model)
             {
-                Context.Bind
+                ContactInfoContext.Bind
                 (
                 model,
                  _emailPath,

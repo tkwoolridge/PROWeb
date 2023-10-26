@@ -1,9 +1,9 @@
 ﻿using PROWeb.Components.Assessments;
-using PROWeb.Office.Shared.Registry.ViewModels;
+using PROWeb.Components.Voters.ViewModels;
 
 namespace PROWeb.Office.Shared.Registry.Views
 {
-    public class VoterAddressView : AddressView<ListVoterViewModel>
+    public class VoterAddressView : AddressView<VoterViewModel>
     {
         public VoterAddressView() : base(
             v => v.AssessmentNo,

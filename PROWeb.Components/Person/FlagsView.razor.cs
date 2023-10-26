@@ -28,20 +28,20 @@ namespace PROWeb.Components.Person
 
         public void UpdateFromVoter(VoterViewModel voter)
         {
-            voter.Adapt(Context);
+            voter.Adapt(FlagsContext);
 
             NotifyFieldsChanged();
         }
 
         private void NotifyFieldsChanged()
         {
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.BermudianStatusGranted)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.CommonwealthCitizen)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.RegisteredAsElector)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.IsBermudianStatusGranted)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(FlagsContext, nameof(FlagsContext.BermudianStatusGranted)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(FlagsContext, nameof(FlagsContext.CommonwealthCitizen)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(FlagsContext, nameof(FlagsContext.RegisteredAsElector)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(FlagsContext, nameof(FlagsContext.IsBermudianStatusGranted)));
         }
 
-        internal FlagsContext<TFlagsViewModel, TFlagViewModel> Context { get; } = new();
+        internal FlagsContext<TFlagsViewModel, TFlagViewModel> FlagsContext { get; } = new();
 
         internal IList<FlagContext<TFlagViewModel>>? Flags { get; set; }
 
@@ -81,17 +81,17 @@ namespace PROWeb.Components.Person
 
         protected override EditContext? GetEditContext()
         {
-            return new EditContext(Context);
+            return new EditContext(FlagsContext);
         }
 
         protected override void OnModelUpdate()
         {
             base.OnModelUpdate();
 
-            Context.UnBind();
+            FlagsContext.UnBind();
             if (Model is { } model)
             {
-                Context.Bind
+                FlagsContext.Bind
                 (
                 model,
                 _flagsPath,
@@ -103,13 +103,13 @@ namespace PROWeb.Components.Person
                 _flagDescriptionPath
                 );
 
-                FlagsValues = Context?.ContextFlags?.Select(f => f.FlagId).ToList() ?? Enumerable.Empty<int>().ToList();
+                FlagsValues = FlagsContext?.ContextFlags?.Select(f => f.FlagId).ToList() ?? Enumerable.Empty<int>().ToList();
             }
         }
 
         public override void OnSave()
         {
-            Context.Flags = Flags?
+            FlagsContext.Flags = Flags?
                 .Where(f => FlagsValues.Contains(f.FlagId))
                 .Select(f => f.Model)
                 .OfType<TFlagViewModel>()

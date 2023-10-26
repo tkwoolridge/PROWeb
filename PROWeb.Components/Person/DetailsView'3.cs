@@ -38,9 +38,9 @@ namespace PROWeb.Components.Person
         {
         }
 
-        protected override void UpdateFromVoter(VoterViewModel voter)
+        protected override void OnUpdateFromVoter(VoterViewModel voter)
         {
-            base.UpdateFromVoter(voter);
+            base.OnUpdateFromVoter(voter);
 
             FlagsView?.UpdateFromVoter(voter);
         }

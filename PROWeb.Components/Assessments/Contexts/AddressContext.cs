@@ -129,18 +129,22 @@ namespace PROWeb.Components.Assessments.Contexts
         {
             Model = model;
 
-            AddBinding(Model?.Bind(this, assessmentNoPath, c => c.AssessmentNo, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, address1Path, c => c.Address1, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, houseNoPath, c => c.HouseNo, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, address2Path, c => c.Address2, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, postalCodePath, c => c.PostalCode, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, parishNamePath, c => c.ParishName, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, constituencyNoPath, c => c.ConstituencyNo, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, constituencyNamePath, c => c.ConstituencyName, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, isBogusNoPath, c => c.IsBogusNo, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, bogusNoPath, c => c.BogusNo, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, bogusConstituencyNoPath, c => c.BogusConstituencyNo, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, bogusConstituencyNamePath, c => c.BogusConstituencyName, StrongBindingMode.TwoWay));
+            using (SuspendSubscriptions())
+            {
+
+                AddBinding(Model?.Bind(this, assessmentNoPath, c => c.AssessmentNo, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, address1Path, c => c.Address1, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, houseNoPath, c => c.HouseNo, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, address2Path, c => c.Address2, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, postalCodePath, c => c.PostalCode, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, parishNamePath, c => c.ParishName, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, constituencyNoPath, c => c.ConstituencyNo, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, constituencyNamePath, c => c.ConstituencyName, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, isBogusNoPath, c => c.IsBogusNo, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, bogusNoPath, c => c.BogusNo, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, bogusConstituencyNoPath, c => c.BogusConstituencyNo, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, bogusConstituencyNamePath, c => c.BogusConstituencyName, StrongBindingMode.TwoWay));
+            }
         }
     }
 }

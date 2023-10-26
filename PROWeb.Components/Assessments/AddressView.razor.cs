@@ -5,7 +5,6 @@ using PROWeb.Common.ViewModels;
 using PROWeb.Components.Assessments.Contexts;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common.Views;
-using PROWeb.Components.Services.Undo;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
@@ -18,12 +17,10 @@ namespace PROWeb.Components.Assessments
 
     public abstract partial class AddressView<TAddressViewModel> : AddressViewBase<TAddressViewModel> where TAddressViewModel : SlimViewModelBase
     {
-        internal AddressContext<TAddressViewModel> Context { get; set; } = new();
+        internal AddressContext<TAddressViewModel> AddressContext { get; set; } = new();
 
         [Parameter]
         public bool ShowPopulateDialogButton { get; set; }
-
-        private IUndoContext? _undoContext;
 
         private readonly Expression<Func<TAddressViewModel, int?>>? _assessmentNoPath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _address1Path;
@@ -71,10 +68,10 @@ namespace PROWeb.Components.Assessments
         {
             base.OnModelUpdate();
 
-            Context.UnBind();
+            AddressContext.UnBind();
             if (Model is { } model)
             {
-                Context.Bind
+                AddressContext.Bind
                 (
                 model,
                  _assessmentNoPath,
@@ -95,23 +92,7 @@ namespace PROWeb.Components.Assessments
 
         protected override EditContext? GetEditContext()
         {
-            Context.ModelChanged -= OnContext;
-            Context.ModelChanged += OnContext;
-            return new EditContext(Context);
-        }
-
-        private void OnContext(object? sender, ModelChangedEventArgs e)
-        {
-            var action = new UndoAction(e.PropertyName, e.PropertyValue);
-
-            if (_undoContext is { } context)
-            {
-                context.AddAction(action);
-            }
-            else
-            {
-                UndoService.AddAction(action);
-            }
+            return new EditContext(AddressContext);
         }
 
         protected AssessmentRegistryDialog? AssessmentRegistryDialogRef { get; set; }
@@ -128,20 +109,25 @@ namespace PROWeb.Components.Assessments
             UpdateAddress(assessment);
         }
 
+        internal void OnUpdateAddress(AssessmentViewModel assessment)
+        {
+            Debug.Assert(AssessmentRegistryDialogRef != null);
+
+            assessment.Adapt(AddressContext);
+
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(AddressContext, nameof(AddressContext.AssessmentNo)));
+
+            StateHasChanged();
+        }
+
         public void UpdateAddress(AssessmentViewModel assessment)
         {
             Debug.Assert(AssessmentRegistryDialogRef != null);
 
-            using (_undoContext = UndoService.NewScope())
+            using (UndoService.CreateScope())
             {
-                assessment.Adapt(Context);
+                OnUpdateAddress(assessment);
             }
-
-            _undoContext = null;
-
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.AssessmentNo)));
-
-            StateHasChanged();
         }
     }
 }

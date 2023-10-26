@@ -3,7 +3,7 @@
 namespace PROWeb.Data.Services
 {
     public abstract class DbContextServiceFactory<TService, TDataContext> : IDbContextServiceFactory<TService, TDataContext>
-        where TService : DbContextService<TDataContext>
+        where TService : IDbContextService<TDataContext>
         where TDataContext : DbContext
     {
         protected readonly IDbContextFactory<TDataContext> ContextFactory = null!;

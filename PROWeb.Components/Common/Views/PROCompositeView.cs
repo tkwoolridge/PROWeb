@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common.Layouts;
@@ -9,9 +8,11 @@ using Telerik.Blazor;
 
 namespace PROWeb.Components.Common.Views
 {
-    public abstract class PROCompositView<TViewModel> : PROComponent 
+    public abstract class PROCompositeView<TViewModel> : PROComponent 
         where TViewModel : SlimViewModelBase
     {
+        private ViewsLayout<TViewModel>? _layoutRef;
+
         [Inject]
         private IUndoService<TViewModel> _undoService { get; set; } = null!;
 
@@ -20,32 +21,47 @@ namespace PROWeb.Components.Common.Views
 
         public bool CanSave { get; private set; }
 
-        protected ViewsLayout<TViewModel>? LayoutRef { get; set; }
+        public bool CanUndo { get; private set; }
 
-        protected override Task OnAfterRenderAsync(bool firstRender)
+        protected TViewModel? Model => LayoutRef?.Model;
+
+        protected ViewsLayout<TViewModel>? LayoutRef
+        {
+            get => _layoutRef;
+            set
+            {
+                if (value != _layoutRef)
+                {
+                    _layoutRef = value;
+                    OnLayoutUpdated();
+                }
+            }
+        }
+
+        protected virtual void OnLayoutUpdated()
         {
             Debug.Assert(LayoutRef != null);
 
-            if (firstRender)
-            {
-                LayoutRef.FieldValueChanged -= OnFieldChanged;
-                LayoutRef.FieldValueChanged += OnFieldChanged;
-            }
-
-            return base.OnAfterRenderAsync(firstRender);
+            LayoutRef.ContextChanged -= OnContextChanged;
+            LayoutRef.ContextChanged += OnContextChanged;
         }
 
-        internal void OnFieldChanged(object? sender, FieldChangedEventArgs e)
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            _undoService.Reset();
+        }
+
+        internal void OnContextChanged(object? sender, ContextChangedEventArgs e)
         {
             CanSave = true;
-
-            if(sender is EditContext eContext && eContext.Model is ViewModelContext<TViewModel> context)
-            {
-                var value = context.GetValue(e.FieldIdentifier.FieldName);
-            }
+            CanUndo = true;
             
             StateHasChanged();
         }
+
+        protected abstract Task SaveAsync(TViewModel model);
 
         protected async Task<bool> OnSaveAsync()
         {
@@ -73,7 +89,22 @@ namespace PROWeb.Components.Common.Views
             return true;
         }
 
-        protected abstract Task SaveAsync(TViewModel model);
+        public void OnUndo()
+        {
+            Debug.Assert(LayoutRef != null);
+
+            if(_undoService.Next is not { } actions)
+            {
+                return;
+            }
+
+            foreach (var view in LayoutRef.ViewsList.OfType<PROEditableView<TViewModel>>())
+            {
+                view.Undo(actions);
+            }
+
+            CanUndo = _undoService.HasActions;
+        }
 
         public virtual List<string>? Validate()
         {

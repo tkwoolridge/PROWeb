@@ -1,0 +1,23 @@
+﻿@using PROWeb.Office.Shared.Registrations.Filters;
+@using PROWeb.Office.Shared.Registrations.ViewModels;
+@inherits PROListComponent<RegistrationFilterModel, RegistrationViewModel>;
+
+<TelerikGrid @bind-Page="@Page"
+             PageSize="@PageSize"
+             Height="100%"
+             OnRowRender="@OnRowRenderHandler"
+             Pageable="true"
+             Data="@Data">
+    <GridColumns>
+        <GridColumn Width="90px" Field=@nameof(RegistrationViewModel.VoterId) Title="ID" />
+        <GridColumn Width="70px" Field=@nameof(RegistrationViewModel.Title) Title="Title" />
+        <GridColumn Width="150px" Field=@nameof(RegistrationViewModel.LastName) Title="Last Name" />
+        <GridColumn Width="150px" Field=@nameof(RegistrationViewModel.FirstName) Title="First Name" />
+        <GridColumn Width="150px" Field=@nameof(RegistrationViewModel.MiddleName) Title="Middle Name" />
+        <GridColumn Width="120px" Field=@nameof(RegistrationViewModel.DateOfBirth) DisplayFormat="{0:dd-MMM-yyyy}" Title="DOB" />
+        <GridColumn Width="50px" Field=@nameof(RegistrationViewModel.Age) Title="Age" />
+        <GridColumn Width="50px" Field=@nameof(RegistrationViewModel.Gender) Title="Sex" />
+        <GridColumn Width="100px" Field=@nameof(RegistrationViewModel.ConstituencyNo) Title="Const.#" />
+        <GridColumn Field=@nameof(RegistrationViewModel.Address) Title="Address" />
+    </GridColumns>
+</TelerikGrid>

@@ -19,7 +19,7 @@ namespace PROWeb.Components.DependencyInjection
             services.AddSingleton(config);
 
             // Register state services.
-            services.AddScoped(typeof(IStateService<>), typeof(StateService<>));
+            services.AddScoped(typeof(IStateService<,>), typeof(StateService<,>));
 
             // Register undo services.
             services.AddScoped(typeof(IUndoService<>), typeof(UndoService<>));

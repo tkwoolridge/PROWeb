@@ -16,27 +16,27 @@ namespace PROWeb.Components.Person
         [Parameter]
         public AddressView<TAddressViewModel>? AddressView { get; set; }
 
-        protected override void UpdateFromEligible(EligibleViewModel eligible)
+        protected override void OnUpdateFromEligible(EligibleViewModel eligible)
         {
-            base.UpdateFromEligible(eligible);
+            base.OnUpdateFromEligible(eligible);
 
             if (AddressView != null && eligible.DriverLicenseAssessmentNo != null)
             {
                 AssessmentViewModel assesssemnt = eligible.Adapt<AssessmentViewModel>();
 
-                AddressView.UpdateAddress(assesssemnt);
+                AddressView.OnUpdateAddress(assesssemnt);
             }
         }
 
-        protected override void UpdateFromVoter(VoterViewModel voter)
+        protected override void OnUpdateFromVoter(VoterViewModel voter)
         {
-            base.UpdateFromVoter(voter);
+            base.OnUpdateFromVoter(voter);
 
             if (AddressView != null)
             {
                 AssessmentViewModel assesssemnt = voter.Adapt<AssessmentViewModel>();
 
-                AddressView.UpdateAddress(assesssemnt);
+                AddressView.OnUpdateAddress(assesssemnt);
             }
         }
 

@@ -7,6 +7,11 @@ namespace PROWeb.Components.Services.Undo
         IReadOnlyList<UndoAction>? Next { get; }
 
         void AddAction(UndoAction action);
-        IUndoContext NewScope();
+
+        IDisposable CreateScope();
+        
+        void Reset();
+
+        bool HasActions { get; }
     }
 }

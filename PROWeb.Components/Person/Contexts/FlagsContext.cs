@@ -70,11 +70,14 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model;
 
-            AddBinding(Model?.Bind(this, flagsPath, c => c.Flags, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, commonwealthCitizenPath, c => c.CommonwealthCitizen, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, bermudianStatusGrantedPath, c => c.BermudianStatusGranted, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, registeredAsElectorPath, c => c.RegisteredAsElector, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, isBermudianStatusGrantedPath, c => c.IsBermudianStatusGranted, StrongBindingMode.TwoWay));
+            using (SuspendSubscriptions())
+            {
+                AddBinding(Model?.Bind(this, flagsPath, c => c.Flags, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, commonwealthCitizenPath, c => c.CommonwealthCitizen, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, bermudianStatusGrantedPath, c => c.BermudianStatusGranted, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, registeredAsElectorPath, c => c.RegisteredAsElector, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, isBermudianStatusGrantedPath, c => c.IsBermudianStatusGranted, StrongBindingMode.TwoWay));
+            }
 
             if(Flags is not { } flags)
             {

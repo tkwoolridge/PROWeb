@@ -1,7 +1,6 @@
 ﻿@using PROWeb.Components.Person.Filters;
 @using PROWeb.Components.Voters.ViewModels;
-@using PROWeb.Office.Shared.Registry.ViewModels;
-@inherits PROListComponent<FilterModel, ListVoterViewModel>;
+@inherits PROListComponent<FilterModel, VoterViewModel>;
 
 <TelerikGrid @bind-Page="@Page"
              PageSize="@PageSize"

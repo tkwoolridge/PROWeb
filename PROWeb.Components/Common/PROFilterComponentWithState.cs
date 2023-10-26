@@ -2,7 +2,6 @@
 using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Services.State;
-using Telerik.SvgIcons;
 
 namespace PROWeb.Components.Common
 {
@@ -12,13 +11,21 @@ namespace PROWeb.Components.Common
     {
         private TFilter _filter = null!;
 
-        [Inject]
-        internal IStateService<TFilter>? FilterStateService { get; set; }
-
         [Parameter]
         public bool PersistState { get; set; }
 
-        public event Action<TFilter>? StateChanged;
+        [Inject]
+        protected IStateService<PROFilterComponentWithState<TFilter> , TFilter>? FilterStateService { get; set; }
+
+        [Inject]
+        protected NavigationManager Navigation { get; set; } = null!;
+
+        protected string PersistenceKey => "/" + string.Concat(Navigation.Uri.Split("//")[1].Split("/").Skip(1));
+
+        public void ResetState()
+        {
+            FilterStateService?.Clear();
+        }
 
         public override TFilter Filter
         {
@@ -36,27 +43,7 @@ namespace PROWeb.Components.Common
                     newFilter.PropertyChanged += OnFilterPropertyChanged;
                 }
             }
-        }
-
-        private void OnFilterPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (PersistState)
-            {
-                StateChanged?.Invoke(Filter);
-            }
-        }
-
-        public async Task SetStateAsync(TFilter filter)
-        {
-            Filter = filter;
-
-            await Task.CompletedTask;
-        }
-
-        public async Task<TFilter?> GetStateAsync()
-        {
-            return await Task.FromResult(Filter);
-        }
+        }      
 
         protected override void OnAfterRender(bool firstRender)
         {
@@ -64,14 +51,16 @@ namespace PROWeb.Components.Common
 
             if (firstRender && PersistState)
             {
-                FilterStateService?.RegisterComponent(this);
-                Filter = FilterStateService?.GetState() ?? Filter;
+                Filter = FilterStateService?.GetState(PersistenceKey) ?? Filter;
             }
         }
 
-        public void ResetState()
+        private void OnFilterPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            FilterStateService?.Clear();
+            if (PersistState)
+            {
+                FilterStateService?.SetState(PersistenceKey, Filter);
+            }
         }
     }
 }

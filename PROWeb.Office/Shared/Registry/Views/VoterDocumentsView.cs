@@ -1,15 +1,13 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Components;
-using PROWeb.Components.DependencyInjection;
 using PROWeb.Components.Person;
 using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Models;
 using PROWeb.Data.Services.Voters;
-using PROWeb.Office.Shared.Registry.ViewModels;
 
 namespace PROWeb.Office.Shared.Registry.Views
 {
-    public class VoterDocumentsView : DocumentsView<ListVoterViewModel, DocumentViewModel>
+    public class VoterDocumentsView : DocumentsView<VoterViewModel, DocumentViewModel>
     {
         public VoterDocumentsView() :
             base(v => v.Documents,

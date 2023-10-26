@@ -1,27 +1,49 @@
 ﻿using PROWeb.Common.ViewModels;
+using System.Reactive.Disposables;
 
 namespace PROWeb.Components.Services.Undo
 {
     public class UndoService<TViewModel> : IUndoService<TViewModel> where TViewModel : SlimViewModelBase
     {
         private readonly Stack<UndoGroup> _undoes = new Stack<UndoGroup>();
+        private UndoGroup? _undoGroup = null;
 
         public IReadOnlyList<UndoAction>? Next
         {
             get
             {
-                return _undoes.Pop()?.Actions;
+                if(_undoes.TryPop(out UndoGroup? group))
+                {
+                    return group?.Actions;
+                }
+
+                return null; 
             }
         }
 
-        public IUndoContext NewScope()
+        public bool HasActions => _undoes.Count > 0;
+
+        public IDisposable CreateScope()
         {
-            return new UndoContext(this);
+            _undoGroup = new UndoGroup();
+
+            return Disposable.Create(this, o =>
+            {
+                o.AddGroup(_undoGroup);
+                o._undoGroup = null;
+            });
         }
 
         public void AddAction(UndoAction action)
         {
-            _undoes.Push(new UndoGroup(action));
+            if(_undoGroup is not { } group)
+            {
+                _undoes.Push(new UndoGroup(action));
+
+                return;
+            }
+
+            group.AddAction(action);
         }
 
         private void AddGroup(UndoGroup group)
@@ -29,25 +51,9 @@ namespace PROWeb.Components.Services.Undo
             _undoes.Push(group);
         }
 
-        private class UndoContext : IUndoContext
+        public void Reset()
         {
-            private UndoService<TViewModel> _services;
-            private UndoGroup _group = new UndoGroup();
-
-            public UndoContext(UndoService<TViewModel> services)
-            {
-                _services = services;
-            }
-
-            public void AddAction(UndoAction action)
-            {
-                _group.AddAction(action);
-            }
-
-            public void Dispose()
-            {
-                _services.AddGroup(_group);
-            }
+            _undoes.Clear();
         }
 
         private class UndoGroup

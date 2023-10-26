@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
 using PROWeb.Common.ViewModels;
+using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Voters.ViewModels;
 using System.Linq.Expressions;
@@ -37,17 +39,15 @@ namespace PROWeb.Components.Person
         {
         }
 
-        protected override void UpdateFromVoter(VoterViewModel voter)
+        protected override void OnUpdateFromVoter(VoterViewModel voter)
         {
-            base.UpdateFromVoter(voter);
-
-            ContactInfoView?.UpdateFromVoter(voter);
+            base.OnUpdateFromVoter(voter);
+            ContactInfoView?.OnUpdateFromVoter(voter);
         }
 
-        protected override void UpdateFromEligible(EligibleViewModel eligible)
+        protected override void OnUpdateFromEligible(EligibleViewModel eligible)
         {
-            base.UpdateFromEligible(eligible);
-
+            base.OnUpdateFromEligible(eligible);
             ContactInfoView?.UpdateFromEligible(eligible);
         }
     }

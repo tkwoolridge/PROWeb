@@ -1,10 +1,10 @@
 ﻿@using PROWeb.Components.Common.Views;
 @using PROWeb.Components.Layouts;
 @using PROWeb.Components.Person;
-@using PROWeb.Office.Shared.Registry.ViewModels;
+@using PROWeb.Components.Voters.ViewModels;
 @using Telerik.FontIcons;
 @using PROWeb.Components.Common.Layouts;
-@inherits PROCompositView<ListVoterViewModel>;
+@inherits PROCompositeView<VoterViewModel>;
 
 <style>
     .voter-main-view {
@@ -30,7 +30,7 @@
     }
 </style>
 
-<ViewsLayout TViewModel="ListVoterViewModel" Class="p-container" Editable="@Editable" @ref="@LayoutRef">
+<ViewsLayout TViewModel="VoterViewModel" Class="p-container" Editable="@Editable" @ref="@LayoutRef">
     <Views>
         <TelerikTabStrip 
             Class="voter-tab-view" PersistTabContent="true" @bind-ActiveTabIndex="@TabIndex">
@@ -56,6 +56,7 @@
         <div class="d-flex justify-content-end mt-1 mb-2 mx-2">
             @if (Editable == true)
             {
+                <TelerikButton OnClick="@OnUndo" Enabled="@CanUndo" Icon="FontIcon.Undo" Class="me-1">Undo</TelerikButton>
                 <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@CanSave" Command="Save" OnClick="@OnSaveAsync" Class="me-1">Save</ListViewCommandButton>
                 <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
             }

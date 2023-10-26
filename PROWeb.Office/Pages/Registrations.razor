@@ -4,7 +4,7 @@
 @using PROWeb.Office.Shared.Registrations.ViewModels;
 @using Telerik.FontIcons;
 @using PROWeb.Office.Shared.Registrations;
-@inherits PRORegistryLayout<RegistrationFilterModel, ListRegistrationViewModel>
+@inherits PRORegistryLayout<RegistrationFilterModel, RegistrationViewModel>
 
 <FilterListLayout>
     <Filter>
@@ -29,6 +29,6 @@
 </FilterListLayout>
 
 @code{
-    private RenderFragment List => @<List @ref="ListRef" />;
-    private RenderFragment Grid => @<Grid @ref="ListRef" />;
+    private RenderFragment List => @<RegistrationsList @ref="ListRef" />;
+    private RenderFragment Grid => @<RegistrationsGrid @ref="ListRef" />;
 }

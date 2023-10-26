@@ -108,11 +108,17 @@ public class StrongBindingPath<TSource, TProperty> : IStrongBindingPath
             throw new ArgumentException($"Property source must be of type {typeof(TSource)}");
         }
 
-        if (value is not TProperty tValue)
+        if(value is null)
+        {
+            WriteProperty(tSource, default);
+        } 
+        else if (value is not TProperty tValue)
         {
             throw new ArgumentException($"Property source must be of type {typeof(TSource)}");
         }
-
-        WriteProperty(tSource, tValue);
+        else
+        {
+            WriteProperty(tSource, tValue);
+        }
     }
 }

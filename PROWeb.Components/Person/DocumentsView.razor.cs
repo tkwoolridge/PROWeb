@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using Telerik.Blazor;
 using Telerik.Blazor.Components;
-using Telerik.Blazor.Components.FileSelect;
 
 namespace PROWeb.Components.Person
 {
@@ -60,10 +59,10 @@ namespace PROWeb.Components.Person
             _exportFormatPath = exportFormatPath;
             _contentPath = contentPath;
 
-            NewDocument = CreateNewDocument();
+            NewDocument = CreateNewDocument(new TDocumentViewModel());
         }
 
-        internal DocumentsContext<TDocumentsViewModel, TDocumentViewModel> Context { get; } = new DocumentsContext<TDocumentsViewModel, TDocumentViewModel>();
+        internal DocumentsContext<TDocumentsViewModel, TDocumentViewModel> DocumentsContext { get; } = new DocumentsContext<TDocumentsViewModel, TDocumentViewModel>();
 
         internal IList<DocumentContext<TDocumentViewModel>>? Documents { get; set; }
 
@@ -84,10 +83,10 @@ namespace PROWeb.Components.Person
         {
             base.OnModelUpdate();
 
-            Context.UnBind();
+            DocumentsContext.UnBind();
             if (Model is { } model)
             {
-                Context.Bind
+                DocumentsContext.Bind
                 (
                 model,
                 _modelsPath,
@@ -101,7 +100,7 @@ namespace PROWeb.Components.Person
                 _contentPath
                 );
 
-                Documents = Context.ContextDocuments;
+                Documents = DocumentsContext.ContextDocuments;
             }
         }
 
@@ -126,7 +125,7 @@ namespace PROWeb.Components.Person
                 return;
             }
 
-            Context.ContextDocuments?.Add(NewDocument);
+            DocumentsContext.ContextDocuments?.Add(NewDocument);
             NewDocument.DocumentId = documentId;
 
             DocumentsGridRef?.Rebind();
@@ -136,12 +135,12 @@ namespace PROWeb.Components.Person
 
         protected async Task OnDeleteDocumentAsync(int documetId)
         {
-            if (Context.ContextDocuments?.FirstOrDefault(d => d.DocumentId == documetId) is not { } document || document.Model is not { } model)
+            if (DocumentsContext.ContextDocuments?.FirstOrDefault(d => d.DocumentId == documetId) is not { } document || document.Model is not { } model)
             {
                 return;
             }
 
-            bool isConfirmed = await Dialogs.ConfirmAsync(string.Format(Messages.DeleteDocumentMessage, document.DocumentName, Context.FullName), "Delete Document.");
+            bool isConfirmed = await Dialogs.ConfirmAsync(string.Format(Messages.DeleteDocumentMessage, document.DocumentName, DocumentsContext.FullName), "Delete Document.");
 
             if (!isConfirmed)
             {
@@ -149,7 +148,7 @@ namespace PROWeb.Components.Person
             }
 
             await DeleteDocumentAsync(model);
-            Context.ContextDocuments.Remove(document);
+            DocumentsContext.ContextDocuments.Remove(document);
 
             DocumentsGridRef?.Rebind();
         }
@@ -169,7 +168,7 @@ namespace PROWeb.Components.Person
             NewDocument.ExportFormat = null;
         }
 
-        private DocumentContext<TDocumentViewModel> CreateNewDocument(TDocumentViewModel? model = null)
+        private DocumentContext<TDocumentViewModel> CreateNewDocument(TDocumentViewModel model)
         {
             return new DocumentContext<TDocumentViewModel>(
                 model,
@@ -184,7 +183,7 @@ namespace PROWeb.Components.Person
         protected void OnShowNewDocumentWindow()
         {
             DocumentStreamDispose();
-            NewDocument = CreateNewDocument();
+            NewDocument = CreateNewDocument(new TDocumentViewModel());
             DocumentEditContext = new EditContext(NewDocument);
             DocumentEditContext.OnValidationStateChanged += OnNewDocumentValidationStateChanged;
             ShowUploadDialog = true;
@@ -205,6 +204,8 @@ namespace PROWeb.Components.Person
         protected async Task OnDownloadDocumentAsync(int documetId)
         {
             TDocumentViewModel? model = await DownloadDocumentAsync(documetId);
+
+            Debug.Assert(model != null);
 
             DocumentContext<TDocumentViewModel> document = CreateNewDocument(model);
 

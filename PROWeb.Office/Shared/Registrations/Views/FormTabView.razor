@@ -5,7 +5,7 @@
 @using PROWeb.Office.Registrations.Views
 @using PROWeb.Office.Shared.Registrations.ViewModels;
 @using Telerik.FontIcons;
-@inherits PROCompositView<ListRegistrationViewModel>;
+@inherits FormViewBase;
 
 <style>
     .voter-main-view {
@@ -35,7 +35,7 @@
     }
 </style>
 
-<ViewsLayout Class="@(Model?.FormTypeId == (int)FormTypes.Form1? "form1-container" : "form2-container")" TViewModel="ListRegistrationViewModel" Editable="@Editable" @ref="@LayoutRef">
+<ViewsLayout Class="@(Model?.FormTypeId == (int)FormTypes.Form1? "form1-container" : "form2-container")" TViewModel="RegistrationViewModel" Editable="@Editable" @ref="@LayoutRef">
     <Views>
         <TelerikTabStrip Class="voter-tab-view" PersistTabContent="true" @bind-ActiveTabIndex="@TabIndex">
             <TabStripTab Title="Voter">
@@ -57,18 +57,17 @@
         <div class="d-flex justify-content-end mt-1 mb-2 mx-2">
             @if (Editable == true)
             {
-
-                <TelerikButton Icon="@FontIcon.Check" Class="me-1" OnClick="@OnApprove">Approve</TelerikButton>
-                <TelerikButton Icon="@FontIcon.Cancel" Class="me-1" OnClick="@OnReject">Reject</TelerikButton>
+                <TelerikButton Icon="@FontIcon.Undo" Class="me-1" Enabled="@CanUndo" OnClick="@OnUndo">Undo</TelerikButton>
+                <TelerikButton Icon="@FontIcon.Check" Class="me-1" OnClick="@OnApproveAsync">Approve</TelerikButton>
+                <TelerikButton Icon="@FontIcon.Cancel" Class="me-1" OnClick="@OnRejectAsync">Reject</TelerikButton>
                 <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@CanSave" Command="Save" OnClick="@OnSaveAsync" Class="me-1">Save</ListViewCommandButton>
                 <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
             }
             else
             {
-                <TelerikButton Icon="@FontIcon.Check" Class="me-1" OnClick="@OnApprove">Approve</TelerikButton>
-                <TelerikButton Icon="@FontIcon.Cancel" Class="me-1" OnClick="@OnReject">Reject</TelerikButton>
+                <TelerikButton Icon="@FontIcon.Check" Class="me-1" OnClick="@OnApproveAsync">Approve</TelerikButton>
+                <TelerikButton Icon="@FontIcon.Cancel" Class="me-1" OnClick="@OnRejectAsync">Reject</TelerikButton>
                 <ListViewCommandButton Icon="@FontIcon.Pencil" Command="Edit">Edit</ListViewCommandButton>
-
             }
         </div>
     </Footer>

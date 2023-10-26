@@ -76,13 +76,16 @@ namespace PROWeb.Components.Person.Contexts
         { 
             Model = model;
 
-            AddBinding(Model?.Bind(this, emailPath, c => c.Email, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, contactPhonePath, c => c.ContactPhone, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, phoneHomePath, c => c.PhoneHome, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, phoneWorkPath, c => c.PhoneWork, StrongBindingMode.TwoWay));  
-            AddBinding(Model?.Bind(this, phoneMobilePath, c => c.PhoneMobile, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, driverLicensePath, c => c.DriverLicense, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, commentPath, c => c.Comment, StrongBindingMode.TwoWay));
+            using (SuspendSubscriptions())
+            {
+                AddBinding(Model?.Bind(this, emailPath, c => c.Email, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, contactPhonePath, c => c.ContactPhone, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, phoneHomePath, c => c.PhoneHome, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, phoneWorkPath, c => c.PhoneWork, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, phoneMobilePath, c => c.PhoneMobile, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, driverLicensePath, c => c.DriverLicense, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, commentPath, c => c.Comment, StrongBindingMode.TwoWay));
+            }
         }
     }
 }

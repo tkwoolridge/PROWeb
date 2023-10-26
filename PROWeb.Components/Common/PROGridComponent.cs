@@ -22,24 +22,26 @@ namespace PROWeb.Components.Common
 
             if (PersistState)
             {
-                GridStateService?.RegisterComponent(this);
-                GridState<TItem>? state = GridStateService?.GetState();
+                GridState<TItem>? state = GridStateService?.GetState(PersistenceKey);
                 await SetStateAsync(state);
             }
         }
 
-        [Inject]
-        internal IStateService<GridState<TItem>>? GridStateService { get; set; }
+        protected string PersistenceKey => "/" + string.Concat(Navigation.Uri.Split("//")[1].Split("/").Skip(1));
 
         [Inject]
-        internal IStateService<TFilter>? FilterStateService { get; set; }
+        protected IStateService<PROGridComponent<TFilter, TItem>, GridState<TItem>>? GridStateService { get; set; }
+
+        [Inject]
+        protected IStateService<PROFilterComponentWithState<TFilter>, TFilter>? FilterStateService { get; set; }
+
+        [Inject]
+        protected NavigationManager Navigation { get; set; } = null!;
 
         protected TelerikGrid<TItem>? GridRef { get; set; }
 
         [Parameter]
         public bool PersistState { get; set; }
-
-        public event Action<GridState<TItem>>? StateChanged;
 
         public async Task SetStateAsync(GridState<TItem>? state)
         {
@@ -48,7 +50,7 @@ namespace PROWeb.Components.Common
                 return;
             }
 
-            if(FilterStateService?.GetState() is { } filter)
+            if (FilterStateService?.GetState(PersistenceKey) is { } filter)
             {
                 await OnFilterAsync(filter);
             }
@@ -59,23 +61,11 @@ namespace PROWeb.Components.Common
             }
         }
 
-        public async Task<GridState<TItem>?> GetStateAsync()
-        {
-            GridState<TItem>? state = null;
-
-            if (GridRef is { } grid)
-            {
-                state = GridRef.GetState();
-            }
-
-            return await Task.FromResult(state);
-        }
-
         protected void OnStateChanged(GridStateEventArgs<TItem> e)
         {
             GridState<TItem>? state = e.GridState;
 
-            StateChanged?.Invoke(state);
+            GridStateService?.SetState(PersistenceKey, state);
         }
 
         public void ResetState()

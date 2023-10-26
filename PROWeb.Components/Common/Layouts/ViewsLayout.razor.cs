@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common.Views;
@@ -27,7 +26,7 @@ namespace PROWeb.Components.Common.Layouts
         [Parameter]
         public bool Editable { get; set; }
 
-        public event EventHandler<FieldChangedEventArgs>? FieldValueChanged;
+        public event EventHandler<ContextChangedEventArgs>? ContextChanged;
 
         internal IList<PROView<TViewModel>> ViewsList { get; set; } = new List<PROView<TViewModel>>();
 
@@ -36,9 +35,9 @@ namespace PROWeb.Components.Common.Layouts
             base.OnInitialized();
         }
 
-        internal void OnFieldChanged(object? sender, FieldChangedEventArgs e)
+        internal void OnContextChanged(object? sender, ContextChangedEventArgs e)
         {
-            FieldValueChanged?.Invoke(sender, e);
+            ContextChanged?.Invoke(sender, e);
         }
 
         internal void AddView(PROView<TViewModel> view)

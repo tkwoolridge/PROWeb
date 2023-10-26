@@ -9,7 +9,10 @@ namespace PROWeb.Common.ViewModels
         private readonly Dictionary<string, IStrongBindingPath> _propertyPaths = new Dictionary<string, IStrongBindingPath>();
 
         private TViewModel? _model;
+
         private readonly CompositeDisposable _bindingsDisposable = new CompositeDisposable();
+
+        public Dictionary<string, IStrongBindingPath>.KeyCollection Properties => _propertyPaths.Keys;
 
         public TViewModel? Model 
         { 
@@ -20,10 +23,13 @@ namespace PROWeb.Common.ViewModels
             }   
         }
 
-        public event EventHandler<ModelChangedEventArgs>? ModelChanged;
+        public event EventHandler<ContextChangingEventArgs>? Changing;
+
+        public event EventHandler<ContextChangedEventArgs>? Changed;
 
         public ViewModelContext()
         {
+            PropertyChanging += OnPropertyChanging;
             PropertyChanged += OnPropertyChanged;
         }
 
@@ -78,13 +84,23 @@ namespace PROWeb.Common.ViewModels
             _propertyPaths.TryAdd(path.PropertyName, path);
         }
 
-        protected virtual void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void OnPropertyChanging(object? sender, PropertyChangingEventArgs e)
         {
             if (e.PropertyName is { } propertyName)
             {
                 var value = GetValue(propertyName);
 
-                ModelChanged?.Invoke(this, new ModelChangedEventArgs(propertyName, value));
+                Changing?.Invoke(this, new ContextChangingEventArgs(propertyName, value));
+            }
+        }
+
+        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is { } propertyName)
+            {
+                var value = GetValue(propertyName);
+
+                Changed?.Invoke(this, new ContextChangedEventArgs(propertyName, value));
             }
         }
     }

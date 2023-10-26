@@ -60,7 +60,7 @@ namespace PROWeb.Components.Person.Contexts
         }
 
         public DocumentContext(
-            TDocumentViewModel? model = null,
+            TDocumentViewModel model,
             Expression<Func<TDocumentViewModel, int>>? documentIdPath = null,
             Expression<Func<TDocumentViewModel, DateTime>>? documentDatePath = null,
             Expression<Func<TDocumentViewModel, string?>>? documentNamePath = null,
@@ -69,14 +69,17 @@ namespace PROWeb.Components.Person.Contexts
             Expression<Func<TDocumentViewModel, byte[]?>>? contentPath = null
             )
         {
-            Model = model ?? new TDocumentViewModel();
-            
-            AddBinding(Model?.Bind(this, documentIdPath, c => c.DocumentId, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, documentDatePath, c => c.DocumentDate, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, documentNamePath, c => c.DocumentName, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, documentDescriptionPath, c => c.DocumentDescription, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, exportFormatPath, c => c.ExportFormat, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, contentPath, c => c.Content, StrongBindingMode.TwoWay));
+            Model = model;
+
+            using (SuspendSubscriptions())
+            {
+                AddBinding(Model.Bind(this, documentIdPath, c => c.DocumentId, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, documentDatePath, c => c.DocumentDate, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, documentNamePath, c => c.DocumentName, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, documentDescriptionPath, c => c.DocumentDescription, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, exportFormatPath, c => c.ExportFormat, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, contentPath, c => c.Content, StrongBindingMode.TwoWay));
+            }
         }
     }
 }

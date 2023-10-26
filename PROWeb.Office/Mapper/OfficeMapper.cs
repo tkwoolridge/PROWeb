@@ -2,7 +2,6 @@
 using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Models;
 using PROWeb.Office.Shared.Registrations.ViewModels;
-using PROWeb.Office.Shared.Registry.ViewModels;
 
 namespace PROWeb.Office.Mapper
 {
@@ -15,11 +14,17 @@ namespace PROWeb.Office.Mapper
             //    .Map(d => d.BogusConstituencyName, s => s.BogusConstituency != null ? s.BogusConstituency.ConstituencyName : null)
             //    .Inherits<Voter, ListVoterViewModel>();
 
-            config.NewConfig<Voter, ListVoterViewModel>()
-                .Inherits<Voter, VoterViewModel>();
-
             config.NewConfig<Registration, RegistrationViewModel>()
-                .Map(d => d.OldAssessmentNo, s => s.AssessmentNo)
+                .Map(d => d.AssessmentNo, s => s.Assessment.AssessmentNo)
+                .Map(d => d.HouseNo, s => s.Assessment.HouseNo)
+                .Map(d => d.Address1, s => s.Assessment.Address1)
+                .Map(d => d.Address1, s => s.Assessment.Address1)
+                .Map(d => d.Address2, s => s.Assessment.Address2)
+                .Map(d => d.PostalCode, s => s.Assessment.PostalCode)
+                .Map(d => d.ParishName, s => s.Assessment.Parish.ParishName)
+                .Map(d => d.ConstituencyNo, s => s.Assessment.ConstituencyNo)
+                .Map(d => d.ConstituencyName, s => s.Assessment.Constituency.ConstituencyName)
+                .Map(d => d.OldAssessmentNo, s => s.OldAssessment.AssessmentNo)
                 .Map(d => d.OldHouseNo, s => s.OldAssessment.HouseNo)
                 .Map(d => d.OldAddress1, s => s.OldAssessment.Address1)
                 .Map(d => d.OldAddress1, s => s.OldAssessment.Address1)
@@ -29,8 +34,8 @@ namespace PROWeb.Office.Mapper
                 .Map(d => d.OldConstituencyNo, s => s.OldAssessment.ConstituencyNo)
                 .Map(d => d.OldConstituencyName, s => s.OldAssessment.Constituency.ConstituencyName);
                 
-            config.NewConfig<Registration, ListRegistrationViewModel>()
-                .Inherits<Registration, RegistrationViewModel>();
+            //config.NewConfig<Registration, RegistrationViewModel>()
+                //.Inherits<Registration, RegistrationViewModel>();
 
             config.NewConfig<VoterViewModel, RegistrationViewModel>()
                 .Map(d => d.OldAssessmentNo, s => s.AssessmentNo)

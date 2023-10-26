@@ -77,7 +77,7 @@ namespace PROWeb.Components.Person.Contexts
         }
 
         public void Bind(
-            TPersonViewModel? model,
+            TPersonViewModel model,
             Expression<Func<TPersonViewModel, int?>>? personIdPath = null,
             Expression<Func<TPersonViewModel, string?>>? titlePath = null,
             Expression<Func<TPersonViewModel, string?>>? firstNamePath = null,
@@ -89,14 +89,17 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model;
 
-            AddBinding(Model?.Bind(this, personIdPath, c => c.PersonId, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, titlePath, c => c.Title, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, firstNamePath, c => c.FirstName, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, lastNamePath, c => c.LastName, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, middleNamePath, c => c.MiddleName, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, genderPath, c => c.Gender, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, maidenNamePath, c => c.MaidenName, StrongBindingMode.TwoWay));   
-            AddBinding(Model?.Bind(this, dateOfBirthPath, c => c.DateOfBirth, StrongBindingMode.TwoWay));
+            using (SuspendSubscriptions())
+            {
+                AddBinding(Model.Bind(this, personIdPath, c => c.PersonId, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, titlePath, c => c.Title, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, firstNamePath, c => c.FirstName, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, lastNamePath, c => c.LastName, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, middleNamePath, c => c.MiddleName, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, genderPath, c => c.Gender, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, maidenNamePath, c => c.MaidenName, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, dateOfBirthPath, c => c.DateOfBirth, StrongBindingMode.TwoWay));
+            }
         }
     }
 }

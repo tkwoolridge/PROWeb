@@ -2,7 +2,7 @@
 
 namespace PROWeb.Data.Services
 {
-    public class DbContextService<TDataContext> : IDisposable where TDataContext : DbContext
+    public class DbContextService<TDataContext> : IDbContextService<TDataContext> where TDataContext : DbContext
     {
         private IDbContextFactory<TDataContext> _contextFactory;
 

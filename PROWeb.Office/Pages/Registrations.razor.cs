@@ -5,11 +5,11 @@ using PROWeb.Office.Shared.Registrations.ViewModels;
 
 namespace PROWeb.Office.Pages
 {
-    public partial class Registrations : PRORegistryLayout<RegistrationFilterModel, ListRegistrationViewModel>
+    public partial class Registrations : PRORegistryLayout<RegistrationFilterModel, RegistrationViewModel>
     {
         private bool _gridSelected;
 
-        private IList<ListRegistrationViewModel>? _data;
+        private IList<RegistrationViewModel>? _data;
         private int _page;
 
         private bool GridSelected
@@ -47,7 +47,7 @@ namespace PROWeb.Office.Pages
             _page = page;
         }
 
-        private void OnListDataChanged(object? sender, IList<ListRegistrationViewModel>? data)
+        private void OnListDataChanged(object? sender, IList<RegistrationViewModel>? data)
         {
             _data = data;
         }

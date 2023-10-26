@@ -43,7 +43,7 @@ namespace PROWeb.Components.Person
 
         protected VoterRegistryDialog? VoterRegistryDialogRef { get; set; }
 
-        internal DetailsContext<TPersonViewModel> Context { get; set; } = new();
+        internal DetailsContext<TPersonViewModel> DetailsContext { get; set; } = new();
 
         private string _viewClass => ShowMaidenName ? "person-details-view" : "person-details-view-no-maiden-name";
         private readonly Expression<Func<TPersonViewModel, int?>>? _personIdPath;
@@ -86,7 +86,7 @@ namespace PROWeb.Components.Person
 
         protected override EditContext? GetEditContext()
         {
-            return new EditContext(Context);
+            return new EditContext(DetailsContext);
         }
 
         protected void OnUpdate()
@@ -105,50 +105,66 @@ namespace PROWeb.Components.Person
             
         }
 
-        protected virtual void UpdateFromEligible(EligibleViewModel eligible)
+        protected virtual void OnUpdateFromEligible(EligibleViewModel eligible)
         {
             if (eligible.ImmigrationId != null)
             {
-                Context.Gender = eligible.ImmigrationGender;
-                Context.FirstName = eligible.ImmigrationFirstName;
-                Context.LastName = eligible.ImmigrationLastName;
-                Context.MiddleName = eligible.ImmigrationMiddleName;
-                Context.DateOfBirth = eligible.ImmigrationDateOfBirth;
+                DetailsContext.Gender = eligible.ImmigrationGender;
+                DetailsContext.FirstName = eligible.ImmigrationFirstName;
+                DetailsContext.LastName = eligible.ImmigrationLastName;
+                DetailsContext.MiddleName = eligible.ImmigrationMiddleName;
+                DetailsContext.DateOfBirth = eligible.ImmigrationDateOfBirth;
             }
             else if (eligible.BirthId != null)
             {
-                Context.Gender = eligible.BirthGender;
-                Context.FirstName = eligible.BirthFirstName;
-                Context.LastName = eligible.BirthLastName;
-                Context.MiddleName = eligible.BirthMiddleName;
-                Context.DateOfBirth = eligible.BirthDateOfBirth;
+                DetailsContext.Gender = eligible.BirthGender;
+                DetailsContext.FirstName = eligible.BirthFirstName;
+                DetailsContext.LastName = eligible.BirthLastName;
+                DetailsContext.MiddleName = eligible.BirthMiddleName;
+                DetailsContext.DateOfBirth = eligible.BirthDateOfBirth;
             }
             else if (eligible.DriverLicenseId != null)
             {
-                Context.Gender = eligible.DriverLicenseGender;
-                Context.FirstName = eligible.DriverLicenseFirstName;
-                Context.LastName = eligible.DriverLicenseLastName;
-                Context.MiddleName = eligible.DriverLicenseMiddleName;
-                Context.DateOfBirth = eligible.DriverLicenseDateOfBirth;
+                DetailsContext.Gender = eligible.DriverLicenseGender;
+                DetailsContext.FirstName = eligible.DriverLicenseFirstName;
+                DetailsContext.LastName = eligible.DriverLicenseLastName;
+                DetailsContext.MiddleName = eligible.DriverLicenseMiddleName;
+                DetailsContext.DateOfBirth = eligible.DriverLicenseDateOfBirth;
             }
+
+            NotifyFieldsChanged();
+        }
+
+        protected virtual void UpdateFromEligible(EligibleViewModel eligible)
+        {
+            using (UndoService.CreateScope())
+            {
+                OnUpdateFromEligible(eligible);
+            }
+        }
+
+        protected virtual void OnUpdateFromVoter(VoterViewModel voter)
+        {
+            voter.Adapt(DetailsContext);
 
             NotifyFieldsChanged();
         }
 
         protected virtual void UpdateFromVoter(VoterViewModel voter)
         {
-            voter.Adapt(Context);
-
-            NotifyFieldsChanged();
+            using (UndoService.CreateScope())
+            {
+                OnUpdateFromVoter(voter);
+            }
         }
 
         private void NotifyFieldsChanged()
         {
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.Gender)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.FirstName)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.LastName)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.MiddleName)));
-            EditContext?.NotifyFieldChanged(new FieldIdentifier(Context, nameof(Context.DateOfBirth)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(DetailsContext, nameof(DetailsContext.Gender)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(DetailsContext, nameof(DetailsContext.FirstName)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(DetailsContext, nameof(DetailsContext.LastName)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(DetailsContext, nameof(DetailsContext.MiddleName)));
+            EditContext?.NotifyFieldChanged(new FieldIdentifier(DetailsContext, nameof(DetailsContext.DateOfBirth)));
         }
 
         protected void OnEligibleSelectionConfirm(EligibleViewModel eligible)
@@ -169,10 +185,10 @@ namespace PROWeb.Components.Person
         {
             base.OnModelUpdate();
 
-            Context.UnBind();
+            DetailsContext.UnBind();
             if (Model is { } model)
             {
-                Context.Bind
+                DetailsContext.Bind
                 (
                 model,
                 _personIdPath,

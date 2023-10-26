@@ -2,7 +2,7 @@
 
 namespace PROWeb.Data.Services.Voters
 {
-    public interface IVotersService
+    public interface IVotersService : IDbContextService<DataContext>
     {
         #region Voters
 
@@ -48,6 +48,12 @@ namespace PROWeb.Data.Services.Voters
         Task AddDocumentAsync(Document document);
 
         Task DeleteDocumentAsync(int id);
+
+        #endregion
+
+        #region
+
+        Task AddVoter(Voter voter, string user);
 
         #endregion
     }

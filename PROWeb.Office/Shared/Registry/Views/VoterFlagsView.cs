@@ -1,15 +1,12 @@
-﻿#nullable enable
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Extensions;
 using PROWeb.Components.Person;
 using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Services.Voters;
-using PROWeb.Office.Shared.Registry.ViewModels;
 
 namespace PROWeb.Office.Shared.Registry.Views
 {
-    public class VoterFlagsView : FlagsView<ListVoterViewModel, VoterFlagViewModel>
+    public class VoterFlagsView : FlagsView<VoterViewModel, VoterFlagViewModel>
     {
         [Inject]
         private IVotersServiceFactory _voterServiceFactory { get; set; } = null!;

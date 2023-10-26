@@ -1,44 +1,50 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Components.Common.Views;
-using PROWeb.Office.Shared.Registrations.ViewModels;
+using PROWeb.Common.Components;
+using PROWeb.Components.Services.State;
 
 namespace PROWeb.Office.Shared.Registrations.Views
 {
-    public partial class FormTabView : PROCompositView<ListRegistrationViewModel>
+    public partial class FormTabView : FormViewBase, IPROComponentWithState<int>
     {
+        private int _tabIndex = 0;
+
         [Parameter]
         public bool Editable { get; set; }
 
-        [CascadingParameter]
-        public ListRegistrationViewModel? Model { get; set; }
+        [Inject]
+        protected IStateService<FormTabView, int> StateService { get; set; } = null!;
+
+        protected string PersistenceKey => Model?.VoterId.ToString() ?? "0";
 
         protected int TabIndex
         {
-            get => LayoutRef?.Model?.TabIndex ?? 0;
+            get
+            {
+                _tabIndex = PersistState ? StateService?.GetState(PersistenceKey) ?? 0 : _tabIndex;
+
+                return _tabIndex;
+            }
             set
             {
-                if (LayoutRef?.Model is { } model)
+                if (_tabIndex != value)
                 {
-                    model.TabIndex = value;
+                    _tabIndex = value;
+                    if (PersistState)
+                    {
+                        StateService.SetState(PersistenceKey, _tabIndex);
+                    }
                 }
             }
         }
 
-        protected override async Task SaveAsync(ListRegistrationViewModel model)
-        {
-            await Task.CompletedTask;
-            //if (ViewsLayoutRef is { } layout)
-            //{
-            //    e.IsCancelled = !(await layout.OnSave());
-            //}
-        }
+        public bool PersistState { get; set; } = true;
 
-        protected void OnApprove()
+        public void ResetState()
         {
-        }
-
-        protected void OnReject()
-        {
+            if (PersistState)
+            {
+                StateService.Clear();
+            }
         }
     }
 }

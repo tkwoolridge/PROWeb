@@ -57,9 +57,13 @@ namespace PROWeb.Components.Person.Contexts
         {
             Model = model;
 
-            AddBinding(Model?.Bind(this, documentsPath, c => c.Documents, StrongBindingMode.TwoWay));
-            AddBinding(Model?.Bind(this, registryYearPath, c => c.RegistryYear, StrongBindingMode.OneWay));
-            AddBinding(Model?.Bind(this, fullNamePath, c => c.FullName, StrongBindingMode.OneWay));
+            using (SuspendSubscriptions())
+            {
+
+                AddBinding(Model?.Bind(this, documentsPath, c => c.Documents, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, registryYearPath, c => c.RegistryYear, StrongBindingMode.OneWay));
+                AddBinding(Model?.Bind(this, fullNamePath, c => c.FullName, StrongBindingMode.OneWay));
+            }
 
             if(_documents is not { } models)
             {

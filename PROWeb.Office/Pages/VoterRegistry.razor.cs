@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Components.Layouts;
 using PROWeb.Components.Person.Filters;
-using PROWeb.Office.Shared.Registry.ViewModels;
+using PROWeb.Components.Voters.ViewModels;
 
 namespace PROWeb.Office.Pages
 {
-    public partial class VoterRegistry : PRORegistryLayout<FilterModel, ListVoterViewModel>
+    public partial class VoterRegistry : PRORegistryLayout<FilterModel, VoterViewModel>
     {
         private bool _gridSelected;
 
         private bool _simpleFilterSelected;
 
-        private IList<ListVoterViewModel>? _data;
+        private IList<VoterViewModel>? _data;
         private int _page;
 
         private bool GridSelected
@@ -60,7 +60,7 @@ namespace PROWeb.Office.Pages
             _page = page;
         }
 
-        private void OnListDataChanged(object? sender, IList<ListVoterViewModel>? data)
+        private void OnListDataChanged(object? sender, IList<VoterViewModel>? data)
         {
             _data = data;
         }
