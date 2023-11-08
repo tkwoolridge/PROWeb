@@ -1,10 +1,11 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Extensions;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common;
+using PROWeb.Data.Models.Enums;
 using PROWeb.Data.Services.Assessments;
+using PROWeb.Data.Services.CachedData;
+using PROWeb.Office.Shared.Registrations.ViewModels;
 
 namespace PROWeb.Office.Shared.Registrations.Filters
 {
@@ -14,6 +15,12 @@ namespace PROWeb.Office.Shared.Registrations.Filters
         [Inject]
         private IAssessmentServiceFactory _assessmentsServiceFactory { get; set; } = null!;
 
+        [Inject]
+        private ICachedDataService _cachedDataService { get; set; } = null!;
+
+        protected FormDialog FormDialogRef { get; set; } = default!;
+
+        protected RegistrationViewModel? FormModel { get; set; }
 
         public IEnumerable<ConstituencyViewModel>? Constituencies { get; private set; }
 
@@ -37,7 +44,28 @@ namespace PROWeb.Office.Shared.Registrations.Filters
         protected override void ResetFilter()
         {
             base.ResetFilter();
-            Filter.RegistryYear = 2022;
+
+            Filter.RegistryYear = _cachedDataService.RegistrationYear;
+        }
+
+        private void CreateForm1()
+        {
+            FormModel = new RegistrationViewModel
+            {
+                FormTypeId = (int)FormTypes.Form1
+            };
+
+            FormDialogRef.Show();
+        }
+
+        private void CreateForm2()
+        {
+            FormModel = new RegistrationViewModel
+            {
+                FormTypeId = (int)FormTypes.Form2
+            };
+
+            FormDialogRef.Show();
         }
     }
 }

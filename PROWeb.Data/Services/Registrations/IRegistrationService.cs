@@ -1,4 +1,5 @@
-﻿using PROWeb.Data.Models;
+﻿using PROWeb.Common.Data;
+using PROWeb.Data.Models;
 
 namespace PROWeb.Data.Services.Registrations
 {

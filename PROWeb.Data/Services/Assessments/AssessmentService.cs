@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PROWeb.Common.Data;
 using PROWeb.Data.Extensions;
 using PROWeb.Data.Models;
 
@@ -6,13 +7,13 @@ namespace PROWeb.Data.Services.Assessments
 {
     #region Service Factory
 
-    public class AssessmentServiceFactory : DbContextServiceFactory<AssessmentService, DataContext>, IAssessmentServiceFactory
+    public class AssessmentServiceFactory : DataContextServiceFactory<IAssessmentService>, IAssessmentServiceFactory
     {
         public AssessmentServiceFactory(IDbContextFactory<DataContext> contextFactory) : base(contextFactory)
         {
         }
 
-        public override AssessmentService CreateService()
+        public override IAssessmentService CreateService()
         {
             return new AssessmentService(ContextFactory);
         }

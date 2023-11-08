@@ -1,13 +1,11 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Extensions;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common;
-using PROWeb.Components.DependencyInjection;
 using PROWeb.Components.Person.Contexts;
 using PROWeb.Data.Services.Assessments;
+using PROWeb.Data.Services.CachedData;
 using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Filters
@@ -25,6 +23,9 @@ namespace PROWeb.Components.Person.Filters
 
         [Inject]
         private IAssessmentServiceFactory _assessmentsServiceFactory { get; set; } = null!;
+
+        [Inject]
+        private ICachedDataService _cachedDataService { get; set; } = null!;
 
         protected FilterAdvanced(
             Expression<Func<TFlagViewModel, int>>? flagIdPath = null,
@@ -65,7 +66,8 @@ namespace PROWeb.Components.Person.Filters
         protected override void ResetFilter()
         {
             base.ResetFilter();
-            Filter.RegistryYear = 2022;
+
+            Filter.RegistryYear = _cachedDataService.RegistrationYear;
         }
     }
 }

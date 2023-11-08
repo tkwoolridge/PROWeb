@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Office.Shared.Registrations.ViewModels;
+using PROWeb.Data.Models.Enums;
+using System.Diagnostics;
 
 namespace PROWeb.Office.Shared.Registrations.Views
 {
@@ -7,6 +8,9 @@ namespace PROWeb.Office.Shared.Registrations.Views
     {
         [Parameter]
         public RenderFragment? Form { get; set; }
+
+        [Parameter]
+        public RenderFragment? FormFooter { get; set; }
 
         [Parameter]
         public string? FormDescription { get; set; }
@@ -17,6 +21,19 @@ namespace PROWeb.Office.Shared.Registrations.Views
         protected override void OnInitialized()
         {
             base.OnInitialized();
+        }
+
+        protected override void OnLayoutUpdated()
+        {
+            base.OnLayoutUpdated();
+
+            Debug.Assert(Model != null);
+
+            Class = (FormTypes)Model.FormTypeId switch
+            {
+                FormTypes.Form1 => "form1-background",
+                _ => "form2-background"
+            };
         }
 
         protected override Task OnAfterRenderAsync(bool firstRender)

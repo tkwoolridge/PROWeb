@@ -14,7 +14,7 @@ namespace PROWeb.Components.Common.Views
         private ViewsLayout<TViewModel>? _layoutRef;
 
         [Inject]
-        private IUndoService<TViewModel> _undoService { get; set; } = null!;
+        protected IUndoService<TViewModel> UndoService { get; set; } = null!;
 
         [CascadingParameter]
         public DialogFactory Dialogs { get; set; } = null!;
@@ -50,15 +50,23 @@ namespace PROWeb.Components.Common.Views
         {
             base.OnInitialized();
 
-            _undoService.Reset();
+            UndoService.Reset();
         }
 
         internal void OnContextChanged(object? sender, ContextChangedEventArgs e)
         {
-            CanSave = true;
-            CanUndo = true;
-            
+            if(UndoService.HasActions)
+            {
+                SetCanSave(true);
+                CanUndo = true;
+            }
+
             StateHasChanged();
+        }
+
+        protected virtual void SetCanSave(bool canSave)
+        {
+            CanSave = canSave;
         }
 
         protected abstract Task SaveAsync(TViewModel model);
@@ -93,7 +101,7 @@ namespace PROWeb.Components.Common.Views
         {
             Debug.Assert(LayoutRef != null);
 
-            if(_undoService.Next is not { } actions)
+            if(UndoService.Next is not { } actions)
             {
                 return;
             }
@@ -103,7 +111,8 @@ namespace PROWeb.Components.Common.Views
                 view.Undo(actions);
             }
 
-            CanUndo = _undoService.HasActions;
+            CanUndo = UndoService.HasActions;
+            SetCanSave(UndoService.HasActions);
         }
 
         public virtual List<string>? Validate()

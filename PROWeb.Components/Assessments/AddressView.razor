@@ -11,32 +11,40 @@
         <DataAnnotationsValidator />
     }
     <div class="address-view">
+        
         <div class="address-title pro-view-title w-100">@Title</div>
-        <input type="textbox" readonly class="address-assessment k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.AssessmentNo" />
-        @if (Editable)
+        <div class="address-assessment">
+            <TelerikNumericTextBox Arrows="false" Width="100%" ReadOnly="true" @bind-Value="@AddressContext.AssessmentNo" Id="@(nameof(AddressContext.AssessmentNo))" />
+            <TelerikValidationTooltip For="@(() => AddressContext.AssessmentNo)" TargetSelector="@("#" + nameof(AddressContext.AssessmentNo))" />
+        </div>
+        @if (Editable && ShowPopulateDialogButton)
         {
-            @if (ShowPopulateDialogButton)
-            {
-                <div class="address-address1 update-view">
-                    <input type="textbox" readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.Address1" />
-                    <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.Home" />
-                </div>
-            }
-            else
-            {
-                <input type="textbox" readonly class="address-address1 k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.Address1" />
-            }
+            <div class="address-address1 update-view">
+                <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address1" Id="@(nameof(AddressContext.Address1))" />
+                <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.Home" />
+            </div>
         }
-        else
+        else 
         {
-            <input type="textbox" readonly class="address-address1 k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.Address1" />
+            <div class="address-address1">
+                <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address1" Id="@(nameof(AddressContext.Address1))" />
+            </div>
         }
-        <input type="textbox" readonly class="w-100 k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.HouseNo" />
-        <input type="textbox" readonly class="address-address2 k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.Address2" />
-        <input type="textbox" readonly class="address-postal-code k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.PostalCode" />
-        <input type="textbox" readonly class="address-parish k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.ParishName" />
-        <input type="textbox" readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.ConstituencyNo" />
-        <input type="textbox" readonly class="address-constituency k-input k-input-solid k-input-md k-rounded-md w-100" value="@AddressContext.ConstituencyName" />
+
+        <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.HouseNo" Id="@(nameof(AddressContext.HouseNo))" />
+        <div class="address-address2">
+            <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address2" Id="@(nameof(AddressContext.Address2))" />
+        </div>
+        <div class="address-postal-code">
+            <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.PostalCode" Id="@(nameof(AddressContext.PostalCode))" />
+        </div>
+        <div class="address-parish">
+            <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.ParishName" Id="@(nameof(AddressContext.ParishName))" />
+        </div>
+        <TelerikNumericTextBox Arrows="false" ReadOnly="true" @bind-Value="@AddressContext.ConstituencyNo" Id="@(nameof(AddressContext.ConstituencyNo))" />
+        <div class="address-constituency">
+            <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.ConstituencyName" Id="@(nameof(AddressContext.ConstituencyName))" />
+        </div>
     </div>
 </CascadingValue>
 

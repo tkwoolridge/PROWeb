@@ -2,6 +2,7 @@
 using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Common.ViewModels;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
 namespace PROWeb.Components.Assessments.Contexts
@@ -10,6 +11,7 @@ namespace PROWeb.Components.Assessments.Contexts
     {
         private int? _assessmentNo;
 
+        [Required(ErrorMessage = "Assessment no is requred!")]
         public int? AssessmentNo
         {
             get => _assessmentNo;

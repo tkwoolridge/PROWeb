@@ -1,4 +1,4 @@
-﻿using PROWeb.Data.Services.Voters;
+﻿using PROWeb.Common.Data;
 
 namespace PROWeb.Data.Services.Registrations
 {

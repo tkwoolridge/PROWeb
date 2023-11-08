@@ -60,7 +60,7 @@ namespace PROWeb.Data.Models
 
         [Required]
         [StringLength(150)]
-        public DateTime NextAdvancedPollDate { get; set; }
+        public string NextAdvancedPollDate { get; set; }
 
         [StringLength(150)]
         [Required]

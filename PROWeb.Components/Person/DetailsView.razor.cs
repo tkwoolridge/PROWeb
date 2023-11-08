@@ -60,7 +60,6 @@ namespace PROWeb.Components.Person
             base.OnInitialized();
 
             PopulateDialog = PopulateDetailsDialogs.EligiblePolls;
-            ShowMaidenName = true;
             RowCount = 7;
         }
 

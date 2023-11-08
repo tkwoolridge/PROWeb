@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PROWeb.Data.Models;
 using PROWeb.Data.Extensions;
+using PROWeb.Common.Data;
 
 namespace PROWeb.Data.Services.EligiblePoll
 {
     #region Service Factory
 
-    public class EligiblePollServiceFactory : DbContextServiceFactory<EligiblePollService, DataContext>, IEligiblePollServiceFactory
+    public class EligiblePollServiceFactory : DataContextServiceFactory<IEligiblePollService>, IEligiblePollServiceFactory
     {
         public EligiblePollServiceFactory(IDbContextFactory<DataContext> contextFactory) : base(contextFactory)
         {
         }
 
-        public override EligiblePollService CreateService()
+        public override IEligiblePollService CreateService()
         {
             return new EligiblePollService(ContextFactory);
         }

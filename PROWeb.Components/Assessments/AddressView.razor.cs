@@ -109,7 +109,7 @@ namespace PROWeb.Components.Assessments
             UpdateAddress(assessment);
         }
 
-        internal void OnUpdateAddress(AssessmentViewModel assessment)
+        public void OnUpdateAddress(AssessmentViewModel assessment)
         {
             Debug.Assert(AssessmentRegistryDialogRef != null);
 

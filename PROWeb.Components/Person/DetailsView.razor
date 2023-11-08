@@ -6,85 +6,48 @@
 @inherits DetailsViewBase<TPersonViewModel>
 @typeparam TPersonViewModel
 
-@if(Editable)
-{
-    <EditForm EditContext="@EditContext">
-        <DataAnnotationsValidator />
-        <div class="@_viewClass">
-            <div class="person-details-title pro-view-title mb-2">@Title</div>
-
-            <label>Last Name:</label>
-            <TelerikTextBox @bind-Value="@DetailsContext.LastName" Id="@(nameof(DetailsContext.LastName))" />
-            <TelerikValidationTooltip For="@(() => DetailsContext.LastName)" TargetSelector="@("#" + nameof(DetailsContext.LastName))" />
-        
-            <label>Middle Name:</label>
-            <TelerikTextBox @bind-Value="@DetailsContext.MiddleName" Id="@(nameof(DetailsContext.MiddleName))" />
-
-            <label>First Name:</label>
-            <TelerikTextBox @bind-Value="@DetailsContext.FirstName" Id="@(nameof(DetailsContext.FirstName))" />
-            <TelerikValidationTooltip For="@(() => DetailsContext.FirstName)" TargetSelector="@("#" + nameof(DetailsContext.FirstName))" />
-        
-            @if (ShowMaidenName)
-            {
-                <label>Maiden Name:</label>
-                <TelerikTextBox @bind-Value="@DetailsContext.MaidenName" />
-            }
-
-            <label>DOB:</label>
-            @if (ShowPopulateDialogButton)
-            {
-                <div class="update-view">
-                    <div>
-                        <TelerikDateInput @bind-Value="@DetailsContext.DateOfBirth" Id="@(nameof(DetailsContext.DateOfBirth))" />
-                        <TelerikValidationTooltip For="@(() => DetailsContext.DateOfBirth)" TargetSelector="@("#" + nameof(DetailsContext.DateOfBirth))" />
-                    </div>
-                    <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.User" />
-                </div>
-            }
-            else
-            {
-                <div>
-                    <TelerikDateInput @bind-Value="@DetailsContext.DateOfBirth" Id="@(nameof(DetailsContext.DateOfBirth))" />
-                    <TelerikValidationTooltip For="@(() => DetailsContext.DateOfBirth)" TargetSelector="@("#" + nameof(DetailsContext.DateOfBirth))" />
-                </div>
-            }
-        </div>
-    </EditForm>
-}
-else
-{
+<EditForm EditContext="@EditContext">
+    <DataAnnotationsValidator />
     <div class="@_viewClass">
         <div class="person-details-title pro-view-title mb-2">@Title</div>
 
         <label>Last Name:</label>
-        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.LastName" />
-
+        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.LastName" Id="@(nameof(DetailsContext.LastName))" />
+        <TelerikValidationTooltip For="@(() => DetailsContext.LastName)" TargetSelector="@("#" + nameof(DetailsContext.LastName))" />
+        
         <label>Middle Name:</label>
-        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.MiddleName" />
+        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.MiddleName" Id="@(nameof(DetailsContext.MiddleName))" />
 
         <label>First Name:</label>
-        <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.FirstName" />
-
+        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.FirstName" Id="@(nameof(DetailsContext.FirstName))" />
+        <TelerikValidationTooltip For="@(() => DetailsContext.FirstName)" TargetSelector="@("#" + nameof(DetailsContext.FirstName))" />
+        
         @if (ShowMaidenName)
         {
             <label>Maiden Name:</label>
-            <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.MaidenName" />
+            <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.MaidenName" />
         }
 
         <label>DOB:</label>
         @if (ShowPopulateDialogButton)
         {
             <div class="update-view">
-                <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.DateOfBirth?.ToString("dd MMM yyyy")" />
+                <div>
+                    <TelerikDateInput ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.DateOfBirth" Id="@(nameof(DetailsContext.DateOfBirth))" />
+                    <TelerikValidationTooltip For="@(() => DetailsContext.DateOfBirth)" TargetSelector="@("#" + nameof(DetailsContext.DateOfBirth))" />
+                </div>
                 <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.User" />
             </div>
         }
         else
         {
-            <input readonly class="k-input k-input-solid k-input-md k-rounded-md w-100" type="text" value="@DetailsContext.DateOfBirth?.ToString("dd MMM yyyy")" />
+            <div>
+                <TelerikDateInput ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.DateOfBirth" Id="@(nameof(DetailsContext.DateOfBirth))" />
+                <TelerikValidationTooltip For="@(() => DetailsContext.DateOfBirth)" TargetSelector="@("#" + nameof(DetailsContext.DateOfBirth))" />
+            </div>
         }
     </div>
-}
+</EditForm>
 
 @if(PopulateDialog == PopulateDetailsDialogs.EligiblePolls)
 {

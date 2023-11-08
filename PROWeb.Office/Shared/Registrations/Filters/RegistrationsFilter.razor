@@ -4,6 +4,7 @@
 @using PROWeb.Components.Person.Filters;
 @using PROWeb.Common.Components;
 @using Telerik.Blazor;
+@using Telerik.FontIcons;
 @inherits PROFilterComponent<RegistrationFilterModel>
 
 <EditForm Model="@Filter">
@@ -23,7 +24,7 @@
 
             <div class="d-flex justify-content-start align-items-center">
                 <TelerikDateInput Id="dateOfBirth" @bind-Value="@Filter.DateOfBirth" Format="MM/dd/yyyy" />
-                <TelerikCheckBox Class="mx-2" Id="isEligible" @bind-Value="@Filter.IsEligible" Title="Is Elegible" />
+                <TelerikCheckBox Class="mx-2 mt-2" Id="isEligible" @bind-Value="@Filter.IsEligible" Title="Is Elegible" />
                 <label for="isEligible">Eligible</label>
             </div>
 
@@ -72,7 +73,13 @@
         </div>
     </div>
     <div class="d-flex justify-content-between w-100 mt-2">
-        <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnSearchAsync" Enabled="@CanSearch" ThemeColor="primary">Search</TelerikButton>
-        <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnClear">Clear</TelerikButton>
+        <TelerikButton Class="w-50" ButtonType="@ButtonType.Submit" OnClick="@OnSearchAsync" Enabled="@CanSearch" ThemeColor="primary">Search</TelerikButton>
+        <div class="d-flex justify-content-between w-50">
+            <div class="w-50 ps-1"><TelerikButton Class="w-100" OnClick="@OnClear">Clear</TelerikButton></div>
+            <div class="w-25 ps-1"><TelerikButton Class="w-100" Icon="@FontIcon.Plus" OnClick="@CreateForm1">Form 1</TelerikButton></div>
+            <div class="w-25 ps-1"><TelerikButton Class="w-100" Icon="@FontIcon.Plus" OnClick="@CreateForm2">Form 2</TelerikButton></div>
+        </div>
     </div>
 </EditForm>
+
+<FormDialog @ref="@FormDialogRef" Model="@FormModel" />

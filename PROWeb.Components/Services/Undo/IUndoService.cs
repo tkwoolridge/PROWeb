@@ -9,6 +9,8 @@ namespace PROWeb.Components.Services.Undo
         void AddAction(UndoAction action);
 
         IDisposable CreateScope();
+
+        IDisposable SuspendUndo();
         
         void Reset();
 

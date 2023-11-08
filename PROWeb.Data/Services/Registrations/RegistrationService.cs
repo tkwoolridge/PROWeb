@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PROWeb.Common.Data;
 using PROWeb.Data.Extensions;
 using PROWeb.Data.Models;
 
@@ -6,7 +7,7 @@ namespace PROWeb.Data.Services.Registrations
 {
     #region Service Factory
 
-    public class RegistrationServiceFactory : DbContextServiceFactory<IRegistrationService, DataContext>, IRegistrationServiceFactory
+    public class RegistrationServiceFactory : DataContextServiceFactory<IRegistrationService>, IRegistrationServiceFactory
     {
         public RegistrationServiceFactory(IDbContextFactory<DataContext> contextFactory) : base(contextFactory)
         {

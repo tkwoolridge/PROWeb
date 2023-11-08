@@ -2,6 +2,6 @@
 {
     public interface IAssessmentServiceFactory
     {
-        AssessmentService CreateService();
+        IAssessmentService CreateService();
     }
 }

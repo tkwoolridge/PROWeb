@@ -1,5 +1,6 @@
 ﻿@using PROWeb.Common.ViewModels;
 @using PROWeb.Components.Person.Contexts;
+@using PROWeb.Components.Voters.ViewModels;
 @typeparam TFlagsViewModel
 @typeparam TFlagViewModel
 @inherits FlagsViewBase<TFlagsViewModel, TFlagViewModel>;
@@ -9,7 +10,7 @@
         <div class="person-flags-title pro-view-title">@Title</div>
         <div>
             <label>Flags:</label>
-            <TelerikMultiSelect Enabled="@Editable"
+            <TelerikMultiSelect ReadOnly="@ReadOnly"
                 ValueField="@(nameof(FlagContext<TFlagViewModel>.FlagId))"
                 TextField="@(nameof(FlagContext<TFlagViewModel>.FlagDescription))"
                 Data="@Flags" @bind-Value="@FlagsValues" />
@@ -28,7 +29,24 @@
                 <label for="@(nameof(FlagsContext<TFlagsViewModel,TFlagViewModel>.IsBermudianStatusGranted))">Status Granted</label>
             </div>
             <div>
-                <TelerikDateInput @bind-Value="@FlagsContext.BermudianStatusGranted" />
+                <TelerikDateInput ReadOnly="@ReadOnly" @bind-Value="@FlagsContext.BermudianStatusGranted" />
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="me-2">
+                <TelerikCheckBox Id="@(nameof(FlagsContext<TFlagsViewModel,TFlagViewModel>.WasBornIn))" Enabled="@Editable" @bind-Value="@FlagsContext.WasBornIn" />
+                <label for="@(nameof(FlagsContext<TFlagsViewModel,TFlagViewModel>.WasBornIn))">Was Born In</label>
+            </div>
+            <div>
+                <TelerikAutoComplete 
+                    ReadOnly = "@ReadOnly"
+                    OnChange="@OnCountryChanged"
+                    Data="@Countries"
+                    @bind-Value="@CountryName"
+                    ValueField="@(nameof(CountryViewModel.CountryName))"
+                    Placeholder="Please select a country..."
+                    Width="100%">
+                </TelerikAutoComplete>
             </div>
         </div>
     </div>

@@ -4,6 +4,14 @@ namespace PROWeb.Office.Shared.Registrations.ViewModels
 {
     public class RegistrationViewModel : SlimViewModelBase
     {
+        private int? _registrationId;
+
+        public int? RegistrationId
+        {
+            get => _registrationId;
+            set => RaiseAndSetIfChanged(ref _registrationId, value);
+        }
+
         private int? _voterId;
 
         public int? VoterId

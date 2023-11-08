@@ -17,7 +17,7 @@ namespace PROWeb.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -550,9 +550,10 @@ namespace PROWeb.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime>("NextAdvancedPollDate")
+                    b.Property<string>("NextAdvancedPollDate")
+                        .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("datetime2");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime>("NextElectionsDate")
                         .HasColumnType("datetime2");
@@ -614,13 +615,14 @@ namespace PROWeb.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistrationId"));
 
-                    b.Property<int>("AssessmentNo")
+                    b.Property<int?>("AssessmentNo")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("BermudianStatusGranted")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("BirthId")
+                    b.Property<int?>("BirthId")
                         .HasColumnType("int");
 
                     b.Property<string>("BogusNo")
@@ -659,14 +661,15 @@ namespace PROWeb.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("FormTypeId")
+                    b.Property<int?>("FormTypeId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<int>("ImmigrationID")
+                    b.Property<int?>("ImmigrationID")
                         .HasColumnType("int");
 
                     b.Property<string>("Initial")
@@ -699,11 +702,10 @@ namespace PROWeb.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("NewLastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("OldAssessmentNo")
+                    b.Property<int?>("OldAssessmentNo")
                         .HasColumnType("int");
 
                     b.Property<string>("OldBogusNo")
@@ -731,14 +733,15 @@ namespace PROWeb.Data.Migrations
                     b.Property<int>("RegistrationStatusId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RegistryYear")
+                    b.Property<int?>("RegistryYear")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("VoterId")
+                    b.Property<int?>("VoterId")
                         .HasColumnType("int");
 
                     b.Property<bool>("WasBornIn")
@@ -1017,8 +1020,7 @@ namespace PROWeb.Data.Migrations
                     b.HasOne("PROWeb.Data.Models.Assessment", "OldAssessment")
                         .WithMany("OldRegistrations")
                         .HasForeignKey("OldAssessmentNo")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("PROWeb.Data.Models.Constituency", "OldBogusConstituency")
                         .WithMany("OldRegistrations")

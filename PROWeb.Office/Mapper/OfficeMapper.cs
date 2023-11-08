@@ -9,11 +9,6 @@ namespace PROWeb.Office.Mapper
     {
         public void Register(TypeAdapterConfig config)
         {
-            //config.NewConfig<Voter, VoterViewModel>()
-            //    .Map(d => d.BogusConstituencyNo, s => s.BogusConstituency != null ? s.BogusConstituency.ConstituencyNo : (int?)null)
-            //    .Map(d => d.BogusConstituencyName, s => s.BogusConstituency != null ? s.BogusConstituency.ConstituencyName : null)
-            //    .Inherits<Voter, ListVoterViewModel>();
-
             config.NewConfig<Registration, RegistrationViewModel>()
                 .Map(d => d.AssessmentNo, s => s.Assessment.AssessmentNo)
                 .Map(d => d.HouseNo, s => s.Assessment.HouseNo)
@@ -33,9 +28,6 @@ namespace PROWeb.Office.Mapper
                 .Map(d => d.OldParishName, s => s.OldAssessment.Parish.ParishName)
                 .Map(d => d.OldConstituencyNo, s => s.OldAssessment.ConstituencyNo)
                 .Map(d => d.OldConstituencyName, s => s.OldAssessment.Constituency.ConstituencyName);
-                
-            //config.NewConfig<Registration, RegistrationViewModel>()
-                //.Inherits<Registration, RegistrationViewModel>();
 
             config.NewConfig<VoterViewModel, RegistrationViewModel>()
                 .Map(d => d.OldAssessmentNo, s => s.AssessmentNo)

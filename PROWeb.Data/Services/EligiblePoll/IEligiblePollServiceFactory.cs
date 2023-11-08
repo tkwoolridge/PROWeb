@@ -1,6 +1,8 @@
-﻿namespace PROWeb.Data.Services.EligiblePoll
+﻿using PROWeb.Common.Data;
+
+namespace PROWeb.Data.Services.EligiblePoll
 {
-    public interface IEligiblePollServiceFactory : IDbContextServiceFactory<EligiblePollService, DataContext>
+    public interface IEligiblePollServiceFactory : IDbContextServiceFactory<IEligiblePollService, DataContext>
     {
     }
 }

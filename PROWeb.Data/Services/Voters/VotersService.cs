@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PROWeb.Common.Data;
 using PROWeb.Data.Extensions;
 using PROWeb.Data.Models;
 
@@ -6,7 +7,7 @@ namespace PROWeb.Data.Services.Voters
 {
     #region Service Factory
 
-    public class VotersServiceFactory : DbContextServiceFactory<IVotersService, DataContext>, IVotersServiceFactory
+    public class VotersServiceFactory : DataContextServiceFactory<IVotersService>, IVotersServiceFactory
     {
         public VotersServiceFactory(IDbContextFactory<DataContext> contextFactory) : base(contextFactory)
         {
@@ -158,6 +159,15 @@ namespace PROWeb.Data.Services.Voters
         public IQueryable<VoterFlag> GetVoterFlags()
         {
             return Context.VoterFlags;
+        }
+
+        #endregion
+
+        #region Countries
+
+        public IQueryable<Country> GetCountries()
+        {
+            return Context.Countries;
         }
 
         #endregion

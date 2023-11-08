@@ -115,17 +115,67 @@ k-input-solid.k-hover, .k-input-solid:hover {
 .k-group-indicator,
 .k-header,
 th.k-header {
-    border-color: #317aac;
+    border-color: white;
 }
 
 .k-loading-image {
     color: #317aac;
 }
 
-/*Forms*/
 
-.form-header
-{
+element.style {
+}
+
+.k-svg-icon {
+    width: 1em;
+    height: 1em;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.k-icon {
+    width: 1em;
+    height: 1em;
+    outline: 0;
+    font-size: 16px;
+    font-family: "WebComponentsIcons";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    speak: none;
+    text-transform: none;
+    text-decoration: none;
+    flex-shrink: 0;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    position: relative;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.k-grid .k-grid-filter, .k-grid .k-header-column-menu, .k-grid .k-grid-header-menu, .k-grid .k-hierarchy-cell .k-icon {
+    color: white;
+}
+
+.k-grid-header .k-grid-header-menu:hover {
+    background-color: #91C8EF;
+    color: black;
+}
+
+/*Forms*/
+.form-header {
     background-color: black;
     color: white;
 }
@@ -137,7 +187,6 @@ th.k-header {
 
 .form1-row {
     background-color: #B3E49F !important;
-    ;
 }
 
 .form2-row {

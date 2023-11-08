@@ -3,8 +3,8 @@
 @using PROWeb.Components.Assessments.ViewModels;
 @using PROWeb.Components.Person.Filters
 @using PROWeb.Common.Components
-@using Telerik.Blazor
-@typeparam TFlagViewModel where TFlagViewModel : SlimViewModelBase, new()
+@using Telerik.Blazor;
+@typeparam TFlagViewModel
 @inherits FilterAdvancedBase<TFlagViewModel>
 
 <EditForm Model="@Filter">
@@ -24,7 +24,7 @@
 
             <div class="d-flex justify-content-start align-items-center">
                 <TelerikDateInput Id="dateOfBirth" @bind-Value="@Filter.DateOfBirth" Format="MM/dd/yyyy" />
-                <TelerikCheckBox Class="mx-2" Id="isEligible" @bind-Value="@Filter.IsEligible" Title="Is Elegible" />
+                <TelerikCheckBox Class="mx-2 mt-2" Id="isEligible" @bind-Value="@Filter.IsEligible" Title="Is Elegible" />
                 <label for="isEligible">Eligible</label>
             </div>
 

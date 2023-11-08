@@ -7,6 +7,7 @@ namespace PROWeb.Components.Services.Undo
     {
         private readonly Stack<UndoGroup> _undoes = new Stack<UndoGroup>();
         private UndoGroup? _undoGroup = null;
+        private bool _suspendUndo;
 
         public IReadOnlyList<UndoAction>? Next
         {
@@ -21,7 +22,7 @@ namespace PROWeb.Components.Services.Undo
             }
         }
 
-        public bool HasActions => _undoes.Count > 0;
+        public bool HasActions => _undoes.Count > 0 || _undoGroup?.Actions.Count > 0;
 
         public IDisposable CreateScope()
         {
@@ -34,9 +35,21 @@ namespace PROWeb.Components.Services.Undo
             });
         }
 
+        public IDisposable SuspendUndo() 
+        {
+            _suspendUndo = true;
+
+            return Disposable.Create(this, d => d._suspendUndo = false);
+        }
+
         public void AddAction(UndoAction action)
         {
-            if(_undoGroup is not { } group)
+            if (_suspendUndo)
+            {
+                return;
+            }
+
+            if (_undoGroup is not { } group)
             {
                 _undoes.Push(new UndoGroup(action));
 
@@ -48,6 +61,11 @@ namespace PROWeb.Components.Services.Undo
 
         private void AddGroup(UndoGroup group)
         {
+            if(_suspendUndo)
+            {
+                return;
+            }
+
             _undoes.Push(group);
         }
 

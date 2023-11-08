@@ -12,6 +12,8 @@ namespace PROWeb.Office.Registrations.Views
             v => v.BermudianStatusGranted,
             v => v.RegisteredAsElector,
             v => v.IsBermudianStatusGranted,
+            v => v.WasBornIn,
+            v => v.CountryId,
             f => f.FlagId,
             f => f.FlagDescription)
         {

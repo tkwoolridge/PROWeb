@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PROWeb.Authentication.Models;
 using PROWeb.Authentication.Properties;
 using PROWeb.Authentication.ViewModels.Account;
 using PROWeb.Common.Extensions;
@@ -12,27 +11,28 @@ using PROWeb.Common.Transformations;
 using PROWeb.Data.Services.Logging;
 using PROWeb.Components.Services.Emails;
 using ILogger = Serilog.ILogger;
+using PROWeb.Data.Authentication.Models;
+using PROWeb.Authentication.Models;
 
 namespace PROWeb.Authentication.Controllers
 {
     [Area("Identity")]
-    public abstract class AccountControllerBase<TUser> : Controller
-        where TUser : IdentityUser, IPROUser
+    public abstract class AccountControllerBase : Controller
     {
         private const string AreaPath = "/Identity/Account";
 
         private readonly IWebHostEnvironment _environment;
         private readonly EmailService _emailService;
-        private readonly SignInManager<TUser> _signInManager;
-        private readonly UserManager<TUser> _userManager;
+        private readonly SignInManager<PROUser> _signInManager;
+        private readonly UserManager<PROUser> _userManager;
         private readonly ILogger _logger;
         private readonly IActivityLogService _activityLog;
 
         protected AccountControllerBase(
             IWebHostEnvironment environment,
             EmailService emailService,
-            SignInManager<TUser> signInManager,
-            UserManager<TUser> userManager,
+            SignInManager<PROUser> signInManager,
+            UserManager<PROUser> userManager,
             ILogger logger,
             IActivityLogService activityLog)
         {

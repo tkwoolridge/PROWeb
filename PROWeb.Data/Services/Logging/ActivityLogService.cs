@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PROWeb.Common.Data;
 using PROWeb.Data.Extensions;
 using PROWeb.Data.Models;
 
@@ -6,13 +7,13 @@ namespace PROWeb.Data.Services.Logging
 {
     #region Service Factory
 
-    public class ActivityLogServiceFactory : DbContextServiceFactory<ActivityLogService, DataContext>, IActivityLogServiceFactory
+    public class ActivityLogServiceFactory : DataContextServiceFactory<IActivityLogService>, IActivityLogServiceFactory
     {
         public ActivityLogServiceFactory(IDbContextFactory<DataContext> contextFactory) : base(contextFactory)
         {
         }
 
-        public override ActivityLogService CreateService()
+        public override IActivityLogService CreateService()
         {
             return new ActivityLogService(ContextFactory);
         }

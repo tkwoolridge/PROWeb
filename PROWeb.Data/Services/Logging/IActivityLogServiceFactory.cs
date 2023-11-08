@@ -2,6 +2,6 @@
 {
     public interface IActivityLogServiceFactory
     {
-        ActivityLogService CreateService();
+        IActivityLogService CreateService();
     }
 }

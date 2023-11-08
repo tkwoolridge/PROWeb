@@ -8,13 +8,14 @@ namespace PROWeb.Data.Models
     {
         public int RegistrationId { get; set; }
 
-        public int RegistryYear { get; set; }
+        [Required]
+        public int? RegistryYear { get; set; }
 
-        public int VoterId { get; set; }
+        public int? VoterId { get; set; }
 
-        public int BirthId { get; set; }
+        public int? BirthId { get; set; }
 
-        public int ImmigrationID { get; set; }
+        public int? ImmigrationID { get; set; }
 
         [StringLength(10)]
         public string Title { get; set; }
@@ -29,7 +30,6 @@ namespace PROWeb.Data.Models
         [StringLength(50)]
         public string LastName { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string NewLastName { get; set; }
 
@@ -40,16 +40,17 @@ namespace PROWeb.Data.Models
         public string MaidenName { get; set; }
 
         [Required]
-        public char Gender { get; set; }
+        public char? Gender { get; set; }
 
         [Required]
         public DateTime DateOfBirth { get; set; }
 
-        public int AssessmentNo { get; set; }
+        [Required]
+        public int? AssessmentNo { get; set; }
 
         public Assessment Assessment { get; set; }
 
-        public int OldAssessmentNo { get; set; }
+        public int? OldAssessmentNo { get; set; }
 
         public Assessment OldAssessment { get; set; }
 
@@ -106,7 +107,7 @@ namespace PROWeb.Data.Models
         public int RegistrationStatusId { get; set; }
 
         [Required]
-        public int FormTypeId { get; set; }
+        public int? FormTypeId { get; set; }
 
         [Required]
         public int RegistrationOriginId { get; set; }

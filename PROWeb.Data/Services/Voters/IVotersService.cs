@@ -1,4 +1,5 @@
-﻿using PROWeb.Data.Models;
+﻿using PROWeb.Common.Data;
+using PROWeb.Data.Models;
 
 namespace PROWeb.Data.Services.Voters
 {
@@ -36,6 +37,12 @@ namespace PROWeb.Data.Services.Voters
         #region Voter Flags
 
         IQueryable<VoterFlag> GetVoterFlags();
+
+        #endregion
+
+        #region Countries
+
+        IQueryable<Country> GetCountries();
 
         #endregion
 

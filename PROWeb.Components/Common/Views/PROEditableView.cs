@@ -16,6 +16,8 @@ namespace PROWeb.Components.Common.Views
         [Parameter]
         public bool Editable { get; set; }
 
+        protected bool ReadOnly => !Editable;
+
         public ViewModelContext<TViewModel>? Context => EditContext?.Model as ViewModelContext<TViewModel>;
 
         protected override void OnModelUpdate()
@@ -61,18 +63,9 @@ namespace PROWeb.Components.Common.Views
             var action = new UndoAction(e.PropertyName, e.OldPropertyValue);
 
             UndoService.AddAction(action);
-
-            //if (UndoService.UndoContext is { } context)
-            //{
-            //    context.AddAction(action);
-            //}
-            //else
-            //{
-            //    UndoService.AddAction(action);
-            //}
         }
 
-        private void OnContextChanged(object? sender, ContextChangedEventArgs e)
+        protected virtual void OnContextChanged(object? sender, ContextChangedEventArgs e)
         {
             ParentLayout?.OnContextChanged(sender, e);
         }

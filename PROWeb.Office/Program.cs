@@ -1,10 +1,10 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SignalR;
-using PROWeb.Authentication.Extensions;
+using PROWeb.Authentication.DependencyInjection;
 using PROWeb.Components.DependencyInjection;
+using PROWeb.Data.DependencyInjection;
 using PROWeb.Data.Services.Extensions;
-using PROWeb.Office.Areas.Identity.Models;
 using PROWeb.Office.Mapper;
 using Serilog;
 using System.Globalization;
@@ -38,8 +38,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTelerikBlazor();
 builder.AddPROWebDataModule();
+builder.AddPROWebDataAuthenticationModule();
 builder.AddPROWebComponentsModule();
-builder.AddPROWebAuthetnticationModule<IdentityDataContext, PROUser>();
+builder.AddPROWebAuthenticationModule();
 
 var config = TypeAdapterConfig.GlobalSettings;
 config.Scan(typeof(OfficeMapper).Assembly);
@@ -68,6 +69,6 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-app.AddPROWebAuthetnticationModule();
+app.AddPROWebAuthenticationModule();
 
 app.Run();
