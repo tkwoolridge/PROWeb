@@ -4,6 +4,7 @@ using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common.Layouts;
 using PROWeb.Components.Services.Undo;
 using System.Diagnostics;
+using System.Reactive.Disposables;
 using Telerik.Blazor;
 
 namespace PROWeb.Components.Common.Views
@@ -73,28 +74,29 @@ namespace PROWeb.Components.Common.Views
 
         protected async Task<bool> OnSaveAsync()
         {
-            if (Validate() is { } errors)
-            {
-                await Dialogs.AlertAsync(string.Join('\n', errors.Select((e, i) => $"{i + 1}. {e}").ToList()).TrimEnd('\n'), "Validation Error");
+            Debug.Assert(Model != null);
 
+            if (!await ValidateModelAsync(true))
+            {
                 return false;
             }
-            Debug.Assert(LayoutRef != null);
 
-            foreach (var view in LayoutRef.ViewsList.OfType<PROEditableView<TViewModel>>())
+            using (BusyScope("Saving..."))
             {
-                view.OnSave();
+                await SaveAsync(Model);
             }
 
-            LayoutRef.SetBusyState(true, "Saving...");
-
-            Debug.Assert(LayoutRef?.Model != null);
-
-            await SaveAsync(LayoutRef.Model);
-
-            LayoutRef.SetBusyState(false);
-
             return true;
+        }
+
+        protected IDisposable BusyScope(string message)
+        {
+            LayoutRef?.SetBusyState(true, message);
+
+            return Disposable.Create(this, o =>
+            {
+                o.LayoutRef?.SetBusyState(false);
+            });
         }
 
         public void OnUndo()
@@ -115,9 +117,9 @@ namespace PROWeb.Components.Common.Views
             SetCanSave(UndoService.HasActions);
         }
 
-        public virtual List<string>? Validate()
+        public virtual async Task<bool> ValidateModelAsync(bool showMessage = false)
         {
-            List<string>? errors = new List<string>();
+            List<string> errors = new List<string>();
 
             Debug.Assert(LayoutRef != null);
 
@@ -125,11 +127,18 @@ namespace PROWeb.Components.Common.Views
             {
                 if (view.OnValidate() is { } viewErrors)
                 {
-                    errors?.AddRange(viewErrors);
+                    errors.AddRange(viewErrors);
                 }
             }
 
-            return errors.Any() ? errors : null;
+            var isValid = !errors.Any();
+
+            if (!isValid && showMessage)
+            {
+                await Dialogs.AlertAsync(string.Join('\n', errors.Select((e, i) => $"{i + 1}. {e}").ToList()).TrimEnd('\n'), "Validation Error");
+            }
+
+            return isValid;
         }
     }
 }

@@ -174,6 +174,12 @@ element.style {
     color: black;
 }
 
+/*Tabs*/
+
+.k-tabstrip-content, .k-tabstrip > .k-content {
+    background-color: transparent;
+}
+
 /*Forms*/
 .form-header {
     background-color: black;

@@ -1,9 +1,13 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PROWeb.Common.Components;
 using PROWeb.Components.DependencyInjection;
 using PROWeb.Components.Navigation.ViewModels;
 using PROWeb.Data.Services.Configuration;
+using System;
 using Telerik.Blazor.Components;
 
 namespace PROWeb.Office.Shared
@@ -42,14 +46,23 @@ namespace PROWeb.Office.Shared
 
         private bool IsAuthenticationPage(string page)
         {
-            return page.Contains("Identity/Account", StringComparison.InvariantCultureIgnoreCase);
+            return page.Contains("Account", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private async Task OnNavigate(MenuItemViewModel item)
         {
             if(item.Page is { } page && DrawerRef is { } drawer)
             {
-                _navigationManager.NavigateTo(item.Page, IsAuthenticationPage(item.Page));
+                if (!Uri.IsWellFormedUriString(page, UriKind.Relative))
+                {
+                    page = navigationManager.ToBaseRelativePath(page);
+                }
+                
+                var returnUrl = new Uri(_navigationManager.Uri).LocalPath;    
+
+                page = page + $"?returnUrl={Uri.EscapeDataString(returnUrl)}";
+
+                _navigationManager.NavigateTo(page, IsAuthenticationPage(page));
                 await DrawerRef.ToggleAsync();
 
                 SetCurrentPage();

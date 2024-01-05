@@ -1,11 +1,11 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using PROWeb.Common.Extensions;
 using PROWeb.Common.ViewModels;
 using PROWeb.Components.Common.Views;
 using PROWeb.Components.Person.Contexts;
 using PROWeb.Components.Voters.ViewModels;
+using PROWeb.Data.Services.CachedData;
 using PROWeb.Data.Services.Voters;
 using System.Linq.Expressions;
 
@@ -23,6 +23,9 @@ namespace PROWeb.Components.Person
     {
         [Inject]
         private IVotersServiceFactory _votersServiceFactory { get; set; } = default!;
+
+        [Inject]
+        private ICachedDataService _cachedDataService { get; set; } = default!;
 
         protected IList<CountryViewModel>? Countries { get; set; }
 
@@ -43,15 +46,6 @@ namespace PROWeb.Components.Person
             NotifyFieldsChanged();
         }
 
-        public override void OnSave()
-        {
-            FlagsContext.Flags = Flags?
-                .Where(f => FlagsValues.Contains(f.FlagId))
-                .Select(f => f.Model)
-                .OfType<TFlagViewModel>()
-                .ToList();
-        }
-
         internal FlagsContext<TFlagsViewModel, TFlagViewModel> FlagsContext { get; } = new();
 
         internal IList<FlagContext<TFlagViewModel>>? Flags { get; set; }
@@ -59,6 +53,15 @@ namespace PROWeb.Components.Person
         protected List<int> FlagsValues { get; set; } = Enumerable.Empty<int>().ToList();
 
         protected string? CountryName { get; set; }
+
+        protected void OnChanged()
+        {
+            FlagsContext.Flags = Flags?
+                .Where(f => FlagsValues.Contains(f.FlagId))
+                .Select(f => f.Model)
+                .OfType<TFlagViewModel>()
+                .ToList();
+        }
 
         protected FlagsView(
             Expression<Func<TFlagsViewModel, List<TFlagViewModel>?>>? flagsPath = null,
@@ -91,21 +94,14 @@ namespace PROWeb.Components.Person
         {
             await base.OnInitializedAsync();
 
-            IList<TFlagViewModel>? flags = await GetFlagsAsync();
-
-            using(var service = _votersServiceFactory.CreateService())
-            {
-                Countries = await service.GetCountries().ProjectToListAsync<CountryViewModel>();
-            }
+            var flags = await GetFlagsAsync();
+            Countries = _cachedDataService.Countries.Adapt<List<CountryViewModel>>();
 
             SetCountry(FlagsContext.CountryId);
             Flags = flags?.Select(f => new FlagContext<TFlagViewModel>(f, _flagIdPath, _flagDescriptionPath)).ToList();
         }
 
-        protected virtual Task<IList<TFlagViewModel>?> GetFlagsAsync()
-        {
-            return Task.FromResult<IList<TFlagViewModel>?>(null);
-        }
+        protected abstract Task<IList<TFlagViewModel>?> GetFlagsAsync();
 
         protected override EditContext? GetEditContext()
         {

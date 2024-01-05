@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Common.Extensions;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
 using PROWeb.Components.Person;
 using PROWeb.Components.Voters.ViewModels;
-using PROWeb.Data.Services.Voters;
+using PROWeb.Data.Services.CachedData;
 
 namespace PROWeb.Office.Shared.Registry.Views
 {
     public class VoterFlagsView : FlagsView<VoterViewModel, VoterFlagViewModel>
     {
         [Inject]
-        private IVotersServiceFactory _voterServiceFactory { get; set; } = null!;
+        private ICachedDataService _cachedDataService { get; set; } = null!;
 
         public VoterFlagsView() : base(
             v => v.Flags,
@@ -27,15 +27,7 @@ namespace PROWeb.Office.Shared.Registry.Views
 
         protected override async Task<IList<VoterFlagViewModel>?> GetFlagsAsync()
         {
-            using (var service = _voterServiceFactory.CreateService())
-            {
-                return await service.GetVoterFlags().ProjectToListAsync<VoterFlagViewModel>();
-            }
-        }
-
-        public override void OnSave()
-        {
-            base.OnSave();
+            return await Task.FromResult(_cachedDataService.Flags.Adapt<List<VoterFlagViewModel>>());
         }
     }
 }

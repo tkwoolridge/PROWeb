@@ -15,6 +15,9 @@ namespace PROWeb.Components.Mapping
             config.NewConfig<MenuItem, MenuItemViewModel>()
                 .Ignore(d => d.Level);
 
+            config.NewConfig<ConstituencyBoundary, ConstituencyMarkerViewModel>()
+                .Map(d => d.Center, s => new[] { s.CenterLatitude, s.CenterLongitude});
+
             config.NewConfig<Assessment, AssessmentViewModel>()
                 .IgnoreIf((s, d) => d.Constituency != null, d => d.Constituency!)
                 .Map(d => d.ConstituencyName, s => s.Constituency.ConstituencyName)
@@ -29,7 +32,9 @@ namespace PROWeb.Components.Mapping
                 .Map(d => d.ParishName, s => s.DriverLicenseParishName)
                 .Map(d => d.PostalCode, s => s.DriverLicensePostalCode)
                 .Map(d => d.ConstituencyNo, s => s.DriverLicenseConstituencyNo)
-                .Map(d => d.ConstituencyName, s => s.DriverLicenseConstituencyName);
+                .Map(d => d.ConstituencyName, s => s.DriverLicenseConstituencyName)
+                .Map(d => d.Longitude, s => s.DriverLicenseAssessmentLongitude)
+                .Map(d => d.Latitude, s => s.DriverLicenseAssessmentLatitude);
 
             config.NewConfig<Voter, VoterViewModel>()
                 .Map(d => d.HouseNo, s => s.Assessment.HouseNo)
@@ -39,8 +44,10 @@ namespace PROWeb.Components.Mapping
                 .Map(d => d.ParishName, s => s.Assessment.Parish.ParishName)
                 .Map(d => d.ConstituencyNo, s => s.Assessment.ConstituencyNo)
                 .Map(d => d.ConstituencyName, s => s.Assessment.Constituency.ConstituencyName)
-                .Map(d => d.BogusConstituencyNo, s => s.BogusConstituency != null ? s.BogusConstituency.ConstituencyNo : (int?)null)
-                .Map(d => d.BogusConstituencyName, s => s.BogusConstituency != null ? s.BogusConstituency.ConstituencyName : null);
+                .Map(d => d.AssessmentLatitude, s => s.Assessment.Latitude)
+                .Map(d => d.AssessmentLongitude, s => s.Assessment.Longitude)
+                .Map(d => d.IsAssessmentBogus, s => s.Assessment.IsBogus)
+                .Map(d => d.CountryName, s => s.Country.CountryName);
         }
     }
 }

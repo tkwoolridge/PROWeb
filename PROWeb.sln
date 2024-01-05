@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PROWeb.Common", "PROWeb.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PROWeb.Authentication", "PROWeb.Authentication\PROWeb.Authentication.csproj", "{E7D5DB7F-0838-4F93-A938-83EA50BB7063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROWeb.Data.Authentication", "PROWeb.Data.Authentication\PROWeb.Data.Authentication.csproj", "{33DC8E14-F3CF-40BF-8B88-3DAFA2075EE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PROWeb.Data.Authentication", "PROWeb.Data.Authentication\PROWeb.Data.Authentication.csproj", "{33DC8E14-F3CF-40BF-8B88-3DAFA2075EE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

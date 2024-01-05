@@ -8,6 +8,7 @@ namespace PROWeb.Data.Models
 {
     public class Voter
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VoterId { get; set; }
 
         public int RegistryYear { get; set; }
@@ -38,7 +39,6 @@ namespace PROWeb.Data.Models
         [Required]
         public char Gender { get; set; }
 
-
         [Required]
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
@@ -50,13 +50,6 @@ namespace PROWeb.Data.Models
 
         [Required]
         public bool IsEligible { get; set; }
-
-        public bool IsBogusNo { get; set; }
-
-        [StringLength(50)]
-        public string BogusNo { get; set; }
-
-        public Constituency BogusConstituency { get; set; }
 
         [StringLength(255)]
         public string Email { get; set; }
@@ -102,5 +95,7 @@ namespace PROWeb.Data.Models
         public ICollection<VoterFlag> Flags { get; set; }
 
         public ICollection<Document> Documents { get; set; }
+
+        public ICollection<VoterHistory> VoterHistories { get; set; }
     }
 }

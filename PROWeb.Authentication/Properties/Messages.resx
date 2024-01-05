@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidLoginAttemptMessage" xml:space="preserve">
-    <value>Invalid login attempt.</value>
+    <value>Invalid login attempt!</value>
+  </data>
+  <data name="InvalidVerificationCode" xml:space="preserve">
+    <value>Invalid verification code!</value>
   </data>
   <data name="UserAccountLockedOutMessage" xml:space="preserve">
     <value>User account locked out!</value>

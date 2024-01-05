@@ -6,46 +6,52 @@
 @inherits AddressViewBase<TAddressViewModel>
 
 <CascadingValue Value="@EditContext">
-    @if (Editable)
-    {
-        <DataAnnotationsValidator />
-    }
-    <div class="address-view">
-        
-        <div class="address-title pro-view-title w-100">@Title</div>
-        <div class="address-assessment">
-            <TelerikNumericTextBox Arrows="false" Width="100%" ReadOnly="true" @bind-Value="@AddressContext.AssessmentNo" Id="@(nameof(AddressContext.AssessmentNo))" />
-            <TelerikValidationTooltip For="@(() => AddressContext.AssessmentNo)" TargetSelector="@("#" + nameof(AddressContext.AssessmentNo))" />
-        </div>
-        @if (Editable && ShowPopulateDialogButton)
-        {
-            <div class="address-address1 update-view">
-                <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address1" Id="@(nameof(AddressContext.Address1))" />
-                <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.Home" />
-            </div>
-        }
-        else 
-        {
-            <div class="address-address1">
-                <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address1" Id="@(nameof(AddressContext.Address1))" />
-            </div>
-        }
+    <TelerikTabStrip Class="assessment_tab" Width="100%" @bind-ActiveTabIndex="@TabIndex">
+        <TabStripTab Title="Address">
+            @if (Editable)
+            {
+                <DataAnnotationsValidator />
+            }
+            <div class="address-view">
 
-        <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.HouseNo" Id="@(nameof(AddressContext.HouseNo))" />
-        <div class="address-address2">
-            <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address2" Id="@(nameof(AddressContext.Address2))" />
-        </div>
-        <div class="address-postal-code">
-            <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.PostalCode" Id="@(nameof(AddressContext.PostalCode))" />
-        </div>
-        <div class="address-parish">
-            <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.ParishName" Id="@(nameof(AddressContext.ParishName))" />
-        </div>
-        <TelerikNumericTextBox Arrows="false" ReadOnly="true" @bind-Value="@AddressContext.ConstituencyNo" Id="@(nameof(AddressContext.ConstituencyNo))" />
-        <div class="address-constituency">
-            <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.ConstituencyName" Id="@(nameof(AddressContext.ConstituencyName))" />
-        </div>
-    </div>
+                <div class="address-title pro-view-title w-100">@Title</div>
+                <div class="address-assessment">
+                    <TelerikNumericTextBox Arrows="false" Width="100%" ReadOnly="true" @bind-Value="@AddressContext.AssessmentNo" Id="@(nameof(AddressContext.AssessmentNo))" />
+                    <TelerikValidationTooltip For="@(() => AddressContext.AssessmentNo)" TargetSelector="@("#" + nameof(AddressContext.AssessmentNo))" />
+                </div>
+                @if (Editable && ShowPopulateDialogButton)
+                {
+                    <div class="address-address1 update-view">
+                        <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address1" Id="@(nameof(AddressContext.Address1))" />
+                        <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.Home" />
+                    </div>
+                }
+                else
+                {
+                    <div class="address-address1">
+                        <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address1" Id="@(nameof(AddressContext.Address1))" />
+                    </div>
+                }
+                <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.HouseNo" Id="@(nameof(AddressContext.HouseNo))" />
+                <div class="address-address2">
+                    <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.Address2" Id="@(nameof(AddressContext.Address2))" />
+                </div>
+                <div class="address-postal-code">
+                    <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.PostalCode" Id="@(nameof(AddressContext.PostalCode))" />
+                </div>
+                <div class="address-parish">
+                    <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.ParishName" Id="@(nameof(AddressContext.ParishName))" />
+                </div>
+                <TelerikNumericTextBox Arrows="false" ReadOnly="true" @bind-Value="@AddressContext.ConstituencyNo" Id="@(nameof(AddressContext.ConstituencyNo))" />
+                <div class="address-constituency">
+                    <TelerikTextBox ReadOnly="true" @bind-Value="@AddressContext.ConstituencyName" Id="@(nameof(AddressContext.ConstituencyName))" />
+                </div>
+            </div>
+        </TabStripTab>
+        <TabStripTab Title="Map">
+            <MapView Height="161px" Marker="@AddressMarker" />
+        </TabStripTab>
+    </TelerikTabStrip>
 </CascadingValue>
 
 <AssessmentRegistryDialog @ref="@AssessmentRegistryDialogRef" Confirm="@OnAssessmentSelectionConfirm" />

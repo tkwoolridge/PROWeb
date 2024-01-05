@@ -15,7 +15,7 @@ namespace PROWeb.Data.Models
 
         public int? BirthId { get; set; }
 
-        public int? ImmigrationID { get; set; }
+        public int? ImmigrationId { get; set; }
 
         [StringLength(10)]
         public string Title { get; set; }
@@ -53,18 +53,6 @@ namespace PROWeb.Data.Models
         public int? OldAssessmentNo { get; set; }
 
         public Assessment OldAssessment { get; set; }
-
-        public bool IsBogusNo { get; set; }
-
-        [StringLength(50)]
-        public string BogusNo { get; set; }
-
-        public Constituency BogusConstituency { get; set; }
-
-        [StringLength(50)]
-        public string OldBogusNo { get; set; }
-
-        public Constituency OldBogusConstituency { get; set; }
 
         [Required]
         [StringLength(255)]

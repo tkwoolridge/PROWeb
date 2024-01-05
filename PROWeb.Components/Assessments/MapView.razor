@@ -1,0 +1,43 @@
+﻿@using PROWeb.Components.Assessments.ViewModels
+@using PROWeb.Data.Services.CachedData
+@using PROWeb.Data.Services.Map
+@using PROWeb.Common.Extensions;
+@using Mapster;
+@inherits PROComponent
+
+<TelerikMap Height="@Height"
+            Center="@Marker?.Location"
+            WrapAround="false"
+            MinZoom="2"
+            Zoom="@Zoom">
+    <MapLayers>
+        <MapLayer  Type="@MapLayersType.Tile"
+                  Attribution="@Attribution"
+                  Subdomains="@SubDomains"
+                  UrlTemplate="@UrlTemplate">
+        </MapLayer>
+
+        <MapLayer Type="@MapLayersType.Shape"
+                  Data="@WorldData">
+            <MapLayerShapeSettings>
+                <MapLayerShapeSettingsStyle>
+                    <MapLayerShapeSettingsStyleFill Color="Transparent" Opacity="0.5"></MapLayerShapeSettingsStyleFill>
+                    <MapLayerShapeSettingsStyleStroke Color="Red" Width="3"></MapLayerShapeSettingsStyleStroke>
+                </MapLayerShapeSettingsStyle>
+            </MapLayerShapeSettings>
+        </MapLayer>
+
+        <MapLayer Type="@MapLayersType.Marker"
+                  Data="@Markers"
+                  LocationField="@nameof(ConstituencyMarkerViewModel.Center)"
+                  TitleField="@nameof(ConstituencyMarkerViewModel.ConstituencyName)">
+            <MapLayerMarkerSettings Template="<span style='color:red'>#= dataItem.ConstituencyId #<span>" />
+        </MapLayer>
+
+        <MapLayer Type="@MapLayersType.Marker"
+                  Data="@AddressMarkers"
+                  LocationField="@nameof(AddressMarker.Location)"
+                  TitleField="@nameof(AddressMarker.Address)">
+        </MapLayer>
+    </MapLayers>
+</TelerikMap>

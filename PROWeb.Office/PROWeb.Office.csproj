@@ -1,23 +1,22 @@
 ﻿
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
 	<Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="CompareNETObjects" Version="4.83.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="4.6.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PROWeb.Authentication\PROWeb.Authentication.csproj" />
     <ProjectReference Include="..\PROWeb.Components\PROWeb.Components.csproj" />
     <ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties UseCdnSupport="False" /></VisualStudio></ProjectExtensions>
 </Project>

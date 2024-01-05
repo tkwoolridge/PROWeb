@@ -2,10 +2,7 @@
 using PROWeb.Data.Services.Assessments;
 using PROWeb.Components.Common;
 using PROWeb.Components.Assessments.ViewModels;
-using Mapster;
-using Microsoft.EntityFrameworkCore;
 using PROWeb.Common.Extensions;
-using PROWeb.Data.Models;
 
 namespace PROWeb.Components.Assessments
 {
@@ -18,6 +15,9 @@ namespace PROWeb.Components.Assessments
         public EventCallback<AssessmentViewModel> AssessmentSelected { get; set; }
 
         [Parameter]
+        public bool LoadBogusList { get; set; } = false;
+
+        [Parameter]
         public bool EnableSelection { get; set; }
 
         protected override void OnSelectionChanged(IEnumerable<AssessmentViewModel> selectedItems)
@@ -27,6 +27,19 @@ namespace PROWeb.Components.Assessments
             if (selectedItems.FirstOrDefault() is { } assessment)
             {
                 AssessmentSelected.InvokeAsync(assessment);
+            }
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            if(LoadBogusList)
+            {
+                await OnFilterAsync(new AssessmentFilterViewModel()
+                {
+                    IsBogusNo = true
+                });
             }
         }
 

@@ -14,10 +14,9 @@ namespace PROWeb.Office.Shared.Registry.Views
             v => v.ParishName,
             v => v.ConstituencyNo,
             v => v.ConstituencyName,
-            v => v.IsBogusNo,
-            v => v.BogusNo,
-            v => v.BogusConstituencyNo,
-            v => v.BogusConstituencyName
+            v => v.AssessmentLongitude,
+            v => v.AssessmentLatitude,
+            v => v.IsAssessmentBogus
             )
         {
 

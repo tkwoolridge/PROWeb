@@ -43,6 +43,10 @@ namespace PROWeb.Components.Person
 
         protected VoterRegistryDialog? VoterRegistryDialogRef { get; set; }
 
+        protected List<string> Titles { get; set; } = Enumerable.Empty<string>().ToList();
+
+        protected List<char> Genders { get; set; } = Enumerable.Empty<char>().ToList();
+
         internal DetailsContext<TPersonViewModel> DetailsContext { get; set; } = new();
 
         private string _viewClass => ShowMaidenName ? "person-details-view" : "person-details-view-no-maiden-name";

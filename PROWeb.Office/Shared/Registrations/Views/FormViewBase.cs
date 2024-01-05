@@ -1,28 +1,23 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Components;
-using PROWeb.Components.Common.Views;
-using PROWeb.Components.Voters.ViewModels;
-using PROWeb.Data.Authentication.Models;
-using PROWeb.Data.Authentication.Services.Users;
 using PROWeb.Data.Models;
 using PROWeb.Data.Models.Enums;
+using PROWeb.Data.Services.CachedData;
 using PROWeb.Data.Services.Registrations;
-using PROWeb.Data.Services.Voters;
 using PROWeb.Office.Shared.Registrations.ViewModels;
 using System.Diagnostics;
+using PROWeb.Components.Voters;
+using PROWeb.Components.Voters.ViewModels;
 
 namespace PROWeb.Office.Shared.Registrations.Views
 {
-    public class FormViewBase : PROCompositeView<RegistrationViewModel>
+    public class FormViewBase : VoterViewBase<RegistrationViewModel>
     {
         [Inject]
         private IRegistrationServiceFactory _registrationServiceFactory { get; set; } = default!;
 
         [Inject]
-        private IVotersServiceFactory _votersServiceFactory { get; set; } = default!;
-
-        [Inject]
-        private IUsersServiceFactory _userServiceFactory { get; set; } = default!;
+        private ICachedDataService _cachedDataService { get; set; } = default!;
 
         [Parameter]
         public EventCallback Save { get; set; }
@@ -31,8 +26,6 @@ namespace PROWeb.Office.Shared.Registrations.Views
 
         public bool CanReject { get; private set; }
 
-        protected PROUser? User { get; private set; }
-
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -40,27 +33,53 @@ namespace PROWeb.Office.Shared.Registrations.Views
 
         protected override async Task OnInitializedAsync()
         {
-            await SetDefaultsAsync();
-
             await base.OnInitializedAsync();
+
+            SetDefaultsAsync();
         }
 
         public async Task OnApproveAsync()
         {
             Debug.Assert(Model != null);
 
-            if (Model.VoterId is null)
+            if (!await ValidateModelAsync(true))
             {
-                Model.RegistrationStatusId = (int)RegistrationStatuses.Approved;
-                await SaveAsync(Model);
+                return;
             }
 
-            await Task.CompletedTask;
+            var voter = Model.Adapt<VoterViewModel>();
+
+            using (BusyScope("Approving form..."))
+            {
+                await SaveAsync(Model);
+
+                if (voter.VoterId is not null)
+                {
+                    await UpdateVoterAsync(voter);
+                }
+                else
+                {
+                    await AddVoterAsync(voter);
+                }
+
+                Model.RegistrationStatusId = (int)RegistrationStatuses.Approved;
+            }
         }
 
         public async Task OnRejectAsync()
         {
-            await Task.CompletedTask;
+            Debug.Assert(Model != null);
+
+            if (!await ValidateModelAsync(true))
+            {
+                return;
+            }
+
+            using (BusyScope("Rejecting form..."))
+            {
+                Model.RegistrationStatusId = (int)RegistrationStatuses.Rejected;
+                await SaveAsync(Model);
+            }
         }
 
         protected override void SetCanSave(bool canSave)
@@ -75,37 +94,40 @@ namespace PROWeb.Office.Shared.Registrations.Views
         {
             Debug.Assert(User?.UserName != null);
 
+            model.LastUpdated = DateTime.UtcNow;
+            model.LastUpdatedBy = User.UserName;
+
             Registration? registration = model.Adapt<Registration>();
 
             if (registration == null) { return; }
 
             using (var service = _registrationServiceFactory.CreateService())
             {
-                await service.AddRegistration(registration, User.UserName);
+                if (registration.RegistrationId == 0)
+                {
+                    await service.AddRegistration(registration);
+                }
+                else
+                {
+                    await service.UpdateRegistration(registration);
+                }
             }
 
             await Save.InvokeAsync();
         }
 
-        private async Task SetDefaultsAsync()
+        private void SetDefaultsAsync()
         {
-            using (var service = _userServiceFactory.CreateService())
+            Debug.Assert(Model != null);
+
+            using (UndoService.SuspendUndo())
             {
-                User = await service.GetCurrentUser();
-
-                Debug.Assert(Model != null);
-
-                using (UndoService.SuspendUndo())
+                if (Model.RegistrationId is null)
                 {
-                    if (Model.RegistrationId is null)
-                    {
-                        Model.CountryId = VoterConstants.BermudaCountryId;
-                        // TODO: Get registration year from db.   
-                        Model.RegistryYear = DateTime.Now.Year - 1;
-                    }
-
                     Model.LastUpdated = DateTime.UtcNow;
-                    Model.LastUpdatedBy = User?.UserName;
+                    Model.LastUpdatedBy  = User?.UserName;
+                    Model.CountryId = VoterConstants.BermudaCountryId;
+                    Model.RegistryYear = _cachedDataService.RegistrationYear;
                 }
             }
         }

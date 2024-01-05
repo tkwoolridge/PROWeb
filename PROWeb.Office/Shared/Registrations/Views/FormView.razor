@@ -33,7 +33,17 @@
                 <Header>
                     <div class="d-flex justify-content-between py-2">
                         <div>
-                            <span>Date: @(DateTime.Now.ToString("dd MMM yy hh:mm"))</span>
+                            @if (Model?.LastUpdated is { } lastUpdated)
+                            {
+                                <span class="k-text-info">
+                                    Date: @(lastUpdated.ToString("dd MMM yy hh:mm"))
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="k-text-error">Not Assigned</span>
+                            }
+                            
                             <br />
                             <span>Last Updated By: </span>
                             @if(Model?.LastUpdatedBy is { } userName)

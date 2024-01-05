@@ -43,6 +43,12 @@ namespace PROWeb.Data
 
         public DbSet<ActivityLog> ActivityLogs => Set<ActivityLog>();
 
+        public DbSet<VoterHistory> VoterHistories => Set<VoterHistory>();
+
+        public DbSet<VoterHistoryField> VoterHistoryFields => Set<VoterHistoryField>();
+
+        public DbSet<ConstituencyBoundary> ConstituencyBoundaries => Set<ConstituencyBoundary>();
+
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
@@ -95,26 +101,26 @@ namespace PROWeb.Data
             .HasPrincipalKey(a => a.AssessmentNo)
             .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Voter>()
-            .HasOne(v => v.BogusConstituency)
-            .WithMany(c => c.Voters)
-            .HasForeignKey(v => v.BogusNo)
-            .HasPrincipalKey(c => c.BogusNo)
-            .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Voter>()
+            //.HasOne(v => v.BogusConstituency)
+            //.WithMany(c => c.Voters)
+            //.HasForeignKey(v => v.BogusNo)
+            //.HasPrincipalKey(c => c.BogusNo)
+            //.OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Registration>()
-            .HasOne(r => r.BogusConstituency)
-            .WithMany(c => c.Registrations)
-            .HasForeignKey(r => r.BogusNo)
-            .HasPrincipalKey(c => c.BogusNo)
-            .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Registration>()
+            //.HasOne(r => r.BogusConstituency)
+            //.WithMany(c => c.Registrations)
+            //.HasForeignKey(r => r.BogusNo)
+            //.HasPrincipalKey(c => c.BogusNo)
+            //.OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Registration>()
-            .HasOne(r => r.OldBogusConstituency)
-            .WithMany(c => c.OldRegistrations)
-            .HasForeignKey(r => r.OldBogusNo)
-            .HasPrincipalKey(c => c.BogusNo)
-            .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Registration>()
+            //.HasOne(r => r.OldBogusConstituency)
+            //.WithMany(c => c.OldRegistrations)
+            //.HasForeignKey(r => r.OldBogusNo)
+            //.HasPrincipalKey(c => c.BogusNo)
+            //.OnDelete(DeleteBehavior.NoAction);
 
             //modelBuilder.Entity<Registration>()
             //.HasOne(r => r.Voter)
@@ -129,6 +135,20 @@ namespace PROWeb.Data
             .HasForeignKey(r => new { r.PersonId, r.RegistryYear })
             .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear })
             .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<VoterHistory>()
+                .HasKey(vh => new { vh.VoterId, vh.RegistryYear, vh.Created });
+
+            modelBuilder.Entity<VoterHistory>()
+                .HasOne(vh => vh.Voter)
+                .WithMany(v => v.VoterHistories)
+                .HasForeignKey(vh => new { vh.VoterId, vh.RegistryYear });
+
+            modelBuilder.Entity<VoterHistoryField>()
+                .HasOne(f => f.VoterHistory)
+                .WithMany(v => v.Fields)
+                .HasForeignKey(f => new { f.VoterId, f.RegistryYear, f.Created })
+                .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear,  v.Created });
         }
     }
 }

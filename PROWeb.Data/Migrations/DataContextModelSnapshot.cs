@@ -17,7 +17,7 @@ namespace PROWeb.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -76,6 +76,12 @@ namespace PROWeb.Data.Migrations
 
                     b.Property<bool>("IsBogus")
                         .HasColumnType("bit");
+
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<int>("ParishNo")
                         .HasColumnType("int");
@@ -169,6 +175,28 @@ namespace PROWeb.Data.Migrations
                     b.HasKey("ConstituencyNo");
 
                     b.ToTable("Constituencies");
+                });
+
+            modelBuilder.Entity("PROWeb.Data.Models.ConstituencyBoundary", b =>
+                {
+                    b.Property<int>("ConstituencyId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("CenterLatitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CenterLongitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ConstituencyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Geometry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ConstituencyId");
+
+                    b.ToTable("ConstituencyBoundaries");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Country", b =>
@@ -300,6 +328,12 @@ namespace PROWeb.Data.Migrations
 
                     b.Property<string>("DriverLicenseAddress2")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("DriverLicenseAssessmentLatitude")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DriverLicenseAssessmentLongitude")
+                        .HasColumnType("float");
 
                     b.Property<int?>("DriverLicenseAssessmentNo")
                         .HasColumnType("int");
@@ -625,10 +659,6 @@ namespace PROWeb.Data.Migrations
                     b.Property<int?>("BirthId")
                         .HasColumnType("int");
 
-                    b.Property<string>("BogusNo")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("Comment")
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
@@ -669,16 +699,13 @@ namespace PROWeb.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<int?>("ImmigrationID")
+                    b.Property<int?>("ImmigrationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Initial")
                         .HasColumnType("nvarchar(1)");
 
                     b.Property<bool>("IsBermudianStatusGranted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsBogusNo")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -707,10 +734,6 @@ namespace PROWeb.Data.Migrations
 
                     b.Property<int?>("OldAssessmentNo")
                         .HasColumnType("int");
-
-                    b.Property<string>("OldBogusNo")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PhoneHome")
                         .HasMaxLength(50)
@@ -751,13 +774,9 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("AssessmentNo");
 
-                    b.HasIndex("BogusNo");
-
                     b.HasIndex("CountryId");
 
                     b.HasIndex("OldAssessmentNo");
-
-                    b.HasIndex("OldBogusNo");
 
                     b.ToTable("Registrations");
                 });
@@ -798,7 +817,10 @@ namespace PROWeb.Data.Migrations
             modelBuilder.Entity("PROWeb.Data.Models.Voter", b =>
                 {
                     b.Property<int>("VoterId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VoterId"));
 
                     b.Property<int>("RegistryYear")
                         .HasColumnType("int");
@@ -811,10 +833,6 @@ namespace PROWeb.Data.Migrations
 
                     b.Property<int?>("BirthID")
                         .HasColumnType("int");
-
-                    b.Property<string>("BogusNo")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Comment")
                         .HasMaxLength(5000)
@@ -857,9 +875,6 @@ namespace PROWeb.Data.Migrations
                         .HasColumnType("nvarchar(1)");
 
                     b.Property<bool?>("IsBermudianStatusGranted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsBogusNo")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsEligible")
@@ -911,8 +926,6 @@ namespace PROWeb.Data.Migrations
 
                     b.HasIndex("AssessmentNo");
 
-                    b.HasIndex("BogusNo");
-
                     b.HasIndex("CountryId");
 
                     b.ToTable("Voters");
@@ -947,6 +960,63 @@ namespace PROWeb.Data.Migrations
                     b.HasKey("FlagId");
 
                     b.ToTable("VoterFlags");
+                });
+
+            modelBuilder.Entity("PROWeb.Data.Models.VoterHistory", b =>
+                {
+                    b.Property<int>("VoterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegistryYear")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RegistrationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("VoterId", "RegistryYear", "Created");
+
+                    b.ToTable("VoterHistories");
+                });
+
+            modelBuilder.Entity("PROWeb.Data.Models.VoterHistoryField", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Field")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RegistryYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VoterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VoterId", "RegistryYear", "Created");
+
+                    b.ToTable("VoterHistoryFields");
                 });
 
             modelBuilder.Entity("VoterVoterFlag", b =>
@@ -1005,12 +1075,6 @@ namespace PROWeb.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PROWeb.Data.Models.Constituency", "BogusConstituency")
-                        .WithMany("Registrations")
-                        .HasForeignKey("BogusNo")
-                        .HasPrincipalKey("BogusNo")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("PROWeb.Data.Models.Country", "Country")
                         .WithMany("Registrations")
                         .HasForeignKey("CountryId")
@@ -1022,21 +1086,11 @@ namespace PROWeb.Data.Migrations
                         .HasForeignKey("OldAssessmentNo")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("PROWeb.Data.Models.Constituency", "OldBogusConstituency")
-                        .WithMany("OldRegistrations")
-                        .HasForeignKey("OldBogusNo")
-                        .HasPrincipalKey("BogusNo")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.Navigation("Assessment");
-
-                    b.Navigation("BogusConstituency");
 
                     b.Navigation("Country");
 
                     b.Navigation("OldAssessment");
-
-                    b.Navigation("OldBogusConstituency");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Voter", b =>
@@ -1047,12 +1101,6 @@ namespace PROWeb.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PROWeb.Data.Models.Constituency", "BogusConstituency")
-                        .WithMany("Voters")
-                        .HasForeignKey("BogusNo")
-                        .HasPrincipalKey("BogusNo")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("PROWeb.Data.Models.Country", "Country")
                         .WithMany("Voters")
                         .HasForeignKey("CountryId")
@@ -1061,9 +1109,29 @@ namespace PROWeb.Data.Migrations
 
                     b.Navigation("Assessment");
 
-                    b.Navigation("BogusConstituency");
-
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("PROWeb.Data.Models.VoterHistory", b =>
+                {
+                    b.HasOne("PROWeb.Data.Models.Voter", "Voter")
+                        .WithMany("VoterHistories")
+                        .HasForeignKey("VoterId", "RegistryYear")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Voter");
+                });
+
+            modelBuilder.Entity("PROWeb.Data.Models.VoterHistoryField", b =>
+                {
+                    b.HasOne("PROWeb.Data.Models.VoterHistory", "VoterHistory")
+                        .WithMany("Fields")
+                        .HasForeignKey("VoterId", "RegistryYear", "Created")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VoterHistory");
                 });
 
             modelBuilder.Entity("VoterVoterFlag", b =>
@@ -1095,12 +1163,6 @@ namespace PROWeb.Data.Migrations
             modelBuilder.Entity("PROWeb.Data.Models.Constituency", b =>
                 {
                     b.Navigation("Assessments");
-
-                    b.Navigation("OldRegistrations");
-
-                    b.Navigation("Registrations");
-
-                    b.Navigation("Voters");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Country", b =>
@@ -1118,6 +1180,13 @@ namespace PROWeb.Data.Migrations
             modelBuilder.Entity("PROWeb.Data.Models.Voter", b =>
                 {
                     b.Navigation("Documents");
+
+                    b.Navigation("VoterHistories");
+                });
+
+            modelBuilder.Entity("PROWeb.Data.Models.VoterHistory", b =>
+                {
+                    b.Navigation("Fields");
                 });
 #pragma warning restore 612, 618
         }

@@ -178,36 +178,28 @@ namespace PROWeb.Office.Shared.Registrations.ViewModels
             set => RaiseAndSetIfChanged(ref _constituencyName, value);
         }
 
-        private bool? _isBogusNo;
+        private double? _asessmentLongitude;
 
-        public bool? IsBogusNo
+        public double? AssessmentLongitude
         {
-            get => _isBogusNo;
-            set => RaiseAndSetIfChanged(ref _isBogusNo, value);
+            get => _asessmentLongitude;
+            set => RaiseAndSetIfChanged(ref _asessmentLongitude, value);
         }
 
-        private string? _bogusNo;
+        private double? _assessmentLatitude;
 
-        public string? BogusNo
+        public double? AssessmentLatitude
         {
-            get => _bogusNo;
-            set => RaiseAndSetIfChanged(ref _bogusNo, value);
+            get => _assessmentLatitude;
+            set => RaiseAndSetIfChanged(ref _assessmentLatitude, value);
         }
 
-        private int? _bogusConstituencyNo;
+        private bool? _isAssessmentBogus;
 
-        public int? BogusConstituencyNo
+        public bool? IsAssessmentBogus
         {
-            get => _bogusConstituencyNo;
-            set => RaiseAndSetIfChanged(ref _bogusConstituencyNo, value);
-        }
-
-        private string? _bogusConstituencyName;
-
-        public string? BogusConstituencyName
-        {
-            get => _bogusConstituencyName;
-            set => RaiseAndSetIfChanged(ref _bogusConstituencyName, value);
+            get => _isAssessmentBogus;
+            set => RaiseAndSetIfChanged(ref _isAssessmentBogus, value);
         }
 
         private int? _oldAssessmentNo;
@@ -274,36 +266,28 @@ namespace PROWeb.Office.Shared.Registrations.ViewModels
             set => RaiseAndSetIfChanged(ref _oldConstituencyName, value);
         }
 
-        private bool? _oldIsBogusNo;
+        private double? _oldAssessmentLongitude;
 
-        public bool? OldIsBogusNo
+        public double? OldAssessmentLongitude
         {
-            get => _oldIsBogusNo;
-            set => RaiseAndSetIfChanged(ref _oldIsBogusNo, value);
+            get => _oldAssessmentLongitude;
+            set => RaiseAndSetIfChanged(ref _oldAssessmentLongitude, value);
         }
 
-        private string? _oldBogusNo;
+        private double? _oldAssessmentLatitude;
 
-        public string? OldBogusNo
+        public double? OldAssessmentLatitude
         {
-            get => _oldBogusNo;
-            set => RaiseAndSetIfChanged(ref _oldBogusNo, value);
+            get => _oldAssessmentLatitude;
+            set => RaiseAndSetIfChanged(ref _oldAssessmentLatitude, value);
         }
 
-        private int? _oldBogusConstituencyNo;
+        private bool? _oldIsBogus;
 
-        public int? OldBogusConstituencyNo
+        public bool? OldIsBogus
         {
-            get => _oldBogusConstituencyNo;
-            set => RaiseAndSetIfChanged(ref _oldBogusConstituencyNo, value);
-        }
-
-        private string? _oldBogusConstituencyName;
-
-        public string? OldBogusConstituencyName
-        {
-            get => _oldBogusConstituencyName;
-            set => RaiseAndSetIfChanged(ref _oldBogusConstituencyName, value);
+            get => _oldIsBogus;
+            set => RaiseAndSetIfChanged(ref _oldIsBogus, value);
         }
 
         private bool _isEligible;

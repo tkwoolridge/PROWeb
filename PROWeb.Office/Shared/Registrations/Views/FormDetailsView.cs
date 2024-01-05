@@ -6,6 +6,7 @@ using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Person;
 using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Office.Shared.Registrations.ViewModels;
+using System.Diagnostics;
 
 namespace PROWeb.Office.Shared.Registrations.Views
 {
@@ -29,6 +30,11 @@ namespace PROWeb.Office.Shared.Registrations.Views
 
         protected override void OnUpdateFromEligible(EligibleViewModel eligible)
         {
+            Debug.Assert(Model != null);
+
+            Model.ImmigrationId = eligible.ImmigrationId;
+            Model.BirthId = eligible.BirthId;
+
             base.OnUpdateFromEligible(eligible);
 
             if (OldAddressView != null && eligible.DriverLicenseAssessmentNo != null)

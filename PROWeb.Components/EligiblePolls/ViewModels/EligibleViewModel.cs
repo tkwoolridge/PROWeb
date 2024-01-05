@@ -72,6 +72,10 @@ namespace PROWeb.Components.EligiblePolls.ViewModels
 
         public string? DriverLicenseConstituencyName { get; set; }
 
+        public double? DriverLicenseAssessmentLongitude { get; set; }
+
+        public double? DriverLicenseAssessmentLatitude { get; set; }
+
         public string? DriverLicensePhotoPath { get; set; }
 
         public int? SortIndex { get; set; }

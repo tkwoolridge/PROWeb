@@ -22,6 +22,10 @@ namespace PROWeb.Components.Assessments
         [Parameter]
         public bool ShowPopulateDialogButton { get; set; }
 
+        protected AddressMarker? AddressMarker { get; set; }
+
+        protected int TabIndex { get; set; }
+
         private readonly Expression<Func<TAddressViewModel, int?>>? _assessmentNoPath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _address1Path;
         private readonly Expression<Func<TAddressViewModel, string?>>? _houseNoPath;
@@ -29,11 +33,10 @@ namespace PROWeb.Components.Assessments
         private readonly Expression<Func<TAddressViewModel, string?>>? _postalCodePath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _parishNamePath;
         private readonly Expression<Func<TAddressViewModel, int?>>? _constituencyNoPath;
+        private readonly Expression<Func<TAddressViewModel, double?>>? _longitudePath;
+        private readonly Expression<Func<TAddressViewModel, double?>>? _latitudePath;
         private readonly Expression<Func<TAddressViewModel, string?>>? _constituencyNamePath;
-        private readonly Expression<Func<TAddressViewModel, bool?>>? _isBogusNoPath;
-        private readonly Expression<Func<TAddressViewModel, string?>>? _bogusNoPath;
-        private readonly Expression<Func<TAddressViewModel, int?>>? _bogusConstituencyNoPath;
-        private readonly Expression<Func<TAddressViewModel, string?>>? _bogusConstituencyNamePath;
+        private readonly Expression<Func<TAddressViewModel, bool?>>? _isBogusPath;
 
         public AddressView(
             Expression<Func<TAddressViewModel, int?>>? assessmentNoPath = null,
@@ -44,11 +47,9 @@ namespace PROWeb.Components.Assessments
             Expression<Func<TAddressViewModel, string?>>? parishNamePath = null,
             Expression<Func<TAddressViewModel, int?>>? constituencyNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? constituencyNamePath = null,
-            Expression<Func<TAddressViewModel, bool?>>? isBogusNoPath = null,
-            Expression<Func<TAddressViewModel, string?>>? bogusNoPath = null,
-            Expression<Func<TAddressViewModel, int?>>? bogusConstituencyNoPath = null,
-            Expression<Func<TAddressViewModel, string?>>? bogusConstituencyNamePath = null
-            )
+            Expression<Func<TAddressViewModel, double?>>? longitudePath = null,
+            Expression<Func<TAddressViewModel, double?>>? latitudePath = null,
+            Expression<Func<TAddressViewModel, bool?>>? isBogusPath = null)
         {
             _assessmentNoPath = assessmentNoPath;
             _address1Path = address1Path;
@@ -58,10 +59,9 @@ namespace PROWeb.Components.Assessments
             _parishNamePath = parishNamePath;
             _constituencyNoPath = constituencyNoPath;
             _constituencyNamePath = constituencyNamePath;
-            _isBogusNoPath = isBogusNoPath;
-            _bogusNoPath = bogusNoPath;
-            _bogusConstituencyNoPath = bogusConstituencyNoPath;
-            _bogusConstituencyNamePath = bogusConstituencyNamePath;
+            _longitudePath = longitudePath;
+            _latitudePath = latitudePath;
+            _isBogusPath = isBogusPath;
         }
 
         protected override void OnModelUpdate()
@@ -82,12 +82,27 @@ namespace PROWeb.Components.Assessments
                 _parishNamePath,
                 _constituencyNoPath,
                 _constituencyNamePath,
-                _isBogusNoPath,
-                _bogusNoPath,
-                _bogusConstituencyNoPath,
-                _bogusConstituencyNamePath
+                _longitudePath,
+                _latitudePath,
+                _isBogusPath
                 );
             }
+
+            TabIndex = 0;
+
+            UpdateMap();
+        }
+
+        private void UpdateMap()
+        {
+            if (AddressContext.Longitude is not { } longitude || AddressContext.Latitude is not { } latitude)
+            {
+                return;
+            }
+
+            AddressMarker = new AddressMarker([latitude, longitude], $"{AddressContext.AssessmentNo}: {AddressContext.Address2} {AddressContext.HouseNo}");
+
+            StateHasChanged();
         }
 
         protected override EditContext? GetEditContext()
@@ -107,6 +122,7 @@ namespace PROWeb.Components.Assessments
         protected void OnAssessmentSelectionConfirm(AssessmentViewModel assessment)
         {
             UpdateAddress(assessment);
+            UpdateMap();
         }
 
         public void OnUpdateAddress(AssessmentViewModel assessment)

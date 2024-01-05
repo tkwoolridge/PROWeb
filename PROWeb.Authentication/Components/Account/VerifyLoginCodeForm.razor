@@ -1,0 +1,49 @@
+﻿@using PROWeb.Authentication.Components.Shared
+@using PROWeb.Common.Components
+@inherits PROComponent
+
+<style>
+    .login-form {
+        width: 450px;
+    }
+</style>
+
+<div>
+    <div class="text-center mb-2 login-form k-text-primary">
+        Verification code is send to your email inbox. If you did not receive it after fiew minutes,
+        please click on resend code button to send it again.
+    </div>
+    <div class="d-flex justify-content-center">
+        <div>
+            <div>
+                <EditForm Model="@Model" method="post" OnValidSubmit="@HandleValidCode" FormName="loginVerifyCode">
+                    <DataAnnotationsValidator />
+                    <StatusMessage Message="@ErrorMessage" />
+                    <div class="k-form-field mb-2">
+                        <label for="mail" class="k-form-label k-text-primary">Verification Code:</label>
+                        <InputText id="mail" @bind-Value="@Model.VerificationCode" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" autocomplete="username" aria-required="true" placeholder="Type in your verification code..." />
+                        <TelerikValidationMessage For="@(() => Model.VerificationCode)"></TelerikValidationMessage>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <label class="k-form-label k-text-primary">
+                            <InputCheckbox @bind-Value="@Model.RememberMe" class="darker-border-checkbox form-check-input" />
+                            Remember me
+                        </label>
+                    </div>
+                    <div class="k-form-buttons k-actions-start">
+                        <TelerikButton Class="w-100" ButtonType="ButtonType.Submit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Login</TelerikButton>
+                    </div>
+                </EditForm>
+            </div>
+            <div class="pt-2">
+                <EditForm Context="resendCode" EditContext="@(new EditContext(new object()))" method="post" asp-antiforgery="false" OnValidSubmit="@HandleResendCode" FormName="resendCode">
+                    <div>
+                        <TelerikButton Class="w-100" ButtonType="ButtonType.Submit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Resend Code</TelerikButton>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -23,9 +23,7 @@
         public string? ImmigrationMiddleName { get; set; }
         
         public DateTime? ImmigrationDateOfBirth { get; set; }
-
         public char? ImmigrationGender { get; set; }
-        
         public string? ImmigrationStatus { get; set; }
 
         public string? ImmigrationStatusDescription { get; set; }
@@ -67,6 +65,10 @@
         public string? DriverLicenseParishName { get; set; }
 
         public int? DriverLicenseConstituencyNo { get; set; }
+
+        public double? DriverLicenseAssessmentLongitude { get; set; }
+
+        public double? DriverLicenseAssessmentLatitude { get; set; }
 
         public string? DriverLicenseConstituencyName { get; set; }
 

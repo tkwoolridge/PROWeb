@@ -24,6 +24,10 @@ namespace PROWeb.Components.Assessments.ViewModels
 
         public string? ParishName { get; set; }
 
+        public double? Longitude { get; set; }
+
+        public double? Latitude { get; set; }
+
         public bool IsBogus { get; set; }
 
         public bool Equals(AssessmentViewModel? other)

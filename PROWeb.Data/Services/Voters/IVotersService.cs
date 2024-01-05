@@ -7,7 +7,7 @@ namespace PROWeb.Data.Services.Voters
     {
         #region Voters
 
-        Voter? GetVoter(int registryYear, int voterId);
+        Task<Voter?> GetVoter(int registryYear, int voterId);
 
         IQueryable<Voter> GetVoters
            (
@@ -30,7 +30,11 @@ namespace PROWeb.Data.Services.Voters
                string? postalCode = null
            );
 
-        Task UpdateVoter(Voter voter, string userName);
+        Task UpdateVoterAsync(Voter voter);
+
+        Task AddVoterAsync(Voter voter);
+
+        Task AddVoterHistory(VoterHistory voterHistory);
 
         #endregion
 
@@ -59,8 +63,6 @@ namespace PROWeb.Data.Services.Voters
         #endregion
 
         #region
-
-        Task AddVoter(Voter voter, string user);
 
         #endregion
     }

@@ -21,11 +21,5 @@ namespace PROWeb.Data.Models
 
         [ForeignKey("ConstituencyNo")]
         public ICollection<Assessment> Assessments { get; set; }
-
-        public ICollection<Voter> Voters { get; set; }
-
-        public ICollection<Registration> Registrations { get; set; }
-
-        public ICollection<Registration> OldRegistrations { get; set; }
     }
 }

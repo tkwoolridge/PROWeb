@@ -152,7 +152,6 @@ namespace PROWeb.Authentication.Controllers
 
             var model = new LoginVerificationCodeViewModel()
             {
-                Email = email,
                 RememberMe = rememberMe,
             };
 
@@ -163,21 +162,6 @@ namespace PROWeb.Authentication.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> LoginVerifyCode(LoginVerificationCodeViewModel model, string returnUrl)
         {
-            if (model.ResendCode
-                && model.Email is { } email &&
-                await _userManager.FindByEmailAsync(model.Email) is { } user)
-            {
-                var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
-
-                await SendVerificationCodeMessage(token, email);
-
-                model.ResendCode = false;
-
-                return View(model);
-            }
-
-            model.ResendCode = false;
-
             if (!ModelState.IsValid || model.VerificationCode is not { } code)
             {
                 return View(model);

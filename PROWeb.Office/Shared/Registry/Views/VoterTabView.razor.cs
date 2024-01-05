@@ -1,28 +1,20 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
-using PROWeb.Components.Common.Views;
 using PROWeb.Components.Services.State;
+using PROWeb.Components.Voters;
 using PROWeb.Components.Voters.ViewModels;
-using PROWeb.Data.Models;
-using PROWeb.Data.Services.Voters;
+using Telerik.Blazor.Components;
 
 namespace PROWeb.Office.Shared.Registry.Views
 {
-    public partial class VoterTabView : PROCompositeView<VoterViewModel>, IPROComponentWithState<int>
+    public partial class VoterTabView : VoterViewBase<VoterViewModel>, IPROComponentWithState<int>
     {
         private int _tabIndex = 0;
-
-        [Inject]
-        private IVotersServiceFactory _voterServiceFactory { get; set; } = null!;
 
         [Inject]
         protected IStateService<VoterTabView, int> StateService { get; set; } = null!;
 
         protected string PersistenceKey => LayoutRef?.Model?.VoterId.ToString() ?? "0";
-
-        [Parameter]
-        public bool Editable { get; set; }
 
         protected int TabIndex
         {
@@ -45,25 +37,14 @@ namespace PROWeb.Office.Shared.Registry.Views
             }
         }
 
-        protected override void OnInitialized()
+        public async Task OnEditAsync(ListViewCommandEventArgs e)
         {
-            base.OnInitialized();
+            bool result = await OnSaveAsync();
+
+            e.IsCancelled = !result;
         }
 
         public bool PersistState { get; set; } = true;
-
-
-        protected override async Task SaveAsync(VoterViewModel model)
-        {
-            Voter? voter = LayoutRef?.Model?.Adapt<Voter>();
-
-            if (voter == null) { return; }
-
-            using (var service = _voterServiceFactory.CreateService())
-            {
-                await service.UpdateVoter(voter, "pro1");
-            }
-        }
 
         public void ResetState()
         {

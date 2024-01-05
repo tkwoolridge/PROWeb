@@ -28,8 +28,8 @@ namespace PROWeb.Data.Services.Registrations
                string? postalCode = null
             );
 
-        Task AddRegistration(Registration registration, string user);
+        Task AddRegistration(Registration registration);
 
-        Task UpdateRegistration(Registration registration, string user);
+        Task UpdateRegistration(Registration registration);
     }
 }

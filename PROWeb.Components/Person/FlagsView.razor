@@ -10,7 +10,9 @@
         <div class="person-flags-title pro-view-title">@Title</div>
         <div>
             <label>Flags:</label>
-            <TelerikMultiSelect ReadOnly="@ReadOnly"
+            <TelerikMultiSelect  
+                OnChange="@OnChanged"
+                ReadOnly="@ReadOnly"
                 ValueField="@(nameof(FlagContext<TFlagViewModel>.FlagId))"
                 TextField="@(nameof(FlagContext<TFlagViewModel>.FlagDescription))"
                 Data="@Flags" @bind-Value="@FlagsValues" />

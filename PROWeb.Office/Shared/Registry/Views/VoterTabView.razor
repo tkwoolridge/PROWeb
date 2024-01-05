@@ -2,9 +2,10 @@
 @using PROWeb.Components.Layouts;
 @using PROWeb.Components.Person;
 @using PROWeb.Components.Voters.ViewModels;
+@using PROWeb.Components.Voters;
 @using Telerik.FontIcons;
 @using PROWeb.Components.Common.Layouts;
-@inherits PROCompositeView<VoterViewModel>;
+@inherits VoterViewBase<VoterViewModel>;
 
 <style>
     .voter-main-view {
@@ -22,7 +23,7 @@
 
     .voter-tab-view
     {
-        height: 400px;
+        height: 440px;
     }
 
     .person-details-view {
@@ -38,7 +39,9 @@
                 <div class="voter-main-view">
                     <VoterPhotosView />
                     <VoterDetailsView Title="Voter Details:"/>
-                    <VoterAddressView Title="Address:" />
+                    <div class="address-view">
+                        <VoterAddressView Title="Address:" />
+                    </div>
                 </div>
             </TabStripTab>
             <TabStripTab Title="Contact">
@@ -57,7 +60,7 @@
             @if (Editable == true)
             {
                 <TelerikButton OnClick="@OnUndo" Enabled="@CanUndo" Icon="FontIcon.Undo" Class="me-1">Undo</TelerikButton>
-                <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@CanSave" Command="Save" OnClick="@OnSaveAsync" Class="me-1">Save</ListViewCommandButton>
+                <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@CanSave" Command="Save" OnClick="@OnEditAsync" Class="me-1">Save</ListViewCommandButton>
                 <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
             }
             else

@@ -11,16 +11,28 @@
     <div class="@_viewClass">
         <div class="person-details-title pro-view-title mb-2">@Title</div>
 
-        <label>Last Name:</label>
-        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.LastName" Id="@(nameof(DetailsContext.LastName))" />
-        <TelerikValidationTooltip For="@(() => DetailsContext.LastName)" TargetSelector="@("#" + nameof(DetailsContext.LastName))" />
+        <label>First Name:</label>
+        <div class="d-flex">
+            <div class="me-1">
+                <TelerikAutoComplete @bind-Value="@DetailsContext.Title"
+                                 ReadOnly="@ReadOnly"
+                                 Data="@Titles"
+                                 Width="60px"
+                                 Placeholder="Title...">
+                </TelerikAutoComplete>
+            </div>
+            <div class="w-auto">
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.FirstName" Id="@(nameof(DetailsContext.FirstName))" />
+                <TelerikValidationTooltip For="@(() => DetailsContext.FirstName)" TargetSelector="@("#" + nameof(DetailsContext.FirstName))" />
+            </div>
+        </div>
         
         <label>Middle Name:</label>
         <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.MiddleName" Id="@(nameof(DetailsContext.MiddleName))" />
 
-        <label>First Name:</label>
-        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.FirstName" Id="@(nameof(DetailsContext.FirstName))" />
-        <TelerikValidationTooltip For="@(() => DetailsContext.FirstName)" TargetSelector="@("#" + nameof(DetailsContext.FirstName))" />
+        <label>Last Name:</label>
+        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.LastName" Id="@(nameof(DetailsContext.LastName))" />
+        <TelerikValidationTooltip For="@(() => DetailsContext.LastName)" TargetSelector="@("#" + nameof(DetailsContext.LastName))" />
         
         @if (ShowMaidenName)
         {
@@ -32,18 +44,38 @@
         @if (ShowPopulateDialogButton)
         {
             <div class="update-view">
-                <div>
-                    <TelerikDateInput ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.DateOfBirth" Id="@(nameof(DetailsContext.DateOfBirth))" />
-                    <TelerikValidationTooltip For="@(() => DetailsContext.DateOfBirth)" TargetSelector="@("#" + nameof(DetailsContext.DateOfBirth))" />
+                <div class="d-flex">
+                    <div class="w-auto me-1">
+                        <TelerikDateInput ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.DateOfBirth" Id="@(nameof(DetailsContext.DateOfBirth))" />
+                        <TelerikValidationTooltip For="@(() => DetailsContext.DateOfBirth)" TargetSelector="@("#" + nameof(DetailsContext.DateOfBirth))" />
+                    </div>
+                    <div>
+                        <TelerikComboBox @bind-Value="@DetailsContext.Gender"
+                                             ReadOnly="@ReadOnly"
+                                             Data="@Genders"
+                                             Width="70px"
+                                             Placeholder="Gender...">
+                        </TelerikComboBox>
+                    </div>
                 </div>
                 <TelerikButton Class="edit-update-button" OnClick="@OnUpdate" Icon="@FontIcon.User" />
             </div>
         }
         else
         {
-            <div>
-                <TelerikDateInput ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.DateOfBirth" Id="@(nameof(DetailsContext.DateOfBirth))" />
-                <TelerikValidationTooltip For="@(() => DetailsContext.DateOfBirth)" TargetSelector="@("#" + nameof(DetailsContext.DateOfBirth))" />
+            <div class="d-flex">
+                <div class="w-auto me-1">
+                    <TelerikDateInput ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.DateOfBirth" Id="@(nameof(DetailsContext.DateOfBirth))" />
+                    <TelerikValidationTooltip For="@(() => DetailsContext.DateOfBirth)" TargetSelector="@("#" + nameof(DetailsContext.DateOfBirth))" />
+                </div>
+                <div>
+                    <TelerikComboBox @bind-Value="@DetailsContext.Gender"
+                                     ReadOnly="@ReadOnly"
+                                     Data="@Genders"
+                                     Width="70px"
+                                     Placeholder="Gender...">
+                    </TelerikComboBox>
+                </div>
             </div>
         }
     </div>

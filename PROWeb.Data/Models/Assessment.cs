@@ -39,7 +39,12 @@ namespace PROWeb.Data.Models
         [Required]
         public bool IsBogus { get; set; }
 
+        [Required]
         public Parish Parish { get; set; }
+
+        public double? Longitude { get; set; }
+
+        public double? Latitude { get; set; }
 
         [ForeignKey("AssessmentNo")]
         public ICollection<Voter> Voters { get; set; }

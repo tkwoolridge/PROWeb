@@ -99,10 +99,6 @@ namespace PROWeb.Components.Common.Views
             return Disposable.Create(this, o => o.Context!.Changing += o.OnContextChanging);
         }
 
-        public virtual void OnSave()
-        {
-        }
-
         public IEnumerable<string>? OnValidate()
         {
             EditContext?.Validate();

@@ -10,6 +10,8 @@ namespace PROWeb.Components.Assessments
 
         public bool CanConfirm { get; set; }
 
+        protected AssessmentsGrid? BogusListRef { get; set; }
+
         [Parameter]
         public EventCallback<AssessmentViewModel> Confirm { get; set; }
 
@@ -32,9 +34,17 @@ namespace PROWeb.Components.Assessments
             StateHasChanged();
         }
 
-        protected void OnAssessmentSelected(AssessmentViewModel assesment)
+        protected async Task OnTabChangedAsync(int index)
         {
-            _assessment = assesment;
+            if(index == 1)
+            {
+                await LoadBogusNumbersAsync();
+            }
+        }
+
+        protected void OnAssessmentSelected(AssessmentViewModel assessment)
+        {
+            _assessment = assessment;
 
             CanConfirm = true;
         }
@@ -53,9 +63,28 @@ namespace PROWeb.Components.Assessments
             await Cancel.InvokeAsync();
         }
 
-        protected override void OnInitialized()
+        private async Task LoadBogusNumbersAsync()
         {
-            base.OnInitialized();
+            if (BogusListRef is not { } bogusList)
+            {
+                return;
+            }
+
+            await bogusList.OnFilterAsync(new AssessmentFilterViewModel
+            {
+                IsBogusNo = true
+            });
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                await LoadBogusNumbersAsync();
+            }
+           
         }
     }
 }

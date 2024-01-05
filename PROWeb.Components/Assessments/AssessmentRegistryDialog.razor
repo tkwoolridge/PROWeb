@@ -3,9 +3,18 @@
 @using PROWeb.Components.Common.Layouts
 @inherits PRORegistryLayout<AssessmentFilterViewModel, AssessmentViewModel>
 
+<style>
+    .assessment-dialog-layout {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto;
+        gap: 5px;
+        height: 100%;
+    }
+</style>
+
 <TelerikWindow 
     Width="800px"
-    Height="600px"
+    Height="650px"
     Centered="true" 
     Modal="true" 
     @bind-Visible="@ShowDialog">
@@ -16,26 +25,33 @@
         <WindowAction Name="Close"></WindowAction>
     </WindowActions>
     <WindowContent>
-        <FilterListLayout>
-            <Filter>
-                <ExpansionPanel>
-                    <Header>
-                        <strong>Filter:</strong>
-                    </Header>
-                    <Content>
-                        <AssessmentFilterSimple @ref="@FilterRef" />
-                    </Content>
-                 </ExpansionPanel>
-            </Filter>
-            <List>
-                <AssessmentsGrid EnableSelection="true" AssessmentSelected="@OnAssessmentSelected" @ref="ListRef" />
-            </List>
-            <Footer>
-                <div class="d-flex justify-content-between w-100">
-                    <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnConfirm" Enabled="@CanConfirm" ThemeColor="primary">Confirm</TelerikButton>
-                    <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnCancel">Cancel</TelerikButton>
-                </div>
-            </Footer>
-        </FilterListLayout>
+        <div class="assessment-dialog-layout">
+             <TelerikTabStrip ActiveTabIndexChanged="OnTabChangedAsync" Width="100%">
+                <TabStripTab Title="Address">
+                    <FilterListLayout>
+                        <Filter>
+                            <ExpansionPanel>
+                                <Header>
+                                    <strong>Filter:</strong>
+                                </Header>
+                                <Content>
+                                    <AssessmentFilterSimple @ref="@FilterRef" />
+                                </Content>
+                             </ExpansionPanel>
+                        </Filter>
+                        <List>
+                            <AssessmentsGrid EnableSelection="true" AssessmentSelected="@OnAssessmentSelected" @ref="ListRef" />
+                        </List>
+                    </FilterListLayout>
+                </TabStripTab>
+                <TabStripTab Title="Bogus No">
+                    <AssessmentsGrid EnableSelection="true" AssessmentSelected="@OnAssessmentSelected" LoadBogusList="true" />
+                </TabStripTab>
+            </TelerikTabStrip>
+            <div class="d-flex justify-content-between w-100">
+                <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnConfirm" Enabled="@CanConfirm" ThemeColor="primary">Confirm</TelerikButton>
+                <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnCancel">Cancel</TelerikButton>
+            </div>
+        </div>
     </WindowContent>
 </TelerikWindow>

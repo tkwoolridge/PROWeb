@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Http
+@using PROWeb.Authentication.Services
+@if (!string.IsNullOrEmpty(DisplayMessage))
+{
+    var statusMessageClass = MessageType == StatusMessageTypes.Error ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass" role="alert">
+        @DisplayMessage
+    </div>
+}
+
+@code {
+    private string? messageFromCookie;
+
+    [Parameter]
+    public StatusMessageTypes MessageType { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private string? DisplayMessage => Message ?? messageFromCookie;
+
+    public enum StatusMessageTypes
+    {
+        Error,
+        Info
+    }
+
+    protected override void OnInitialized()
+    {
+        messageFromCookie = HttpContext.Request.Cookies[IdentityRedirectManager.StatusCookieName];
+
+        if (messageFromCookie is not null)
+        {
+            HttpContext.Response.Cookies.Delete(IdentityRedirectManager.StatusCookieName);
+        }
+    }
+}

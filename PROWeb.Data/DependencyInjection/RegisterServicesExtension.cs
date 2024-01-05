@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Mapster;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PROWeb.Data.Mappings;
 using PROWeb.Data.Services;
 using PROWeb.Data.Services.Assessments;
 using PROWeb.Data.Services.CachedData;
 using PROWeb.Data.Services.Configuration;
 using PROWeb.Data.Services.EligiblePoll;
 using PROWeb.Data.Services.Logging;
+using PROWeb.Data.Services.Map;
 using PROWeb.Data.Services.Registrations;
 using PROWeb.Data.Services.Voters;
 
@@ -18,6 +21,10 @@ namespace PROWeb.Data.DependencyInjection
         public static void AddPROWebDataModule(this WebApplicationBuilder builder)
         {
             var services = builder.Services;
+
+            var config = TypeAdapterConfig.GlobalSettings;
+            config.Scan(typeof(DataMapper).Assembly);
+            services.AddSingleton(config);
 
             services.AddDbContextFactory<DataContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("PROWebConnection")));
@@ -39,6 +46,9 @@ namespace PROWeb.Data.DependencyInjection
 
             // Register voters service.
             services.AddSingleton<IVotersServiceFactory, VotersServiceFactory>();
+
+            // Register voters service.
+            services.AddSingleton<IMapServiceFactory, MapServiceFactory>();
 
             // Register registration service.
             services.AddSingleton<IRegistrationServiceFactory, RegistrationServiceFactory>();

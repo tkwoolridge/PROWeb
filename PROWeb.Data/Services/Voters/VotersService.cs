@@ -2,6 +2,7 @@
 using PROWeb.Common.Data;
 using PROWeb.Data.Extensions;
 using PROWeb.Data.Models;
+using System.Diagnostics;
 
 namespace PROWeb.Data.Services.Voters
 {
@@ -29,13 +30,19 @@ namespace PROWeb.Data.Services.Voters
 
         #region Voters
 
-        public Voter? GetVoter(int registryYear, int voterId)
+        public async Task<Voter?> GetVoter(int registryYear, int voterId)
         {
-            return GetVoters(
+            var querable = GetVoters(
                 Context.Voters,
                 registryYear,
                 voterId)
-                .FirstOrDefault();
+                .Include(v => v.Assessment)
+                .Include(v => v.Country)
+                .Include(v => v.Assessment.Parish)
+                .Include(v => v.Assessment.Constituency);
+
+            return await querable
+                .FirstOrDefaultAsync();
         }
 
         public IQueryable<Voter> GetVoters
@@ -133,21 +140,41 @@ namespace PROWeb.Data.Services.Voters
             return voters;
         }
 
-        public async Task UpdateVoter(Voter voter, string userName)
+        public async Task UpdateVoterAsync(Voter voter)
         {
             var flags = voter.Flags.ToList();
 
-            voter.Flags.Clear();
-            Context.AttachRange(flags);
-            Context.Attach(voter);
+            Voter? curentVoter = Context.Voters.AsNoTracking().FirstOrDefault(v => v.VoterId == voter.VoterId);
 
-            voter.LastUpdated= DateTime.Now;
-            voter.LastUpdatedBy = userName;
+            Debug.Assert(curentVoter != null);
+
+            voter.Flags.Clear();
+
+            Context.AttachRange(flags);
+
+            if(Context.Entry(voter).State == EntityState.Detached)
+            {
+                Context.Attach(voter);
+            }
 
             voter = await Context.Voters.Include(l => l.Flags).SingleAsync(v => voter.Equals(v));
             voter.Flags = flags;
 
             Context.Update(voter);
+
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task AddVoterHistory(VoterHistory history)
+        {
+            Context.VoterHistories.Add(history);
+
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task AddVoterAsync(Voter voter)
+        {
+            Context.Voters.Add(voter);
 
             await Context.SaveChangesAsync();
         }
@@ -203,16 +230,6 @@ namespace PROWeb.Data.Services.Voters
 
                 await Context.SaveChangesAsync();
             }
-        }
-
-        public async Task AddVoter(Voter voter , string user)
-        {
-            voter.LastUpdated = DateTime.Now;
-            voter.LastUpdatedBy = user;
-
-            Context.Voters.Add(voter);
-
-            await Context.SaveChangesAsync();
         }
 
         #endregion

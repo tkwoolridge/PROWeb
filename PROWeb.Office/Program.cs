@@ -5,6 +5,7 @@ using PROWeb.Authentication.DependencyInjection;
 using PROWeb.Components.DependencyInjection;
 using PROWeb.Data.DependencyInjection;
 using PROWeb.Data.Services.Extensions;
+using PROWeb.Office;
 using PROWeb.Office.Mapper;
 using Serilog;
 using System.Globalization;
@@ -34,8 +35,9 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 });
 
 // Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
 builder.Services.AddTelerikBlazor();
 builder.AddPROWebDataModule();
 builder.AddPROWebDataAuthenticationModule();
@@ -64,11 +66,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
+app.UseAntiforgery();
 
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.MapPROWebAuthenticationEndpoints();
 
-app.AddPROWebAuthenticationModule();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 app.Run();

@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Components.Services.State;
+using Telerik.Blazor.Components;
 
 namespace PROWeb.Office.Shared.Registrations.Views
 {
     public partial class FormTabView : FormViewBase, IPROComponentWithState<int>
     {
         private int _tabIndex = 0;
-
-        [Parameter]
-        public bool Editable { get; set; }
 
         [Inject]
         protected IStateService<FormTabView, int> StateService { get; set; } = null!;
@@ -38,6 +36,13 @@ namespace PROWeb.Office.Shared.Registrations.Views
         }
 
         public bool PersistState { get; set; } = true;
+
+        public async Task OnEditAsync(ListViewCommandEventArgs e)
+        {
+            bool result = await OnSaveAsync();
+
+            e.IsCancelled = !result;
+        }
 
         public void ResetState()
         {

@@ -1,0 +1,32 @@
+﻿@using PROWeb.Authentication.Components.Account;
+
+<AuthorizeView>
+    <Authorized>
+        @RouterWithLayout(typeof(MainLayout))
+    </Authorized>
+    <NotAuthorized>
+        @RouterWithLayout(typeof(NotAutorizedLayout))
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    RenderFragment RouterWithLayout(Type layoutType) => __builder =>
+    {
+        <Router AppAssembly="@typeof(Program).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="routeData" DefaultLayout="@layoutType">
+                    <NotAuthorized>
+                        <RedirectToLogin />
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+                <FocusOnNavigate RouteData="routeData" Selector="h1" />
+            </Found>
+            <NotFound>
+                <PageTitle>Not found</PageTitle>
+                <LayoutView Layout="@layoutType">
+                    <p>Sorry, there's nothing at this address.</p>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    };
+}

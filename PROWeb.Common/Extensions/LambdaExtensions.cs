@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using FastExpressionCompiler;
 
 namespace PROWeb.Common.Extensions;
 
@@ -108,7 +105,7 @@ public static class LambdaExtensions
                     Expression.MakeMemberAccess(arg, propertyInfo),
                     arg2),
                 arg,
-                arg2).CompileFast();
+                arg2).Compile();
         }
 
         (delegates.Setter as Action<TOwner, TValue>)?.Invoke(owner, value);
@@ -149,7 +146,7 @@ public static class LambdaExtensions
             ParameterExpression arg = Expression.Parameter(typeof(TOwner));
             delegates.Getter = Expression.Lambda<Func<TOwner, TValue>>(
                 Expression.Property(arg, propertyInfo),
-                arg).CompileFast();
+                arg).Compile();
         }
 
         return ((Func<TOwner, TValue>)delegates.Getter)(owner);

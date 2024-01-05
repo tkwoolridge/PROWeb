@@ -4,6 +4,7 @@
 	<MenuItem Name="Registry" Description="Parliamentary Registry">
 		<MenuItem Name="Registry" Description="Registry" Page="/"/>
 		<MenuItem Name="Registrations" Description="Registrations" Page="/registrations"/>
+		<MenuItem Name="Map" Description="Map" Page="/map"/>
 	</MenuItem>
 
 	<!--<MenuItem Requirement="CanUseRatepayerRegistry" Name="Ratepayers" Description="Ratepayers">
@@ -40,7 +41,7 @@
     </MenuItem>
 
 	<MenuItem Name="Actions" Description="Actions">
-		<MenuItem Name="Logoff" Description="Logoff" Page="/Identity/Account/Logout"/>
+		<MenuItem Name="Logoff" Description="Logoff" Page="Account/Logout"/>
 	</MenuItem>
 
 	<MenuItem IsExpanded="false" Name="Help" Description="Help">

@@ -11,7 +11,7 @@ namespace PROWeb.Components.Assessments.Contexts
     {
         private int? _assessmentNo;
 
-        [Required(ErrorMessage = "Assessment no is requred!")]
+        [Required(ErrorMessage = "Assessment no is required!")]
         public int? AssessmentNo
         {
             get => _assessmentNo;
@@ -82,36 +82,28 @@ namespace PROWeb.Components.Assessments.Contexts
             set => RaiseAndSetIfChanged(ref _constituencyName, value.ToNullIfWhiteSpace());
         }
 
-        private bool? _isBogusNo;
+        private double? _longitude;
 
-        public bool? IsBogusNo
+        public double? Longitude
         {
-            get => _isBogusNo;
-            set => RaiseAndSetIfChanged(ref _isBogusNo, value);
+            get => _longitude;
+            set => RaiseAndSetIfChanged(ref _longitude, value);
         }
 
-        private string? _bogusNo;
+        private double? _latitude;
 
-        public string? BogusNo
+        public double? Latitude
         {
-            get => _bogusNo;
-            set => RaiseAndSetIfChanged(ref _bogusNo, value.ToNullIfWhiteSpace());
+            get => _latitude;
+            set => RaiseAndSetIfChanged(ref _latitude, value);
         }
 
-        private int? _bogusConstituencyNo;
+        private bool? _isBogus;
 
-        public int? BogusConstituencyNo
+        public bool? IsBogus
         {
-            get => _bogusConstituencyNo;
-            set => RaiseAndSetIfChanged(ref _bogusConstituencyNo, value);
-        }
-
-        private string? _bogusConstituencyName;
-
-        public string? BogusConstituencyName
-        {
-            get => _bogusConstituencyName;
-            set => RaiseAndSetIfChanged(ref _bogusConstituencyName, value.ToNullIfWhiteSpace());
+            get => _isBogus;
+            set => RaiseAndSetIfChanged(ref _isBogus, value);
         }
 
         public void Bind(
@@ -124,10 +116,9 @@ namespace PROWeb.Components.Assessments.Contexts
             Expression<Func<TAddressViewModel, string?>>? parishNamePath = null,
             Expression<Func<TAddressViewModel, int?>>? constituencyNoPath = null,
             Expression<Func<TAddressViewModel, string?>>? constituencyNamePath = null,
-            Expression<Func<TAddressViewModel, bool?>>? isBogusNoPath = null,
-            Expression<Func<TAddressViewModel, string?>>? bogusNoPath = null,
-            Expression<Func<TAddressViewModel, int?>>? bogusConstituencyNoPath = null,
-            Expression<Func<TAddressViewModel, string?>>? bogusConstituencyNamePath = null)
+            Expression<Func<TAddressViewModel, double?>>? longitudePath = null,
+            Expression<Func<TAddressViewModel, double?>>? latitudePath = null,
+            Expression<Func<TAddressViewModel, bool?>>? isBogusPath = null)
         {
             Model = model;
 
@@ -142,10 +133,9 @@ namespace PROWeb.Components.Assessments.Contexts
                 AddBinding(Model?.Bind(this, parishNamePath, c => c.ParishName, StrongBindingMode.TwoWay));
                 AddBinding(Model?.Bind(this, constituencyNoPath, c => c.ConstituencyNo, StrongBindingMode.TwoWay));
                 AddBinding(Model?.Bind(this, constituencyNamePath, c => c.ConstituencyName, StrongBindingMode.TwoWay));
-                AddBinding(Model?.Bind(this, isBogusNoPath, c => c.IsBogusNo, StrongBindingMode.TwoWay));
-                AddBinding(Model?.Bind(this, bogusNoPath, c => c.BogusNo, StrongBindingMode.TwoWay));
-                AddBinding(Model?.Bind(this, bogusConstituencyNoPath, c => c.BogusConstituencyNo, StrongBindingMode.TwoWay));
-                AddBinding(Model?.Bind(this, bogusConstituencyNamePath, c => c.BogusConstituencyName, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, longitudePath, c => c.Longitude, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, latitudePath, c => c.Latitude, StrongBindingMode.TwoWay));
+                AddBinding(Model?.Bind(this, isBogusPath, c => c.IsBogus, StrongBindingMode.TwoWay));
             }
         }
     }

@@ -61,11 +61,20 @@ namespace PROWeb.Authentication.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid login attempt..
+        ///   Looks up a localized string similar to Invalid login attempt!.
         /// </summary>
         internal static string InvalidLoginAttemptMessage {
             get {
                 return ResourceManager.GetString("InvalidLoginAttemptMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid verification code!.
+        /// </summary>
+        internal static string InvalidVerificationCode {
+            get {
+                return ResourceManager.GetString("InvalidVerificationCode", resourceCulture);
             }
         }
         

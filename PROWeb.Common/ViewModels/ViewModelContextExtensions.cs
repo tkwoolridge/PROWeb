@@ -1,5 +1,4 @@
-﻿using FastExpressionCompiler;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 
 namespace PROWeb.Common.ViewModels
@@ -11,7 +10,7 @@ namespace PROWeb.Common.ViewModels
             ParameterExpression arg = Expression.Parameter(typeof(TContext));
             Func<TContext, object> result = Expression.Lambda<Func<TContext, object>>(
                 Expression.Convert(Expression.Property(arg, property), typeof(object)),
-                arg).CompileFast();
+                arg).Compile();
 
             return result;
         }
@@ -25,7 +24,7 @@ namespace PROWeb.Common.ViewModels
                     Expression.MakeMemberAccess(arg, property),
                     Expression.Convert(arg2, property.PropertyType)),
                 arg,
-                arg2).CompileFast();
+                arg2).Compile();
 
             return result;
         }

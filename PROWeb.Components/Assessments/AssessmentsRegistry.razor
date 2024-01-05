@@ -10,11 +10,11 @@
                 <strong>Filter:</strong>
             </Header>
             <Content>
-                <AssessmentFilterAdvanced PersistState="@PersistState" @ref="@FilterRef" />
+                <AssessmentFilterAdvanced @ref="@FilterRef" />
             </Content>
         </ExpansionPanel>
     </Filter>
     <List>
-        <AssessmentsGrid PersistState="@PersistState" EnableSelection="@EnableSelection" AssessmentSelected="@OnSelectionChanged" @ref="@ListRef" />
+        <AssessmentsGrid AssessmentSelected="@OnSelectionChanged" @ref="@ListRef" />
     </List>
 </FilterListLayout>

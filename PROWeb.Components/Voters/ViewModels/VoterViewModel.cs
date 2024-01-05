@@ -178,36 +178,28 @@ namespace PROWeb.Components.Voters.ViewModels
             set => RaiseAndSetIfChanged(ref _isEligible, value);
         }
 
-        private bool? _isBogusNo;
+        private double? _assessmentLongitude;
 
-        public bool? IsBogusNo
+        public double? AssessmentLongitude
         {
-            get => _isBogusNo;
-            set => RaiseAndSetIfChanged(ref _isBogusNo, value);
+            get => _assessmentLongitude;
+            set => RaiseAndSetIfChanged(ref _assessmentLongitude, value);
         }
 
-        private string? _bogusNo;
+        private double? _assessmenLatitude;
 
-        public string? BogusNo
+        public double? AssessmentLatitude
         {
-            get => _bogusNo;
-            set => RaiseAndSetIfChanged(ref _bogusNo, value);
+            get => _assessmenLatitude;
+            set => RaiseAndSetIfChanged(ref _assessmenLatitude, value);
         }
 
-        private int? _bogusConstituencyNo;
+        private bool? _isAssessmentBogusNo;
 
-        public int? BogusConstituencyNo
+        public bool? IsAssessmentBogus
         {
-            get => _bogusConstituencyNo;
-            set => RaiseAndSetIfChanged(ref _bogusConstituencyNo, value);
-        }
-
-        private string? _bogusConstituencyName;
-
-        public string? BogusConstituencyName
-        {
-            get => _bogusConstituencyName;
-            set => RaiseAndSetIfChanged(ref _bogusConstituencyName, value);
+            get => _isAssessmentBogusNo;
+            set => RaiseAndSetIfChanged(ref _isAssessmentBogusNo, value);
         }
 
         private string? _email;

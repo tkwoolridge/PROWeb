@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
-using FastExpressionCompiler;
 using PROWeb.Common.Extensions;
 
 namespace PROWeb.Common.StrongBindings;
@@ -72,7 +71,7 @@ public class StrongBindingPath<TSource, TProperty> : IStrongBindingPath
         ParameterExpression arg = Expression.Parameter(typeof(TSource));
         Func<TSource, TProperty> result = Expression.Lambda<Func<TSource, TProperty>>(
             Expression.Convert(Expression.Property(arg, property), typeof(TProperty)),
-            arg).CompileFast();
+            arg).Compile();
 
         return result;
     }
@@ -86,7 +85,7 @@ public class StrongBindingPath<TSource, TProperty> : IStrongBindingPath
                 Expression.MakeMemberAccess(arg, property),
                 Expression.Convert(arg2, property.PropertyType)),
             arg,
-            arg2).CompileFast();
+            arg2).Compile();
 
         return result;
     }
