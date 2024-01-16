@@ -1,0 +1,37 @@
+﻿@using PROWeb.Authentication.Components.Users.ViewModels
+@using PROWeb.Office.Shared.Users.Views;
+@using PROWeb.Office.Shared.Users.ViewModels;
+@inherits PROListComponent<UserFilterViewModel, UserViewModel>
+
+<style>
+    .user-view {
+        float: left;
+        margin: 5px;
+        padding:5px;
+        box-sizing: border-box;
+        position: relative;
+    }
+</style>
+
+<TelerikListView
+        @ref="ListRef"
+        OnUpdate="@OnUpdate"
+        Data=@Data
+        @bind-Page="@Page"
+        Pageable="true"
+        Height="100%">
+    <Template>
+        <div class="user-view">
+            <CascadingValue Value="@context">
+                <ListOfficerView/>
+            </CascadingValue>
+        </div>
+    </Template>
+    <EditTemplate>
+        <div class="user-view">
+           <CascadingValue Value="@context">
+                <ListOfficerView Editable="true" />
+            </CascadingValue>
+        </div>
+    </EditTemplate>
+</TelerikListView>

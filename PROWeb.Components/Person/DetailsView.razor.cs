@@ -8,6 +8,7 @@ using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Person.Contexts;
 using PROWeb.Components.Voters;
 using PROWeb.Components.Voters.ViewModels;
+using PROWeb.Data.Services.CachedData;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection.Metadata;
@@ -27,6 +28,9 @@ namespace PROWeb.Components.Person
     public abstract partial class DetailsView<TPersonViewModel> : DetailsViewBase<TPersonViewModel>
         where TPersonViewModel : SlimViewModelBase
     {
+        [Inject]
+        protected ICachedDataService _cachedDataService { get; set; } = default!;
+
         [Parameter]
         public bool ShowMaidenName { get; set; }
 
@@ -34,7 +38,10 @@ namespace PROWeb.Components.Person
         public int RowCount { get; set; }
 
         [Parameter]
-        public PopulateDetailsDialogs PopulateDialog { get; set; } 
+        public PopulateDetailsDialogs PopulateDialog { get; set; }
+
+        [Parameter]
+        public bool AllowLastNameEdit { get; set; } = false;
 
         [Parameter]
         public bool ShowPopulateDialogButton { get; set; } 
@@ -65,6 +72,8 @@ namespace PROWeb.Components.Person
 
             PopulateDialog = PopulateDetailsDialogs.EligiblePolls;
             RowCount = 7;
+            Genders = _cachedDataService.Genders;
+            Titles = _cachedDataService.Titles;
         }
 
         protected DetailsView(

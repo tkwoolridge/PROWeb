@@ -1,0 +1,22 @@
+﻿@using PROWeb.Authentication.Components.Users.ViewModels
+@using PROWeb.Components.Common
+@inherits PROFilterComponent<UserFilterViewModel>
+
+<EditForm Model="@Filter">
+    <div class="d-flex justify-content-start">
+        <div class="user-filter">
+            <label for="userName" class="k-label k-form-label">User Name:</label>
+            <TelerikTextBox Id="userName" @bind-Value="@Filter.UserName" />
+
+            <label for="firstName" class="k-label k-form-label">First Name:</label>
+            <TelerikTextBox Id="firstName" @bind-Value="@Filter.FirstName" />
+
+            <label for="lastName" class="k-label k-form-label">Last name:</label>
+            <TelerikTextBox Id="lastName" @bind-Value="@Filter.LastName" />
+        </div>
+    </div>
+    <div class="d-flex justify-content-between w-100 mt-2">
+        <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnSearchAsync" Enabled="@CanSearch" ThemeColor="primary">Search</TelerikButton>
+        <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnClear">Clear</TelerikButton>
+    </div>
+</EditForm>

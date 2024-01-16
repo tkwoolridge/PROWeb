@@ -1,0 +1,44 @@
+﻿@attribute [Authorize]
+@page "/users"
+@using PROWeb.Authentication.Components.Users.ViewModels
+@using PROWeb.Authentication.Components.Users.Filters
+@using PROWeb.Authentication.Components.Users
+@using PROWeb.Components.Common
+@using PROWeb.Components.Common.Layouts
+@using PROWeb.Components.Layouts;
+@using PROWeb.Office.Shared.Users;
+@using PROWeb.Office.Shared.Users.ViewModels
+@using Telerik.FontIcons
+
+@inherits PRORegistryLayout<UserFilterViewModel, UserViewModel>
+
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <Content>
+                <UserFilter @ref="@FilterRef" />
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <Toolbox>
+        <TelerikButtonGroup SelectionMode="@ButtonGroupSelectionMode.Single">
+            <ButtonGroupToggleButton @bind-Selected="@GridSelected" Icon="@FontIcon.Rows" />
+            <ButtonGroupToggleButton Icon="@FontIcon.Group" />
+        </TelerikButtonGroup>
+    </Toolbox>
+    <List>
+        <div class="p-container h-100">
+            @ListTemplate
+        </div>
+    </List>
+</FilterListLayout>
+
+@code
+{
+    private RenderFragment List => @<UsersList @ref="ListRef" />;
+
+    private RenderFragment Grid => @<UsersGrid @ref="ListRef" />;
+}

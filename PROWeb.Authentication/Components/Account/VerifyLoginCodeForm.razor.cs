@@ -20,7 +20,7 @@ namespace PROWeb.Authentication.Components.Account
         internal IdentityRedirectManager RedirectManager { get; set; } = default!;
 
         [Inject]
-        protected ISendVerificationCodeService SendVerificationCodeService { get; set; } = default!;
+        protected ISendVerificationMessagesService SendVerificationCodeService { get; set; } = default!;
 
         [SupplyParameterFromQuery]
         private string? ReturnUrl { get; set; }
@@ -40,7 +40,7 @@ namespace PROWeb.Authentication.Components.Account
             await base.OnInitializedAsync();
         }
 
-        protected async Task HandleValidCode()
+        protected async Task ValidateCode()
         {
             if (Model?.VerificationCode is not { } code)
             {
@@ -59,9 +59,9 @@ namespace PROWeb.Authentication.Components.Account
             }
         }
 
-        protected async Task HandleResendCode()
+        protected async Task ResendCode()
         {
-            await SendVerificationCodeService.SendCodeAsync();
+            await SendVerificationCodeService.SendVerificationCodeMessageAsync();
         }
     }
 }

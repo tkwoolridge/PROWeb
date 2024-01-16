@@ -18,7 +18,7 @@ namespace PROWeb.Authentication.DependencyInjection
             builder.Services.AddScoped<IdentityUserAccessor>();
             builder.Services.AddScoped<IdentityRedirectManager>();
             builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
-            builder.Services.AddScoped<ISendVerificationCodeService, SendVerificationCodeService>();
+            builder.Services.AddScoped<ISendVerificationMessagesService, SendVerificationMessagesService>();
 
             builder.Services.AddAuthentication(options =>
             {
@@ -53,9 +53,11 @@ namespace PROWeb.Authentication.DependencyInjection
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                     options.User.RequireUniqueEmail = true;
                 })
+                .AddDefaultTokenProviders()
+                .AddTokenProvider<EmailTokenProvider<PROUser>>("Email")
+                .AddRoles<PRORole>()
                 .AddEntityFrameworkStores<IdentityDataContext>()
-                .AddSignInManager()
-                .AddTokenProvider<EmailTokenProvider<PROUser>>("Email");
+                .AddSignInManager();
             
 
             builder.Services.ConfigureApplicationCookie(options =>

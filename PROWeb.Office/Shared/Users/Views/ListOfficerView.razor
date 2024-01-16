@@ -1,0 +1,25 @@
+﻿@using PROWeb.Components.Common.Views;
+@using PROWeb.Components.Common.Layouts;
+@using Telerik.FontIcons;
+@using PROWeb.Office.Shared.Users.ViewModels;
+@inherits PROCompositeView<UserViewModel>
+
+<ViewsLayout TViewModel="UserViewModel" Class="p-container" Editable="@Editable" @ref="@LayoutRef">
+    <Views>
+        <OfficerView Title="User Details:" />                                                                           
+    </Views> 
+    <Footer>
+        <div class="d-flex justify-content-end mt-1 mb-2 mx-2">
+            @if (Editable == true)
+            {
+                <TelerikButton OnClick="@OnUndo" Enabled="@CanUndo" Icon="FontIcon.Undo" Class="me-1">Undo</TelerikButton>
+                <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@CanSave" Command="Save" OnClick="@OnEditAsync" Class="me-1">Save</ListViewCommandButton>
+                <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
+            }
+            else
+            {
+                <ListViewCommandButton Icon="@FontIcon.Pencil" Command="Edit">Edit</ListViewCommandButton>
+            }
+        </div>
+    </Footer>
+</ViewsLayout>

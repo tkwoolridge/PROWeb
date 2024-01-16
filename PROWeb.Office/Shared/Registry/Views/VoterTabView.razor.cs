@@ -14,6 +14,8 @@ namespace PROWeb.Office.Shared.Registry.Views
         [Inject]
         protected IStateService<VoterTabView, int> StateService { get; set; } = null!;
 
+        protected VoterHistoryDialog? VoterHistoryDialogRef { get; set; }
+
         protected string PersistenceKey => LayoutRef?.Model?.VoterId.ToString() ?? "0";
 
         protected int TabIndex
@@ -42,6 +44,11 @@ namespace PROWeb.Office.Shared.Registry.Views
             bool result = await OnSaveAsync();
 
             e.IsCancelled = !result;
+        }
+
+        public void OnShowHistory()
+        {
+            VoterHistoryDialogRef?.Show();
         }
 
         public bool PersistState { get; set; } = true;

@@ -44,6 +44,23 @@ namespace PROWeb.Data.Services.Voters
 
         #endregion
 
+        #region Voter History
+
+        IQueryable<VoterHistory> GetVoterHistories
+           (
+               int registryYear,
+               int voterId
+           );
+
+        IQueryable<VoterHistoryField> GetVoterHistoryFields
+           (
+               int registryYear,
+               int voterId,
+               DateTime created
+           );
+
+        #endregion
+
         #region Countries
 
         IQueryable<Country> GetCountries();

@@ -1,0 +1,12 @@
+﻿@using PROWeb.Components.Person.Filters;
+@using PROWeb.Components.Voters.ViewModels;
+@inherits PROGridComponent<VoterHistoryViewModel, VoterHistoryFieldViewModel>
+
+<TelerikGrid Height="100%"
+             Data="@Data">
+    <GridColumns>
+        <GridColumn Field=@nameof(VoterHistoryFieldViewModel.FieldDescription) Title="Field" />
+        <GridColumn Width="150px" Field=@nameof(VoterHistoryFieldViewModel.OldValue) Title="Old Value" />
+        <GridColumn Width="150px" Field=@nameof(VoterHistoryFieldViewModel.NewValue) Title="New Value" />
+    </GridColumns>
+</TelerikGrid>

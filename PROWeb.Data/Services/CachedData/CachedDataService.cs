@@ -13,6 +13,8 @@ namespace PROWeb.Data.Services.CachedData
     {
         public int RegistrationYear { get; private set; }
 
+        public List<int> RegistrationYears { get; private set; } = Enumerable.Empty<int>().ToList();
+
         public List<Country> Countries { get; private set; } = Enumerable.Empty<Country>().ToList();
 
         public List<VoterFlag> Flags { get; private set; } = Enumerable.Empty<VoterFlag>().ToList();
@@ -21,16 +23,27 @@ namespace PROWeb.Data.Services.CachedData
 
         public List<Parish> Parishes { get; private set; } = Enumerable.Empty<Parish>().ToList();
 
+        public List<char> Genders { get; private set; } = Enumerable.Empty<char>().ToList();
+
+        public List<string> Titles { get; private set; } = Enumerable.Empty<string>().ToList();
+
         public string? ConstituenciesGeoJSON { get; private set; }
         
         public List<ConstituencyMarker>? ConstituencyMarkers { get; private set; }
 
         public async Task PreloadCachedDataAsync(DataContext context)
         {
+            PreloadPersonData();
             await PreloadOfficeDataAsync(context);
             await PreloadFlagsDataAsync(context);
             await PreloadConstituencyBounderiesAsync(context);
             //await PreloadAssessmentDataAsync(context);
+        }
+
+        private void PreloadPersonData()
+        {
+            Titles = new List<string>() { "MS", "MISS", "MR", "MRS", "DR", "JP", "MP" };
+            Genders = new List<char>() { 'M', 'F', 'N' };
         }
 
         private async Task PreloadOfficeDataAsync(DataContext context)
@@ -38,6 +51,8 @@ namespace PROWeb.Data.Services.CachedData
             var office = await context.PROOffices.FirstOrDefaultAsync();
 
             RegistrationYear = office?.ElectionYear ?? DateTime.Now.Year;
+
+            RegistrationYears = Enumerable.Range(DateTime.Now.Year - 2, 3).ToList();
         }
 
         private async Task PreloadFlagsDataAsync(DataContext context)

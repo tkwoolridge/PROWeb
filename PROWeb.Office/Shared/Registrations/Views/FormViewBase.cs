@@ -26,6 +26,8 @@ namespace PROWeb.Office.Shared.Registrations.Views
 
         public bool CanReject { get; private set; }
 
+        public bool CanEdit { get; private set; }
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -36,6 +38,8 @@ namespace PROWeb.Office.Shared.Registrations.Views
             await base.OnInitializedAsync();
 
             SetDefaultsAsync();
+
+            UpdateApproveButtonsStatus();
         }
 
         public async Task OnApproveAsync()
@@ -46,6 +50,8 @@ namespace PROWeb.Office.Shared.Registrations.Views
             {
                 return;
             }
+
+            Model.RegistrationStatusId = (int)RegistrationStatuses.Approved;
 
             var voter = Model.Adapt<VoterViewModel>();
 
@@ -75,6 +81,8 @@ namespace PROWeb.Office.Shared.Registrations.Views
                 return;
             }
 
+            Model.RegistrationStatusId = (int)RegistrationStatuses.Rejected;
+
             using (BusyScope("Rejecting form..."))
             {
                 Model.RegistrationStatusId = (int)RegistrationStatuses.Rejected;
@@ -85,19 +93,13 @@ namespace PROWeb.Office.Shared.Registrations.Views
         protected override void SetCanSave(bool canSave)
         {
             base.SetCanSave(canSave);
-
-            CanApprove = canSave;
-            CanReject = canSave;
         }
 
         protected override async Task SaveAsync(RegistrationViewModel model)
         {
-            Debug.Assert(User?.UserName != null);
+            SetUpdateFields(model);
 
-            model.LastUpdated = DateTime.UtcNow;
-            model.LastUpdatedBy = User.UserName;
-
-            Registration? registration = model.Adapt<Registration>();
+            Registration ? registration = model.Adapt<Registration>();
 
             if (registration == null) { return; }
 
@@ -114,6 +116,26 @@ namespace PROWeb.Office.Shared.Registrations.Views
             }
 
             await Save.InvokeAsync();
+
+            UpdateApproveButtonsStatus();
+        }
+
+        private void SetUpdateFields(RegistrationViewModel model)
+        {
+            Debug.Assert(User?.UserName != null);
+
+            using (UndoService.SuspendUndo())
+            {
+                model.LastUpdated = DateTime.UtcNow;
+                model.LastUpdatedBy = User.UserName;
+            }
+        }
+
+        private void UpdateApproveButtonsStatus()
+        {
+            CanApprove = Model?.RegistrationStatusId != (int)RegistrationStatuses.Approved;
+            CanReject = Model?.RegistrationStatusId != (int)RegistrationStatuses.Approved;
+            CanEdit = Model?.RegistrationStatusId != (int)RegistrationStatuses.Approved;
         }
 
         private void SetDefaultsAsync()
@@ -124,8 +146,6 @@ namespace PROWeb.Office.Shared.Registrations.Views
             {
                 if (Model.RegistrationId is null)
                 {
-                    Model.LastUpdated = DateTime.UtcNow;
-                    Model.LastUpdatedBy  = User?.UserName;
                     Model.CountryId = VoterConstants.BermudaCountryId;
                     Model.RegistryYear = _cachedDataService.RegistrationYear;
                 }

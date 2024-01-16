@@ -199,6 +199,10 @@ element.style {
     background-color: #CDE6F6 !important;
 }
 
+.form-row-approved {
+    background-color: palegreen !important;
+}
+
 .form1-container {
     background-color: #B3E49F;
     border-radius: 5px;

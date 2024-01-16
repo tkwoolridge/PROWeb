@@ -40,7 +40,7 @@
                     <VoterPhotosView />
                     <VoterDetailsView Title="Voter Details:"/>
                     <div class="address-view">
-                        <VoterAddressView Title="Address:" />
+                        <VoterAddressView ShowPopulateDialogButton="true" Title="Address:" />
                     </div>
                 </div>
             </TabStripTab>
@@ -65,8 +65,11 @@
             }
             else
             {
+                <TelerikButton OnClick="@OnShowHistory" Icon="FontIcon.ClockArrowRotate" Class="me-1">History</TelerikButton>
                 <ListViewCommandButton Icon="@FontIcon.Pencil" Command="Edit">Edit</ListViewCommandButton>
             }
         </div>
     </Footer>
 </ViewsLayout>
+
+<VoterHistoryDialog RegistryYear="@Model?.RegistryYear" VoterId="@Model?.VoterId" @ref="@VoterHistoryDialogRef" />

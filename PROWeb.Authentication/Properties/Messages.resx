@@ -117,19 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConformationEmailWasSentMessage" xml:space="preserve">
+    <value>Registration was successful. Conformation email was sent to your email address. Please click on conformation link in email you received to confirm your registration.</value>
+  </data>
+  <data name="EmailConformationFailedMessage" xml:space="preserve">
+    <value>Email conformation failed!. Please contact administrator to try and resolve the issue.</value>
+  </data>
+  <data name="EmailVerifiedMessage" xml:space="preserve">
+    <value>Your email is verified. Please note that you will not be able to login in until your account is activated by Administrator.</value>
+  </data>
   <data name="InvalidLoginAttemptMessage" xml:space="preserve">
     <value>Invalid login attempt!</value>
   </data>
   <data name="InvalidVerificationCode" xml:space="preserve">
     <value>Invalid verification code!</value>
   </data>
+  <data name="PasswordResetLinkWasSentMessage" xml:space="preserve">
+    <value>Password reset link was sent to your email {0}.</value>
+  </data>
+  <data name="RegistrationFailedMessage" xml:space="preserve">
+    <value>Registration failed!</value>
+  </data>
+  <data name="ResetUserPasswordSucceededMessage" xml:space="preserve">
+    <value>Reset for user {0} password succeeded!</value>
+  </data>
+  <data name="RessetPasswordFailedMessage" xml:space="preserve">
+    <value>Resset password failed!</value>
+  </data>
   <data name="UserAccountLockedOutMessage" xml:space="preserve">
     <value>User account locked out!</value>
+  </data>
+  <data name="UserAlreadyRegisteredMessage" xml:space="preserve">
+    <value>User with email {0} already registered!</value>
   </data>
   <data name="UserLoggedInMessage" xml:space="preserve">
     <value>User logged in!</value>
   </data>
   <data name="UserLoggedOutMessage" xml:space="preserve">
     <value>User logged out!!</value>
+  </data>
+  <data name="UserNotFoundMessage" xml:space="preserve">
+    <value>User {0} not found!</value>
   </data>
 </root>

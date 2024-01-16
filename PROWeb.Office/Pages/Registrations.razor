@@ -25,8 +25,18 @@
         </TelerikButtonGroup>
     </Toolbox>
     <List>
-        @ListTemplate
+        <div class="p-container h-100">
+            @ListTemplate
+        </div>
     </List>
+    <Footer>
+        <div class="d-flex justify-content-end  align-items-center w-100 p-container p-2">
+            <img class="me-2" style="width: 40px" src="/images/form1.png" />
+            <span class="me-2"><b>P:</b> @PendingForm1Count <b>A:</b> @ApprovedForm1Count  <b>T:</b> @Form1Total</span>
+            <img class="me-2" style="width: 40px" src="/images/form2.png" />
+            <span class="me-2"><b>P:</b> @PendingForm2Count <b>A:</b> @ApprovedForm2Count  <b>T:</b> @Form2Total</span>
+        </div>
+    </Footer>
 </FilterListLayout>
 
 @code{

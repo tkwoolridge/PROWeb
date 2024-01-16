@@ -12,6 +12,15 @@ namespace PROWeb.Office.Pages
         private bool _simpleFilterSelected;
 
         private IList<VoterViewModel>? _data;
+
+        public int FemaleCount { get; private set; }
+
+        public int MaleCount { get; private set; }
+        
+        public int NoneCount { get; private set; }
+
+        public int Total { get; private set; }
+
         private int _page;
 
         private bool GridSelected
@@ -63,6 +72,11 @@ namespace PROWeb.Office.Pages
         private void OnListDataChanged(object? sender, IList<VoterViewModel>? data)
         {
             _data = data;
+
+            FemaleCount = _data?.Count(v => v.Gender == 'F') ?? 0;
+            MaleCount = _data?.Count(v => v.Gender == 'M') ?? 0;
+            NoneCount = _data?.Count(v => v.Gender == 'N') ?? 0;
+            Total = _data?.Count ?? 0;
         }
 
         protected override string PageTitle => "Registry";

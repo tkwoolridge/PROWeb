@@ -1,0 +1,41 @@
+﻿@using PROWeb.Authentication.Components.Users.ViewModels
+@using PROWeb.Components.Common.Views
+
+@inherits PROEditableView<TUserViewModel>
+@typeparam TUserViewModel
+
+<EditForm EditContext="@EditContext">
+    <DataAnnotationsValidator />
+    <div class="user-view">
+        <div class="user-title pro-view-title mb-2">@Title</div>
+        <label>Email:</label>
+        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@UserContext.Email" Id="@(nameof(UserContext.Email))" />
+        <TelerikValidationTooltip For="@(() => UserContext.Email)" TargetSelector="@("#" + nameof(UserContext.Email))" />
+
+        <label>First Name:</label>
+        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@UserContext.FirstName" />
+
+        <label>Roles: </label>
+        <TelerikComboBox @bind-Value="@UserContext.RoleId"
+                         ReadOnly="@ReadOnly"
+                         ClearButton="false"
+                         TValue="int?"
+                         TItem="UserRoleViewModel"
+                         Data="@Roles"
+                         ValueField="@nameof(UserRoleViewModel.Id)"
+                         TextField="@nameof(UserRoleViewModel.Description)" />
+
+        <label>User Name:</label>
+        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@UserContext.UserName" />
+
+        
+        <label>Last Name:</label>
+        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@UserContext.LastName" />
+
+        <span/>
+        <div class="d-flex justify-content-start align-items-center">
+            <TelerikCheckBox Enabled="@Editable" Class="mx-2 mt-2" Id="isActive" @bind-Value="@UserContext.IsActive" Title="Is Active" />
+            <label for="isActive">Active</label>
+        </div>
+    </div>
+</EditForm>

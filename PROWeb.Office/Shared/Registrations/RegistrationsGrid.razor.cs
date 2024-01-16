@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Common.Extensions;
+using PROWeb.Data.Models.Enums;
 using PROWeb.Data.Services.Registrations;
 using PROWeb.Office.Shared.Registrations.Filters;
 using PROWeb.Office.Shared.Registrations.ViewModels;
@@ -45,7 +46,11 @@ namespace PROWeb.Office.Shared.Registrations
         {
             RegistrationViewModel? registration = row.Item as RegistrationViewModel;
 
-            row.Class = registration?.FormTypeId == 1 ? "form1-row" : "form2-row";
+            row.Class = registration?.RegistrationStatusId switch
+            {
+                (int)RegistrationStatuses.Approved => "form-row-approved",
+                _ => registration?.FormTypeId == 1 ? "form1-row" : "form2-row"
+            };
         }
     }
 }

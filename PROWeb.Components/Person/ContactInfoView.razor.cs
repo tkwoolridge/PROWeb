@@ -5,7 +5,6 @@ using PROWeb.Components.Common.Views;
 using PROWeb.Components.EligiblePolls.ViewModels;
 using PROWeb.Components.Person.Contexts;
 using PROWeb.Components.Voters.ViewModels;
-using PROWeb.Data.Models;
 using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person

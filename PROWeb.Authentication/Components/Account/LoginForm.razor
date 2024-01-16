@@ -6,28 +6,42 @@
 @using PROWeb.Authentication.Components.Shared
 @using PROWeb.Common.Components
 @using PROWeb.Data.Authentication.Models
+@using PROWeb.Authentication.Components.Account.Configuration
+
 @inherits PROComponent
 
-<EditForm Model="@Model" method="post" OnValidSubmit="HandleValidLogin" FormName="login">
-    <DataAnnotationsValidator />
-    <StatusMessage Message="@ErrorMessage" />
-    <div class="k-form-field mb-2">
-        <label for="mail" class="k-form-label k-text-primary">Email:</label>
-        <InputText id="mail" @bind-Value="@Model.Email" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" autocomplete="username" aria-required="true" placeholder="Type in your email..." />
-        <TelerikValidationMessage For="@(() => Model.Email)"></TelerikValidationMessage>
+<div>
+    <div>
+        <StatusMessage Message="@ErrorMessage" />
     </div>
-    <div class="k-form-field mb-2">
-        <label for="pass" class="k-form-label k-text-primary">Password:</label>
-        <InputText id="pass" type="password" @bind-Value="@Model.Password" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" autocomplete="current-password" aria-required="true" placeholder="Type in your password..." />
-        <TelerikValidationMessage For="@(() => Model.Password)"></TelerikValidationMessage>
+    <div class="d-flex justify-content-center">
+        <EditForm Model="@Model" method="post" OnValidSubmit="Login" FormName="login">
+            <DataAnnotationsValidator />
+            <div class="k-form-field mb-2">
+                <label for="mail" class="k-form-label k-text-primary">Email:</label>
+                <InputText id="mail" @bind-Value="@Model.Email" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" autocomplete="mail" aria-required="true" placeholder="Type in your email..." />
+                <TelerikValidationMessage For="@(() => Model.Email)"></TelerikValidationMessage>
+            </div>
+            <div class="k-form-field mb-2">
+                <label for="pass" class="k-form-label k-text-primary">Password:</label>
+                <InputText id="pass" type="password" @bind-Value="@Model.Password" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" aria-required="true" placeholder="Type in your password..." />
+                <TelerikValidationMessage For="@(() => Model.Password)"></TelerikValidationMessage>
+            </div>
+            <div class="checkbox mb-3">
+                <label class="k-form-label k-text-primary">
+                    <InputCheckbox @bind-Value="@Model.RememberMe" class="darker-border-checkbox form-check-input" />
+                    Remember me
+                </label>
+            </div>
+            <div class="k-form-buttons k-actions-start">
+                <TelerikButton Class="w-100" ButtonType="ButtonType.Submit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Login</TelerikButton>
+            </div>
+            <div class="text-center w-100 py-2">
+                <a href="@Constants.Pages.PasswordResetRequest">Password Reset</a>
+            </div>
+            <div class="text-center w-100">
+                <a href="@Constants.Pages.Register">New Registration</a>
+            </div>
+        </EditForm>
     </div>
-    <div class="checkbox mb-3">
-        <label class="k-form-label k-text-primary">
-            <InputCheckbox @bind-Value="@Model.RememberMe" class="darker-border-checkbox form-check-input" />
-            Remember me
-        </label>
-    </div>
-    <div class="k-form-buttons k-actions-start">
-        <TelerikButton Class="w-100" ButtonType="ButtonType.Submit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Login</TelerikButton>
-    </div>
-</EditForm>
+</div>

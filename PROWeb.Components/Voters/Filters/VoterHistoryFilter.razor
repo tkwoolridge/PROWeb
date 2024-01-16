@@ -1,0 +1,12 @@
+﻿@using PROWeb.Components.Voters.ViewModels
+@inherits PROFilterComponent<VoterHistoryViewModel>
+
+<div>
+    <TelerikComboBox Data="@Histories"
+                     TItem="VoterHistoryViewModel"
+                     TValue="int?"
+                     Value="@FilterId"
+                     ValueChanged="@OnFilterValueChanged"
+                     ValueField="@nameof(VoterHistoryViewModel.Id)"
+                     TextField="@nameof(VoterHistoryViewModel.Description)" />
+</div>

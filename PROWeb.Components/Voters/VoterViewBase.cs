@@ -97,7 +97,15 @@ namespace PROWeb.Components.Voters
 
                 Debug.Assert(voter != null);
 
-                await service.UpdateVoterAsync(voter);
+                try
+                {
+                    await service.UpdateVoterAsync(voter);
+                }
+                catch(Exception ex)
+                {
+                    string message = ex.Message;
+                }
+                
 
                 if (oldView is not null)
                 {

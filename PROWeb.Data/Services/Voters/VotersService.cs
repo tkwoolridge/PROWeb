@@ -142,15 +142,17 @@ namespace PROWeb.Data.Services.Voters
 
         public async Task UpdateVoterAsync(Voter voter)
         {
-            var flags = voter.Flags.ToList();
+            var flags = voter.Flags?.ToList();
+            voter.Flags?.Clear();
 
             Voter? curentVoter = Context.Voters.AsNoTracking().FirstOrDefault(v => v.VoterId == voter.VoterId);
 
             Debug.Assert(curentVoter != null);
-
-            voter.Flags.Clear();
-
-            Context.AttachRange(flags);
+            
+            if(flags is not null)
+            {
+                Context.AttachRange(flags);
+            }
 
             if(Context.Entry(voter).State == EntityState.Detached)
             {
@@ -177,6 +179,22 @@ namespace PROWeb.Data.Services.Voters
             Context.Voters.Add(voter);
 
             await Context.SaveChangesAsync();
+        }
+
+        #endregion
+
+        #region Voter History
+
+        public IQueryable<VoterHistory> GetVoterHistories(int registryYear, int voterId)
+        {
+            return Context.VoterHistories
+                .Where(h => h.VoterId == voterId && h.RegistryYear == registryYear);
+        }
+
+        public IQueryable<VoterHistoryField> GetVoterHistoryFields(int registryYear, int voterId, DateTime created)
+        {
+            return Context.VoterHistoryFields
+                .Where(f => f.VoterId == voterId && f.RegistryYear == registryYear && f.Created == created);
         }
 
         #endregion

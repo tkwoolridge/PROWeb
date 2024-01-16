@@ -1,0 +1,11 @@
+﻿.user-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(6,auto) 1fr;
+    grid-auto-flow: column;
+    gap: 5px 10px;
+}
+
+.user-title {
+    grid-area: 1/1 / 1/3;
+}

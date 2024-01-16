@@ -1,0 +1,48 @@
+﻿@using PROWeb.Authentication.Components.Shared
+@using PROWeb.Common.Components
+@using PROWeb.Authentication.Components.Account.Configuration
+@using static PROWeb.Authentication.Components.Shared.StatusMessage
+
+@inherits PROComponent
+
+<div>
+    <div>
+        <StatusMessage MessageType="StatusMessageTypes.Info" Message="@SuccessMessage" />
+        <StatusMessage Message="@ErrorMessage" />
+    </div>
+    <div class="d-flex justify-content-center">
+        <EditForm Model="@Model" method="post" OnValidSubmit="NewRegistration" FormName="login">
+            <DataAnnotationsValidator />
+        
+            <div class="k-form-field mb-2">
+                <label for="mail" class="k-form-label k-text-primary">Email:</label>
+                <InputText id="mail" @bind-Value="@Model.Email" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" autocomplete="mail" aria-required="true" placeholder="Type in your email..." />
+                <TelerikValidationMessage For="@(() => Model.Email)"></TelerikValidationMessage>
+            </div>
+            <div class="k-form-field mb-2">
+                <label for="firstName" class="k-form-label k-text-primary">First Name:</label>
+                <InputText id="mail" @bind-Value="@Model.FirstName" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" autocomplete="firstName" aria-required="true" placeholder="Type in your first name..." />
+            </div>
+            <div class="k-form-field mb-2">
+                <label for="lastName" class="k-form-label k-text-primary">Last Name:</label>
+                <InputText id="lastName" @bind-Value="@Model.LastName" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" autocomplete="lastName" aria-required="true" placeholder="Type in your last name..." />
+            </div>
+            <div class="k-form-field mb-2">
+                <label for="pass" class="k-form-label k-text-primary">Password:</label>
+                <InputText id="pass" type="password" @bind-Value="@Model.Password" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" aria-required="true" placeholder="Type in your password..." />
+                <TelerikValidationMessage For="@(() => Model.Password)"></TelerikValidationMessage>
+            </div>
+            <div class="k-form-field mb-2">
+                <label for="mail" class="k-form-label k-text-primary">Confirm Password:</label>
+                <InputText id="confirmPass" type="password" @bind-Value="@Model.ConfirmPassword" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" aria-required="true" placeholder="Type in your password..." />
+                <TelerikValidationMessage For="@(() => Model.ConfirmPassword)"></TelerikValidationMessage>
+            </div>
+            <div class="k-form-buttons k-actions-start">
+                <TelerikButton Class="w-100" ButtonType="ButtonType.Submit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Register</TelerikButton>
+            </div>
+            <div class="text-center w-100 py-2">
+                <a href="@Constants.Pages.Login">To Login</a>
+            </div>
+        </EditForm>
+    </div>
+</div>

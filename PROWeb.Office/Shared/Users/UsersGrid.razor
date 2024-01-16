@@ -1,0 +1,21 @@
+﻿@using PROWeb.Authentication.Components.Users.ViewModels
+@using PROWeb.Components.Common
+@using PROWeb.Office.Shared.Users.ViewModels
+@inherits PROGridComponent<UserFilterViewModel, UserViewModel>
+
+<TelerikGrid @bind-Page="@Page"
+             PageSize="@PageSize"
+             Height="100%"
+             @ref="@GridRef"
+             TItem="UserViewModel"
+             Pageable="true"
+             OnStateChanged="@OnStateChanged"
+             SelectedItemsChanged="@OnSelectionChanged"
+             Data="@Data">
+    <GridColumns>
+        <GridColumn Field=@nameof(UserViewModel.Email) Title="Email" />
+        <GridColumn Field=@nameof(UserViewModel.UserName) Title="User Name" />
+        <GridColumn Field=@nameof(UserViewModel.FirstName) Title="First Name" />
+        <GridColumn Field=@nameof(UserViewModel.LastName) Title="Last Name" />
+    </GridColumns>
+</TelerikGrid>

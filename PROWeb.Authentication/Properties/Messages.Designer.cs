@@ -61,6 +61,33 @@ namespace PROWeb.Authentication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registration was successful. Conformation email was sent to your email address. Please click on conformation link in email you received to confirm your registration..
+        /// </summary>
+        internal static string ConformationEmailWasSentMessage {
+            get {
+                return ResourceManager.GetString("ConformationEmailWasSentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email conformation failed!. Please contact administrator to try and resolve the issue..
+        /// </summary>
+        internal static string EmailConformationFailedMessage {
+            get {
+                return ResourceManager.GetString("EmailConformationFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your email is verified. Please note that you will not be able to login in until your account is activated by Administrator..
+        /// </summary>
+        internal static string EmailVerifiedMessage {
+            get {
+                return ResourceManager.GetString("EmailVerifiedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid login attempt!.
         /// </summary>
         internal static string InvalidLoginAttemptMessage {
@@ -79,11 +106,56 @@ namespace PROWeb.Authentication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password reset link was sent to your email {0}..
+        /// </summary>
+        internal static string PasswordResetLinkWasSentMessage {
+            get {
+                return ResourceManager.GetString("PasswordResetLinkWasSentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration failed!.
+        /// </summary>
+        internal static string RegistrationFailedMessage {
+            get {
+                return ResourceManager.GetString("RegistrationFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset for user {0} password succeeded!.
+        /// </summary>
+        internal static string ResetUserPasswordSucceededMessage {
+            get {
+                return ResourceManager.GetString("ResetUserPasswordSucceededMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resset password failed!.
+        /// </summary>
+        internal static string RessetPasswordFailedMessage {
+            get {
+                return ResourceManager.GetString("RessetPasswordFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User account locked out!.
         /// </summary>
         internal static string UserAccountLockedOutMessage {
             get {
                 return ResourceManager.GetString("UserAccountLockedOutMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with email {0} already registered!.
+        /// </summary>
+        internal static string UserAlreadyRegisteredMessage {
+            get {
+                return ResourceManager.GetString("UserAlreadyRegisteredMessage", resourceCulture);
             }
         }
         
@@ -102,6 +174,15 @@ namespace PROWeb.Authentication.Properties {
         internal static string UserLoggedOutMessage {
             get {
                 return ResourceManager.GetString("UserLoggedOutMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} not found!.
+        /// </summary>
+        internal static string UserNotFoundMessage {
+            get {
+                return ResourceManager.GetString("UserNotFoundMessage", resourceCulture);
             }
         }
     }

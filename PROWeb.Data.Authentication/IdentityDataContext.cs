@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PROWeb.Data.Authentication.Models;
 
 namespace PROWeb.Data.Authentication
 {
-    public class IdentityDataContext : IdentityDbContext<PROUser>
+    public class IdentityDataContext : IdentityDbContext<PROUser,PRORole,int>
     {
         private readonly IConfiguration _configuration;
 
@@ -25,6 +26,21 @@ namespace PROWeb.Data.Authentication
 
                 options.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
             });
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            SeedPRORoles(builder);
+        }
+
+        private void SeedPRORoles(ModelBuilder builder)
+        {
+            builder.Entity<PRORole>().HasData(
+                new PRORole() { Id = 1, Name = "Administrator", ConcurrencyStamp = "1", NormalizedName = "Administrator", Description = "Administrator" },
+                new PRORole() { Id = 2, Name = "FrontOfficer", ConcurrencyStamp = "2", NormalizedName = "Front Officer", Description = "Front Officer" }
+                );
         }
     }
 }

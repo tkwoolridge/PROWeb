@@ -14,12 +14,12 @@
         <label>First Name:</label>
         <div class="d-flex">
             <div class="me-1">
-                <TelerikAutoComplete @bind-Value="@DetailsContext.Title"
-                                 ReadOnly="@ReadOnly"
+                <TelerikComboBox @bind-Value="@DetailsContext.Title"
+                                 ClearButton="false"
+                                 ReadOnly="@(ReadOnly && !AllowLastNameEdit)"
                                  Data="@Titles"
-                                 Width="60px"
-                                 Placeholder="Title...">
-                </TelerikAutoComplete>
+                                 Width="76px">
+                </TelerikComboBox>
             </div>
             <div class="w-auto">
                 <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.FirstName" Id="@(nameof(DetailsContext.FirstName))" />
@@ -30,15 +30,16 @@
         <label>Middle Name:</label>
         <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.MiddleName" Id="@(nameof(DetailsContext.MiddleName))" />
 
-        <label>Last Name:</label>
-        <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.LastName" Id="@(nameof(DetailsContext.LastName))" />
-        <TelerikValidationTooltip For="@(() => DetailsContext.LastName)" TargetSelector="@("#" + nameof(DetailsContext.LastName))" />
-        
         @if (ShowMaidenName)
         {
             <label>Maiden Name:</label>
-            <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@DetailsContext.MaidenName" />
+            <TelerikTextBox ReadOnly="@(ReadOnly && !AllowLastNameEdit)" @bind-Value="@DetailsContext.MaidenName" />
         }
+
+        <label>Last Name:</label>
+        <TelerikTextBox ReadOnly="@(ReadOnly && !AllowLastNameEdit)" @bind-Value="@DetailsContext.LastName" Id="@(nameof(DetailsContext.LastName))" />
+        <TelerikValidationTooltip For="@(() => DetailsContext.LastName)" TargetSelector="@("#" + nameof(DetailsContext.LastName))" />
+        
 
         <label>DOB:</label>
         @if (ShowPopulateDialogButton)
@@ -51,10 +52,10 @@
                     </div>
                     <div>
                         <TelerikComboBox @bind-Value="@DetailsContext.Gender"
+                                         ClearButton="false"
                                              ReadOnly="@ReadOnly"
                                              Data="@Genders"
-                                             Width="70px"
-                                             Placeholder="Gender...">
+                                             Width="70px">
                         </TelerikComboBox>
                     </div>
                 </div>
@@ -70,6 +71,7 @@
                 </div>
                 <div>
                     <TelerikComboBox @bind-Value="@DetailsContext.Gender"
+                                     ClearButton="false"
                                      ReadOnly="@ReadOnly"
                                      Data="@Genders"
                                      Width="70px"

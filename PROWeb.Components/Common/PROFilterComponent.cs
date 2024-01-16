@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
-using PROWeb.Components.Services;
 using System.Diagnostics;
-using Telerik.SvgIcons;
 
 namespace PROWeb.Components.Common
 {

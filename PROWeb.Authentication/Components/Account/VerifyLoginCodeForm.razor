@@ -13,12 +13,12 @@
         Verification code is send to your email inbox. If you did not receive it after fiew minutes,
         please click on resend code button to send it again.
     </div>
+    <StatusMessage Message="@ErrorMessage" />
     <div class="d-flex justify-content-center">
         <div>
             <div>
-                <EditForm Model="@Model" method="post" OnValidSubmit="@HandleValidCode" FormName="loginVerifyCode">
+                <EditForm Model="@Model" method="post" OnValidSubmit="@ValidateCode" FormName="loginVerifyCode">
                     <DataAnnotationsValidator />
-                    <StatusMessage Message="@ErrorMessage" />
                     <div class="k-form-field mb-2">
                         <label for="mail" class="k-form-label k-text-primary">Verification Code:</label>
                         <InputText id="mail" @bind-Value="@Model.VerificationCode" class="k-textbox k-input telerik-blazor k-input-solid k-rounded-md k-input-md" autocomplete="username" aria-required="true" placeholder="Type in your verification code..." />
@@ -36,7 +36,7 @@
                 </EditForm>
             </div>
             <div class="pt-2">
-                <EditForm Context="resendCode" EditContext="@(new EditContext(new object()))" method="post" asp-antiforgery="false" OnValidSubmit="@HandleResendCode" FormName="resendCode">
+                <EditForm Context="resendCode" EditContext="@(new EditContext(new object()))" method="post" asp-antiforgery="false" OnValidSubmit="@ResendCode" FormName="resendCode">
                     <div>
                         <TelerikButton Class="w-100" ButtonType="ButtonType.Submit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Resend Code</TelerikButton>
                     </div>

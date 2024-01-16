@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PROWeb.Common.Data;
 using PROWeb.Data.Authentication.Models;
+using PROWeb.Data.Authentication.Models.Views;
+using PROWeb.Data.Extensions;
+using System.Reactive.Linq;
 
 namespace PROWeb.Data.Authentication.Services.Users
 {
@@ -22,8 +27,7 @@ namespace PROWeb.Data.Authentication.Services.Users
         }
     }
 
-    #endregion Service Factory
-
+    #endregion
 
     public class UsersService : DbContextService<IdentityDataContext>, IUsersService
     {
@@ -46,6 +50,64 @@ namespace PROWeb.Data.Authentication.Services.Users
             {
                 return null;
             }
+        }
+
+        public IQueryable<PRORole> GetRoles()
+        {
+            return Context.Roles;
+        }
+
+        public IQueryable<PROUserView> GetUsers(
+            string? userName = null,
+            string? firstName = null,
+            string? lastName = null)
+        {
+#nullable disable
+            var users = Context.Users.Join(
+                Context.UserRoles.Join(Context.Roles, ur => ur.RoleId, r => r.Id, (ur, r) => 
+                new 
+                {
+                    ur.UserId,
+                    ur.RoleId, 
+                    r.Description 
+                })
+                , u => u.Id, r => r.UserId, (u,ur) => new PROUserView()
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    UserName = u.UserName,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    RoleId = ur.RoleId,
+                    RoleDescription = ur.Description,
+                    IsActive = u.IsActive
+                })
+                .WhereIfNotNull(userName, u => u.UserName.StartsWith(userName))
+                .WhereIfNotNull(firstName, u => u.FirstName.StartsWith(firstName))
+                .WhereIfNotNull(lastName, u => u.LastName.StartsWith(lastName));
+#nullable enable
+            return users;
+        }
+
+        public async Task UpdateUser(PROUserView userView)
+        {
+            var user = Context.Users.First(u => u.Id == userView.Id);
+
+            userView.Adapt(user);
+
+            Context.Users.Update(user);
+
+            if(userView.RoleId is { } roleId)
+            {
+                Context.UserRoles.RemoveRange(Context.UserRoles.Where(ur => ur.UserId == userView.Id).ToArray());
+                Context.UserRoles.Add(new IdentityUserRole<int>
+                {
+                    UserId = userView.Id,
+                    RoleId = roleId
+                });
+            }
+
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿@inject NavigationManager NavigationManager
+﻿@using PROWeb.Authentication.Components.Account.Configuration;
+@inject NavigationManager NavigationManager
 
 @code {
     protected override void OnInitialized()
     {
-        NavigationManager.NavigateTo($"/Account/Login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}", forceLoad: true);
+        NavigationManager.NavigateTo($"{Constants.Pages.Login}?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}", forceLoad: true);
     }
 }

@@ -36,7 +36,7 @@ namespace PROWeb.Office.Shared.Registrations.Filters
                 Parishes = await assessments.GetParishes().ProjectToListAsync<ParishViewModel>();
             }
 
-            RegistrationYears = Enumerable.Range(DateTime.Now.Year - 1, 3).Cast<object>();
+            RegistrationYears = _cachedDataService.RegistrationYears.Cast<object>();
 
             ResetFilter();
         }

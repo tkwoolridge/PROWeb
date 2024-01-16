@@ -4,7 +4,7 @@
 	<MenuItem Name="Registry" Description="Parliamentary Registry">
 		<MenuItem Name="Registry" Description="Registry" Page="/"/>
 		<MenuItem Name="Registrations" Description="Registrations" Page="/registrations"/>
-		<MenuItem Name="Map" Description="Map" Page="/map"/>
+		<MenuItem Name="Users" Description="Users" Page="/users"/>
 	</MenuItem>
 
 	<!--<MenuItem Requirement="CanUseRatepayerRegistry" Name="Ratepayers" Description="Ratepayers">

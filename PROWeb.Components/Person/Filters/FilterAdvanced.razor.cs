@@ -56,7 +56,7 @@ namespace PROWeb.Components.Person.Filters
 
             Flags = flags?.Select(f => new FlagContext<TFlagViewModel>(f, _flagIdPath, _flagDescriptionPath)).ToList();
 
-            RegistrationYears = Enumerable.Range(DateTime.Now.Year - 1, 3).Cast<object>();
+            RegistrationYears = _cachedDataService.RegistrationYears.Cast<object>();
 
             ResetFilter();
         }

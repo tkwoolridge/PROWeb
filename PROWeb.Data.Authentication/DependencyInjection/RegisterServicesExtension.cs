@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using PROWeb.Data.Authentication;
+using PROWeb.Data.Authentication.Services;
+using PROWeb.Data.Authentication.Services.CachedData;
 using PROWeb.Data.Authentication.Services.Users;
+using PROWeb.Data.Services.CachedData;
 
 namespace PROWeb.Data.Services.Extensions
 {
@@ -15,6 +18,12 @@ namespace PROWeb.Data.Services.Extensions
 
             // Register user service.
             services.AddScoped<IUsersServiceFactory, UsersServiceFactory>();
+
+            //Register preload data service.
+            services.AddHostedService<IdentityPreloadService>();
+
+            //Register preload data service.
+            services.AddSingleton<ICachedIdentityDataService, CachedIdentityDataService>();
         }
     }
 }

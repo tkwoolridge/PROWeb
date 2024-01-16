@@ -8,6 +8,7 @@ using PROWeb.Authentication.ViewModels.Account;
 using PROWeb.Common.Components;
 using PROWeb.Data.Authentication.Models;
 using Serilog;
+using PROWeb.Authentication.Components.Account.Configuration;
 
 namespace PROWeb.Authentication.Components.Account
 {
@@ -23,7 +24,7 @@ namespace PROWeb.Authentication.Components.Account
         protected UserManager<PROUser> UserManager { get; set; } = default!;
 
         [Inject]
-        protected ISendVerificationCodeService SendVerificationCodeService { get; set; } = default!;
+        protected ISendVerificationMessagesService SendVerificationCodeService { get; set; } = default!;
 
         [Inject]         
         internal IdentityRedirectManager RedirectManager { get; set; } = default!;
@@ -48,7 +49,7 @@ namespace PROWeb.Authentication.Components.Account
             }
         }
 
-        protected async Task HandleValidLogin()
+        protected async Task Login()
         {
             if (Model.Email is not { } email ||
                   Model.Password is not { } password ||
@@ -69,26 +70,21 @@ namespace PROWeb.Authentication.Components.Account
             }
             else if (result.RequiresTwoFactor)
             {
-                await SendVerificationCodeService.SendCodeAsync();
+                await SendVerificationCodeService.SendVerificationCodeMessageAsync();
 
                 RedirectManager.RedirectTo(
-                    "Account/VerifyLoginCode",
+                    Constants.Pages.VerifyLoginCode,
                     new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Model.RememberMe});
             }
             else if (result.IsLockedOut)
             {
                 Logger.Warning(Messages.UserAccountLockedOutMessage);
-                RedirectManager.RedirectTo("Account/Lockout");
+                RedirectManager.RedirectTo(Constants.Pages.Lockout);
             }
             else
             {
                 ErrorMessage = Messages.InvalidLoginAttemptMessage;
             }
-        }
-
-        protected void HandleInvalidLogin()
-        {
-
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿@using PROWeb.Components.Voters.Filters;
+@using PROWeb.Components.Voters.ViewModels;
+@using PROWeb.Components.Common.Layouts;
+@inherits PRORegistryLayout<VoterHistoryViewModel, VoterHistoryFieldViewModel>
+
+<TelerikWindow Width="700px"
+               Height="700px"
+               Centered="true"
+               Resizable="false"
+               Modal="true"
+               @bind-Visible="@ShowDialog">
+    <WindowTitle>
+        <strong>Voter History</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+    <WindowContent>
+        <FilterListLayout>
+            <Filter>
+                <ExpansionPanel>
+                    <Header>
+                        <strong>Updates:</strong>
+                    </Header>
+                    <Content>
+                        <VoterHistoryFilter RegistryYear="@RegistryYear" VoterId="@VoterId" @ref="@FilterRef" />
+                    </Content>
+                </ExpansionPanel>
+            </Filter>
+            <List>
+                <VoterHistoryGrid @ref="@ListRef" />
+            </List>
+            <Footer>
+                <div class="d-flex justify-content-end w-100">
+                    <TelerikButton Class="w-25" ButtonType="ButtonType.Reset" ThemeColor="primary" OnClick="@OnCancel">Close</TelerikButton>
+                </div>
+            </Footer>
+        </FilterListLayout>
+    </WindowContent>
+</TelerikWindow>

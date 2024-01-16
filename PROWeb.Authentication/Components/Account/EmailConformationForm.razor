@@ -1,0 +1,9 @@
+﻿@using PROWeb.Authentication.Components.Shared
+@using PROWeb.Common.Components
+@using static PROWeb.Authentication.Components.Shared.StatusMessage
+@inherits PROComponent
+
+<div class="text-center mb-2 login-form k-text-primary">
+    <StatusMessage MessageType="StatusMessageTypes.Info" Message="@SuccessMessage" />
+    <StatusMessage Message="@ErrorMessage" />
+</div>

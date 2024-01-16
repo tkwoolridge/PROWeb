@@ -1,6 +1,4 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Extensions;
 using PROWeb.Components.Common;
 using PROWeb.Components.Person.Filters;

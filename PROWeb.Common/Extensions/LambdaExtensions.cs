@@ -167,12 +167,12 @@ public static class LambdaExtensions
             public Delegate? Setter { get; set; }
         }
 
-        private static readonly Dictionary<string, Delegates> Cache = new();
+        private static readonly Dictionary<string, Delegates> _cache = new();
 
         public static ref Delegates Lookup(string propertyName)
         {
             return ref CollectionsMarshal.GetValueRefOrAddDefault(
-                Cache,
+                _cache,
                 propertyName,
                 out _);
         }
