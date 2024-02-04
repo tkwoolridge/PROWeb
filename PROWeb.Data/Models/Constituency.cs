@@ -11,10 +11,6 @@ namespace PROWeb.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ConstituencyNo { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string BogusNo { get; set; }
-
         [StringLength(50)]
         [Required]
         public string ConstituencyName { get; set; }

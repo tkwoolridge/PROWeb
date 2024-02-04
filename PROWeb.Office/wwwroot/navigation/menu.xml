@@ -1,11 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Menu xmlns="http://schemas.datacontract.org/2004/07/PROWeb.Data.Models.Navigation">
 
-	<MenuItem Name="Registry" Description="Parliamentary Registry">
+	<MenuItem Name="Registry" Description="Registrations">
 		<MenuItem Name="Registry" Description="Registry" Page="/"/>
 		<MenuItem Name="Registrations" Description="Registrations" Page="/registrations"/>
 		<MenuItem Name="Users" Description="Users" Page="/users"/>
 		<MenuItem Name="Office" Description="Office" Page="/office"/>
+	</MenuItem>
+	<MenuItem Name="Lists" Description="Lists">
+		<MenuItem Name="Constituencies" Description="Constituencies" Page="/constituencies"/>
+		<MenuItem Name="Parishes" Description="Parishes" Page="/parishes"/>
+		<MenuItem Name="VoterFlags" Description="Voter Flags" Page="/voterflags"/>
 	</MenuItem>
 
 	<!--<MenuItem Requirement="CanUseRatepayerRegistry" Name="Ratepayers" Description="Ratepayers">
@@ -16,7 +21,7 @@
 		<MenuItem Name="RatepayersReportsLauncherDialog" Description="Ratepayer Reports" Page="PRO.Client.Pages.Ratepayers.View.ReportLauncherDialogView;PRO.Client.Pages.Ratepayers.ViewModel.ReportLauncherDialogViewModel"/>
 	</MenuItem>-->
 	
-	<MenuItem Name="Imports" Description="Imports">
+	<!--<MenuItem Name="Imports" Description="Imports">
 		<MenuItem Name="EligiblePool" Description="Eligible Poll" Page="/eligible"/>
 		<MenuItem Name="AssessmentsRegistry" Description="Address Registry" Page="/assessments"/>
 	</MenuItem>
@@ -93,6 +98,6 @@
 			<MenuItem Name="UsingVideoHelp" Description="Using Video Help" Page ="VideoHelp/UsingVideoHelp"/>
 		</MenuItem>
 
-	</MenuItem>
+	</MenuItem>-->
 
 </Menu>

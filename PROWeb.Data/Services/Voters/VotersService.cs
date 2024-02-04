@@ -201,9 +201,24 @@ namespace PROWeb.Data.Services.Voters
 
         #region VoterFlags
 
-        public IQueryable<VoterFlag> GetVoterFlags()
+        public IQueryable<VoterFlag> GetVoterFlags(string? flagDescription = null)
         {
-            return Context.VoterFlags;
+            IQueryable<VoterFlag> flags = Context.VoterFlags;
+
+#nullable disable
+            flags = flags
+                .WhereIfNotNull(flagDescription, f => f.FlagDescription.StartsWith(flagDescription));
+#nullable enable
+
+            return flags;
+        }
+
+        public async Task UpdateVoterFlagAsync(VoterFlag flag)
+        {
+            Context.Attach(flag);
+
+            Context.VoterFlags.Update(flag);
+            await Context.SaveChangesAsync();
         }
 
         #endregion

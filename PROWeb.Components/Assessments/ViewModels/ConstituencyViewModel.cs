@@ -6,8 +6,6 @@ namespace PROWeb.Components.Assessments.ViewModels
     {
         public int ConstituencyNo { get; set; }
 
-        public string? BogusNo { get; set; }
-
         public string? ConstituencyName { get; set; }
 
         public string Constituency

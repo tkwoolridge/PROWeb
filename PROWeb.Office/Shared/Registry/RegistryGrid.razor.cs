@@ -107,15 +107,6 @@ namespace PROWeb.Office.Shared.Registry
             item.Action?.Invoke(item);
         }
 
-        //private void CreateForm1(MenuItem item)
-        //{
-        //    Debug.Assert(FormModel != null);
-
-        //    FormModel.FormTypeId = (int)FormTypes.Form1;
-
-        //    FormDialogRef.Show();
-        //}
-
         private void CreateForm2(MenuItem item)
         {
             Debug.Assert(FormModel != null);

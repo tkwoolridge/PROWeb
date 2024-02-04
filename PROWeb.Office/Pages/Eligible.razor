@@ -1,6 +1,12 @@
 ﻿@page "/eligible"
 @attribute [Authorize]
+@inherits PROComponent
 
 @using PROWeb.Components.EligiblePolls;
 
 <EligiblePoll/>
+
+@code
+{
+    protected override string PageTitle => "Eligible";
+}

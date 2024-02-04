@@ -1,0 +1,33 @@
+﻿@page "/constituencies"
+@using PROWeb.Components.Assessments.ViewModels
+@using PROWeb.Components.Common.Layouts
+@using PROWeb.Office.Shared.Lists
+@using PROWeb.Office.Shared.Lists.Views;
+@using PROWeb.Office.Shared.Lists.ViewModels
+@attribute [Authorize]
+@inherits PRORegistryLayout<ListFilterViewModel, ConstituencyViewModel>
+
+<FilterListLayout>
+    <Filter>
+        <ExpansionPanel>
+            <Header>
+                <strong>Filter:</strong>
+            </Header>
+            <Content>
+                <ListFilter @ref="@FilterRef" />
+            </Content>
+        </ExpansionPanel>
+    </Filter>
+    <List>
+        <div class="p-container h-100">
+            <ConstituenciesGrid @ref="@ListRef" />
+        </div>
+    </List>
+    <Footer>
+    </Footer>
+</FilterListLayout>
+
+@code
+{
+    protected override string PageTitle => "Constituencies";
+}

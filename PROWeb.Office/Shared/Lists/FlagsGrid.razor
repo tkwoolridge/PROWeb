@@ -1,5 +1,25 @@
-﻿<h3>FlagsGrid</h3>
+﻿@using PROWeb.Components.Voters.ViewModels;
+@using PROWeb.Office.Shared.Lists.ViewModels;
+@using Telerik.FontIcons
+@inherits PROGridComponent<ListFilterViewModel, VoterFlagViewModel>
 
-@code {
-
-}
+<TelerikGrid @bind-Page="@Page"
+             EditMode="@GridEditMode.Inline"
+             OnUpdate="@OnUpdateAsync"
+             PageSize="@PageSize"
+             Height="100%"
+             @ref="@GridRef"
+             TItem="VoterFlagViewModel"
+             Pageable="true"
+             OnStateChanged="@OnStateChanged"
+             Data="@Data">
+    <GridColumns>
+        <GridColumn Width="120px" Field=@nameof(VoterFlagViewModel.FlagId) Title="Flag No" Editable="false" />
+        <GridColumn Field=@nameof(VoterFlagViewModel.FlagDescription) Title="Description" />
+        <GridCommandColumn Width="250px">
+            <GridCommandButton Command="Edit" Icon="@FontIcon.Pencil" ShowInEdit="false">Edit</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@FontIcon.Save" ShowInEdit="true">Save</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@FontIcon.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>

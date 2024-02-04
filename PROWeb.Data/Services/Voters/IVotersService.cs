@@ -40,7 +40,9 @@ namespace PROWeb.Data.Services.Voters
 
         #region Voter Flags
 
-        IQueryable<VoterFlag> GetVoterFlags();
+        IQueryable<VoterFlag> GetVoterFlags(string? flagDescription = null);
+
+        Task UpdateVoterFlagAsync(VoterFlag flag);
 
         #endregion
 

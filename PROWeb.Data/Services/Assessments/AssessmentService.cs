@@ -27,14 +27,46 @@ namespace PROWeb.Data.Services.Assessments
         {
         }
 
-        public IQueryable<Constituency> GetConstituencies()
+        public IQueryable<Constituency> GetConstituencies(int? constituencyNo = null, string? constituencyName = null)
         {
-            return Context.Constituencies;
+            IQueryable<Constituency> constituencies = Context.Constituencies;
+
+#nullable disable
+            constituencies = constituencies
+                .WhereIfNotNull(constituencyNo, c => c.ConstituencyNo == constituencyNo)
+                .WhereIfNotNull(constituencyName, c => c.ConstituencyName.StartsWith(constituencyName));
+#nullable enable
+
+            return constituencies;
         }
 
-        public IQueryable<Parish> GetParishes()
+        public IQueryable<Parish> GetParishes(int? parishNo = null, string? parishName = null)
         {
-            return Context.Parishes;
+            IQueryable<Parish> parishes = Context.Parishes;
+
+#nullable disable
+            parishes = parishes
+                .WhereIfNotNull(parishNo, p => p.ParishNo == parishNo)
+                .WhereIfNotNull(parishName, p => p.ParishName.StartsWith(parishName));
+#nullable enable
+
+            return parishes;
+        }
+
+        public async Task UpdateParishAsync(Parish parish)
+        {
+            Context.Attach(parish);
+
+            Context.Parishes.Update(parish);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task UpdateConstituencyAsync(Constituency constituency)
+        {
+            Context.Attach(constituency);
+
+            Context.Constituencies.Update(constituency);
+            await Context.SaveChangesAsync();
         }
 
         public IQueryable<AssessmentFlag> GetAssessmentFlags()

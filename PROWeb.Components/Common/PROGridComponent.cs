@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
+using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Services.State;
+using PROWeb.Components.Voters.ViewModels;
+using PROWeb.Data.Models;
+using PROWeb.Data.Services.Voters;
 using Telerik.Blazor.Components;
 
 namespace PROWeb.Components.Common
@@ -66,6 +70,33 @@ namespace PROWeb.Components.Common
             GridState<TItem>? state = e.GridState;
 
             GridStateService?.SetState(PersistenceKey, state);
+        }
+
+        protected void RefreshGrid(TItem current, Func<TItem, bool> predicate)
+        {
+            if (Data is not null && 
+                Data.FirstOrDefault(predicate) is { } previous &&
+                Data.IndexOf(previous) is { } index && index > -1)
+            {
+                Data.RemoveAt(index);
+                Data.Insert(index, current);
+
+                GridRef?.Rebind();
+            }
+        }
+
+        protected async Task OnUpdateAsync(GridCommandEventArgs args)
+        {
+            Layout?.SetBusyState(true, "Saving. Please wait... ");
+
+            await UpdateAsync(args);
+
+            Layout?.SetBusyState(false);
+        }
+
+        protected virtual async Task UpdateAsync(GridCommandEventArgs args)
+        {
+            await Task.Delay(1);
         }
 
         public void ResetState()
