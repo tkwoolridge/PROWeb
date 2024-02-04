@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PROWeb.Data;
 
@@ -11,9 +12,11 @@ using PROWeb.Data;
 namespace PROWeb.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240121121831_Update_PRO_Office_Assistant_Name")]
+    partial class Update_PRO_Office_Assistant_Name
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -544,11 +547,11 @@ namespace PROWeb.Data.Migrations
 
             modelBuilder.Entity("PROWeb.Data.Models.PROOffice", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PROOfficeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PROOfficeId"));
 
                     b.Property<string>("Address1")
                         .IsRequired()
@@ -622,7 +625,7 @@ namespace PROWeb.Data.Migrations
                     b.Property<int>("YearEndMonth")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("PROOfficeId");
 
                     b.ToTable("PROOffices");
                 });

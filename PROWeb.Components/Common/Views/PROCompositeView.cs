@@ -86,6 +86,11 @@ namespace PROWeb.Components.Common.Views
                 await SaveAsync(Model);
             }
 
+            UndoService.Reset();
+
+            CanUndo = false;
+            SetCanSave(false);
+
             return true;
         }
 

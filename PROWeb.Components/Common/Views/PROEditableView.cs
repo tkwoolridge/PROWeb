@@ -18,7 +18,7 @@ namespace PROWeb.Components.Common.Views
 
         protected bool ReadOnly => !Editable;
 
-        public ViewModelContext<TViewModel>? Context => EditContext?.Model as ViewModelContext<TViewModel>;
+        public ViewModelContextBase<TViewModel>? Context => EditContext?.Model as ViewModelContextBase<TViewModel>;
 
         protected override void OnModelUpdate()
         {

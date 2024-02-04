@@ -1,0 +1,28 @@
+﻿@using PROWeb.Components.Common.Views;
+@using PROWeb.Office.Shared.Office.ViewModels;
+@using PROWeb.Office.Shared.Office.Views.Components.Contexts;
+@inherits OfficeBaseView<OfficeElectionsContext>
+
+<ExpansionPanel IsExpanderVisible="false">
+    <Header>
+        <div>@Title</div>
+    </Header>
+    <Content>
+        <EditForm EditContext="@EditContext">
+            <DataAnnotationsValidator />
+            <div>
+                <label>Election Year:</label>
+                <TelerikNumericTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.ElectionYear" Id="@(nameof(OfficeContext.ElectionYear))" />
+                <TelerikValidationTooltip For="@(() => @OfficeContext.ElectionYear)" TargetSelector="@("#" + nameof(OfficeContext.ElectionYear))" />
+
+                <label>Election Date:</label>
+                <TelerikDateInput ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.NextElectionsDate" Id="@(nameof(OfficeContext.NextElectionsDate))" />
+                <TelerikValidationTooltip For="@(() => @OfficeContext.NextElectionsDate)" TargetSelector="@("#" + nameof(OfficeContext.NextElectionsDate))" />
+
+                <label>Next Advanced Date:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.NextAdvancedPollDate" Id="@(nameof(OfficeContext.NextAdvancedPollDate))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.NextAdvancedPollDate)" TargetSelector="@("#" + nameof(OfficeContext.NextAdvancedPollDate))" />
+            </div>
+        </EditForm>
+    </Content>
+</ExpansionPanel>

@@ -1,0 +1,24 @@
+﻿@using PROWeb.Components.Common.Views;
+@using PROWeb.Office.Shared.Office.ViewModels;
+@using PROWeb.Office.Shared.Office.Views.Components.Contexts;
+@inherits OfficeBaseView<OfficeYearEndContext>
+
+<ExpansionPanel IsExpanderVisible="false">
+    <Header>
+        <div>@Title</div>
+    </Header>
+    <Content>
+        <EditForm EditContext="@EditContext">
+            <DataAnnotationsValidator />
+            <div>
+                <label>Year End Month:</label>
+                <TelerikNumericTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.YearEndMonth" Id="@(nameof(OfficeContext.YearEndMonth))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.YearEndMonth)" TargetSelector="@("#" + nameof(OfficeContext.YearEndMonth))" />
+
+                <label>Year End Day:</label>
+                <TelerikNumericTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.YearEndDay" Id="@(nameof(OfficeContext.YearEndDay))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.YearEndDay)" TargetSelector="@("#" + nameof(OfficeContext.YearEndDay))" />
+            </div>
+        </EditForm>
+     </Content>
+ </ExpansionPanel>

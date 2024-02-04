@@ -1,55 +1,15 @@
 ﻿using PROWeb.Common.StrongBindings;
-using System.ComponentModel;
 using System.Reactive.Disposables;
 
 namespace PROWeb.Common.ViewModels
 {
-    public abstract class ViewModelContext<TViewModel> : SlimViewModelBase where TViewModel : SlimViewModelBase
+    public abstract class ViewModelContext<TViewModel> : ViewModelContextBase<TViewModel> where TViewModel : SlimViewModelBase
     {
         private readonly Dictionary<string, IStrongBindingPath> _propertyPaths = new Dictionary<string, IStrongBindingPath>();
 
-        private TViewModel? _model;
-
-        private readonly CompositeDisposable _bindingsDisposable = new CompositeDisposable();
-
         public Dictionary<string, IStrongBindingPath>.KeyCollection Properties => _propertyPaths.Keys;
 
-        public TViewModel? Model 
-        { 
-            get => _model; 
-            set
-            {
-                _model = value;
-            }   
-        }
-
-        public event EventHandler<ContextChangingEventArgs>? Changing;
-
-        public event EventHandler<ContextChangedEventArgs>? Changed;
-
-        public ViewModelContext()
-        {
-            PropertyChanging += OnPropertyChanging;
-            PropertyChanged += OnPropertyChanged;
-        }
-
-        public object? GetValue(string name)
-        {
-            if (GetPropertyPath(name) is { } path)
-            {
-                return path.ReadProperty(this);
-            }
-
-            return null;
-        }
-
-        public void SetValue(string name, object? value)
-        {
-            if (GetPropertyPath(name) is { } path)
-            {
-                path.WriteProperty(this, value);
-            }
-        }
+        private readonly CompositeDisposable _bindingsDisposable = new CompositeDisposable();
 
         public void UnBind()
         {
@@ -69,39 +29,31 @@ namespace PROWeb.Common.ViewModels
             _bindingsDisposable.Add(binding);
         }
 
-        private IStrongBindingPath? GetPropertyPath(string name)
+        public override object? GetValue(string name)
         {
-            if (_propertyPaths.TryGetValue(name,out IStrongBindingPath? path))
+            if (GetPropertyPath(name) is { } path)
             {
-                return path;
+                return path.ReadProperty(this);
             }
 
             return null;
         }
 
-        protected void AddPropertyPath(IStrongBindingPath path)
+        public override void SetValue(string name, object? value)
         {
-            _propertyPaths.TryAdd(path.PropertyName, path);
-        }
-
-        private void OnPropertyChanging(object? sender, PropertyChangingEventArgs e)
-        {
-            if (e.PropertyName is { } propertyName)
+            if (GetPropertyPath(name) is { } path)
             {
-                var value = GetValue(propertyName);
-
-                Changing?.Invoke(this, new ContextChangingEventArgs(propertyName, value));
+                path.WriteProperty(this, value);
             }
         }
-
-        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private IStrongBindingPath? GetPropertyPath(string name)
         {
-            if (e.PropertyName is { } propertyName)
+            if (_propertyPaths.TryGetValue(name, out IStrongBindingPath? path))
             {
-                var value = GetValue(propertyName);
-
-                Changed?.Invoke(this, new ContextChangedEventArgs(propertyName, value));
+                return path;
             }
+
+            return null;
         }
     }
 }

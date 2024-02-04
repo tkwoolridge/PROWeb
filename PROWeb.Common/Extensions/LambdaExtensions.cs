@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -68,12 +69,32 @@ public static class LambdaExtensions
     /// <typeparam name="TOwner"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="owner">The object to write the property on</param>
+    /// <param name="propertyName">The property name to write to</param>
+    /// <param name="value">The value to write</param>
+    public static void WriteProperty<TOwner, TValue>(
+        this TOwner owner,
+        string propertyName,
+        TValue? value)
+    {
+        PropertyInfo? propertyInfo = owner?.GetType().GetProperty(propertyName);
+
+        Debug.Assert(propertyInfo != null);
+
+        owner.WriteProperty(propertyInfo, value);
+    }
+
+    /// <summary>
+    /// Writes to a property on the given object.
+    /// </summary>
+    /// <typeparam name="TOwner"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="owner">The object to write the property on</param>
     /// <param name="property">The property expression to write to</param>
     /// <param name="value">The value to write</param>
     public static void WriteProperty<TOwner, TValue>(
         this TOwner owner,
-        Expression<Func<TOwner, TValue>> property,
-        TValue value)
+        Expression<Func<TOwner, TValue?>> property,
+        TValue? value)
     {
         PropertyInfo propertyInfo = property.GetPropertyInfo();
 
@@ -91,7 +112,7 @@ public static class LambdaExtensions
     public static void WriteProperty<TOwner, TValue>(
         this TOwner owner,
         PropertyInfo propertyInfo,
-        TValue value)
+        TValue? value)
     {
         ref DelegateCache<TOwner>.Delegates delegates
             = ref DelegateCache<TOwner>.Lookup(propertyInfo.Name);
@@ -100,15 +121,33 @@ public static class LambdaExtensions
         {
             ParameterExpression arg = Expression.Parameter(typeof(TOwner));
             ParameterExpression arg2 = Expression.Parameter(typeof(TValue));
-            delegates.Setter = Expression.Lambda<Action<TOwner, TValue>>(
+            delegates.Setter = Expression.Lambda<Action<TOwner, TValue?>>(
                 Expression.Assign(
                     Expression.MakeMemberAccess(arg, propertyInfo),
-                    arg2),
+                    Expression.Convert(arg2, propertyInfo.PropertyType)),
                 arg,
                 arg2).Compile();
         }
 
-        (delegates.Setter as Action<TOwner, TValue>)?.Invoke(owner, value);
+        (delegates.Setter as Action<TOwner, TValue?>)?.Invoke(owner, value);
+    }
+
+    /// <summary>
+    /// Reads a property from a given object.
+    /// </summary>
+    /// <typeparam name="TOwner"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="owner">The object to read the property from</param>
+    /// <param name="propertyName">The property name</param>
+    public static TValue? ReadProperty<TOwner, TValue>(
+        this TOwner owner,
+        string propertyName)
+    {
+        PropertyInfo? propertyInfo = owner?.GetType().GetProperty(propertyName);
+
+        Debug.Assert(propertyInfo != null);
+
+        return owner.ReadProperty<TOwner, TValue>(propertyInfo);
     }
 
     /// <summary>
@@ -118,7 +157,7 @@ public static class LambdaExtensions
     /// <typeparam name="TValue"></typeparam>
     /// <param name="owner">The object to read the property from</param>
     /// <param name="property">The property expression to read</param>
-    public static TValue ReadProperty<TOwner, TValue>(
+    public static TValue? ReadProperty<TOwner, TValue>(
         this TOwner owner,
         Expression<Func<TOwner, TValue>> property)
     {
@@ -134,7 +173,7 @@ public static class LambdaExtensions
     /// <typeparam name="TValue"></typeparam>
     /// <param name="owner">The object to read the property from</param>
     /// <param name="propertyInfo">The property info to read</param>
-    public static TValue ReadProperty<TOwner, TValue>(
+    public static TValue? ReadProperty<TOwner, TValue>(
         this TOwner owner,
         PropertyInfo propertyInfo)
     {
@@ -145,11 +184,11 @@ public static class LambdaExtensions
         {
             ParameterExpression arg = Expression.Parameter(typeof(TOwner));
             delegates.Getter = Expression.Lambda<Func<TOwner, TValue>>(
-                Expression.Property(arg, propertyInfo),
+                Expression.Convert(Expression.Property(arg, propertyInfo), typeof(TValue)),
                 arg).Compile();
         }
 
-        return ((Func<TOwner, TValue>)delegates.Getter)(owner);
+        return ((Func<TOwner, TValue?>)delegates.Getter)(owner);
     }
 
     private static class DelegateCache<TOwner>

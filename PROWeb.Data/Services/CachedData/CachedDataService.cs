@@ -11,7 +11,7 @@ namespace PROWeb.Data.Services.CachedData
 {
     public class CachedDataService : ICachedDataService
     {
-        public int RegistrationYear { get; private set; }
+        public PROOffice Office { get; private set; } = new PROOffice();
 
         public List<int> RegistrationYears { get; private set; } = Enumerable.Empty<int>().ToList();
 
@@ -40,6 +40,12 @@ namespace PROWeb.Data.Services.CachedData
             //await PreloadAssessmentDataAsync(context);
         }
 
+        public void UpdateOfficeCachedData(PROOffice office)
+        {
+            Office = office;
+            RegistrationYears = Enumerable.Range(DateTime.Now.Year - 2, 3).ToList();
+        }
+
         private void PreloadPersonData()
         {
             Titles = new List<string>() { "MS", "MISS", "MR", "MRS", "DR", "JP", "MP" };
@@ -48,11 +54,8 @@ namespace PROWeb.Data.Services.CachedData
 
         private async Task PreloadOfficeDataAsync(DataContext context)
         {
-            var office = await context.PROOffices.FirstOrDefaultAsync();
-
-            RegistrationYear = office?.ElectionYear ?? DateTime.Now.Year;
-
-            RegistrationYears = Enumerable.Range(DateTime.Now.Year - 2, 3).ToList();
+            var office = await context.PROOffices.FirstAsync();
+            UpdateOfficeCachedData(office);
         }
 
         private async Task PreloadFlagsDataAsync(DataContext context)

@@ -64,7 +64,7 @@ namespace PROWeb.Components.Voters
 
             model.LastUpdated = DateTime.UtcNow;
             model.LastUpdatedBy = User.UserName;
-            model.RegistryYear = _cachedDataService.RegistrationYear;
+            model.RegistryYear = _cachedDataService.Office.ElectionYear;
 
             using (var service = _votersServiceFactory.CreateService())
             {
@@ -97,15 +97,7 @@ namespace PROWeb.Components.Voters
 
                 Debug.Assert(voter != null);
 
-                try
-                {
-                    await service.UpdateVoterAsync(voter);
-                }
-                catch(Exception ex)
-                {
-                    string message = ex.Message;
-                }
-                
+                await service.UpdateVoterAsync(voter);
 
                 if (oldView is not null)
                 {

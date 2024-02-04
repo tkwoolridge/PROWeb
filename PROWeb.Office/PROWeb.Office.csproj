@@ -12,7 +12,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.0.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PROWeb.Authentication\PROWeb.Authentication.csproj" />

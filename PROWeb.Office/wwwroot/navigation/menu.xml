@@ -5,6 +5,7 @@
 		<MenuItem Name="Registry" Description="Registry" Page="/"/>
 		<MenuItem Name="Registrations" Description="Registrations" Page="/registrations"/>
 		<MenuItem Name="Users" Description="Users" Page="/users"/>
+		<MenuItem Name="Office" Description="Office" Page="/office"/>
 	</MenuItem>
 
 	<!--<MenuItem Requirement="CanUseRatepayerRegistry" Name="Ratepayers" Description="Ratepayers">

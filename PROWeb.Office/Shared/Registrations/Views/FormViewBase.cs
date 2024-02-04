@@ -90,11 +90,6 @@ namespace PROWeb.Office.Shared.Registrations.Views
             }
         }
 
-        protected override void SetCanSave(bool canSave)
-        {
-            base.SetCanSave(canSave);
-        }
-
         protected override async Task SaveAsync(RegistrationViewModel model)
         {
             SetUpdateFields(model);
@@ -147,7 +142,7 @@ namespace PROWeb.Office.Shared.Registrations.Views
                 if (Model.RegistrationId is null)
                 {
                     Model.CountryId = VoterConstants.BermudaCountryId;
-                    Model.RegistryYear = _cachedDataService.RegistrationYear;
+                    Model.RegistryYear = _cachedDataService.Office.ElectionYear;
                 }
             }
         }

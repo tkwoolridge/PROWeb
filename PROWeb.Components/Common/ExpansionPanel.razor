@@ -4,7 +4,10 @@
     <div class="w-100 ep-header p-2 d-flex justify-content-between">
         <div>@Header</div>
         <div>@ToolBar</div>
-        <span @onclick="@OnExpand" @onclick:stopPropagation class="k-icon @ArrowClass" style="line-height: inherit; margin: 0 8px"></span>
+        @if(IsExpanderVisible)
+        {
+            <span @onclick="@OnExpand" @onclick:stopPropagation class="k-icon @ArrowClass" style="line-height: inherit; margin: 0 8px"></span>
+        }
     </div>
     <div class="p-2 @HideContentClass">
         @Content

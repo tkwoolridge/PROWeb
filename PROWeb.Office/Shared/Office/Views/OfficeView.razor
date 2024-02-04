@@ -1,0 +1,28 @@
+﻿@using PROWeb.Components.Common.Views;
+@using PROWeb.Office.Shared.Office.ViewModels;
+@using PROWeb.Components.Common.Layouts;
+@using PROWeb.Office.Shared.Office.Views.Components
+@inherits PROCompositeView<OfficeViewModel>
+
+<div class="d-flex justify-content-center w-100">
+    <div style="width:800px">
+        <ViewsLayout TViewModel="OfficeViewModel" Class="p-3" @ref="@LayoutRef">
+            <Views>
+                <div class="office-view">
+                    <OfficeContactInfoView Title="Contact Info"/>
+                    <div class="elections-view">
+                        <OfficePOBOXView Title="PO BOX" />
+                        <OfficeYearEndView Title="Year End" />
+                        <OfficeElectionsView Title="Elections" />
+                    </div>
+                </div>
+            </Views>
+            <Footer>
+                <div class="d-flex justify-content-between w-100 mt-2">
+                    <TelerikButton Class="w-75 me-1" Enabled="@CanSave" OnClick="@OnSaveAsync" ThemeColor="primary">Save</TelerikButton>
+                    <TelerikButton Class="w-25 ms-1" Enabled="@CanUndo" OnClick="@OnUndo">Undo</TelerikButton>
+                </div>
+            </Footer>
+        </ViewsLayout>
+    </div>
+</div>

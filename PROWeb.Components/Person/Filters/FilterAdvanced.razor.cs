@@ -67,7 +67,7 @@ namespace PROWeb.Components.Person.Filters
         {
             base.ResetFilter();
 
-            Filter.RegistryYear = _cachedDataService.RegistrationYear;
+            Filter.RegistryYear = _cachedDataService.Office.ElectionYear;
         }
     }
 }

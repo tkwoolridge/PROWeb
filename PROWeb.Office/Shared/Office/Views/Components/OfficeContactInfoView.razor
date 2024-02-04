@@ -1,0 +1,57 @@
+﻿@using PROWeb.Components.Common.Views;
+@using PROWeb.Office.Shared.Office.ViewModels;
+@using PROWeb.Office.Shared.Office.Views.Components.Contexts;
+@inherits OfficeBaseView<OfficeContactInfoContext>
+
+<ExpansionPanel IsExpanderVisible="false">
+    <Header>
+        <div>@Title</div>
+    </Header>
+    <Content>
+        <EditForm EditContext="@EditContext">
+            <DataAnnotationsValidator />
+            <div>
+                <label>Register Name:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.RegisterName" Id="@(nameof(OfficeContext.RegisterName))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.RegisterName)" TargetSelector="@("#" + nameof(OfficeContext.RegisterName))" />
+
+                <label>Assistant Name:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.AssistantName" Id="@(nameof(OfficeContext.AssistantName))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.AssistantName)" TargetSelector="@("#" + nameof(OfficeContext.AssistantName))" />
+
+                <label>Address 1:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.Address1" Id="@(nameof(OfficeContext.Address1))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.Address1)" TargetSelector="@("#" + nameof(OfficeContext.Address1))" />
+
+                <label>Address 2:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.Address2" Id="@(nameof(OfficeContext.Address2))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.Address2)" TargetSelector="@("#" + nameof(OfficeContext.Address2))" />
+
+                <label>Address 3:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.Address3" Id="@(nameof(OfficeContext.Address3))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.Address3)" TargetSelector="@("#" + nameof(OfficeContext.Address3))" />
+
+                <label>Address 4:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.Address4" Id="@(nameof(OfficeContext.Address4))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.Address4)" TargetSelector="@("#" + nameof(OfficeContext.Address4))" />
+
+                <label>Fax:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.Fax" Id="@(nameof(OfficeContext.Fax))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.Fax)" TargetSelector="@("#" + nameof(OfficeContext.Fax))" />
+
+                <label>Phone:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.Phone" Id="@(nameof(OfficeContext.Phone))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.Phone)" TargetSelector="@("#" + nameof(OfficeContext.Phone))" />
+
+                <label>Email:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.Email" Id="@(nameof(OfficeContext.Email))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.Email)" TargetSelector="@("#" + nameof(OfficeContext.Email))" />
+
+                <label>Website:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.Website" Id="@(nameof(OfficeContext.Website))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.Website)" TargetSelector="@("#" + nameof(OfficeContext.Website))" />
+
+            </div>
+        </EditForm>
+    </Content>
+</ExpansionPanel>

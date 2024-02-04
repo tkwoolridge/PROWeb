@@ -9,11 +9,14 @@ namespace PROWeb.Data.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PROOfficeId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string GeneralName { get; set; }
+        public string RegisterName { get; set; }
+
+        [StringLength(255)]
+        public string AssistantName { get; set; }
 
         [Required]
         [StringLength(255)]

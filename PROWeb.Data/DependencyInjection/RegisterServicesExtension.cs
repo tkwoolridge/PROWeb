@@ -11,6 +11,7 @@ using PROWeb.Data.Services.Configuration;
 using PROWeb.Data.Services.EligiblePoll;
 using PROWeb.Data.Services.Logging;
 using PROWeb.Data.Services.Map;
+using PROWeb.Data.Services.Office;
 using PROWeb.Data.Services.Registrations;
 using PROWeb.Data.Services.Voters;
 
@@ -61,6 +62,9 @@ namespace PROWeb.Data.DependencyInjection
 
             // Register activity log factory.
             services.AddSingleton<IActivityLogServiceFactory, ActivityLogServiceFactory>();
+
+            // Register office service factory.
+            services.AddSingleton<IOfficeServiceFactory, OfficeServiceFactory>();
 
             // Register activity log service.
             services.AddTransient<IActivityLogService, ActivityLogService>();

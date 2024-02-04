@@ -16,7 +16,10 @@ namespace PROWeb.Components.Common
 
         [Parameter]
         public bool IsExpanded { get; set; } = true;
-        
+
+        [Parameter]
+        public bool IsExpanderVisible { get; set; } = true;
+
         [Parameter]
         public RenderFragment? @ToolBar { get; set; }
 

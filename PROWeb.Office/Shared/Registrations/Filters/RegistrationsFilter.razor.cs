@@ -45,7 +45,7 @@ namespace PROWeb.Office.Shared.Registrations.Filters
         {
             base.ResetFilter();
 
-            Filter.RegistryYear = _cachedDataService.RegistrationYear;
+            Filter.RegistryYear = _cachedDataService.Office.ElectionYear;
         }
 
         private void CreateForm1()

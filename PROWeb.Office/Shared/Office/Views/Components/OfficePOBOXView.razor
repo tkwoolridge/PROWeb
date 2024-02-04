@@ -1,0 +1,28 @@
+﻿@using PROWeb.Components.Common.Views;
+@using PROWeb.Office.Shared.Office.ViewModels;
+@using PROWeb.Office.Shared.Office.Views.Components.Contexts;
+@inherits OfficeBaseView<OfficePOBOXContext>
+
+<ExpansionPanel IsExpanderVisible="false">
+    <Header>
+        <div>@Title</div>
+    </Header>
+    <Content>
+        <EditForm EditContext="@EditContext">
+            <DataAnnotationsValidator />
+            <div>
+                <label>PO1:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.PO1" Id="@(nameof(OfficeContext.PO1))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.PO1)" TargetSelector="@("#" + nameof(OfficeContext.PO1))" />
+
+                <label>PO2:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.PO2" Id="@(nameof(OfficeContext.PO2))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.PO2)" TargetSelector="@("#" + nameof(OfficeContext.PO2))" />
+
+                <label>PO3:</label>
+                <TelerikTextBox ReadOnly="@ReadOnly" @bind-Value="@OfficeContext.PO3" Id="@(nameof(OfficeContext.PO3))" />
+                <TelerikValidationTooltip For="@(() => OfficeContext.PO3)" TargetSelector="@("#" + nameof(OfficeContext.PO3))" />
+            </div>
+        </EditForm>
+    </Content>
+</ExpansionPanel>

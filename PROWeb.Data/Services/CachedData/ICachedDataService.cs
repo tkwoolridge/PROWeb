@@ -5,7 +5,7 @@ namespace PROWeb.Data.Services.CachedData
 {
     public interface ICachedDataService
     {
-        int RegistrationYear { get; }
+        PROOffice Office { get; }
 
         List<int> RegistrationYears { get; }
 
@@ -26,5 +26,7 @@ namespace PROWeb.Data.Services.CachedData
         List<ConstituencyMarker>? ConstituencyMarkers { get; }
 
         Task PreloadCachedDataAsync(DataContext context);
+
+        void UpdateOfficeCachedData(PROOffice office);
     }
 }
