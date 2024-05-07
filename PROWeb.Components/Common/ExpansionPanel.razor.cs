@@ -39,7 +39,7 @@ namespace PROWeb.Components.Common
             UpdateExpandState();
         }
 
-        private void UpdateExpandState() 
+        private void UpdateExpandState()
         {
             HideContentClass = IsExpanded ? null : "hide-content";
             ArrowClass = IsExpanded ? _arrowDown : _arrowUp;

@@ -37,9 +37,9 @@ namespace PROWeb.Components.Voters
             {
                 var voters = await service.GetVoters
                     (
-                        filter.RegistryYear, 
-                        firstName: filter.FirstName, 
-                        lastName: filter.LastName, 
+                        filter.RegistryYear,
+                        firstName: filter.FirstName,
+                        lastName: filter.LastName,
                         dateOfBirth: filter.DateOfBirth
                     ).ProjectToListAsync<VoterViewModel>();
 

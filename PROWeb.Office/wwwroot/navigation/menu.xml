@@ -12,6 +12,9 @@
 		<MenuItem Name="Parishes" Description="Parishes" Page="/parishes"/>
 		<MenuItem Name="VoterFlags" Description="Voter Flags" Page="/voterflags"/>
 	</MenuItem>
+	<MenuItem Name="Reports" Description="Reports">
+		<MenuItem Name="VoterReports" Description="Voter Reports" Page="/voterreports"/>
+	</MenuItem>
 
 	<!--<MenuItem Requirement="CanUseRatepayerRegistry" Name="Ratepayers" Description="Ratepayers">
 		<MenuItem Name="RatepayersRegistry" Description="Ratepayers Registry" Page="PRO.Client.Pages.Ratepayers.ViewModel.RatepayersPageViewModel" />

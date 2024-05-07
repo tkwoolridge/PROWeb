@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
+﻿using PROWeb.Common.Extensions;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
-using PROWeb.Common.Extensions;
 
 namespace PROWeb.Common.StrongBindings;
 
@@ -102,15 +102,15 @@ public class StrongBindingPath<TSource, TProperty> : IStrongBindingPath
 
     void IStrongBindingPath.WriteProperty(object source, object? value)
     {
-        if(source is not TSource tSource)
+        if (source is not TSource tSource)
         {
             throw new ArgumentException($"Property source must be of type {typeof(TSource)}");
         }
 
-        if(value is null)
+        if (value is null)
         {
             WriteProperty(tSource, default);
-        } 
+        }
         else if (value is not TProperty tValue)
         {
             throw new ArgumentException($"Property source must be of type {typeof(TSource)}");

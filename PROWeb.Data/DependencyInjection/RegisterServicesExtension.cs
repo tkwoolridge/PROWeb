@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PROWeb.Components.Reports.Configuration;
 using PROWeb.Data.Mappings;
 using PROWeb.Data.Services;
 using PROWeb.Data.Services.Assessments;
@@ -37,10 +38,13 @@ namespace PROWeb.Data.DependencyInjection
             services.AddHostedService<PreloadService>();
 
             //Register preload data service.
-            services.AddSingleton<ICachedDataService,CachedDataService>();
+            services.AddSingleton<ICachedDataService, CachedDataService>();
 
             // Register navigation service.
             services.AddSingleton<INavigationService, NavigationService>();
+
+            // Register reports service.
+            services.AddSingleton<IReportsService, ReportsService>();
 
             // Register address service.
             services.AddSingleton<IAssessmentServiceFactory, AssessmentServiceFactory>();

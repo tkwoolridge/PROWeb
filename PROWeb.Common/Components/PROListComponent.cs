@@ -2,7 +2,7 @@
 
 namespace PROWeb.Common.Components
 {
-    public abstract class PROListComponent<TFilter, TItem> : 
+    public abstract class PROListComponent<TFilter, TItem> :
         PROComponent where TFilter : class, new()
     {
         private int _page;
@@ -13,30 +13,30 @@ namespace PROWeb.Common.Components
 
         protected virtual string BusyMessage { get; set; } = "Loading. Please wait...";
 
-        protected int Page 
-        { 
-            get => _page; 
+        protected int Page
+        {
+            get => _page;
             set
             {
                 if (_page != value)
                 {
                     _page = value;
-                    PageChanged?.Invoke(this, value);        
+                    PageChanged?.Invoke(this, value);
                 }
             }
         }
 
-        protected IList<TItem>? Data 
-        { 
-            get => _data; 
+        protected IList<TItem>? Data
+        {
+            get => _data;
             set
             {
-                if(_data != value)
+                if (_data != value)
                 {
                     _data = value;
                     DataChanged?.Invoke(this, value);
                 }
-            } 
+            }
         }
 
         public EventHandler<IList<TItem>?>? DataChanged { get; set; }

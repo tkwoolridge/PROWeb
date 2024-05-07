@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
+using PROWeb.Components.Reports.Configuration;
 using PROWeb.Components.Services.State;
 using PROWeb.Components.Voters;
 using PROWeb.Components.Voters.ViewModels;
+using PROWeb.Data.Models.Reports;
 using Telerik.Blazor.Components;
 
 namespace PROWeb.Office.Shared.Registry.Views
@@ -14,9 +16,18 @@ namespace PROWeb.Office.Shared.Registry.Views
         [Inject]
         protected IStateService<VoterTabView, int> StateService { get; set; } = null!;
 
+        [Inject]
+        protected IReportsService ReportsService { get; set; } = null!;
+
         protected VoterHistoryDialog? VoterHistoryDialogRef { get; set; }
 
+        protected CertificatesDialog? @CertificatesDialogRef { get; set; }
+
         protected string PersistenceKey => LayoutRef?.Model?.VoterId.ToString() ?? "0";
+
+        public List<ReportInfo>? Certificates { get; private set; }
+
+        public int? SelectedCertificateId { get; set; } = 1;
 
         protected int TabIndex
         {
@@ -39,6 +50,13 @@ namespace PROWeb.Office.Shared.Registry.Views
             }
         }
 
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Certificates = ReportsService.GetCertificates()?.Reports;
+        }
+
         public async Task OnEditAsync(ListViewCommandEventArgs e)
         {
             bool result = await OnSaveAsync();
@@ -59,6 +77,13 @@ namespace PROWeb.Office.Shared.Registry.Views
             {
                 StateService.Clear();
             }
+        }
+
+        public void OnRunCertificates()
+        {
+            var certificate = Certificates!.First(r => r.Id == SelectedCertificateId);
+
+            CertificatesDialogRef?.Show(certificate, Model);
         }
     }
 }

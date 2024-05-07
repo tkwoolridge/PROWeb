@@ -30,8 +30,8 @@ namespace PROWeb.Office.Shared.Registrations
             base.OnInitialized();
         }
 
-        public void OnSave() 
-        { 
+        public void OnSave()
+        {
             ShowDialog = false;
         }
 

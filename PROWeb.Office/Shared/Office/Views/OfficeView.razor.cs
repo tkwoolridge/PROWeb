@@ -18,7 +18,7 @@ namespace PROWeb.Office.Shared.Office.Views
 
         protected override async Task SaveAsync(OfficeViewModel model)
         {
-            using(var service = OfficeServiceFactory.CreateService())
+            using (var service = OfficeServiceFactory.CreateService())
             {
                 var officeSettings = model.Adapt<PROOffice>();
                 await service.SaveOfficeAsync(officeSettings);

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace PROWeb.Common.Transformations
 {
     public class ObjectToHtml
     {
-        public static string ToHtml(object obj, string xsltPath) 
+        public static string ToHtml(object obj, string xsltPath)
         {
             string xml = GetXmlFromObject(obj);
 

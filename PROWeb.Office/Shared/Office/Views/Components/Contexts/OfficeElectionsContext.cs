@@ -1,6 +1,5 @@
 ﻿using PROWeb.Common.StrongBindings.Enums;
 using PROWeb.Common.StrongBindings.Extensions;
-using PROWeb.Common.ViewModels;
 using PROWeb.Office.Shared.Office.ViewModels;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,6 +7,7 @@ namespace PROWeb.Office.Shared.Office.Views.Components.Contexts
 {
     public class OfficeElectionsContext : OfficeBaseContext
     {
+        private int _electionTypeId;
         private int? _electionYear;
         private DateTime? _nextElectionsDate;
         private string? _nextAdvancedPollDate;
@@ -33,6 +33,13 @@ namespace PROWeb.Office.Shared.Office.Views.Components.Contexts
             set => RaiseAndSetIfChanged(ref _nextAdvancedPollDate, value);
         }
 
+        [Required]
+        public int ElectionTypeId
+        {
+            get => _electionTypeId;
+            set => RaiseAndSetIfChanged(ref _electionTypeId, value);
+        }
+
         public override void Bind(OfficeViewModel model)
         {
             Model = model;
@@ -42,6 +49,7 @@ namespace PROWeb.Office.Shared.Office.Views.Components.Contexts
                 AddBinding(Model.Bind(this, m => m.NextElectionsDate, o => o.NextElectionsDate, StrongBindingMode.TwoWay));
                 AddBinding(Model.Bind(this, m => m.NextAdvancedPollDate, o => o.NextAdvancedPollDate, StrongBindingMode.TwoWay));
                 AddBinding(Model.Bind(this, m => m.ElectionYear, o => o.ElectionYear, StrongBindingMode.TwoWay));
+                AddBinding(Model.Bind(this, m => m.ElectionTypeId, o => o.ElectionTypeId, StrongBindingMode.TwoWay));
             }
         }
     }

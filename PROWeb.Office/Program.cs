@@ -3,12 +3,15 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SignalR;
 using PROWeb.Authentication.DependencyInjection;
 using PROWeb.Components.DependencyInjection;
+using PROWeb.Components.Reports.Services;
 using PROWeb.Data.DependencyInjection;
 using PROWeb.Data.Services.Extensions;
 using PROWeb.Office;
 using PROWeb.Office.Mapper;
 using Serilog;
 using System.Globalization;
+using Telerik.Reporting.Cache.File;
+using Telerik.Reporting.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +57,23 @@ builder.Services.Configure<HubOptions>(options =>
     options.MaximumReceiveMessageSize = 1024 * 1024; // 1MB
 });
 
+builder.Services.Configure<IISServerOptions>(options =>
+{
+    options.AllowSynchronousIO = true;
+});
+
+builder.Services.AddSingleton<IReportSourceResolver, ReportSourceResolver>();
+
+builder.Services.AddSingleton<IReportServiceConfiguration>(sp =>
+    new ReportServiceConfiguration
+    {
+        ReportingEngineConfiguration = sp.GetService<IConfiguration>(),
+        HostAppId = "PROWebOffice",
+        Storage = new FileStorage(),
+        ReportSourceResolver = sp.GetService<IReportSourceResolver>(),
+        ReportSharingTimeout = 1400
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -72,5 +92,7 @@ app.MapPROWebAuthenticationEndpoints();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+app.AddPROWebComponentsEndpoints();
 
 app.Run();

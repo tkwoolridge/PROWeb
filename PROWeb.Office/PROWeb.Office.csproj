@@ -4,19 +4,40 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
+	<NoWarn>$(NoWarn);NETSDK1206</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\reports\ElectionCertificate.trdp" />
+    <Content Remove="wwwroot\reports\ImmigrationCertificate.trdp" />
+    <Content Remove="wwwroot\reports\VotersAtoZ.trdp" />
+    <Content Remove="wwwroot\reports\VotersWithDOB.trdp" />
+    <Content Remove="wwwroot\reports\WalkList.trdp" />
+    <Content Remove="wwwroot\reports\WalkListWithDOB.trdp" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CompareNETObjects" Version="4.83.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.1.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PROWeb.Authentication\PROWeb.Authentication.csproj" />
     <ProjectReference Include="..\PROWeb.Components\PROWeb.Components.csproj" />
     <ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Shared\Reports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\reports\ElectionCertificate.trdp" />
+    <None Include="wwwroot\reports\VotersAtoZ.trdp" />
+    <None Include="wwwroot\reports\ImmigrationCertificate.trdp" />
+    <None Include="wwwroot\reports\WalkListWithDOB.trdp" />
+    <None Include="wwwroot\reports\WalkList.trdp" />
+    <None Include="wwwroot\reports\VotersWithDOB.trdp" />
+    <None Include="wwwroot\reports\Voters.trdp" />
   </ItemGroup>
 </Project>

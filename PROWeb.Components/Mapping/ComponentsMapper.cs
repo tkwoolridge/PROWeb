@@ -16,7 +16,7 @@ namespace PROWeb.Components.Mapping
                 .Ignore(d => d.Level);
 
             config.NewConfig<ConstituencyBoundary, ConstituencyMarkerViewModel>()
-                .Map(d => d.Center, s => new[] { s.CenterLatitude, s.CenterLongitude});
+                .Map(d => d.Center, s => new[] { s.CenterLatitude, s.CenterLongitude });
 
             config.NewConfig<Assessment, AssessmentViewModel>()
                 .IgnoreIf((s, d) => d.Constituency != null, d => d.Constituency!)

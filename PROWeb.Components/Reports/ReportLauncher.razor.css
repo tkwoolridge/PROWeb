@@ -1,0 +1,33 @@
+﻿.content-layout {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 5px;
+    height: 100%;
+}
+
+.reports-header {
+    grid-area: 1/1;
+}
+
+.hr-line {
+    grid-area: 2/1
+}
+
+.filter-content {
+    grid-area: 3/1;
+}
+
+.filter-list {
+    height: 400px;
+    overflow-y: auto;
+}
+
+.loader-show, .loader-hide {
+    grid-area: 3/1;
+    z-index: 2;
+    display: none;
+}
+
+.loader-show {
+    display: block;
+}

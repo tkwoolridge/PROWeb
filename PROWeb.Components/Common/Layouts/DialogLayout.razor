@@ -1,0 +1,32 @@
+﻿@inherits PROComponent
+
+<TelerikWindow 
+    Width="@Width"
+    Height="@Height"
+    Centered="true" 
+    Modal="true" 
+    @bind-Visible="@ShowDialog">
+    <WindowTitle>
+        <strong>@Title</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+    <WindowContent>
+        <div class="dialog-content-layout">
+            <div class="overflow-auto h-100">
+                @if (@DialogContent != null)
+                {
+                    @DialogContent
+                }
+            </div>
+            @if (ShowButtons)
+            {
+                <div class="d-flex justify-content-between w-100">
+                    <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnConfirm" Enabled="@CanConfirm" ThemeColor="primary">@ConfirmCaption</TelerikButton>
+                    <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnCancel">@CancelCaption</TelerikButton>
+                </div>
+            }
+        </div>
+    </WindowContent>
+</TelerikWindow>

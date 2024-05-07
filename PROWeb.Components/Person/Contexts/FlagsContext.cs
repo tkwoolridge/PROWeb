@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Contexts
 {
-    internal class FlagsContext<TFlagsViewModel, TFlagViewModel> : ViewModelContext<TFlagsViewModel> 
+    internal class FlagsContext<TFlagsViewModel, TFlagViewModel> : ViewModelContext<TFlagsViewModel>
         where TFlagsViewModel : SlimViewModelBase
         where TFlagViewModel : SlimViewModelBase, new()
     {
@@ -43,8 +43,8 @@ namespace PROWeb.Components.Person.Contexts
 
         private bool? _wasBornIn;
 
-        public bool? WasBornIn 
-        { 
+        public bool? WasBornIn
+        {
             get => _wasBornIn;
             set => RaiseAndSetIfChanged(ref _wasBornIn, value);
         }
@@ -105,12 +105,12 @@ namespace PROWeb.Components.Person.Contexts
                 AddBinding(Model?.Bind(this, countryId, c => c.CountryId, StrongBindingMode.TwoWay));
             }
 
-            if(Flags is not { } flags)
+            if (Flags is not { } flags)
             {
                 return;
             }
 
-            foreach(var flag in flags)
+            foreach (var flag in flags)
             {
                 ContextFlags?.Add(new FlagContext<TFlagViewModel>(
                     flag,

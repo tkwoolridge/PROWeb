@@ -1,0 +1,27 @@
+﻿@using PROWeb.Components.Voters.ViewModels
+@using PROWeb.Data.Models
+@inherits ReportFilterView
+
+<TelerikFilter Value="@Filter" ValueChanged="@OnFilterChanged">
+    <FilterFields>
+        <FilterField Name="@nameof(VoterView.VoterId)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@RegistryYearOperators" Label="Id" />
+        <FilterField Name="@nameof(VoterView.RegistryYear)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@RegistryYearOperators" Label="Election Year" />
+        <FilterField Name="@nameof(VoterView.FirstName)" Type="@typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="First Name" />
+        <FilterField Name="@nameof(VoterView.LastName)" Type="typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Last Name" />
+        <FilterField Name="@nameof(VoterView.MiddleName)" Type="typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Middle Name" />
+        <FilterField Name="@nameof(VoterView.MaidenName)" Type="typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Maiden Name" />
+        <FilterField Name="@nameof(VoterView.Gender)" Type="typeof(char)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@RegistryYearOperators" Label="Sex" />
+        <FilterField Name="@nameof(VoterView.DateOfBirth)" Type="typeof(DateTime)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@NumberOrDatesOperators" Label="Date Of Birth" />
+        <FilterField Name="@nameof(VoterView.Age)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@NumberOrDatesOperators" Label="Age" />
+        <FilterField Name="@nameof(VoterView.Email)" Type="@typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Email" />
+        <FilterField Name="@nameof(VoterView.ContactPhone)" Type="@typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Phone" />
+        <FilterField Name="@nameof(VoterView.AssessmentNo)" Type="@typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@RegistryYearOperators" Label="Assessment No" />
+        <FilterField Name="@nameof(VoterView.HouseNo)" Type="@typeof(string)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@HouseNoOperators" Label="House No" />
+        <FilterField Name="@nameof(VoterView.Address1)" Type="@typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Address1" />
+        <FilterField Name="@nameof(VoterView.ConstituencyNo)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@NumberOrDatesOperators" Label="Constituency No" />
+        <FilterField Name="@nameof(VoterView.ConstituencyName)" Type="typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Constituency" />
+        <FilterField Name="@nameof(VoterView.ParishName)" Type="typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Parish" />
+        <FilterField Name="@nameof(VoterView.IsBogusAssessment)" Type="typeof(bool)" Label="Is Bogus Assessment" />
+        <FilterField Name="@nameof(VoterView.IsEligible)" Type="typeof(bool)" Label="Is Eligible" />
+    </FilterFields>
+</TelerikFilter>

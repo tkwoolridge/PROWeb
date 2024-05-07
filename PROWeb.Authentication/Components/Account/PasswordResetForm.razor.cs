@@ -1,8 +1,8 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using PROWeb.Authentication.Properties;
 using PROWeb.Authentication.Services;
 using PROWeb.Authentication.ViewModels.Account;
@@ -10,7 +10,6 @@ using PROWeb.Common.Components;
 using PROWeb.Data.Authentication.Models;
 using Serilog;
 using System.Diagnostics;
-using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 
 namespace PROWeb.Authentication.Components.Account
@@ -75,11 +74,11 @@ namespace PROWeb.Authentication.Components.Account
                 return;
             }
 
-            var result =await UserManager.ResetPasswordAsync(user, code, password);
+            var result = await UserManager.ResetPasswordAsync(user, code, password);
 
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
-                SuccessMessage = string.Format(Messages.ResetUserPasswordSucceededMessage, Model.Email); 
+                SuccessMessage = string.Format(Messages.ResetUserPasswordSucceededMessage, Model.Email);
             }
             else
             {

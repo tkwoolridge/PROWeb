@@ -36,7 +36,7 @@ namespace PROWeb.Components.Assessments
 
         protected async Task OnTabChangedAsync(int index)
         {
-            if(index == 1)
+            if (index == 1)
             {
                 await LoadBogusNumbersAsync();
             }
@@ -84,7 +84,7 @@ namespace PROWeb.Components.Assessments
             {
                 await LoadBogusNumbersAsync();
             }
-           
+
         }
     }
 }

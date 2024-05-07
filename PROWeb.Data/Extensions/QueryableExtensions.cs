@@ -26,7 +26,7 @@ namespace PROWeb.Data.Extensions
                 _ => value
             };
 
-            return new SqlParameter($"@{name.Humanize(LetterCasing.Title).Replace(" ","")}", pValue);
+            return new SqlParameter($"@{name.Humanize(LetterCasing.Title).Replace(" ", "")}", pValue);
         }
     }
 }

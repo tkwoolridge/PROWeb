@@ -112,7 +112,7 @@ namespace PROWeb.Components.Person
         {
             base.OnContextChanged(sender, e);
 
-            if(e.PropertyName.Equals(nameof(FlagsContext.CountryId)))
+            if (e.PropertyName.Equals(nameof(FlagsContext.CountryId)))
             {
                 SetCountry(e.PropertyValue as int?);
             }
@@ -125,7 +125,7 @@ namespace PROWeb.Components.Person
 
         private void GetCountry(string? countryName)
         {
-            var countryId = 
+            var countryId =
                 Countries?.
                 FirstOrDefault(c => c.CountryName!.Equals(countryName, StringComparison.InvariantCultureIgnoreCase))?.
                 CountryId;

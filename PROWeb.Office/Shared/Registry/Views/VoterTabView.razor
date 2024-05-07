@@ -3,6 +3,7 @@
 @using PROWeb.Components.Person;
 @using PROWeb.Components.Voters.ViewModels;
 @using PROWeb.Components.Voters;
+@using PROWeb.Data.Models.Reports
 @using Telerik.FontIcons;
 @using PROWeb.Components.Common.Layouts;
 @inherits VoterViewBase<VoterViewModel>;
@@ -56,20 +57,32 @@
         </TelerikTabStrip>                                                                                                  
     </Views>
     <Footer>
-        <div class="d-flex justify-content-end mt-1 mb-2 mx-2">
-            @if (Editable == true)
-            {
-                <TelerikButton OnClick="@OnUndo" Enabled="@CanUndo" Icon="FontIcon.Undo" Class="me-1">Undo</TelerikButton>
-                <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@CanSave" Command="Save" OnClick="@OnEditAsync" Class="me-1">Save</ListViewCommandButton>
-                <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
-            }
-            else
-            {
-                <TelerikButton OnClick="@OnShowHistory" Icon="FontIcon.ClockArrowRotate" Class="me-1">History</TelerikButton>
-                <ListViewCommandButton Icon="@FontIcon.Pencil" Command="Edit">Edit</ListViewCommandButton>
-            }
+        <div class="d-flex justify-content-between mt-1 mb-2 mx-2">
+            <div class="d-flex">
+                <TelerikComboBox @bind-Value="@SelectedCertificateId"
+                                 ClearButton="false"
+                                 TextField="@nameof(ReportInfo.Description)"
+                                 ValueField="@nameof(ReportInfo.Id)"
+                                 TItem="ReportInfo"
+                                 TValue="int?" Data="@Certificates" />
+                <TelerikButton Icon="FontIcon.FileReport" OnClick="@OnRunCertificates" Class="mx-1">Run</TelerikButton>
+            </div>
+            <div>
+                @if (Editable == true)
+                {
+                    <TelerikButton OnClick="@OnUndo" Enabled="@CanUndo" Icon="FontIcon.Undo" Class="me-1">Undo</TelerikButton>
+                    <ListViewCommandButton Icon="@FontIcon.Save" Enabled="@CanSave" Command="Save" OnClick="@OnEditAsync" Class="me-1">Save</ListViewCommandButton>
+                    <ListViewCommandButton Icon="@FontIcon.Cancel" Command="Cancel">Cancel</ListViewCommandButton>
+                }
+                else
+                {
+                    <TelerikButton OnClick="@OnShowHistory" Icon="FontIcon.ClockArrowRotate" Class="me-1">History</TelerikButton>
+                    <ListViewCommandButton Icon="@FontIcon.Pencil" Command="Edit">Edit</ListViewCommandButton>
+                }
+            </div>
         </div>
     </Footer>
 </ViewsLayout>
 
 <VoterHistoryDialog RegistryYear="@Model?.RegistryYear" VoterId="@Model?.VoterId" @ref="@VoterHistoryDialogRef" />
+<CertificatesDialog ReportsFolder="reports" @ref="CertificatesDialogRef" />

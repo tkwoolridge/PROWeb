@@ -76,7 +76,7 @@ namespace PROWeb.Components.Person.Contexts
             Expression<Func<TContactInfoViewModel, string?>>? phoneMobilePath = null,
             Expression<Func<TContactInfoViewModel, string?>>? driverLicensePath = null,
             Expression<Func<TContactInfoViewModel, string?>>? commentPath = null)
-        { 
+        {
             Model = model;
 
             using (SuspendSubscriptions())

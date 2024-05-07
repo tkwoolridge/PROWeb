@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PROWeb.Data.Services.Assessments;
-using PROWeb.Components.Common;
-using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Common.Extensions;
+using PROWeb.Components.Assessments.ViewModels;
+using PROWeb.Components.Common;
+using PROWeb.Data.Services.Assessments;
 
 namespace PROWeb.Components.Assessments
 {
@@ -34,7 +34,7 @@ namespace PROWeb.Components.Assessments
         {
             await base.OnInitializedAsync();
 
-            if(LoadBogusList)
+            if (LoadBogusList)
             {
                 await OnFilterAsync(new AssessmentFilterViewModel()
                 {

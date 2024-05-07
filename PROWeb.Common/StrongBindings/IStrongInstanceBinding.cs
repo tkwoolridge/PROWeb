@@ -1,5 +1,4 @@
-﻿using System;
-using PROWeb.Common.StrongBindings.Converters;
+﻿using PROWeb.Common.StrongBindings.Converters;
 using PROWeb.Common.StrongBindings.Enums;
 
 namespace PROWeb.Common.StrongBindings;
@@ -63,7 +62,7 @@ public interface IStrongInstanceBinding<TSource, TTarget, TSourceProperty, TTarg
     /// <summary>
     /// Source property path.
     /// </summary>
-    new StrongBindingPath<TSource, TSourceProperty> SourcePath { get ; }
+    new StrongBindingPath<TSource, TSourceProperty> SourcePath { get; }
 
     /// <summary>
     /// Target property path.

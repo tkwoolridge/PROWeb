@@ -129,15 +129,15 @@ namespace PROWeb.Office.Shared.Registry
     public class MenuItem
     {
         public string? Text { get; set; }
-        
+
         public bool Disabled { get; set; }
-        
+
         public bool Separator { get; set; }
 
         public bool HasChildren { get; set; }
 
         public List<MenuItem>? Items { get; set; } = null;
-        
+
         public Action<MenuItem>? Action { get; set; }
 
         public ISvgIcon? Icon { get; set; }

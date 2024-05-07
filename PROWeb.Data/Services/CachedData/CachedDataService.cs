@@ -13,6 +13,8 @@ namespace PROWeb.Data.Services.CachedData
     {
         public PROOffice Office { get; private set; } = new PROOffice();
 
+        public List<ElectionType> ElectionTypes { get; private set; } = Enumerable.Empty<ElectionType>().ToList();
+
         public List<int> RegistrationYears { get; private set; } = Enumerable.Empty<int>().ToList();
 
         public List<Country> Countries { get; private set; } = Enumerable.Empty<Country>().ToList();
@@ -27,8 +29,12 @@ namespace PROWeb.Data.Services.CachedData
 
         public List<string> Titles { get; private set; } = Enumerable.Empty<string>().ToList();
 
+        public List<CertificationDocument> CertificationDocuments { get; private set;  } = Enumerable.Empty<CertificationDocument>().ToList();
+
+        public List<string> Signatories { get; set; } = Enumerable.Empty<string>().ToList();
+
         public string? ConstituenciesGeoJSON { get; private set; }
-        
+
         public List<ConstituencyMarker>? ConstituencyMarkers { get; private set; }
 
         public async Task PreloadCachedDataAsync(DataContext context)
@@ -43,7 +49,14 @@ namespace PROWeb.Data.Services.CachedData
         public void UpdateOfficeCachedData(PROOffice office)
         {
             Office = office;
-            RegistrationYears = Enumerable.Range(DateTime.Now.Year - 2, 3).ToList();
+            
+            Signatories = new List<string>()
+            {
+                office.RegisterName,
+                office.AssistantName
+            };
+
+            RegistrationYears = Enumerable.Range(office.ElectionYear - 2, 3).ToList();
         }
 
         private void PreloadPersonData()
@@ -54,6 +67,8 @@ namespace PROWeb.Data.Services.CachedData
 
         private async Task PreloadOfficeDataAsync(DataContext context)
         {
+            CertificationDocuments = await context.CertificationDocuments.ToListAsync();
+            ElectionTypes = await context.ElectionTypes.ToListAsync();
             var office = await context.PROOffices.FirstAsync();
             UpdateOfficeCachedData(office);
         }

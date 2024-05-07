@@ -6,7 +6,7 @@ namespace PROWeb.Authentication.ViewModels.Account
     public class LoginVerificationCodeViewModel : SlimViewModelBase
     {
         [Display(Name = "Verification Code")]
-        [MinLength(6, ErrorMessage = "Verification code must be 6 digits!") ]
+        [MinLength(6, ErrorMessage = "Verification code must be 6 digits!")]
         [Required(ErrorMessage = "Verification code is required!")]
         public string? VerificationCode { get; set; }
 

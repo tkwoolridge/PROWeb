@@ -45,7 +45,7 @@ namespace PROWeb.Components.Assessments
 
         protected override void OnInitialized()
         {
-            if(Marker == null)
+            if (Marker == null)
             {
                 return;
             }

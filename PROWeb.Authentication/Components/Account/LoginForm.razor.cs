@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using PROWeb.Authentication.Components.Account.Configuration;
 using PROWeb.Authentication.Properties;
 using PROWeb.Authentication.Services;
 using PROWeb.Authentication.ViewModels.Account;
 using PROWeb.Common.Components;
 using PROWeb.Data.Authentication.Models;
 using Serilog;
-using PROWeb.Authentication.Components.Account.Configuration;
 
 namespace PROWeb.Authentication.Components.Account
 {
@@ -26,7 +26,7 @@ namespace PROWeb.Authentication.Components.Account
         [Inject]
         protected ISendVerificationMessagesService SendVerificationCodeService { get; set; } = default!;
 
-        [Inject]         
+        [Inject]
         internal IdentityRedirectManager RedirectManager { get; set; } = default!;
 
         [CascadingParameter]
@@ -74,7 +74,7 @@ namespace PROWeb.Authentication.Components.Account
 
                 RedirectManager.RedirectTo(
                     Constants.Pages.VerifyLoginCode,
-                    new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Model.RememberMe});
+                    new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Model.RememberMe });
             }
             else if (result.IsLockedOut)
             {

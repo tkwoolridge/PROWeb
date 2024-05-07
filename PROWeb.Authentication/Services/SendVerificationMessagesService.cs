@@ -11,9 +11,9 @@ using System.Text;
 namespace PROWeb.Authentication.Services
 {
     public class SendVerificationMessagesService(
-        SignInManager<PROUser> signInManager, 
-        UserManager<PROUser> userManager, 
-        IWebHostEnvironment environment, 
+        SignInManager<PROUser> signInManager,
+        UserManager<PROUser> userManager,
+        IWebHostEnvironment environment,
         EmailService emailService) : ISendVerificationMessagesService
     {
         public async Task SendVerificationCodeMessageAsync()

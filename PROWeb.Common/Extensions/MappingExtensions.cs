@@ -7,7 +7,7 @@ namespace PROWeb.Common.Extensions
 {
     public static class MappingExtensions
     {
-        public static async Task<IList<TView>> ProjectToListAsync<TView> (this IQueryable queryable)
+        public static async Task<IList<TView>> ProjectToListAsync<TView>(this IQueryable queryable)
         {
             return await queryable.ProjectToType<TView>().ToListAsync();
         }

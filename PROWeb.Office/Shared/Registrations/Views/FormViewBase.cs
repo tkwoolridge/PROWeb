@@ -1,13 +1,13 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Components;
+using PROWeb.Components.Voters;
+using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Models;
 using PROWeb.Data.Models.Enums;
 using PROWeb.Data.Services.CachedData;
 using PROWeb.Data.Services.Registrations;
 using PROWeb.Office.Shared.Registrations.ViewModels;
 using System.Diagnostics;
-using PROWeb.Components.Voters;
-using PROWeb.Components.Voters.ViewModels;
 
 namespace PROWeb.Office.Shared.Registrations.Views
 {
@@ -94,7 +94,7 @@ namespace PROWeb.Office.Shared.Registrations.Views
         {
             SetUpdateFields(model);
 
-            Registration ? registration = model.Adapt<Registration>();
+            Registration? registration = model.Adapt<Registration>();
 
             if (registration == null) { return; }
 

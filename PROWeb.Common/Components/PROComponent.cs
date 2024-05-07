@@ -1,10 +1,10 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Components;
-using static PROWeb.Common.ViewModels.ISlimReactiveObject;
+using PROWeb.Common.ViewModels;
 using System.ComponentModel;
 using System.Reactive.Disposables;
 using System.Runtime.CompilerServices;
-using PROWeb.Common.ViewModels;
+using static PROWeb.Common.ViewModels.ISlimReactiveObject;
 
 namespace PROWeb.Common.Components
 {
@@ -24,7 +24,7 @@ namespace PROWeb.Common.Components
         protected override void OnInitialized()
         {
             if (IsRouted() &&
-                MainLayout is { } layout)
+                MainLayout is { })
             {
                 PageTitle ??= _navigationManager.Uri.Split('/').Last().Humanize(LetterCasing.Title);
 

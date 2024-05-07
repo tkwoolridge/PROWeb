@@ -1,0 +1,25 @@
+﻿@using PROWeb.Components.Reports.Filters;
+@using PROWeb.Components.Common.Layouts;
+@using Telerik.DataSource;
+@using Telerik.ReportViewer.BlazorNative
+@inherits PROComponent;
+
+<DialogLayout 
+    @ref="@WindowRef"
+    Width="900px"
+    ShowButtons="false"
+    Title="Report Parameters"
+    Height="700px">
+    <DialogContent>
+        <ReportViewer
+            @bind-ReportSource="@ReportSource"
+            Height="100%"
+            ServiceUrl="/api/reports-server"
+            ScaleMode="ScaleMode.Specific"
+            ViewMode="ViewMode.PrintPreview"
+            ParametersAreaVisible="false"
+            DocumentMapVisible="false"
+            Scale="1.0"
+            />
+    </DialogContent>
+</DialogLayout>

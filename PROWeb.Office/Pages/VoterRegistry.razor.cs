@@ -16,7 +16,7 @@ namespace PROWeb.Office.Pages
         public int FemaleCount { get; private set; }
 
         public int MaleCount { get; private set; }
-        
+
         public int NoneCount { get; private set; }
 
         public int Total { get; private set; }

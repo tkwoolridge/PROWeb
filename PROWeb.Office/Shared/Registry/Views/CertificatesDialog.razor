@@ -1,0 +1,38 @@
+﻿@using PROWeb.Components.Common.Layouts;
+@using PROWeb.Data.Models
+@using PROWeb.Office.Shared.Registry.ViewModels
+@inherits PROComponent;
+
+<DialogLayout 
+    @ref="@WindowRef"
+    Width="500px"
+    ConfirmCaption="Confirm"
+    CancelCaption="Cancel"
+    Confirm="@OnConfirm"
+    Height="300px"
+    Title="Certificates">
+    <DialogContent>
+        <div>
+            <div id="titleParameterPanel" class="@(ShowTitle? "panel-visible" : "panel-not-visible")">
+                <label>Title</label>
+                <TelerikTextBox @bind-Value="@Title"/>
+            </div>
+            <div id="electionDocumentsParameterPanel" class="@(ShowCertificates? "panel-visible" : "panel-not-visible")">
+                <label>Document</label>
+                <TelerikComboBox @bind-Value="@CertificationDocumentId"
+                                 ClearButton="false"
+                                 TextField="@nameof(CertificationDocument.Name)"
+                                 ValueField="@nameof(CertificationDocument.Id)"
+                                 TItem="CertificationDocumentViewModel"
+                                 TValue="int?" 
+                                 Data="@CertificationDocuments" />
+            </div>
+            <div id="signatoryParameterPanel" class="@(ShowSignatory? "panel-visible" : "panel-not-visible")">
+                <label>Signatory</label>
+                <TelerikComboBox @bind-Value="@Signatory"
+                                 ClearButton="false"
+                                 Data="@Signatories"/>
+            </div>
+        </div>
+    </DialogContent>
+</DialogLayout>

@@ -120,7 +120,7 @@ namespace PROWeb.Components.Person
 
             int documentId = await AddDocumentAsync(model, stream);
 
-            if(documentId < 0)
+            if (documentId < 0)
             {
                 return;
             }

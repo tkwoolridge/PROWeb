@@ -1,0 +1,8 @@
+﻿.panel-not-visible
+{
+    display:none;
+}
+
+.panel-visible {
+    display: block;
+}

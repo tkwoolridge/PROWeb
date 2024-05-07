@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PROWeb.Components.Reports.Configuration;
 using PROWeb.Data.Services.CachedData;
 using PROWeb.Data.Services.Configuration;
 
@@ -20,6 +21,9 @@ namespace PROWeb.Data.Services
             {
                 var navigationService = scope.ServiceProvider.GetRequiredService<INavigationService>();
                 await navigationService.PreloadConfigAsync();
+
+                var reportsService = scope.ServiceProvider.GetRequiredService<IReportsService>();
+                await reportsService.PreloadConfigAsync();
 
                 var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
                 var cachedDataService = scope.ServiceProvider.GetRequiredService<ICachedDataService>();

@@ -44,7 +44,7 @@ namespace PROWeb.Components.Person
         public bool AllowLastNameEdit { get; set; } = false;
 
         [Parameter]
-        public bool ShowPopulateDialogButton { get; set; } 
+        public bool ShowPopulateDialogButton { get; set; }
 
         protected EligiblePollsDialog? EligiblePollsDialogRef { get; set; }
 
@@ -103,7 +103,7 @@ namespace PROWeb.Components.Person
 
         protected void OnUpdate()
         {
-            switch(PopulateDialog)
+            switch (PopulateDialog)
             {
                 case PopulateDetailsDialogs.EligiblePolls:
                     Debug.Assert(EligiblePollsDialogRef != null);
@@ -114,7 +114,7 @@ namespace PROWeb.Components.Person
                     VoterRegistryDialogRef.Show();
                     break;
             }
-            
+
         }
 
         protected virtual void OnUpdateFromEligible(EligibleViewModel eligible)

@@ -48,13 +48,13 @@ namespace PROWeb.Components.Person
             Expression<Func<TPersonViewModel, string?>>? middleNamePath = null,
             Expression<Func<TPersonViewModel, string?>>? maidenNamePath = null,
             Expression<Func<TPersonViewModel, char?>>? genderPath = null,
-            Expression<Func<TPersonViewModel, DateTime?>>? dateOfBirthPath = null) : 
+            Expression<Func<TPersonViewModel, DateTime?>>? dateOfBirthPath = null) :
             base
             (
                 personIdPath,
-                titlePath, 
-                firstNamePath, 
-                lastNamePath, 
+                titlePath,
+                firstNamePath,
+                lastNamePath,
                 middleNamePath,
                 maidenNamePath,
                 genderPath,

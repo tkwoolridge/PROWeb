@@ -22,7 +22,6 @@ namespace PROWeb.Office.Pages
             using (var service = OfficeServiceFactory.CreateService())
             {
                 var office = await service.GetOfficeAsync();
-
                 OfficeModel = office.Adapt<OfficeViewModel>();
             }
         }

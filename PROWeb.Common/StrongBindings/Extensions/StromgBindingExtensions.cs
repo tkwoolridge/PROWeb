@@ -14,7 +14,7 @@ namespace PROWeb.Common.StrongBindings.Extensions
             StrongBindingMode mode = StrongBindingMode.OneWay,
             IStrongValueConverter<TSourceProperty, TTargetProperty>? converter = null)
         {
-            if(sourcePathExpression is not { }  || targetPathExpression is not { })
+            if (sourcePathExpression is not { } || targetPathExpression is not { })
             {
                 return null;
             }

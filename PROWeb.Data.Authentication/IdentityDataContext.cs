@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PROWeb.Data.Authentication.Models;
 
 namespace PROWeb.Data.Authentication
 {
-    public class IdentityDataContext : IdentityDbContext<PROUser,PRORole,int>
+    public class IdentityDataContext : IdentityDbContext<PROUser, PRORole, int>
     {
         private readonly IConfiguration _configuration;
 

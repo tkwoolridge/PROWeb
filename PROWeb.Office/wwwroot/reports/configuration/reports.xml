@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Reports xmlns="http://schemas.datacontract.org/2004/07/PROWeb.Data.Models.Reports">
+	<Report Id="1" Name="Registry" Description="Registry" FileName="Voters.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+	</Report>
+	<Report Id="2" Name="LRegistry" Description="Registry (Landscape)" FileName="LVoters.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+	</Report>
+	<Report Id="3" Name="lRegistryAtoZ" Description="Registry A to Z (Landscape)" FileName="LVotersAtoZ.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+	</Report>
+	<Report Id="4" Name="RegistryWithDOB" Description="Registry With DOB" FileName="VotersWithDOB.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+	</Report>
+	<Report Id="5" Name="RegistryAtoZ" Description="Registry A to Z" FileName="VotersAtoZ.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+	</Report>
+	<Report Id="6" Name="Constituencies" Description="Constituencies" FileName="Constituencies.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+		<Filter Name="ConstituencyNo" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>1</Value>
+		</Filter>
+	</Report>
+	<Report Id="7" Name="LConstituencies" Description="Constituencies (Landscape)" FileName="LConstituencies.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+		<Filter Name="ConstituencyNo" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>1</Value>
+		</Filter>
+	</Report>
+	<Report Id="8" Name="ConstituenciesWithDOB" Description="Constituencies With DOB" FileName="ConstituenciesWithDOB.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+		<Filter Name="ConstituencyNo" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>1</Value>
+		</Filter>
+	</Report>
+	<Report Id="9" Name="WalkList" Description="Walk List" FileName="WalkList.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+		<Filter Name="ConstituencyNo" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>1</Value>
+		</Filter>
+	</Report>
+	<Report Id="10" Name="WalkListWithDOB" Description="Walk List With DOB" FileName="WalkListWithDOB.trdp">
+		<Filter Name="RegistryYear" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>2024</Value>
+		</Filter>
+		<Filter Name="IsEligible" FilterType="System.Boolean" Operator="IsEqualTo">
+			<Value>true</Value>
+		</Filter>
+		<Filter Name="ConstituencyNo" FilterType="System.Int32" Operator="IsEqualTo">
+			<Value>1</Value>
+		</Filter>
+	</Report>
+</Reports>
+	

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PROWeb.Data.Models;
-using PROWeb.Data.Extensions;
 using PROWeb.Common.Data;
+using PROWeb.Data.Extensions;
+using PROWeb.Data.Models;
 
 namespace PROWeb.Data.Services.EligiblePoll
 {

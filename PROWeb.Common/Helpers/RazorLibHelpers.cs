@@ -10,8 +10,8 @@ namespace PROWeb.Common.Helpers
         {
             StackFrame frame = new StackFrame(1);
             var method = frame.GetMethod();
-            
-            if(method?.DeclaringType is { } type)
+
+            if (method?.DeclaringType is { } type)
             {
                 return $"_content/{Assembly.GetAssembly(type)?.GetName().Name}";
             }

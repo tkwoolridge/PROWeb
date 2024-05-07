@@ -214,3 +214,10 @@ element.style {
     border-radius: 5px;
     border-color: black;
 }
+
+.bermuda-title {
+    background: #347BAD;
+    background: linear-gradient(to bottom, #347BAD 0%, #91C8EF 86%, #CFCDC3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

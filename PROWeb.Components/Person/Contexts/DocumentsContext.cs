@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace PROWeb.Components.Person.Contexts
 {
-    internal class DocumentsContext<TDocumentsViewModel, TDocumentViewModel> : ViewModelContext<TDocumentsViewModel> 
+    internal class DocumentsContext<TDocumentsViewModel, TDocumentViewModel> : ViewModelContext<TDocumentsViewModel>
         where TDocumentsViewModel : SlimViewModelBase
         where TDocumentViewModel : SlimViewModelBase, new()
     {
@@ -65,7 +65,7 @@ namespace PROWeb.Components.Person.Contexts
                 AddBinding(Model?.Bind(this, fullNamePath, c => c.FullName, StrongBindingMode.OneWay));
             }
 
-            if(_documents is not { } models)
+            if (_documents is not { } models)
             {
                 return;
             }

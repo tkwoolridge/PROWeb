@@ -37,7 +37,7 @@ namespace PROWeb.Data
 
         public DbSet<OldPROUser> OldPROUsers => Set<OldPROUser>();
 
-        public DbSet<Eligible> EligiblePoll=> Set<Eligible>();
+        public DbSet<Eligible> EligiblePoll => Set<Eligible>();
 
         public DbSet<AssessmentFlag> AssessmentFlags => Set<AssessmentFlag>();
 
@@ -48,6 +48,10 @@ namespace PROWeb.Data
         public DbSet<VoterHistoryField> VoterHistoryFields => Set<VoterHistoryField>();
 
         public DbSet<ConstituencyBoundary> ConstituencyBoundaries => Set<ConstituencyBoundary>();
+
+        public DbSet<ElectionType> ElectionTypes => Set<ElectionType>();
+
+        public DbSet<CertificationDocument> CertificationDocuments => Set<CertificationDocument>();
 
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
@@ -148,7 +152,7 @@ namespace PROWeb.Data
                 .HasOne(f => f.VoterHistory)
                 .WithMany(v => v.Fields)
                 .HasForeignKey(f => new { f.VoterId, f.RegistryYear, f.Created })
-                .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear,  v.Created });
+                .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear, v.Created });
         }
     }
 }

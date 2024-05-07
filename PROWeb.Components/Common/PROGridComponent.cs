@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Common.ViewModels;
-using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Services.State;
-using PROWeb.Components.Voters.ViewModels;
-using PROWeb.Data.Models;
-using PROWeb.Data.Services.Voters;
 using Telerik.Blazor.Components;
 
 namespace PROWeb.Components.Common
 {
-    public abstract class PROGridComponent<TFilter, TItem> : 
-        PROListComponent<TFilter, TItem>,  
+    public abstract class PROGridComponent<TFilter, TItem> :
+        PROListComponent<TFilter, TItem>,
         IPROComponentWithState<GridState<TItem>>
         where TFilter : SlimViewModelBase, new()
     {
@@ -19,7 +15,7 @@ namespace PROWeb.Components.Common
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if(!firstRender)
+            if (!firstRender)
             {
                 return;
             }
@@ -74,7 +70,7 @@ namespace PROWeb.Components.Common
 
         protected void RefreshGrid(TItem current, Func<TItem, bool> predicate)
         {
-            if (Data is not null && 
+            if (Data is not null &&
                 Data.FirstOrDefault(predicate) is { } previous &&
                 Data.IndexOf(previous) is { } index && index > -1)
             {

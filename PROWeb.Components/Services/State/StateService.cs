@@ -4,7 +4,7 @@ using PROWeb.Common.Components;
 
 namespace PROWeb.Components.Services.State
 {
-    internal class StateService<TComponent,TState> : IStateService<TComponent, TState> where TComponent : IPROComponentWithState<TState>
+    internal class StateService<TComponent, TState> : IStateService<TComponent, TState> where TComponent : IPROComponentWithState<TState>
     {
         private readonly IDictionary<string, TState> _states = new Dictionary<string, TState>();
 

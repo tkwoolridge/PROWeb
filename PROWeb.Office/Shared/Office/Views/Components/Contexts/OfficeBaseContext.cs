@@ -1,5 +1,4 @@
-﻿using PROWeb.Common.StrongBindings.Enums;
-using PROWeb.Common.ViewModels;
+﻿using PROWeb.Common.ViewModels;
 using PROWeb.Office.Shared.Office.ViewModels;
 
 namespace PROWeb.Office.Shared.Office.Views.Components.Contexts

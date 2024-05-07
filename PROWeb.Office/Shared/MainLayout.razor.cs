@@ -1,13 +1,8 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using PROWeb.Common.Components;
-using PROWeb.Components.DependencyInjection;
 using PROWeb.Components.Navigation.ViewModels;
 using PROWeb.Data.Services.Configuration;
-using System;
 using Telerik.Blazor.Components;
 
 namespace PROWeb.Office.Shared
@@ -51,14 +46,14 @@ namespace PROWeb.Office.Shared
 
         private async Task OnNavigate(MenuItemViewModel item)
         {
-            if(item.Page is { } page && DrawerRef is { } drawer)
+            if (item.Page is { } page && DrawerRef is { } drawer)
             {
                 if (!Uri.IsWellFormedUriString(page, UriKind.Relative))
                 {
                     page = navigationManager.ToBaseRelativePath(page);
                 }
-                
-                var returnUrl = new Uri(_navigationManager.Uri).LocalPath;    
+
+                var returnUrl = new Uri(_navigationManager.Uri).LocalPath;
 
                 page = page + $"?returnUrl={Uri.EscapeDataString(returnUrl)}";
 

@@ -35,10 +35,10 @@ namespace PROWeb.Authentication.Components.Users
         }
 
         public UserView(
-            Expression<Func<TUserViewModel, string?>>? email, 
-            Expression<Func<TUserViewModel, string?>>? userName, 
-            Expression<Func<TUserViewModel, string?>>? firstName, 
-            Expression<Func<TUserViewModel, string?>>? lastName, 
+            Expression<Func<TUserViewModel, string?>>? email,
+            Expression<Func<TUserViewModel, string?>>? userName,
+            Expression<Func<TUserViewModel, string?>>? firstName,
+            Expression<Func<TUserViewModel, string?>>? lastName,
             Expression<Func<TUserViewModel, int?>>? roleId,
             Expression<Func<TUserViewModel, bool?>>? isActive)
         {
@@ -74,5 +74,5 @@ namespace PROWeb.Authentication.Components.Users
                 );
             }
         }
-    }   
+    }
 }

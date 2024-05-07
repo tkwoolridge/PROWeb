@@ -9,7 +9,7 @@ using Telerik.Blazor;
 
 namespace PROWeb.Components.Common.Views
 {
-    public abstract class PROCompositeView<TViewModel> : PROComponent 
+    public abstract class PROCompositeView<TViewModel> : PROComponent
         where TViewModel : SlimViewModelBase
     {
         private ViewsLayout<TViewModel>? _layoutRef;
@@ -56,7 +56,7 @@ namespace PROWeb.Components.Common.Views
 
         internal void OnContextChanged(object? sender, ContextChangedEventArgs e)
         {
-            if(UndoService.HasActions)
+            if (UndoService.HasActions)
             {
                 SetCanSave(true);
                 CanUndo = true;
@@ -108,7 +108,7 @@ namespace PROWeb.Components.Common.Views
         {
             Debug.Assert(LayoutRef != null);
 
-            if(UndoService.Next is not { } actions)
+            if (UndoService.Next is not { } actions)
             {
                 return;
             }

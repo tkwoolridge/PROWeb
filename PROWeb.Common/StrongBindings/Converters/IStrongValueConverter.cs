@@ -1,6 +1,4 @@
-﻿using PROWeb.Common.StrongBindings;
-
-namespace PROWeb.Common.StrongBindings.Converters
+﻿namespace PROWeb.Common.StrongBindings.Converters
 {
     /// <summary>
     /// Value Converter for <see cref="IStrongBinding{TSource,TTarget}"/>.

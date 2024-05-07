@@ -13,12 +13,12 @@ namespace PROWeb.Components.Services.Undo
         {
             get
             {
-                if(_undoes.TryPop(out UndoGroup? group))
+                if (_undoes.TryPop(out UndoGroup? group))
                 {
                     return group?.Actions;
                 }
 
-                return null; 
+                return null;
             }
         }
 
@@ -35,7 +35,7 @@ namespace PROWeb.Components.Services.Undo
             });
         }
 
-        public IDisposable SuspendUndo() 
+        public IDisposable SuspendUndo()
         {
             _suspendUndo = true;
 
@@ -61,7 +61,7 @@ namespace PROWeb.Components.Services.Undo
 
         private void AddGroup(UndoGroup group)
         {
-            if(_suspendUndo)
+            if (_suspendUndo)
             {
                 return;
             }

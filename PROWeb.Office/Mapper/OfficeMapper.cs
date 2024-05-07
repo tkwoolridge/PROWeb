@@ -33,7 +33,7 @@ namespace PROWeb.Office.Mapper
                 .Map(d => d.OldConstituencyName, s => s.OldAssessment.Constituency.ConstituencyName)
                 .Map(d => d.OldAssessmentLatitude, s => s.OldAssessment.Latitude)
                 .Map(d => d.OldAssessmentLongitude, s => s.OldAssessment.Longitude)
-                .Map(d => d.OldIsBogus, s => s.OldAssessment.IsBogus); 
+                .Map(d => d.OldIsBogus, s => s.OldAssessment.IsBogus);
 
             config.NewConfig<VoterViewModel, RegistrationViewModel>()
                 .Map(d => d.OldAssessmentNo, s => s.AssessmentNo)

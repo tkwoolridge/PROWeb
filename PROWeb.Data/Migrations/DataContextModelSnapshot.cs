@@ -17,7 +17,7 @@ namespace PROWeb.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -157,15 +157,26 @@ namespace PROWeb.Data.Migrations
                     b.ToTable("Births");
                 });
 
+            modelBuilder.Entity("PROWeb.Data.Models.CertificationDocument", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CertificationDocuments");
+                });
+
             modelBuilder.Entity("PROWeb.Data.Models.Constituency", b =>
                 {
                     b.Property<int>("ConstituencyNo")
                         .HasColumnType("int");
-
-                    b.Property<string>("BogusNo")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ConstituencyName")
                         .IsRequired()
@@ -301,6 +312,19 @@ namespace PROWeb.Data.Migrations
                     b.HasKey("DriverLicenseId");
 
                     b.ToTable("DriverLicenses");
+                });
+
+            modelBuilder.Entity("PROWeb.Data.Models.ElectionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ElectionTypes");
                 });
 
             modelBuilder.Entity("PROWeb.Data.Models.Eligible", b =>
@@ -570,6 +594,9 @@ namespace PROWeb.Data.Migrations
                     b.Property<string>("AssistantName")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("ElectionTypeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ElectionYear")
                         .HasColumnType("int");

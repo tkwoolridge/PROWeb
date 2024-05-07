@@ -14,7 +14,7 @@ namespace PROWeb.Office.Shared.Registrations.Views
             r => r.OldParishName,
             r => r.OldConstituencyNo,
             r => r.OldConstituencyName,
-            r => r.OldAssessmentLongitude, 
+            r => r.OldAssessmentLongitude,
             r => r.OldAssessmentLatitude,
             r => r.OldIsBogus
             )

@@ -24,6 +24,7 @@ namespace PROWeb.Office.Shared.Office.ViewModels
         private DateTime? _nextElectionsDate;
         private string? _nextAdvancedPollDate;
         private int _id;
+        private int _electionTypeId;
 
         public int Id
         {
@@ -121,36 +122,42 @@ namespace PROWeb.Office.Shared.Office.ViewModels
         }
 
         [Required]
-        public int? YearEndMonth 
-        { 
-            get => _yearEndMonth; 
-            set => RaiseAndSetIfChanged(ref _yearEndMonth, value); 
+        public int? YearEndMonth
+        {
+            get => _yearEndMonth;
+            set => RaiseAndSetIfChanged(ref _yearEndMonth, value);
         }
 
         [Required]
-        public int? YearEndDay 
-        { 
-            get => _yearEndDay; 
-            set => RaiseAndSetIfChanged(ref _yearEndDay, value); 
+        public int? YearEndDay
+        {
+            get => _yearEndDay;
+            set => RaiseAndSetIfChanged(ref _yearEndDay, value);
         }
 
         [Required]
-        public int? ElectionYear 
-        { 
-            get => _electionYear; 
-            set => RaiseAndSetIfChanged(ref _electionYear, value); 
+        public int? ElectionYear
+        {
+            get => _electionYear;
+            set => RaiseAndSetIfChanged(ref _electionYear, value);
         }
 
-        public DateTime? NextElectionsDate 
-        { 
-            get => _nextElectionsDate; 
-            set => RaiseAndSetIfChanged(ref _nextElectionsDate, value); 
+        public DateTime? NextElectionsDate
+        {
+            get => _nextElectionsDate;
+            set => RaiseAndSetIfChanged(ref _nextElectionsDate, value);
         }
 
-        public string? NextAdvancedPollDate 
-        { 
-            get => _nextAdvancedPollDate; 
-            set => RaiseAndSetIfChanged(ref _nextAdvancedPollDate, value); 
+        public string? NextAdvancedPollDate
+        {
+            get => _nextAdvancedPollDate;
+            set => RaiseAndSetIfChanged(ref _nextAdvancedPollDate, value);
+        }
+
+        public int ElectionTypeId
+        {
+            get => _electionTypeId;
+            set => RaiseAndSetIfChanged(ref _electionTypeId, value);
         }
     }
 }

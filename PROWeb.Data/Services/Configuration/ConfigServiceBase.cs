@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using System.Runtime.Serialization;
-using System.Xml;
 
 namespace PROWeb.Data.Services.Configuration
 {
-    public class ConfigServiceBase<TConfig> : EnvironmentServiceBase, IConfigServiceBase where TConfig : class
+    public abstract class ConfigServiceBase<TConfig> : EnvironmentServiceBase, IConfigServiceBase where TConfig : class
     {
         private readonly string _configFolder;
+
         protected Dictionary<string, TConfig> Configs { get; } = new Dictionary<string, TConfig>();
 
-        public ConfigServiceBase(IWebHostEnvironment environment, string configFolder) : base(environment)
+        protected ConfigServiceBase(IWebHostEnvironment environment, string configFolder) : base(environment)
         {
             _configFolder = configFolder;
         }
@@ -33,16 +33,14 @@ namespace PROWeb.Data.Services.Configuration
 
             foreach (IFileInfo fileInfo in configFiles)
             {
-                if (SkeepFile(fileInfo))
+                if (SkipFile(fileInfo))
                 {
                     continue;
                 }
 
-                using (XmlReader rdr = XmlReader.Create(fileInfo.CreateReadStream()))
+                using (Stream stream = fileInfo.CreateReadStream())
                 {
-                    var serializer = new DataContractSerializer(typeof(TConfig));
-
-                    if (serializer.ReadObject(rdr) is TConfig config)
+                    if (CreateConfig(stream) is TConfig config)
                     {
                         Configs.Add(Path.GetFileNameWithoutExtension(fileInfo.Name), config);
                     }
@@ -50,7 +48,14 @@ namespace PROWeb.Data.Services.Configuration
             }
         }
 
-        protected virtual bool SkeepFile(IFileInfo fileInfo)
+        protected virtual TConfig? CreateConfig(Stream stream)
+        {
+            var serializer = new DataContractSerializer(typeof(TConfig));
+
+            return serializer.ReadObject(stream) as TConfig;
+        }
+
+        protected virtual bool SkipFile(IFileInfo fileInfo)
         {
             return false;
         }

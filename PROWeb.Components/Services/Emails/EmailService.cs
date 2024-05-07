@@ -42,7 +42,7 @@ namespace PROWeb.Components.Services.Emails
 
                 AlternateView htmlView = AlternateView.CreateAlternateViewFromString(content, null, "text/html");
 
-                if(_environment.WebRootFileProvider.GetFileInfo($"{RazorLibHelpers.GetWebRootPath()}/Templates/EmailLogo.png").PhysicalPath is { } logoPath)
+                if (_environment.WebRootFileProvider.GetFileInfo($"{RazorLibHelpers.GetWebRootPath()}/Templates/EmailLogo.png").PhysicalPath is { } logoPath)
                 {
                     LinkedResource imagelink = new LinkedResource(logoPath, "image/png");
                     imagelink.ContentId = "logoId";
@@ -92,7 +92,7 @@ namespace PROWeb.Components.Services.Emails
             CancelSendTask();
             //Next, we wait for sendTask to end, but no longer than what the web host allows
 
-            if(_sendTask is { } task)
+            if (_sendTask is { } task)
             {
                 await Task.WhenAny(_sendTask, Task.Delay(Timeout.Infinite, cancellationToken));
             }

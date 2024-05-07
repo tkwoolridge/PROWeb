@@ -64,14 +64,14 @@ namespace PROWeb.Data.Authentication.Services.Users
         {
 #nullable disable
             var users = Context.Users.Join(
-                Context.UserRoles.Join(Context.Roles, ur => ur.RoleId, r => r.Id, (ur, r) => 
-                new 
+                Context.UserRoles.Join(Context.Roles, ur => ur.RoleId, r => r.Id, (ur, r) =>
+                new
                 {
                     ur.UserId,
-                    ur.RoleId, 
-                    r.Description 
+                    ur.RoleId,
+                    r.Description
                 })
-                , u => u.Id, r => r.UserId, (u,ur) => new PROUserView()
+                , u => u.Id, r => r.UserId, (u, ur) => new PROUserView()
                 {
                     Id = u.Id,
                     Email = u.Email,
@@ -97,7 +97,7 @@ namespace PROWeb.Data.Authentication.Services.Users
 
             Context.Users.Update(user);
 
-            if(userView.RoleId is { } roleId)
+            if (userView.RoleId is { } roleId)
             {
                 Context.UserRoles.RemoveRange(Context.UserRoles.Where(ur => ur.UserId == userView.Id).ToArray());
                 Context.UserRoles.Add(new IdentityUserRole<int>

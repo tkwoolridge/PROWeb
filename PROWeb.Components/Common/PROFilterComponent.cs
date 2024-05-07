@@ -5,11 +5,11 @@ using System.Diagnostics;
 
 namespace PROWeb.Components.Common
 {
-    public abstract class PROFilterComponent<TFilter> : 
+    public abstract class PROFilterComponent<TFilter> :
         PROComponent
         where TFilter : SlimViewModelBase, new()
     {
-        
+
         protected bool CanSearch { get; set; } = true;
 
         protected bool CanClear { get; set; } = true;

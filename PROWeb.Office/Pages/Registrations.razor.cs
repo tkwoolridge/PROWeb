@@ -67,7 +67,7 @@ namespace PROWeb.Office.Pages
         {
             _data = data;
 
-            ApprovedForm1Count = _data?.Count(r => r.RegistrationStatusId == (int)RegistrationStatuses.Approved  && r.FormTypeId == (int)FormTypes.Form1) ?? 0;
+            ApprovedForm1Count = _data?.Count(r => r.RegistrationStatusId == (int)RegistrationStatuses.Approved && r.FormTypeId == (int)FormTypes.Form1) ?? 0;
             PendingForm1Count = _data?.Count(r => r.RegistrationStatusId == (int)RegistrationStatuses.Pending && r.FormTypeId == (int)FormTypes.Form1) ?? 0;
             Form1Total = _data?.Count(r => r.FormTypeId == (int)FormTypes.Form1) ?? 0;
 

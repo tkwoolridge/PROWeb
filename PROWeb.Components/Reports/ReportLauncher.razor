@@ -1,0 +1,40 @@
+﻿@using PROWeb.Components.Reports.Filters;
+@using PROWeb.Components.Reports.Models
+@using Telerik.FontIcons
+@using Telerik.ReportViewer.BlazorNative;
+@using PROWeb.Data.Models.Reports;
+@inherits PROContentLayout;
+
+<div class="content-layout">
+    <div class="reports-header d-flex w-100 justify-content-center">
+        <div class="d-flex align-items-center w-50">
+            <label class="px-2">Reports:</label>
+            <TelerikComboBox
+                ValueChanged="@OnReportChanged"
+                Value="@SelectedReportId"
+                TextField="@nameof(ReportInfo.Description)"
+                ValueField="@nameof(ReportInfo.Id)"
+                TItem="ReportInfo" 
+                TValue="int?" Data="@Reports"/>
+        </div>
+    </div>
+    <hr class="hr-line" />
+    <div class="filter-content d-flex justify-content-center">
+        <div>
+            <div class="filter-list">
+                <VoterReportFilter @ref="@ReportFilterRef" @bind-Filter="@SelectedFilter" />
+            </div>
+            <div class="d-flex justify-content-between w-100">
+                <TelerikButton Class="w-25 ms-1" ButtonType="@ButtonType.Submit" OnClick="@OnRunReport" ThemeColor="primary">Run Report</TelerikButton>
+                <TelerikButton Class="w-25 ms-1" ButtonType="@ButtonType.Submit" OnClick="@OnExportToPDFAsync" ThemeColor="primary">Export To PDF</TelerikButton>
+                <TelerikButton Class="w-25 ms-1" ButtonType="@ButtonType.Submit" OnClick="@OnExportToCSVAsync" ThemeColor="primary">Export To CSV</TelerikButton>
+                <TelerikButton Class="w-25 ms-1" ButtonType="@ButtonType.Submit" OnClick="@OnResetFilter">Reset Filter</TelerikButton>
+            </div>
+        </div>
+    </div>
+    <div class="@(IsBusy ? "loader-show" : "loader-hide")">
+        <PROLoader BusyMessage="@BusyMessage" />
+    </div>
+</div>
+
+<ReportViewerDialog @ref="@ReportViewerDialogRef" />

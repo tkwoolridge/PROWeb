@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using PROWeb.Authentication.Components.Account.Configuration;
 using PROWeb.Authentication.Properties;
 using PROWeb.Authentication.Services;
 using PROWeb.Authentication.ViewModels.Account;
@@ -10,7 +11,6 @@ using PROWeb.Common.Components;
 using PROWeb.Data.Authentication.Models;
 using PROWeb.Data.Authentication.Models.Enums;
 using Serilog;
-using PROWeb.Authentication.Components.Account.Configuration;
 
 namespace PROWeb.Authentication.Components.Account
 {
@@ -84,7 +84,7 @@ namespace PROWeb.Authentication.Components.Account
 
                 await SendVerificationCodeServiceAsync.SendEmailConformationMessageAsync(user, link);
 
-                SuccessMessage = Messages.ConformationEmailWasSentMessage; 
+                SuccessMessage = Messages.ConformationEmailWasSentMessage;
             }
         }
     }

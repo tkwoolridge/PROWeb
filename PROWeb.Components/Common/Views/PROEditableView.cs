@@ -72,7 +72,7 @@ namespace PROWeb.Components.Common.Views
 
         public void Undo(IReadOnlyList<UndoAction> actions)
         {
-            if(EditContext?.Model is not ViewModelContext<TViewModel> context)
+            if (EditContext?.Model is not ViewModelContext<TViewModel> context)
             {
                 return;
             }

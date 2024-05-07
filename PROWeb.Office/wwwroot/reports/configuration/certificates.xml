@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Reports xmlns="http://schemas.datacontract.org/2004/07/PROWeb.Data.Models.Reports">
+	<Report Id="1" 
+			Name="ElectionCertificate" 
+			Description="Election Certificate" 
+			FileName="ElectionCertificate.trdp">
+		<Parameter Name="CertificationDocumentId" Type="Integer"/>
+		<Parameter Name="VoterId" Type="Integer"/>
+	</Report>
+	<Report Id="2" 
+			Name="ImmigrationCertificate" 
+			Description="Immigration Certificate" 
+			FileName="ImmigrationCertificate.trdp">
+		<Parameter Name="Signatory" Type="String"/>
+		<Parameter Name="VoterId" Type="Integer"/>
+	</Report>
+</Reports>

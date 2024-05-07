@@ -1,0 +1,19 @@
+﻿@page "/voterreports"
+@using PROWeb.Components.Reports
+@inherits PROComponent
+
+<div class="d-flex justify-content-center align-items-center h-75">
+    <div>
+        <div class="d-flex justify-content-center p-3">
+            <h2 class="bermuda-title">OFFICE REPORTS</h2>
+        </div>
+        <div class="d-flex justify-content-center">
+            <ReportLauncher Connection="PROReportsConnection" ReportsFolder="reports" />
+        </div>
+    </div>
+</div>
+
+@code
+{
+    protected override string PageTitle => "Office Reports";
+}

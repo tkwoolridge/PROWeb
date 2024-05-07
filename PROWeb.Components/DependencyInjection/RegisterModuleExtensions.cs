@@ -1,10 +1,16 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PROWeb.Components.Mapping;
+using PROWeb.Components.Reports.Services;
 using PROWeb.Components.Services.Emails;
 using PROWeb.Components.Services.State;
 using PROWeb.Components.Services.Undo;
+using PROWeb.Data.Services.Configuration;
+using Telerik.Reporting.Cache.File;
+using Telerik.Reporting.Services;
 
 namespace PROWeb.Components.DependencyInjection
 {
@@ -18,6 +24,11 @@ namespace PROWeb.Components.DependencyInjection
             config.Scan(typeof(ComponentsMapper).Assembly);
             services.AddSingleton(config);
 
+            // Register navigation service.
+            services.AddSingleton<INavigationService, NavigationService>();
+
+            services.AddControllers().AddNewtonsoftJson();
+
             // Register state services.
             services.AddScoped(typeof(IStateService<,>), typeof(StateService<,>));
 
@@ -28,6 +39,30 @@ namespace PROWeb.Components.DependencyInjection
             services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
             services.AddSingleton<EmailService>();
             services.AddHostedService(serviceProvider => serviceProvider.GetService<EmailService>()!);
+
+            IConfiguration ResolveConfiguration(IWebHostEnvironment? environment)
+            {
+                var reportingConfigFileName = Path.Combine(environment?.ContentRootPath ?? String.Empty, "appsettings.json");
+                return new ConfigurationBuilder()
+                    .AddJsonFile(reportingConfigFileName, true)
+                    .Build();
+            }
+
+            services.AddScoped<IReportSourceResolver, ReportSourceResolver>();
+            services.AddSingleton<IReportServiceConfiguration>(sp =>
+               new ReportServiceConfiguration
+               {
+                   ReportingEngineConfiguration = ResolveConfiguration(sp.GetService<IWebHostEnvironment>()),
+                   HostAppId = "PROWeb.Office",
+                   Storage = new FileStorage(),
+                   ReportSourceResolver = sp.GetService<IReportSourceResolver>(),
+                   ReportSharingTimeout = 1400
+               });
+        }
+
+        public static void AddPROWebComponentsEndpoints(this WebApplication app)
+        {
+            app.MapControllers();
         }
     }
 }

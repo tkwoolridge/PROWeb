@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Newtonsoft.Json.Linq;
 using PROWeb.Common.Extensions;
 using PROWeb.Components.Common;
 using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Services.Voters;
-using System.Runtime.CompilerServices;
-using Telerik.SvgIcons;
 
 namespace PROWeb.Components.Voters.Filters
 {
@@ -28,11 +25,11 @@ namespace PROWeb.Components.Voters.Filters
         {
             using (var service = _votersServiceFactory.CreateService())
             {
-                if(VoterId is { } voterId && RegistryYear is { } registryYear)
+                if (VoterId is { } voterId && RegistryYear is { } registryYear)
                 {
                     Histories = await service.GetVoterHistories(registryYear, voterId).OrderBy(h => h.Created).ProjectToListAsync<VoterHistoryViewModel>();
-                    
-                    if(Histories?.FirstOrDefault() is { } filter)
+
+                    if (Histories?.FirstOrDefault() is { } filter)
                     {
                         UpdateFilter(filter.Id);
                         await OnSearchAsync();
@@ -43,7 +40,7 @@ namespace PROWeb.Components.Voters.Filters
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if(firstRender && Histories?.Count > 0)
+            if (firstRender && Histories?.Count > 0)
             {
                 await OnSearchAsync();
             }

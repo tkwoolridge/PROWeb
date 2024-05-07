@@ -148,13 +148,13 @@ namespace PROWeb.Data.Services.Voters
             Voter? curentVoter = Context.Voters.AsNoTracking().FirstOrDefault(v => v.VoterId == voter.VoterId);
 
             Debug.Assert(curentVoter != null);
-            
-            if(flags is not null)
+
+            if (flags is not null)
             {
                 Context.AttachRange(flags);
             }
 
-            if(Context.Entry(voter).State == EntityState.Detached)
+            if (Context.Entry(voter).State == EntityState.Detached)
             {
                 Context.Attach(voter);
             }

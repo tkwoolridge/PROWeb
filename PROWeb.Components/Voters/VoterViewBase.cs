@@ -47,7 +47,7 @@ namespace PROWeb.Components.Voters
 
             Debug.Assert(voter != null);
 
-            if(voter.VoterId is not null)
+            if (voter.VoterId is not null)
             {
                 await UpdateVoterAsync(voter);
             }

@@ -3,8 +3,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PROWeb.Data.Authentication.Services.CachedData;
-using PROWeb.Data.Services.CachedData;
-using PROWeb.Data.Services.Configuration;
 
 namespace PROWeb.Data.Authentication.Services
 {

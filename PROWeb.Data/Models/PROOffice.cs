@@ -19,6 +19,9 @@ namespace PROWeb.Data.Models
         public string AssistantName { get; set; }
 
         [Required]
+        public int ElectionTypeId { get; set; }
+
+        [Required]
         [StringLength(255)]
         public string Address1 { get; set; }
 

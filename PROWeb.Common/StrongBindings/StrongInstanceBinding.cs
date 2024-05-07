@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using System.Reactive.Disposables;
-using PROWeb.Common.StrongBindings.Converters;
+﻿using PROWeb.Common.StrongBindings.Converters;
 using PROWeb.Common.StrongBindings.Enums;
+using System.ComponentModel;
+using System.Reactive.Disposables;
 
 namespace PROWeb.Common.StrongBindings;
 

@@ -8,5 +8,7 @@ namespace PROWeb.Data.Services.Office
         Task<PROOffice?> GetOfficeAsync();
 
         Task SaveOfficeAsync(PROOffice office);
+
+        IQueryable<ElectionType> GetElectionTypes();
     }
 }

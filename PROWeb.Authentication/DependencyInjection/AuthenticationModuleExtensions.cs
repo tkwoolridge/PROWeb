@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using PROWeb.Authentication.Services;
 using PROWeb.Data.Authentication;
 using PROWeb.Data.Authentication.Models;
-using PROWeb.Authentication.Services;
 
 namespace PROWeb.Authentication.DependencyInjection
 {
@@ -58,7 +58,7 @@ namespace PROWeb.Authentication.DependencyInjection
                 .AddRoles<PRORole>()
                 .AddEntityFrameworkStores<IdentityDataContext>()
                 .AddSignInManager();
-            
+
 
             builder.Services.ConfigureApplicationCookie(options =>
             {

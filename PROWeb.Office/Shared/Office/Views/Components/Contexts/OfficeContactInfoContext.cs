@@ -1,7 +1,7 @@
 ﻿using PROWeb.Common.StrongBindings.Enums;
-using System.ComponentModel.DataAnnotations;
 using PROWeb.Common.StrongBindings.Extensions;
 using PROWeb.Office.Shared.Office.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace PROWeb.Office.Shared.Office.Views.Components.Contexts
 {

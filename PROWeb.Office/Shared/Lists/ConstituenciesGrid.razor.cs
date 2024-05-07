@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Extensions;
 using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Common;
-using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Models;
 using PROWeb.Data.Services.Assessments;
 using PROWeb.Office.Shared.Lists.ViewModels;
@@ -29,7 +28,7 @@ namespace PROWeb.Office.Shared.Lists
         {
             using (var service = AssessmentServiceFactory.CreateService())
             {
-                if(args.Item is ConstituencyViewModel constituency)
+                if (args.Item is ConstituencyViewModel constituency)
                 {
                     await service.UpdateConstituencyAsync(constituency.Adapt<Constituency>());
 

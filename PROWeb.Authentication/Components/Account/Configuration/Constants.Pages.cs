@@ -5,7 +5,7 @@
         public class Pages()
         {
             public const string Account = nameof(Account);
-            
+
             public const string Login = $"{nameof(Account)}/{nameof(Login)}";
 
             public const string Register = $"{nameof(Account)}/{nameof(Register)}";

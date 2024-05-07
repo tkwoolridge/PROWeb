@@ -31,6 +31,11 @@ namespace PROWeb.Data.Services.Office
             return await Context.PROOffices.FirstOrDefaultAsync();
         }
 
+        public IQueryable<ElectionType> GetElectionTypes()
+        {
+            return Context.ElectionTypes;
+        }
+
         public async Task SaveOfficeAsync(PROOffice office)
         {
             Context.PROOffices.Attach(office);
