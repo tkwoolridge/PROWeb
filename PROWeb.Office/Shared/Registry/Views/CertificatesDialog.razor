@@ -20,18 +20,18 @@
             <div id="electionDocumentsParameterPanel" class="@(ShowCertificates? "panel-visible" : "panel-not-visible")">
                 <label>Document</label>
                 <TelerikComboBox @bind-Value="@CertificationDocumentId"
-                                 ClearButton="false"
-                                 TextField="@nameof(CertificationDocument.Name)"
-                                 ValueField="@nameof(CertificationDocument.Id)"
-                                 TItem="CertificationDocumentViewModel"
-                                 TValue="int?" 
-                                 Data="@CertificationDocuments" />
+                                    ClearButton="false"
+                                    TextField="@nameof(CertificationDocument.Name)"
+                                    ValueField="@nameof(CertificationDocument.Id)"
+                                    TItem="CertificationDocumentViewModel"
+                                    TValue="int?" 
+                                    Data="@CertificationDocuments" />
             </div>
             <div id="signatoryParameterPanel" class="@(ShowSignatory? "panel-visible" : "panel-not-visible")">
                 <label>Signatory</label>
                 <TelerikComboBox @bind-Value="@Signatory"
-                                 ClearButton="false"
-                                 Data="@Signatories"/>
+                                    ClearButton="false"
+                                    Data="@Signatories"/>
             </div>
         </div>
     </DialogContent>

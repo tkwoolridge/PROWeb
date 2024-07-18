@@ -81,9 +81,10 @@ namespace PROWeb.Office.Shared.Registry.Views
 
         public void OnRunCertificates()
         {
-            var certificate = Certificates!.First(r => r.Id == SelectedCertificateId);
-
-            CertificatesDialogRef?.Show(certificate, Model);
+            if(Certificates?.First(r => r.Id == SelectedCertificateId) is { } certificate && Model is { } model)
+            {
+                CertificatesDialogRef?.Show(certificate, model);
+            }
         }
     }
 }

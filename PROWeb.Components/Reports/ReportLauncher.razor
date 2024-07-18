@@ -6,8 +6,8 @@
 @inherits PROContentLayout;
 
 <div class="content-layout">
-    <div class="reports-header d-flex w-100 justify-content-center">
-        <div class="d-flex align-items-center w-50">
+    <div class="reports-header d-flex justify-content-center">
+        <div class="d-flex align-items-center w-75">
             <label class="px-2">Reports:</label>
             <TelerikComboBox
                 ValueChanged="@OnReportChanged"
@@ -19,7 +19,7 @@
         </div>
     </div>
     <hr class="hr-line" />
-    <div class="filter-content d-flex justify-content-center">
+    <div class="filter-content d-flex justify-content-center" style="width:800px">
         <div>
             <div class="filter-list">
                 <VoterReportFilter @ref="@ReportFilterRef" @bind-Filter="@SelectedFilter" />

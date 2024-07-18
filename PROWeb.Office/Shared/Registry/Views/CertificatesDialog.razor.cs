@@ -9,6 +9,7 @@ using Telerik.Reporting.Processing;
 using Telerik.Reporting;
 using Microsoft.JSInterop;
 using PROWeb.Components.Voters.ViewModels;
+using PROWeb.Components.Common;
 
 namespace PROWeb.Office.Shared.Registry.Views
 {
@@ -50,7 +51,10 @@ namespace PROWeb.Office.Shared.Registry.Views
         protected string? Signatory { get; set; }
 
         protected DialogLayout? WindowRef { get; set; }
-        
+
+        protected BusyContainer? ContainerRef { get; set; }
+
+
         protected bool ShowTitle { get; private set; }
         
         protected bool ShowCertificates { get; private set; }
@@ -83,6 +87,8 @@ namespace PROWeb.Office.Shared.Registry.Views
 
         private async Task ExportReportAsync(ReportInfo report, string format)
         {
+            await WindowRef!.SetBusyStateAsync(true, "Exporting.Please wait...");
+
             var reportPackager = new ReportPackager();
 
             string reportPath = GetReportsPath(report) ?? "/";
@@ -113,16 +119,10 @@ namespace PROWeb.Office.Shared.Registry.Views
                 ReportDocument = reportInstance
             };
 
-            try
-            {
-                RenderingResult result = reportProcessor.RenderReport(format.ToUpper(), instanceReportSource, null);
+            RenderingResult result = reportProcessor.RenderReport(format.ToUpper(), instanceReportSource, null);
+            await DownloadFileFromStreamAsync(result.DocumentBytes, $"{report.Name}.{format.ToLower()}");
 
-                await DownloadFileFromStreamAsync(result.DocumentBytes, $"{report.Name}.{format.ToLower()}");
-            }
-            catch(Exception exception)
-            {
-                var s = exception.Message;
-            }
+            await WindowRef!.SetBusyStateAsync(false);
         }
 
         private object? GetParameterValue(string? name)

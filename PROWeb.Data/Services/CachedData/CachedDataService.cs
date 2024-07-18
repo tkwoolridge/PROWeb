@@ -43,7 +43,7 @@ namespace PROWeb.Data.Services.CachedData
             await PreloadOfficeDataAsync(context);
             await PreloadFlagsDataAsync(context);
             await PreloadConstituencyBounderiesAsync(context);
-            //await PreloadAssessmentDataAsync(context);
+            await PreloadAssessmentDataAsync(context);
         }
 
         public void UpdateOfficeCachedData(PROOffice office)

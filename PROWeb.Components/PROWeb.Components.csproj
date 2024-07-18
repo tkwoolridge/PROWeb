@@ -17,9 +17,9 @@
 		<PackageReference Include="Humanizer.Core" Version="2.14.1" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
-		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="18.0.24.305" />
-		<PackageReference Include="Telerik.ReportViewer.BlazorNative" Version="18.0.24.305" />
-		<PackageReference Include="Telerik.UI.for.Blazor" Version="5.1.1" />
+		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="18.1.24.709" />
+		<PackageReference Include="Telerik.ReportViewer.BlazorNative" Version="18.1.24.709" />
+		<PackageReference Include="Telerik.UI.for.Blazor" Version="6.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>

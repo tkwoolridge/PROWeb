@@ -14,7 +14,7 @@
     </WindowActions>
     <WindowContent>
         <div class="dialog-content-layout">
-            <div class="overflow-auto h-100">
+            <div class="dialog-content overflow-auto h-100">
                 @if (@DialogContent != null)
                 {
                     @DialogContent
@@ -22,11 +22,14 @@
             </div>
             @if (ShowButtons)
             {
-                <div class="d-flex justify-content-between w-100">
+                <div class="dialog-buttons d-flex justify-content-between w-100">
                     <TelerikButton Class="w-75 me-1" ButtonType="@ButtonType.Submit" OnClick="@OnConfirm" Enabled="@CanConfirm" ThemeColor="primary">@ConfirmCaption</TelerikButton>
-                    <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnCancel">@CancelCaption</TelerikButton>
+                    <TelerikButton Class="w-25 ms-1" ButtonType="ButtonType.Reset" OnClick="@OnCancel" Enabled="@CanCancel">@CancelCaption</TelerikButton>
                 </div>
             }
+            <div class="@(IsBusy ? "loader-show" : "loader-hide")">
+                <PROLoader BusyMessage="@BusyMessage" />
+            </div>
         </div>
     </WindowContent>
 </TelerikWindow>

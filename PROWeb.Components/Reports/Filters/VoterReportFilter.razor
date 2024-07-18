@@ -1,4 +1,5 @@
-﻿@using PROWeb.Components.Voters.ViewModels
+﻿@using PROWeb.Components.Assessments.ViewModels
+@using PROWeb.Components.Voters.ViewModels
 @using PROWeb.Data.Models
 @inherits ReportFilterView
 
@@ -18,9 +19,32 @@
         <FilterField Name="@nameof(VoterView.AssessmentNo)" Type="@typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@RegistryYearOperators" Label="Assessment No" />
         <FilterField Name="@nameof(VoterView.HouseNo)" Type="@typeof(string)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@HouseNoOperators" Label="House No" />
         <FilterField Name="@nameof(VoterView.Address1)" Type="@typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Address1" />
-        <FilterField Name="@nameof(VoterView.ConstituencyNo)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@NumberOrDatesOperators" Label="Constituency No" />
-        <FilterField Name="@nameof(VoterView.ConstituencyName)" Type="typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Constituency" />
-        <FilterField Name="@nameof(VoterView.ParishName)" Type="typeof(string)" DefaultOperator="@DefaultTextOperator" Operators="@TextOperators" Label="Parish" />
+        <FilterField Name="@nameof(VoterView.ConstituencyNo)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@NumberOrDatesOperators" Label="Constituency">
+            <ValueTemplate>
+                <TelerikDropDownList Data="@Constituencies"
+                                     Value="@((int?)context.FilterDescriptor.Value)"
+                                     ValueField="@nameof(ConstituencyViewModel.ConstituencyNo)"
+                                     TextField="@nameof(ConstituencyViewModel.Constituency)"
+                                     ValueChanged="@((int? value) => OnFilterValueChanged(context.FilterDescriptor, value))">
+                    <DropDownListSettings>
+                        <DropDownListPopupSettings Width="250"/>
+                    </DropDownListSettings>
+                </TelerikDropDownList>
+            </ValueTemplate>
+        </FilterField>
+        <FilterField Name="@nameof(VoterView.ParishNo)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@NumberOrDatesOperators" Label="Parish">
+            <ValueTemplate>
+                <TelerikDropDownList Data="@Parishes"
+                                     Value="@((int?)context.FilterDescriptor.Value)"
+                                     ValueField="@nameof(ParishViewModel.ParishNo)"
+                                     TextField="@nameof(ParishViewModel.ParishName)"
+                                     ValueChanged="@((int? value) => OnFilterValueChanged(context.FilterDescriptor, value))">
+                    <DropDownListSettings>
+                        <DropDownListPopupSettings Width="250" />
+                    </DropDownListSettings>
+                </TelerikDropDownList>
+            </ValueTemplate>
+        </FilterField>
         <FilterField Name="@nameof(VoterView.IsBogusAssessment)" Type="typeof(bool)" Label="Is Bogus Assessment" />
         <FilterField Name="@nameof(VoterView.IsEligible)" Type="typeof(bool)" Label="Is Eligible" />
     </FilterFields>

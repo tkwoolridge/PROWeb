@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
+using PROWeb.Components.Assessments.ViewModels;
 using PROWeb.Components.Voters.ViewModels;
 using PROWeb.Data.Services.CachedData;
 using Telerik.Blazor.Components;
@@ -10,6 +12,10 @@ namespace PROWeb.Components.Reports.Filters
     {
         [Inject]
         private ICachedDataService _cachedDataService { get; set; } = null!;
+
+        protected List<ConstituencyViewModel>? Constituencies { get; set; }
+
+        protected List<ParishViewModel>? Parishes { get; set; }
 
         protected List<FilterListOperator> TextOperators = new List<FilterListOperator>
         {
@@ -46,6 +52,9 @@ namespace PROWeb.Components.Reports.Filters
             base.OnInitialized();
 
             ResetFilterToDefault(Filter);
+
+            Constituencies = _cachedDataService.Constituencies.Adapt<List<ConstituencyViewModel>>();
+            Parishes = _cachedDataService.Parishes.Adapt<List<ParishViewModel>>();
         }
 
         public override void ResetFilterToDefault(CompositeFilterDescriptor? descriptor)
@@ -54,6 +63,11 @@ namespace PROWeb.Components.Reports.Filters
             {
                 field.Value = _cachedDataService.Office.ElectionYear;
             }
+        }
+
+        private void OnFilterValueChanged(FilterDescriptor filterDescriptor, int? newValue)
+        {
+            filterDescriptor.Value = newValue;
         }
     }
 }

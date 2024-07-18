@@ -64,11 +64,18 @@ namespace PROWeb.Components.Services.Emails
         {
             SmtpSettings settings = _smtpSettings.CurrentValue;
 
+            NetworkCredential credential = CredentialCache.DefaultNetworkCredentials;
+
+            if (!string.IsNullOrEmpty(settings.UserName))
+            {
+                credential = new NetworkCredential(settings.UserName, settings.Password);
+            }
+
             SmtpClient smtp = new SmtpClient
             {
                 Host = settings.Server!,
-                Port = settings.Port ?? 80,
-                Credentials = new NetworkCredential(settings.UserName, settings.Password)
+                Port = settings.Port ?? 25,
+                Credentials = credential
             };
 
             using (smtp)

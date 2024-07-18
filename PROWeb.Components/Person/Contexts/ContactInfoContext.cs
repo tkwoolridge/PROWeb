@@ -11,13 +11,13 @@ namespace PROWeb.Components.Person.Contexts
     {
         private string? _email;
 
-        [Required(ErrorMessage = "Voter email is required!")]
         [EmailAddress(ErrorMessage = "Voter email is not in correct format!")]
         public string? Email
         {
             get => _email;
             set => RaiseAndSetIfChanged(ref _email, value.ToNullIfWhiteSpace());
         }
+
         private string? _contactPhone;
 
         [Phone(ErrorMessage = "Contact phone is not in correct format!")]
@@ -27,6 +27,7 @@ namespace PROWeb.Components.Person.Contexts
             get => _contactPhone;
             set => RaiseAndSetIfChanged(ref _contactPhone, value.ToNullIfWhiteSpace());
         }
+
         private string? _phoneHome;
 
         public string? PhoneHome

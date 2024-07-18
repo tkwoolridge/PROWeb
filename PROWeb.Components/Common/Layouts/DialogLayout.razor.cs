@@ -6,6 +6,13 @@ namespace PROWeb.Components.Common.Layouts
     public partial class DialogLayout : PROComponent
     {
         [Parameter]
+        public bool IsBusy { get; set; }
+
+        [Parameter]
+        public string? BusyMessage { get; set; } 
+
+
+        [Parameter]
         public bool ShowButtons { get; set; } = true;
 
         [Parameter]
@@ -36,11 +43,30 @@ namespace PROWeb.Components.Common.Layouts
 
         public bool CanConfirm { get; set; } = true;
 
+        public bool CanCancel { get; set; } = true;
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+        }
+
         protected async Task OnConfirm()
         {
-            ShowDialog = false;
-
             await Confirm.InvokeAsync();
+
+            ShowDialog = false;
+        }
+
+        public async Task SetBusyStateAsync(bool state, string message = "Loading. Please wait...")
+        {
+            await Task.Delay(10);
+
+            IsBusy = state;
+            BusyMessage = message;
+            CanConfirm = !state;
+            CanCancel = !state;
+
+            StateHasChanged();
         }
 
         public void Show()

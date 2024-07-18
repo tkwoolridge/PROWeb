@@ -15,7 +15,7 @@
         <div class="d-flex">
             <div class="me-1">
                 <TelerikComboBox @bind-Value="@DetailsContext.Title"
-                                 ClearButton="false"
+                                 ShowClearButton="false"
                                  ReadOnly="@(ReadOnly && !AllowLastNameEdit)"
                                  Data="@Titles"
                                  Width="76px">
@@ -52,7 +52,7 @@
                     </div>
                     <div>
                         <TelerikComboBox @bind-Value="@DetailsContext.Gender"
-                                         ClearButton="false"
+                                         ShowClearButton="false"
                                              ReadOnly="@ReadOnly"
                                              Data="@Genders"
                                              Width="70px">
@@ -71,7 +71,7 @@
                 </div>
                 <div>
                     <TelerikComboBox @bind-Value="@DetailsContext.Gender"
-                                     ClearButton="false"
+                                     ShowClearButton="false"
                                      ReadOnly="@ReadOnly"
                                      Data="@Genders"
                                      Width="70px"

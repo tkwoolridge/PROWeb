@@ -1,20 +1,24 @@
-﻿.dialog-content-layout {
+﻿.container {
     display: grid;
-    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr) auto;
     gap: 5px;
     height: 100%;
 }
 
-.dialog-content {
+.container-header {
     grid-area: 1/1;
 }
 
-.dialog-buttons {
+.container-body {
     grid-area: 2/1;
 }
 
+.container-footer {
+    grid-area: 3/1;
+}
+
 .loader-show, .loader-hide {
-    grid-area: 1/1;
+    grid-area: 2/1;
     z-index: 2;
     display: none;
 }
