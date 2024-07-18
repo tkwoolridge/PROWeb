@@ -1,0 +1,329 @@
+// Compatible with @progress/kendo-theme-default v.8.0.0
+
+$tb-light: #757575;
+$tb-on-light: white;
+$tb-on-app-surface: #424242;
+$tb-surface-alt: #ffffff;
+$tb-primary: #1274AC;
+$tb-surface: #fafafa;
+$tb-primary-hover: #116fa5;
+$tb-base: #f5f5f5;
+$tb-on-base: #424242;
+$tb-base-hover: #ebebeb;
+$tb-base-active: #d8d8d8;
+$tb-on-primary: white;
+$tb-subtle: #666666;
+$tb-error: #D51923;
+$tb-base-subtle: #ebebeb;
+$tb-base-subtle-hover: #e1e1e1;
+$tb-base-on-surface: #424242;
+$tb-primary-subtle: #d0e3ee;
+$tb-primary-active: #106697;
+$tb-base-emphasis: #c2c2c2;
+$tb-success: #278200;
+$tb-app-surface: #ffffff;
+$tb-info: #0058E9;
+$tb-base-subtle-active: #d5d5d5;
+$tb-base-on-subtle: #424242;
+$tb-primary-subtle-hover: #accee2;
+$tb-primary-subtle-active: #89bad6;
+$tb-primary-emphasis: #4d97c1;
+$tb-primary-on-subtle: #06293c;
+$tb-primary-on-surface: #0e5781;
+$tb-secondary-subtle: #e3e3e3;
+$tb-secondary-subtle-hover: #cfcfcf;
+$tb-secondary-subtle-active: #bababa;
+$tb-secondary: #757575;
+$tb-secondary-hover: #707070;
+$tb-secondary-active: #676767;
+$tb-secondary-emphasis: #989898;
+$tb-secondary-on-subtle: #292929;
+$tb-on-secondary: white;
+$tb-secondary-on-surface: #585858;
+$tb-tertiary-subtle: #cce5e6;
+$tb-tertiary-subtle-hover: #a6d2d4;
+$tb-tertiary-subtle-active: #80bfc2;
+$tb-tertiary: #007F84;
+$tb-tertiary-hover: #007a7f;
+$tb-tertiary-active: #007074;
+$tb-tertiary-emphasis: #409fa3;
+$tb-tertiary-on-subtle: #002c2e;
+$tb-on-tertiary: white;
+$tb-tertiary-on-surface: #005f63;
+$tb-info-subtle: #ccdefb;
+$tb-info-subtle-hover: #a6c5f7;
+$tb-info-subtle-active: #80acf4;
+$tb-info-hover: #0054e0;
+$tb-info-active: #004dcd;
+$tb-info-emphasis: #4082ef;
+$tb-info-on-subtle: #001f52;
+$tb-on-info: white;
+$tb-info-on-surface: #0042af;
+$tb-success-subtle: #d4e6cc;
+$tb-success-subtle-hover: #b3d3a6;
+$tb-success-subtle-active: #93c180;
+$tb-success-hover: #257d00;
+$tb-success-active: #227200;
+$tb-success-emphasis: #5da140;
+$tb-success-on-subtle: #0e2e00;
+$tb-on-success: white;
+$tb-success-on-surface: #1d6200;
+$tb-warning-subtle: #fdedcc;
+$tb-warning-subtle-hover: #fce0a6;
+$tb-warning-subtle-active: #fad380;
+$tb-warning: #F5A600;
+$tb-warning-hover: #eb9f00;
+$tb-warning-active: #d89200;
+$tb-warning-emphasis: #f8bc40;
+$tb-warning-on-subtle: #563a00;
+$tb-on-warning: white;
+$tb-warning-on-surface: #b87d00;
+$tb-error-subtle: #f7d1d3;
+$tb-error-subtle-hover: #f0afb2;
+$tb-error-subtle-active: #ea8c91;
+$tb-error-hover: #cc1822;
+$tb-error-active: #bb161f;
+$tb-error-emphasis: #e0535a;
+$tb-error-on-subtle: #4b090c;
+$tb-on-error: white;
+$tb-error-on-surface: #a0131a;
+$tb-light-subtle: #e3e3e3;
+$tb-light-subtle-hover: #cfcfcf;
+$tb-light-subtle-active: #bababa;
+$tb-light-hover: #707070;
+$tb-light-active: #676767;
+$tb-light-emphasis: #989898;
+$tb-light-on-subtle: #292929;
+$tb-light-on-surface: #585858;
+$tb-series-a: #1274AC;
+$tb-series-a-bold: #0e5781;
+$tb-series-a-bolder: #093a56;
+$tb-series-a-subtle: #4d97c1;
+$tb-series-a-subtler: #89bad6;
+$tb-series-b: #FFE162;
+$tb-series-b-bold: #bfa94a;
+$tb-series-b-bolder: #807131;
+$tb-series-b-subtle: #ffe989;
+$tb-series-b-subtler: #fff0b1;
+$tb-series-c: #4CD180;
+$tb-series-c-bold: #399d60;
+$tb-series-c-bolder: #266940;
+$tb-series-c-subtle: #79dda0;
+$tb-series-c-subtler: #a6e8c0;
+$tb-series-d: #0074e6;
+$tb-series-d-bold: #0057ad;
+$tb-series-d-bolder: #003a73;
+$tb-series-d-subtle: #4097ec;
+$tb-series-d-subtler: #80baf3;
+$tb-series-e: #9B4FE6;
+$tb-series-e-bold: #743bad;
+$tb-series-e-bolder: #4e2873;
+$tb-series-e-subtle: #b47bec;
+$tb-series-e-subtler: #cda7f3;
+$tb-series-f: #FF80AC;
+$tb-series-f-bold: #bf6081;
+$tb-series-f-bolder: #804056;
+$tb-series-f-subtle: #ffa0c1;
+$tb-series-f-subtler: #ffc0d6;
+
+
+    $kendo-font-family: inherit;
+    $kendo-font-size: 14px;
+    $kendo-font-weight-normal: 400;
+    $kendo-line-height: 1.4285714286;
+    
+$kendo-colors: (
+light: #757575,
+on-light: white,
+on-app-surface: #424242,
+surface-alt: #ffffff,
+primary: #1274AC,
+surface: #fafafa,
+primary-hover: #116fa5,
+base: #f5f5f5,
+on-base: #424242,
+base-hover: #ebebeb,
+base-active: #d8d8d8,
+on-primary: white,
+subtle: #666666,
+error: #D51923,
+base-subtle: #ebebeb,
+base-subtle-hover: #e1e1e1,
+base-on-surface: #424242,
+primary-subtle: #d0e3ee,
+primary-active: #106697,
+base-emphasis: #c2c2c2,
+success: #278200,
+app-surface: #ffffff,
+info: #0058E9,
+base-subtle-active: #d5d5d5,
+base-on-subtle: #424242,
+primary-subtle-hover: #accee2,
+primary-subtle-active: #89bad6,
+primary-emphasis: #4d97c1,
+primary-on-subtle: #06293c,
+primary-on-surface: #0e5781,
+secondary-subtle: #e3e3e3,
+secondary-subtle-hover: #cfcfcf,
+secondary-subtle-active: #bababa,
+secondary: #757575,
+secondary-hover: #707070,
+secondary-active: #676767,
+secondary-emphasis: #989898,
+secondary-on-subtle: #292929,
+on-secondary: white,
+secondary-on-surface: #585858,
+tertiary-subtle: #cce5e6,
+tertiary-subtle-hover: #a6d2d4,
+tertiary-subtle-active: #80bfc2,
+tertiary: #007F84,
+tertiary-hover: #007a7f,
+tertiary-active: #007074,
+tertiary-emphasis: #409fa3,
+tertiary-on-subtle: #002c2e,
+on-tertiary: white,
+tertiary-on-surface: #005f63,
+info-subtle: #ccdefb,
+info-subtle-hover: #a6c5f7,
+info-subtle-active: #80acf4,
+info-hover: #0054e0,
+info-active: #004dcd,
+info-emphasis: #4082ef,
+info-on-subtle: #001f52,
+on-info: white,
+info-on-surface: #0042af,
+success-subtle: #d4e6cc,
+success-subtle-hover: #b3d3a6,
+success-subtle-active: #93c180,
+success-hover: #257d00,
+success-active: #227200,
+success-emphasis: #5da140,
+success-on-subtle: #0e2e00,
+on-success: white,
+success-on-surface: #1d6200,
+warning-subtle: #fdedcc,
+warning-subtle-hover: #fce0a6,
+warning-subtle-active: #fad380,
+warning: #F5A600,
+warning-hover: #eb9f00,
+warning-active: #d89200,
+warning-emphasis: #f8bc40,
+warning-on-subtle: #563a00,
+on-warning: white,
+warning-on-surface: #b87d00,
+error-subtle: #f7d1d3,
+error-subtle-hover: #f0afb2,
+error-subtle-active: #ea8c91,
+error-hover: #cc1822,
+error-active: #bb161f,
+error-emphasis: #e0535a,
+error-on-subtle: #4b090c,
+on-error: white,
+error-on-surface: #a0131a,
+light-subtle: #e3e3e3,
+light-subtle-hover: #cfcfcf,
+light-subtle-active: #bababa,
+light-hover: #707070,
+light-active: #676767,
+light-emphasis: #989898,
+light-on-subtle: #292929,
+light-on-surface: #585858,
+series-a: #1274AC,
+series-a-bold: #0e5781,
+series-a-bolder: #093a56,
+series-a-subtle: #4d97c1,
+series-a-subtler: #89bad6,
+series-b: #FFE162,
+series-b-bold: #bfa94a,
+series-b-bolder: #807131,
+series-b-subtle: #ffe989,
+series-b-subtler: #fff0b1,
+series-c: #4CD180,
+series-c-bold: #399d60,
+series-c-bolder: #266940,
+series-c-subtle: #79dda0,
+series-c-subtler: #a6e8c0,
+series-d: #0074e6,
+series-d-bold: #0057ad,
+series-d-bolder: #003a73,
+series-d-subtle: #4097ec,
+series-d-subtler: #80baf3,
+series-e: #9B4FE6,
+series-e-bold: #743bad,
+series-e-bolder: #4e2873,
+series-e-subtle: #b47bec,
+series-e-subtler: #cda7f3,
+series-f: #FF80AC,
+series-f-bold: #bf6081,
+series-f-bolder: #804056,
+series-f-subtle: #ffa0c1,
+series-f-subtler: #ffc0d6,
+);
+
+$enable-gradients: true;
+
+$tb-typography: (
+  kendo-default-typography: (
+      font-family: 'inherit',
+      font-size: 14px,
+      font-weight: 400,
+      line-height: 1.4285714286,
+    ),
+);
+
+@mixin typography-classes ($typography) {
+  @each $selector, $property in $typography {
+    &-#{$selector} {
+      @each $propName, $propValue in $property {
+        #{$propName}: #{$propValue};
+      }
+    } &-#{$selector}-important {
+      @each $propName, $propValue in $property {
+        #{$propName}: $propValue !important;
+      }
+    }
+  }
+}
+
+$tb-effects: (
+  tb-internal-none-effects: (
+      box-shadow: (none), filter: (none), backdrop-filter: (none),  ),
+  kendo-appbar-box-shadow: (
+      box-shadow: (0px 8px 10px 0 rgba(0, 0, 0, 0.12), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-bottom-nav-shadow: (
+      box-shadow: (0px 8px 10px 0 rgba(0, 0, 0, 0.12), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-color-gradient-focus-shadow: (
+      box-shadow: (0px 6px 8px 0 rgba(0, 0, 0, 0.08), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-fab-shadow: (
+      box-shadow: (0px 10px 12px 0 rgba(0, 0, 0, 0.16), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-fab-disabled-shadow: (
+      box-shadow: (0px 10px 12px 0 rgba(0, 0, 0, 0.16), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-list-header-shadow: (
+      box-shadow: (0px 4px 6px 0 rgba(0, 0, 0, 0.06), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-popup-shadow: (
+      box-shadow: (0px 8px 10px 0 rgba(0, 0, 0, 0.12), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-scheduler-tooltip-shadow: (
+      box-shadow: (0px 4px 6px 0 rgba(0, 0, 0, 0.06), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-tabstrip-item-dragging-shadow: (
+      box-shadow: (0px 6px 8px 0 rgba(0, 0, 0, 0.08), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-tooltip-shadow: (
+      box-shadow: (0px 4px 6px 0 rgba(0, 0, 0, 0.06), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-window-shadow: (
+      box-shadow: (0px 16px 18px 0 rgba(0, 0, 0, 0.28), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+  kendo-window-focus-shadow: (
+      box-shadow: (0px 32px 34px 0 rgba(0, 0, 0, 0.32), 0px 4px 16px 0 rgba(0, 0, 0, 0.12)),  ),
+);
+
+@mixin effects-classes ($effects) {
+  @each $selector, $property in $effects {
+    &-#{$selector} {
+      @each $propName, $propValue in $property {
+        #{$propName}: $propValue;
+      }
+    } &-#{$selector}-important {
+      @each $propName, $propValue in $property {
+        #{$propName}: $propValue !important;
+      }
+    }
+  }
+}

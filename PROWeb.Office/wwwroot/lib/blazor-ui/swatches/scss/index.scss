@@ -1,0 +1,11 @@
+// Compatible with @progress/kendo-theme-default v.8.0.0
+
+$ki-font-file-url: "~@progress/kendo-font-icons/scss/kendo-font-icons.ttf";
+
+@import 'tokens';
+
+@import '@progress/kendo-font-icons/scss/all';
+
+@import '@progress/kendo-theme-default/dist/all';
+
+@import 'overrides';
