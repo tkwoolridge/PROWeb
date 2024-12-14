@@ -27,7 +27,7 @@
                 <TelerikComboBox @bind-Value="@OfficeContext.ElectionTypeId"
                                  ValueField="@(nameof(ElectionTypeViewModel.Id))"
                                  TextField="@(nameof(ElectionTypeViewModel.Type))"
-                                 ClearButton="false"
+                                 ShowClearButton="false"
                                  Data="@ElectionTypes"/>
                 <TelerikValidationTooltip For="@(() => @OfficeContext.ElectionTypeId)" TargetSelector="@("#" + nameof(OfficeContext.ElectionTypeId))" />
             </div>

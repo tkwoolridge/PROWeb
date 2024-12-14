@@ -113,7 +113,7 @@ namespace PROWeb.Components.Common.Views
                 return;
             }
 
-            foreach (var view in LayoutRef.ViewsList.OfType<PROEditableView<TViewModel>>())
+            foreach (PROEditableView<TViewModel> view in LayoutRef.ViewsList)
             {
                 view.Undo(actions);
             }
@@ -128,7 +128,7 @@ namespace PROWeb.Components.Common.Views
 
             Debug.Assert(LayoutRef != null);
 
-            foreach (var view in LayoutRef.ViewsList.OfType<PROEditableView<TViewModel>>())
+            foreach (PROEditableView<TViewModel> view in LayoutRef.ViewsList)
             {
                 if (view.OnValidate() is { } viewErrors)
                 {

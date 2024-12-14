@@ -1,0 +1,6 @@
+@host = http://localhost:5278
+
+GET {{host}}/constituencies/
+Accept: application/json
+
+###

@@ -31,9 +31,6 @@ namespace PROWeb.Data.DependencyInjection
             services.AddDbContextFactory<DataContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("PROWebConnection")));
 
-            services.AddDbContext<DataContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("PROWebConnection")));
-
             //Register preload data service.
             services.AddHostedService<PreloadService>();
 

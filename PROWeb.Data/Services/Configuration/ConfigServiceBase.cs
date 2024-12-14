@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileProviders.Physical;
 using System.Runtime.Serialization;
 
 namespace PROWeb.Data.Services.Configuration
@@ -17,11 +18,7 @@ namespace PROWeb.Data.Services.Configuration
 
         public async Task PreloadConfigAsync()
         {
-            await Task.Run(() =>
-            {
-                LoadFromConfigFiles();
-            }
-            );
+            await Task.Run(LoadFromConfigFiles);
         }
 
         private void LoadFromConfigFiles()
@@ -33,7 +30,7 @@ namespace PROWeb.Data.Services.Configuration
 
             foreach (IFileInfo fileInfo in configFiles)
             {
-                if (SkipFile(fileInfo))
+                if (SkipFile(fileInfo) || fileInfo is not PhysicalFileInfo)
                 {
                     continue;
                 }
