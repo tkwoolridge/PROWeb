@@ -1,0 +1,66 @@
+{
+  "type": "array",
+  "items": {
+    "type": [
+      "object",
+      "null"
+    ],
+    "properties": {
+      "assessmentNo": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "houseName": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "street": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "parish": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "houseNo": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "postalCode": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "constituencyNo": {
+        "type": "integer"
+      },
+      "constituencyName": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "assessmentNo",
+      "houseName",
+      "street",
+      "parish",
+      "houseNo",
+      "postalCode",
+      "constituencyNo",
+      "constituencyName"
+    ]
+  }
+}

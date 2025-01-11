@@ -1,0 +1,127 @@
+{
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "middleName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dateOfBirth": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "assessmentNo": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "houseNo": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "houseName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "street": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "parish": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "postalCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "constituencyNo": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "constituencyName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "latitude": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "longitude": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "isBogusNo": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "bogusNo": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "firstName",
+    "lastName",
+    "middleName",
+    "title",
+    "dateOfBirth",
+    "assessmentNo",
+    "houseNo",
+    "houseName",
+    "street",
+    "parish",
+    "postalCode",
+    "constituencyNo",
+    "constituencyName",
+    "latitude",
+    "longitude",
+    "isBogusNo",
+    "bogusNo"
+  ]
+}

@@ -1,0 +1,67 @@
+###@host = http://localhost:5278
+@host = https://prowebservices.gov.bm
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ2xvdWRCdXJzdCIsImp0aSI6IjYxZjZkYThjLTNjNDYtNDVhNC04MmUxLTY0NmNkOGE0MWFhNiIsImV4cCI6MTczNjU4MzA4OSwiaXNzIjoiUHJvV2ViU2l0ZVNlcnZpY2UiLCJhdWQiOiJDbG91ZEJ1cnN0In0.qZCp8jY35CXSRwDckDXna-r4QceY1hHPEo0g5dcVprY
+### Get Constituencies 
+
+GET {{host}}/constituencies/
+Authorization: Bearer {{token}}
+
+###
+
+### Get Assessments 
+
+GET {{host}}/Assessments?assessmentNo=030701023
+Authorization: Bearer {{token}}
+
+###
+
+### Get Voter 
+
+GET {{host}}/voter?firstName=Tenia&lastName=Woolridge&dateOfBirth=03/21/1980
+Authorization: Bearer {{token}}
+
+###
+
+
+POST {{host}}/login/
+Content-Type: application/json
+
+{
+    "userName": "CloudBurst",
+    "password": "tH&XR4Mt6LPPsn!0"
+}
+
+
+### Get Constituencies Response Schema 
+
+GET {{host}}/constituencies-response-schema
+
+###
+
+### Get Voter Response Schema 
+
+GET {{host}}/voter-response-schema
+
+###
+
+### Get Assessments Response Schema 
+
+GET {{host}}/assessments-response-schema
+
+###### Get Login User Response Schema 
+
+GET {{host}}/login-user-response-schema
+
+###
+
+### Get Login User Request Schema 
+
+GET {{host}}/login-user-request-schema
+
+###
+
+### Get Login User Request Schema 
+
+GET {{host}}/health-check
+
+###

@@ -1,0 +1,24 @@
+{
+  "type": "array",
+  "items": {
+    "type": [
+      "object",
+      "null"
+    ],
+    "properties": {
+      "constituencyNo": {
+        "type": "integer"
+      },
+      "constituencyName": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "constituencyNo",
+      "constituencyName"
+    ]
+  }
+}
