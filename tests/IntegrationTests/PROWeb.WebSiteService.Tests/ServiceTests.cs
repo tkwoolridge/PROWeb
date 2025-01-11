@@ -69,7 +69,7 @@ namespace PROWeb.WebSiteService.Tests
             var client = await CreateAuthenticatedClientAsync();
 
             //Action
-            var response = await client.GetFromJsonAsync<VoterResponse>($"/{Configuration.Routs.Voter}?registryYear=2023&&firstName=Tenia&lastName=Woolridge&DateOfBirth=03/21/1980");
+            var response = await client.GetFromJsonAsync<VoterResponse>($"/{Configuration.Routs.Voter}?firstName=Tenia&lastName=Woolridge&DateOfBirth=03/21/1980");
 
             //Assert
             response.Should().NotBeNull();
