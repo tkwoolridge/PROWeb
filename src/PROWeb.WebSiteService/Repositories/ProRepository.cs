@@ -48,7 +48,9 @@ namespace PROWeb.WebSiteService.Repositories
                           ,PostalCode AS {nameof(Assessment.PostalCode)}
                           ,ConstituencyNo AS {nameof(Assessment.ConstituencyNo)}
                           ,ConstituencyName AS {nameof(Assessment.ConstituencyName)}
-                      FROM Assessment WHERE
+                          ,Longitude AS {nameof(Assessment.Longitude)}
+                          ,Latitude AS {nameof(Assessment.Latitude)}
+                      FROM vAssessmentCoordinate WHERE
                       (AssessmentNo LIKE @{nameof(assessmentNo)} OR @{nameof(assessmentNo)} IS NULL) AND
                       (Address1 LIKE @{nameof(houseName)} OR @{nameof(houseName)} IS NULL) AND
                       (Address2 LIKE @{nameof(street)} OR @{nameof(street)} IS NULL) AND
@@ -101,6 +103,7 @@ namespace PROWeb.WebSiteService.Repositories
                             ,IsBogusNo
                             ,BogusNo
                         FROM Voter WHERE
+                        IsEligible = 1 AND
                         FirstName = @{nameof(firstName)} AND
                         LastName =  @{nameof(lastName)} AND
                         DateofBirth = @{nameof(dateOfBirth)} AND
@@ -116,6 +119,58 @@ namespace PROWeb.WebSiteService.Repositories
             });
 
             return result.FirstOrDefault();
+        }
+
+        public async Task<List<Ratepayer>> GetRatepayerAsync(int corporationID, string assessmentNo)
+        {
+            var sql = @$"SELECT CorporationID
+                          ,CorporationID
+                          ,CompanyName
+                          ,AssessmentNo
+                          ,HouseNo
+                          ,Address1
+                          ,Address2
+                          ,Address3
+                          ,PostalCode
+                          ,NomineeFirstName
+                          ,NomineeLastName
+                          ,NomineeMiddleName
+                      FROM vWebRatepayer WHERE
+                        CorporationID = @{nameof(corporationID)} AND
+                        AssessmentNo = @{nameof(assessmentNo)}";
+
+            using var connection = Connection;
+
+            var result = await connection.QueryAsync<Ratepayer>(sql, new
+            {
+                corporationID,
+                assessmentNo
+            });
+
+            return result.ToList();
+        }
+
+        public async Task<List<JPVoter>> GetJPVotersAsync(int constituencyNo)
+        {
+            var sql = @$"SELECT Title
+                      ,FirstName
+                      ,LastName
+                      ,MiddleName
+                      ,PhoneHome
+                      ,PhoneMobile
+                      ,ConstituencyNo
+                      ,ConstituencyName
+                      FROM vJPVotersList WHERE
+                        ConstituencyNo = @{nameof(constituencyNo)}";
+
+            using var connection = Connection;
+
+            var result = await connection.QueryAsync<JPVoter>(sql, new
+            {
+                constituencyNo
+            });
+
+            return result.ToList();
         }
     }
 }

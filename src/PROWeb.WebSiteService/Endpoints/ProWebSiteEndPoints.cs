@@ -10,6 +10,8 @@ using PROWeb.WebSiteService.Configurations;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
 using Newtonsoft.Json.Serialization;
+using Serilog;
+using PROWeb.WebSiteService.Authentication.Extensions;
 
 namespace PROWeb.WebSiteService.Endpoints
 {
@@ -27,9 +29,13 @@ namespace PROWeb.WebSiteService.Endpoints
 
             //app.MapGet($"/{Configuration.Routs.AssessmentsResponseSchema}", GenerateAssessmentsResponseSchema).WithName("GetAssessmentsResponseSchema");
 
+            //app.MapGet($"/{Configuration.Routs.LoginUserRequestSchema}", GenerateLoginUserRequestSchema).WithName("GenerateLoginUserRequestSchema");
+
             //app.MapGet($"/{Configuration.Routs.LoginUserResponseSchema}", GenerateLoginUserResponseSchema).WithName("GetLoginUserResponseSchema");
 
-            //app.MapGet($"/{Configuration.Routs.LoginUserRequestSchema}", GenerateLoginUserRequestSchema).WithName("GetLoginUserRequestSchema");
+            //app.MapGet($"/{Configuration.Routs.RatepayerRequestSchema}", GetRatepayerResponseSchema).WithName("GetRatepayerResponseSchema");
+
+            app.MapGet($"/{Configuration.Routs.JPVoterRequestSchema}", GenerateJPVoterResponseSchema).WithName("GenerateJPVoterResponseSchema");
 
             var authGroup = app.MapGroup(string.Empty)
                 .RequireAuthorization();
@@ -39,6 +45,12 @@ namespace PROWeb.WebSiteService.Endpoints
 
             authGroup.MapGet($"/{Configuration.Routs.Assessments}", GetAssessmentsAsync)
                 .WithName("GetAssessments");
+
+            authGroup.MapGet($"/{Configuration.Routs.Ratepayers}", GetRatepayersAsync)
+                .WithName("GetRatepayers");
+
+            authGroup.MapGet($"/{Configuration.Routs.JPVoters}", GetJPVotersAsync)
+               .WithName("GetJPVoters");
 
             authGroup.MapGet($"/{Configuration.Routs.Voter}", GetVoterAsync)
                .WithName("GetVoter");
@@ -51,20 +63,39 @@ namespace PROWeb.WebSiteService.Endpoints
             if(!options.Value.UserName.Equals(request.UserName) ||
                !options.Value.Password.Equals(request.Password))
             {
+                string message = $"Invalid credentials for user {request.UserName}!";
+
+                Log.Warning(message);
+
                 return TypedResults.BadRequest("Invalid credentials.");
             }
+
+            var strToken = tokenGenerator.GenerateToken();
+            var token = strToken.DeserializeToken();
 
             return TypedResults.Ok(
                 new LoginResponse
                 {
-                    Token = tokenGenerator.GenerateToken()
+                    Token = strToken,
+                    Expires = long.Parse(token.Claims.First(c => c.Type == "exp").Value)
                 });
         }
 
         [ProducesResponseType(typeof(List<ConstituencyResponse>), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         public static async Task<IResult> GetConstituenciesAsync(IProService service)
         {
             var result = await service.GetConstituenciesAsync();
+
+            if(result.Count == 0)
+            {
+                string message = $"Requested constituencies were not found!";
+
+                Log.Warning(message);
+                return TypedResults.BadRequest(message);
+            }
+
+            Log.Information("Constituencies successfully retrieved!");
 
             return TypedResults.Ok(result);
         }
@@ -93,10 +124,15 @@ namespace PROWeb.WebSiteService.Endpoints
                 constituencyName);
 
 
-            if (result?.Count == 0)
+            if (result.Count == 0)
             {
-                return TypedResults.BadRequest("Assessment not found.");
+                string message = $"Request assessments were not found!";
+
+                Log.Warning(message);
+                return TypedResults.BadRequest(message);
             }
+
+            Log.Information($"Request assessments were successfully retrieved!");
 
             return TypedResults.Ok(result);
         }
@@ -116,8 +152,58 @@ namespace PROWeb.WebSiteService.Endpoints
 
             if(result is null)
             {
-                return TypedResults.BadRequest("Voter not found.");
+                string message = $"Voter with first name: {firstName}, last name: {lastName} and dob: {dateOfBirth.ToString("dd/MM/yyyy")}  was not found!";
+
+                Log.Warning(message);
+                return TypedResults.BadRequest(message);
             }
+
+            Log.Information($"Voter with first name: {firstName}, last name: {lastName} and dob: {dateOfBirth.ToString("dd/MM/yyyy")} was successfully retrieved!");
+
+            return TypedResults.Ok(result);
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<RatepayerResponse>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public static async Task<IResult> GetRatepayersAsync(
+            [FromQuery, BindRequired] int corporationId,
+            [FromQuery, BindRequired] string assessmentNo,
+            IProService service)
+        {
+            var result = await service.GetRatepayerAsync(
+                corporationId,
+                assessmentNo);
+
+            if (result.Count == 0)
+            {
+                string message = $"Request ratepayers were not found!";
+
+                Log.Warning(message);
+                return TypedResults.BadRequest(message);
+            }
+
+            Log.Information($"Request ratepayers were successfully retrieved!");
+
+            return TypedResults.Ok(result);
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<JPVoterResponse>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public static async Task<IResult> GetJPVotersAsync(
+            [FromQuery, BindRequired] int constituencyNo,
+            IProService service)
+        {
+            var result = await service.GetJPVotersAsync(constituencyNo);
+
+            if (result.Count == 0)
+            {
+                string message = $"JP voters were not found!";
+
+                Log.Warning(message);
+                return TypedResults.BadRequest(message);
+            }
+
+            Log.Information($"Request JP voters were successfully retrieved!");
 
             return TypedResults.Ok(result);
         }
@@ -159,6 +245,22 @@ namespace PROWeb.WebSiteService.Endpoints
         public static IResult GenerateLoginUserRequestSchema()
         {
             JSchema schema = GetGenerator().Generate(typeof(LoginRequest));
+            return ToJsonResult(schema.ToString());
+        }
+
+        [ExcludeFromDescription]
+        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
+        public static IResult GetRatepayerResponseSchema()
+        {
+            JSchema schema = GetGenerator().Generate(typeof(RatepayerResponse));
+            return ToJsonResult(schema.ToString());
+        }
+
+        [ExcludeFromDescription]
+        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
+        public static IResult GenerateJPVoterResponseSchema()
+        {
+            JSchema schema = GetGenerator().Generate(typeof(JPVoterResponse));
             return ToJsonResult(schema.ToString());
         }
 

@@ -25,5 +25,12 @@ namespace PROWeb.WebSiteService.Repositories
             string lastName,
             DateTime dateOfBirth
         );
+
+        Task<List<Ratepayer>> GetRatepayerAsync(
+            int corporationID,
+            string assessmentNo
+        );
+
+        Task<List<JPVoter>> GetJPVotersAsync(int constituencyNo);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using PROWeb.WebSiteService.Contracts.Responses;
+using PROWeb.WebSiteService.Models;
 using PROWeb.WebSiteService.Repositories;
 
 namespace PROWeb.WebSiteService.Services
@@ -43,6 +44,13 @@ namespace PROWeb.WebSiteService.Services
             return response.Adapt<List<ConstituencyResponse>>();
         }
 
+        public async Task<IReadOnlyList<RatepayerResponse>> GetRatepayerAsync(int corporationID, string assessmentNo)
+        {
+            var result = await _repository.GetRatepayerAsync(corporationID, assessmentNo);
+
+            return result.Adapt<List<RatepayerResponse>>();
+        }
+
         public async Task<VoterResponse?> GetVoterAsync(
             string firstName,
             string lastName,
@@ -52,6 +60,13 @@ namespace PROWeb.WebSiteService.Services
             var result = await _repository.GetVoterAsync(firstName, lastName, dateOfBirth);
 
             return result.Adapt<VoterResponse>();
+        }
+
+        public async Task<List<JPVoterResponse>> GetJPVotersAsync(int constituencyNo)
+        {
+            var result = await _repository.GetJPVotersAsync(constituencyNo);
+
+            return result.Adapt<List<JPVoterResponse>>();
         }
     }
 }

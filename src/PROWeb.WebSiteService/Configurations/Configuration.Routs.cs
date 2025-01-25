@@ -8,6 +8,10 @@
 
             public const string Assessments = "assessments";
 
+            public const string Ratepayers = "ratepayers";
+            
+            public const string JPVoters = "jp-voters";
+
             public const string Voter = "voter";
 
             public const string Login = "login";
@@ -23,6 +27,10 @@
             public const string VoterResponseSchema = "voter-response-schema";
 
             public const string LoginUserRequestSchema = "login-user-request-schema";
+
+            public const string RatepayerRequestSchema = "ratepayer-request-schema";
+
+            public const string JPVoterRequestSchema = "jp-voter-request-schema";
         }
     }
 }

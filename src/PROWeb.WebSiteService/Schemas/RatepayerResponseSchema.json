@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "properties": {
+    "corporationID": {
+      "type": "integer"
+    },
+    "companyName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "assessmentNo": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "houseNo": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "address1": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "address2": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "address3": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "postalCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nomineeFirstName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nomineeLastName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nomineeMiddleName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "corporationID",
+    "companyName",
+    "assessmentNo",
+    "houseNo",
+    "address1",
+    "address2",
+    "address3",
+    "postalCode",
+    "nomineeFirstName",
+    "nomineeLastName",
+    "nomineeMiddleName"
+  ]
+}
