@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "firstName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "middleName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phoneHome": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phoneMobile": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "constituencyNo": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "constituencyName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "title",
+    "firstName",
+    "lastName",
+    "middleName",
+    "phoneHome",
+    "phoneMobile",
+    "constituencyNo",
+    "constituencyName"
+  ]
+}

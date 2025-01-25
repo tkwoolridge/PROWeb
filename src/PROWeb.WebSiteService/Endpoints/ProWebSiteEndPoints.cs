@@ -35,7 +35,7 @@ namespace PROWeb.WebSiteService.Endpoints
 
             //app.MapGet($"/{Configuration.Routs.RatepayerRequestSchema}", GetRatepayerResponseSchema).WithName("GetRatepayerResponseSchema");
 
-            app.MapGet($"/{Configuration.Routs.JPVoterRequestSchema}", GenerateJPVoterResponseSchema).WithName("GenerateJPVoterResponseSchema");
+            //app.MapGet($"/{Configuration.Routs.JPVoterRequestSchema}", GenerateJPVoterResponseSchema).WithName("GenerateJPVoterResponseSchema");
 
             var authGroup = app.MapGroup(string.Empty)
                 .RequireAuthorization();
@@ -209,7 +209,7 @@ namespace PROWeb.WebSiteService.Endpoints
         }
 
         [ExcludeFromDescription]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
         public static IResult GenerateConstituenciesResponseSchema()
         {
             JSchema schema = GetGenerator().Generate(typeof(List<ConstituencyResponse>));
@@ -217,7 +217,7 @@ namespace PROWeb.WebSiteService.Endpoints
         }
 
         [ExcludeFromDescription]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public static IResult GenerateVoterResponseSchema()
         {
             JSchema schema = GetGenerator().Generate(typeof(VoterResponse));
@@ -225,7 +225,7 @@ namespace PROWeb.WebSiteService.Endpoints
         }
 
         [ExcludeFromDescription]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
         public static IResult GenerateAssessmentsResponseSchema()
         {
             JSchema schema = GetGenerator().Generate(typeof(List<AssessmentResponse>));
@@ -233,7 +233,7 @@ namespace PROWeb.WebSiteService.Endpoints
         }
 
         [ExcludeFromDescription]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
         public static IResult GenerateLoginUserResponseSchema()
         {
             JSchema schema = GetGenerator().Generate(typeof(LoginResponse));
@@ -241,7 +241,7 @@ namespace PROWeb.WebSiteService.Endpoints
         }
 
         [ExcludeFromDescription]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
         public static IResult GenerateLoginUserRequestSchema()
         {
             JSchema schema = GetGenerator().Generate(typeof(LoginRequest));
@@ -249,7 +249,7 @@ namespace PROWeb.WebSiteService.Endpoints
         }
 
         [ExcludeFromDescription]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
         public static IResult GetRatepayerResponseSchema()
         {
             JSchema schema = GetGenerator().Generate(typeof(RatepayerResponse));
@@ -257,7 +257,7 @@ namespace PROWeb.WebSiteService.Endpoints
         }
 
         [ExcludeFromDescription]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK, contentType: "application/json")]
         public static IResult GenerateJPVoterResponseSchema()
         {
             JSchema schema = GetGenerator().Generate(typeof(JPVoterResponse));

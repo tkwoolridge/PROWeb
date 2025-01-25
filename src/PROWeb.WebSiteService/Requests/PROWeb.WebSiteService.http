@@ -1,7 +1,6 @@
-@host = http://localhost:5278
-###@host = https://prowebservices.gov.bm
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ2xvdWRCdXJzdCIsImp0aSI6ImU1OGUzMjg4LWY3OTctNGYxMi04NmQyLTU1OGZkZGE1YWU5OSIsImV4cCI6MTczNzc0NTU4NCwiaXNzIjoiUHJvV2ViU2l0ZVNlcnZpY2UiLCJhdWQiOiJDbG91ZEJ1cnN0In0.9GfUHRal6v48UO9arZb4cYNAODmIgLjk9XLDW5m6PgI
-### Get Constituencies 
+###@host = http://localhost:5278
+@host = https://prowebservices.gov.bm
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ2xvdWRCdXJzdCIsImp0aSI6ImI2ZDcwMjM0LTc3YjktNGFiMC05YTY1LWE3MTk0ZTUxNGY2OSIsImV4cCI6MTczNzc5NTI5OSwiaXNzIjoiUHJvV2ViU2l0ZVNlcnZpY2UiLCJhdWQiOiJDbG91ZEJ1cnN0In0.lAY7bjqtlzR1747ycCmoFEM3D4TTc2zvWZFtwaQRfjM
 
 GET {{host}}/constituencies/
 Authorization: Bearer {{token}}
@@ -22,19 +21,27 @@ Authorization: Bearer {{token}}
 
 ###
 
-### Get Voter 
+### Get Ratepayers 
 
 GET {{host}}/ratepayers?corporationID=1&assessmentNo=021082111
 Authorization: Bearer {{token}}
 
 ###
 
+### Get JPVoters 
+
+GET {{host}}/jp-voters?constituencyNo=2
+Authorization: Bearer {{token}}
+
+###
+
+### Log in
 
 POST {{host}}/login/
 Content-Type: application/json
 {
     "userName": "CloudBurst",
-    "password": "Test"
+    "password": "tH&XR4Mt6LPPsn!0"
 }
 
 ###"password": "tH&XR4Mt6LPPsn!0"
@@ -67,13 +74,19 @@ GET {{host}}/login-user-request-schema
 
 ###
 
-### Get Login User Request Schema 
+### Get Ratepayer Request Schema 
 
 GET {{host}}/ratepayer-request-schema
 
 ###
 
-### Get Login User Request Schema 
+### Get JPVoters Request Schema 
+
+GET {{host}}/jp-voter-request-schema
+
+###
+
+### Health check 
 
 GET {{host}}/health-check
 
