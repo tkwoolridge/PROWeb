@@ -145,6 +145,15 @@ namespace PROWeb.WebSiteService.Endpoints
             [FromQuery, BindRequired] DateTime dateOfBirth,
             IProService service)
         {
+            var dobYear = DateTime.Now.Year - 130;
+
+            if(dateOfBirth.Year < dobYear)
+            {
+                string message = $"Voter with first name: {firstName}, last name: {lastName} and DOB: {dateOfBirth.ToString("dd/MM/yyyy")} has DOB outside of acceptable range!";
+
+                return TypedResults.BadRequest(message);
+            }
+
             var result = await service.GetVoterAsync(
                 firstName, 
                 lastName, 

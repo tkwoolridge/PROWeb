@@ -37,7 +37,7 @@ else
     app.UseExceptionHandler();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
