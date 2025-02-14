@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<OpenApiGenerateDocuments>true</OpenApiGenerateDocuments>
+		<OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)</OpenApiDocumentsDirectory>
+		<EnvironmentName>Production</EnvironmentName>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="logs\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\ServiceUsers.json.enc" />
+		<None Include="Resources\ServiceUsers.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>	
+	
+	<ItemGroup>
+	  <None Include="schemas\AssessmentsResponseSchema.json" />
+	  <None Include="schemas\ConstituenciesResponseSchema.json" />
+	  <None Include="schemas\JPVoterSchema.json" />
+      <None Include="schemas\LoginRequestSchema.json" />
+	  <None Include="schemas\LoginResponseSchema.json" />
+      <None Include="schemas\RatepayerResponseSchema.json" />
+	  <None Include="schemas\VoterResponseSchema.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.1.35" />
+		<PackageReference Include="Mapster" Version="7.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+		<PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
+		<PackageReference Include="Sentry.AspNetCore" Version="5.0.1" />
+		<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\PROWeb.Common\PROWeb.Common.csproj" />
+	</ItemGroup>
+
+</Project>

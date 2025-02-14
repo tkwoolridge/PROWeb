@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\PROWeb.WebSiteService\PROWeb.WebSiteService.csproj" />
+    <ProjectReference Include="..\..\..\src\PROWeb.WebService\PROWeb.WebService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

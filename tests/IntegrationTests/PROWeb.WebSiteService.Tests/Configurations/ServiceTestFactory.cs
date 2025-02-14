@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace PROWeb.WebSiteService.Tests.Configurations
+namespace PROWeb.WebService.Tests.Configurations
 {
     public class ServiceTestFactory : WebApplicationFactory<Program>
     {

@@ -1,11 +1,11 @@
-﻿using PROWeb.WebSiteService.Contracts.Requests;
-using PROWeb.WebSiteService.Tests.Configurations;
+﻿using PROWeb.WebService.Contracts.Requests;
+using PROWeb.WebService.Tests.Configurations;
 using System.Net.Http.Json;
-using PROWeb.WebSiteService.Configurations;
-using PROWeb.WebSiteService.Contracts.Responses;
+using PROWeb.WebService.Configurations;
+using PROWeb.WebService.Contracts.Responses;
 using FluentAssertions;
 
-namespace PROWeb.WebSiteService.Tests
+namespace PROWeb.WebService.Tests
 {
     public class ServiceTests : IClassFixture<ServiceTestFactory>
     {
@@ -26,7 +26,7 @@ namespace PROWeb.WebSiteService.Tests
             var response = await client.PostAsJsonAsync($"/{Configuration.Routs.Login}", new LoginRequest
             {
                 UserName = "CloudBurst",
-                Password = "Test"
+                Password = "tH&XR4Mt6LPPsn!0"
             });
 
             var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
@@ -106,7 +106,7 @@ namespace PROWeb.WebSiteService.Tests
             var response = await client.PostAsJsonAsync(Configuration.Routs.Login, new LoginRequest
             {
                 UserName = "CloudBurst",
-                Password = "Test"
+                Password = "tH&XR4Mt6LPPsn!0"
             });
 
             var loginResponse  = await response.Content.ReadFromJsonAsync<LoginResponse>();
