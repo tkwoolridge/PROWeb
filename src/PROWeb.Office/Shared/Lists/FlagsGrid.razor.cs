@@ -12,11 +12,21 @@ namespace PROWeb.Office.Shared.Lists
 {
     public partial class FlagsGrid : PROGridComponent<ListFilterViewModel, VoterFlagViewModel>
     {
+        private ListFilterViewModel _filter = new ListFilterViewModel();
+
         [Inject]
         protected IVotersServiceFactory VotersServiceFactory { get; set; } = null!;
 
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+            await OnFilterAsync(_filter);
+        }
+
         protected override async Task<IList<VoterFlagViewModel>> GetDataAsync(ListFilterViewModel filter)
         {
+            _filter = filter;
+
             using (var service = VotersServiceFactory.CreateService())
             {
                 return await service.GetVoterFlags(filter.Description).ProjectToListAsync<VoterFlagViewModel>();
@@ -32,6 +42,21 @@ namespace PROWeb.Office.Shared.Lists
                     await service.UpdateVoterFlagAsync(flag.Adapt<VoterFlag>());
 
                     RefreshGrid(flag, m => m.FlagId == flag.FlagId);
+                }
+            }
+        }
+
+        protected override async Task CreateAsync(GridCommandEventArgs args)
+        {
+            using (var service = VotersServiceFactory.CreateService())
+            {
+                if (args.Item is VoterFlagViewModel flag)
+                {
+                    var result = await service.AddVoterFlagAsync(flag.Adapt<VoterFlag>());
+
+                    flag.FlagId = result.FlagId;
+
+                    RefreshGrid(flag);
                 }
             }
         }

@@ -215,10 +215,16 @@ namespace PROWeb.Data.Services.Voters
 
         public async Task UpdateVoterFlagAsync(VoterFlag flag)
         {
-            Context.Attach(flag);
-
             Context.VoterFlags.Update(flag);
             await Context.SaveChangesAsync();
+        }
+
+        public async Task<VoterFlag> AddVoterFlagAsync(VoterFlag flag)
+        {
+            Context.VoterFlags.Add(flag);
+            await Context.SaveChangesAsync();
+
+            return flag;
         }
 
         #endregion

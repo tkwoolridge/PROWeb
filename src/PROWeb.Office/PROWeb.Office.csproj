@@ -7,6 +7,12 @@
 	<NoWarn>$(NoWarn);NETSDK1206</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Shared\Reports\**" />
+    <Content Remove="Shared\Reports\**" />
+    <EmbeddedResource Remove="Shared\Reports\**" />
+    <None Remove="Shared\Reports\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="wwwroot\reports\ElectionCertificate.trdp" />
     <Content Remove="wwwroot\reports\ImmigrationCertificate.trdp" />
     <Content Remove="wwwroot\reports\VotersAtoZ.trdp" />
@@ -17,19 +23,16 @@
   <ItemGroup>
     <PackageReference Include="CompareNETObjects" Version="4.83.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="7.0.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="8.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PROWeb.Authentication\PROWeb.Authentication.csproj" />
     <ProjectReference Include="..\PROWeb.Components\PROWeb.Components.csproj" />
     <ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Shared\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\reports\ElectionCertificate.trdp" />

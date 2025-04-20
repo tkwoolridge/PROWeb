@@ -81,18 +81,41 @@ namespace PROWeb.Components.Common
             }
         }
 
+        protected void RefreshGrid(TItem current)
+        {
+            if (Data is not null)
+            {
+                Data.Insert(0, current);
+                GridRef?.Rebind();
+            }
+        }
+
         protected async Task OnUpdateAsync(GridCommandEventArgs args)
         {
-            Layout?.SetBusyState(true, "Saving. Please wait... ");
+            Layout?.SetBusyState(true, "Updating. Please wait... ");
 
             await UpdateAsync(args);
 
             Layout?.SetBusyState(false);
         }
 
+        protected async Task OnCreateAsync(GridCommandEventArgs args)
+        {
+            Layout?.SetBusyState(true, "Creating. Please wait... ");
+
+            await CreateAsync(args);
+
+            Layout?.SetBusyState(false);
+        }
+
         protected virtual async Task UpdateAsync(GridCommandEventArgs args)
         {
-            await Task.Delay(1);
+            await Task.CompletedTask;
+        }
+
+        protected virtual async Task CreateAsync(GridCommandEventArgs args)
+        {
+            await Task.CompletedTask;
         }
 
         public void ResetState()

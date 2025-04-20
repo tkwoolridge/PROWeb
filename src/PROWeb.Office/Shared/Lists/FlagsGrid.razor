@@ -1,11 +1,13 @@
 ﻿@using PROWeb.Components.Voters.ViewModels;
 @using PROWeb.Office.Shared.Lists.ViewModels;
 @using Telerik.FontIcons
+@using Telerik.SvgIcons
 @inherits PROGridComponent<ListFilterViewModel, VoterFlagViewModel>
 
 <TelerikGrid @bind-Page="@Page"
              EditMode="@GridEditMode.Inline"
              OnUpdate="@OnUpdateAsync"
+             OnCreate="@OnCreateAsync"
              PageSize="@PageSize"
              Height="100%"
              @ref="@GridRef"
@@ -22,4 +24,7 @@
             <GridCommandButton Command="Cancel" Icon="@FontIcon.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">Add Flag</GridCommandButton>
+    </GridToolBarTemplate>
 </TelerikGrid>

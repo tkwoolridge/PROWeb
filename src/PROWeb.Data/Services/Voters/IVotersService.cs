@@ -44,6 +44,8 @@ namespace PROWeb.Data.Services.Voters
 
         Task UpdateVoterFlagAsync(VoterFlag flag);
 
+        Task<VoterFlag> AddVoterFlagAsync(VoterFlag flag);
+
         #endregion
 
         #region Voter History

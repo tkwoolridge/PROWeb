@@ -15,6 +15,12 @@ namespace PROWeb.Office.Shared.Lists
         [Inject]
         protected IAssessmentServiceFactory AssessmentServiceFactory { get; set; } = null!;
 
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+            await OnFilterAsync(new ListFilterViewModel());
+        }
+
         protected override async Task<IList<ParishViewModel>> GetDataAsync(ListFilterViewModel filter)
         {
             using (var service = AssessmentServiceFactory.CreateService())
