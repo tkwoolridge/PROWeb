@@ -1,6 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 
-namespace PROWeb.WebService.Authentication.Extensions
+namespace PROWeb.RestApi.Authentication.Extensions
 {
     public static class TokenExtensions
     {

@@ -1,5 +1,4 @@
-﻿using PROWeb.WebService.Models;
-using PROWeb.WebService.Resources;
+﻿using PROWeb.RestApi.Authentication.Models;
 
 namespace PROWeb.WebService.Repositories
 {

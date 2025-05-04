@@ -18,6 +18,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="ReactiveUI" Version="20.2.45" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+  </ItemGroup>       
+
+  <ItemGroup>
+    <Folder Include="Tokens\" />
   </ItemGroup>
 
 </Project>

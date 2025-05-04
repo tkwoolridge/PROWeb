@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Options;
-using PROWeb.WebService.Authentication;
-using PROWeb.WebService.Authentication.Models;
 using PROWeb.WebService.Contracts.Requests;
 using PROWeb.WebService.Contracts.Responses;
 using PROWeb.WebService.Services;
@@ -11,9 +8,9 @@ using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
 using Newtonsoft.Json.Serialization;
 using Serilog;
-using PROWeb.WebService.Authentication.Extensions;
-using PROWeb.WebService.Repositories;
-using PROWeb.WebService.Models.Enums;
+using PROWeb.RestApi.Authentication;
+using PROWeb.RestApi.Authentication.Extensions;
+using PROWeb.RestApi.Authentication.Models.Enums;
 
 namespace PROWeb.WebService.Endpoints
 {

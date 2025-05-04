@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PROWeb.Data.Models;
 
 namespace PROWeb.Data
@@ -71,17 +72,17 @@ namespace PROWeb.Data
             //.LogTo(Console.WriteLine, LogLevel.Information);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.Entity<Eligible>()
+            builder.Entity<Eligible>()
                 .ToTable(nameof(EligiblePoll), t => t.ExcludeFromMigrations())
                 .HasNoKey();
 
-            modelBuilder.Entity<Voter>().HasKey(v => new { v.VoterId, v.RegistryYear });
+            builder.Entity<Voter>().HasKey(v => new { v.VoterId, v.RegistryYear });
 
-            modelBuilder.Entity<VoterFlag>()
+            builder.Entity<VoterFlag>()
                 .HasMany<Voter>(v => v.Voters)
                 .WithMany(vf => vf.Flags)
                 .UsingEntity<Dictionary<string, object>>(
@@ -98,7 +99,7 @@ namespace PROWeb.Data
                     .OnDelete(DeleteBehavior.Cascade)
                 );
 
-            modelBuilder.Entity<Registration>()
+            builder.Entity<Registration>()
             .HasOne(r => r.OldAssessment)
             .WithMany(a => a.OldRegistrations)
             .HasForeignKey(r => r.OldAssessmentNo)
@@ -133,26 +134,44 @@ namespace PROWeb.Data
             //.HasPrincipalKey(v => new { v.VoterId, v.RegistryYear })
             //.OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Document>()
+            builder.Entity<Document>()
             .HasOne(r => r.Voter)
             .WithMany(v => v.Documents)
             .HasForeignKey(r => new { r.PersonId, r.RegistryYear })
             .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear })
             .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<VoterHistory>()
+            builder.Entity<VoterHistory>()
                 .HasKey(vh => new { vh.VoterId, vh.RegistryYear, vh.Created });
 
-            modelBuilder.Entity<VoterHistory>()
+            builder.Entity<VoterHistory>()
                 .HasOne(vh => vh.Voter)
                 .WithMany(v => v.VoterHistories)
                 .HasForeignKey(vh => new { vh.VoterId, vh.RegistryYear });
 
-            modelBuilder.Entity<VoterHistoryField>()
+            builder.Entity<VoterHistoryField>()
                 .HasOne(f => f.VoterHistory)
                 .WithMany(v => v.Fields)
                 .HasForeignKey(f => new { f.VoterId, f.RegistryYear, f.Created })
                 .HasPrincipalKey(v => new { v.VoterId, v.RegistryYear, v.Created });
+
+            var converter = new ValueConverter<string, string>(
+                v => v.ToUpper(), // writing
+                v => v);
+
+            // all of the string properties
+            foreach (var entityType in builder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(string))
+                    {
+                        builder.Entity(entityType.Name)
+                               .Property(property.Name)
+                               .HasConversion(converter);
+                    }
+                }
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using PROWeb.Common.Security;
-using PROWeb.WebService.Authentication.Models;
-using PROWeb.WebService.Models;
+using PROWeb.RestApi.Authentication.Configuration;
+using PROWeb.RestApi.Authentication.Models;
 using PROWeb.WebService.Resources;
 using System.Diagnostics;
 using System.Reflection;
@@ -32,16 +32,22 @@ namespace PROWeb.WebService.Repositories
                 }
             }
 
-            var key = EncryptionHelper.CreateKey(jwtOptions.Value.Secret);
+            //var result = Encryptor.Encrypt(encResource);
 
-            //encResource = EncryptionHelper.EncryptString(key, encResource);
+            var key = jwtOptions.Value.Secret; // result.Key;
 
-            string resource = EncryptionHelper.DecryptString(key, encResource);
-
-            _serviceUsers = JsonSerializer.Deserialize<ServiceUsers>(resource, new JsonSerializerOptions
+            var result = new EncryptionResult
             {
-               PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-               Converters =
+                EncryptedData = encResource,
+                Key = key
+            };
+
+            string users = Decryptor.Decrypt(result);
+
+            _serviceUsers = JsonSerializer.Deserialize<ServiceUsers>(users, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                Converters =
                {
                     new JsonStringEnumConverter()
                }

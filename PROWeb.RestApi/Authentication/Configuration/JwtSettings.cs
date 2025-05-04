@@ -1,4 +1,4 @@
-﻿namespace PROWeb.WebService.Authentication.Models
+﻿namespace PROWeb.RestApi.Authentication.Configuration
 {
     public class JwtSettings
     {

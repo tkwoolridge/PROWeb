@@ -21,6 +21,12 @@
     <Content Remove="wwwroot\reports\WalkListWithDOB.trdp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IISUrlRewrite.xml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="CompareNETObjects" Version="4.83.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
@@ -33,6 +39,7 @@
     <ProjectReference Include="..\PROWeb.Authentication\PROWeb.Authentication.csproj" />
     <ProjectReference Include="..\PROWeb.Components\PROWeb.Components.csproj" />
     <ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />
+    <ProjectReference Include="..\PROWeb.WebResources\PROWeb.WebResources.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\reports\ElectionCertificate.trdp" />

@@ -1,4 +1,4 @@
-﻿namespace PROWeb.WebService.Authentication
+﻿namespace PROWeb.RestApi.Authentication
 {
     public interface IDateTimeProvider
     {

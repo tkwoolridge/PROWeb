@@ -1,6 +1,6 @@
-﻿using PROWeb.WebService.Models;
+﻿using PROWeb.RestApi.Authentication.Models;
 
-namespace PROWeb.WebService.Authentication
+namespace PROWeb.RestApi.Authentication
 {
     public interface IJwtTokenGenerator
     {

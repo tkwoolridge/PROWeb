@@ -1,6 +1,6 @@
-﻿using PROWeb.WebService.Models.Enums;
+﻿using PROWeb.RestApi.Authentication.Models.Enums;
 
-namespace PROWeb.WebService.Models
+namespace PROWeb.RestApi.Authentication.Models
 {
     public class ServiceUser
     {

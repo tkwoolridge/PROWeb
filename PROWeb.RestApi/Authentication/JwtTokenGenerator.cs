@@ -3,11 +3,10 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using PROWeb.WebService.Authentication.Models;
-using PROWeb.WebService.Models;
-using PROWeb.WebService.Repositories;
+using PROWeb.RestApi.Authentication.Configuration;
+using PROWeb.RestApi.Authentication.Models;
 
-namespace PROWeb.WebService.Authentication;
+namespace PROWeb.RestApi.Authentication;
 
 public class JwtTokenGenerator : IJwtTokenGenerator
 {

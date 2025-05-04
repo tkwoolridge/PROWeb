@@ -1,9 +1,7 @@
-using PROWeb.WebService.Endpoints;
-using PROWeb.WebService.Services.DependencyInjections;
-using PROWeb.WebService.Repositories.DependencyInjections;
-using Serilog;
-using PROWeb.WebService;
+using PROWeb.WebResources.DependencyInjection;
+using PROWeb.WebResources.Endpoints;
 using PROWeb.WebService.Authentication.DependencyInjection;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,17 +11,12 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
                     .Enrich.FromLogContext()
                     .WriteTo.Console());
 
-builder.WebHost.UseSentry();
-
-builder.Services.AddExceptionHandler<SentryExceptionHandler>();
-builder.Services.AddProblemDetails();
-
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddTokenAuthentication(builder.Configuration);
-builder.Services.AddProRepositories();
-builder.Services.AddProServices();
+builder.Services.AddApiKeyAuthentication(builder.Configuration);
+builder.Services.AddWebResourcesOptions(builder.Configuration);
+builder.Services.AddTCDPhotosOptions(builder.Configuration);
 
 var app = builder.Build();
 
@@ -32,18 +25,12 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-else
-{
-    app.UseExceptionHandler();
-}
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapProWebSiteEndpoints();
-
+app.MapWebResourcesEndpoints();
 app.Run();
 
-
-public partial class Program { } 
+public partial class Program { }
