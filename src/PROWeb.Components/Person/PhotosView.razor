@@ -1,4 +1,5 @@
-﻿@inherits PROComponent;
+﻿@inherits PhotosViewBase<TPhotosViewModel>
+@typeparam TPhotosViewModel
 
 <div class="voter-photos-view">
     @if(ShowPROPhoto)
@@ -9,11 +10,10 @@
     }
     @if(ShowPROPhoto)
     {
-        @* <div class="photo-container">
-            <img class="photo" src="_content/PROWeb.Components/images/user_photo.png" />
-        </div> *@
         <div class="photo-container">
-            <img class="photo" src="tcd-photos?name=pocketftpSmall.png" />
+            <object class="photo" data="@(PROPhotoPath + "/" + PhotosContext.PROPhoto)" type="image/png">
+                <img class="photo" src="_content/PROWeb.Components/images/user_photo.png" />
+            </object>
         </div>
     }
     @if(ShowTCDPhoto)
@@ -25,7 +25,9 @@
     @if (ShowTCDPhoto)
     {
         <div class="photo-container">
-            <img class="photo" src="_content/PROWeb.Components/images/user_photo.png" />
+            <object class="photo" data="@(TCDPhotoPath + "?TCDPhoto=" + PhotosContext.TCDPhoto)" type="image/png">
+                <img class="photo" src="_content/PROWeb.Components/images/user_photo.png" />
+            </object>
         </div>
     }
   </div>

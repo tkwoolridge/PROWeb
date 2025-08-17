@@ -2,8 +2,6 @@
 {
     public class ApiKeySettings
     {
-        public static string SectionName { get; } = "ApiKeySettings";
-
         public string? ApiKey { get; set; }
     }
 }

@@ -13,16 +13,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CompareNETObjects" Version="4.83.0" />
+		<PackageReference Include="CompareNETObjects" Version="4.84.0" />
 		<PackageReference Include="Humanizer.Core" Version="2.14.1" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
-		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.4" />
-		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="19.0.25.313" />
-		<PackageReference Include="Telerik.ReportViewer.BlazorNative" Version="19.0.25.313" />
-		<PackageReference Include="Telerik.UI.for.Blazor" Version="8.1.1" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.8" />
+		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="19.1.25.716" />
+		<PackageReference Include="Telerik.ReportViewer.BlazorNative" Version="19.1.25.716" />
+		<PackageReference Include="Telerik.UI.for.Blazor" Version="9.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\PROWeb.ExternalResources\PROWeb.ExternalResources.csproj" />
+		<ProjectReference Include="..\..\PROWeb.RestApi\PROWeb.RestApi.csproj" />
 		<ProjectReference Include="..\PROWeb.Common\PROWeb.Common.csproj" />
 		<ProjectReference Include="..\PROWeb.Data.Authentication\PROWeb.Data.Authentication.csproj" />
 		<ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />

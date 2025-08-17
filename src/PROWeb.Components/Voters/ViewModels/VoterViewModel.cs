@@ -346,6 +346,10 @@ namespace PROWeb.Components.Voters.ViewModels
             set => RaiseAndSetIfChanged(ref _documents, value);
         }
 
+        public string? TCDPhoto => $"{DriverLicense}.jpg";
+
+        public string? PROPhoto => $"{VoterId}.jpg";
+
         public bool Equals(VoterViewModel? other)
         {
             return VoterId == other?.VoterId;

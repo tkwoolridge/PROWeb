@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PROWeb.Components.Configurations;
 using PROWeb.Components.Mapping;
+using PROWeb.Components.Person.MiddleWares;
 using PROWeb.Components.Reports.Services;
 using PROWeb.Components.Services.Emails;
 using PROWeb.Components.Services.State;
@@ -58,11 +60,14 @@ namespace PROWeb.Components.DependencyInjection
                    ReportSourceResolver = sp.GetService<IReportSourceResolver>(),
                    ReportSharingTimeout = 1400
                });
+
+            services.Configure<TCDSettings>(builder.Configuration.GetSection(nameof(TCDSettings)));
         }
 
         public static void AddPROWebComponentsEndpoints(this WebApplication app)
         {
             app.MapControllers();
+            app.UseMiddleware<HandleTCDPhotosMiddleWare>();
         }
     }
 }

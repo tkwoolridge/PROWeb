@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SignalR;
 using PROWeb.Authentication.DependencyInjection;
 using PROWeb.Components.DependencyInjection;
@@ -9,9 +8,9 @@ using PROWeb.Data.DependencyInjection;
 using PROWeb.Data.Services.Extensions;
 using PROWeb.Office;
 using PROWeb.Office.Mapper;
-using PROWeb.RestApi.WebResources.DependencyInjection;
 using Serilog;
 using System.Globalization;
+using System.Reflection;
 using Telerik.Reporting.Cache.File;
 using Telerik.Reporting.Services;
 
@@ -42,8 +41,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
-builder.Services.AddWebResources(builder.Configuration);
 
 builder.Services.AddTelerikBlazor();
 builder.AddPROWebDataModule();
@@ -88,7 +85,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseWebResources();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();

@@ -42,7 +42,7 @@ namespace PROWeb.WebService.Authentication.DependencyInjection
         public static IServiceCollection AddApiKeyAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var apiKeySettings = new ApiKeySettings();
-            configuration.Bind(ApiKeySettings.SectionName, apiKeySettings);
+            configuration.Bind(nameof(ApiKeySettings), apiKeySettings);
 
             services.AddSingleton(Options.Create(apiKeySettings));
 
@@ -60,7 +60,6 @@ namespace PROWeb.WebService.Authentication.DependencyInjection
                 });
             });
 
-            //services.AddTransient<IAuthorizationService, DefaultAuthorizationService>();
             services.AddScoped<IAuthorizationHandler, ApiKeyHandler>();
 
             return services;

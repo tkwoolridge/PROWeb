@@ -20,16 +20,16 @@ namespace PROWeb.Components.Reports.Filters
             return true;
         }
 
-        protected async Task OnFilterChanged(CompositeFilterDescriptor filter)
+        protected async Task OnFilterUpdate()
         {
-            // I need to make sure filter is set here just after changed.
-            // Otherwise it will try to refresh content every time I start typing in filter editors.
+            if(Filter is null)
+            {
+                return;
+            }
 
-            OnBeforeFilterChange(filter);
+            OnBeforeFilterChange(Filter);
 
-            Filter = filter;
-
-            await FilterChanged.InvokeAsync(filter);
+            await FilterChanged.InvokeAsync(Filter);
         }
 
         protected FilterDescriptor? Find(Func<FilterDescriptor, bool> predict)

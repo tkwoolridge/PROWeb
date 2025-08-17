@@ -1,4 +1,6 @@
 ﻿@using PROWeb.Authentication.Components.Account;
+@using PROWeb.Authentication;
+@using System.Reflection
 
 <AuthorizeView>
     <Authorized>
@@ -12,7 +14,7 @@
 @code {
     RenderFragment RouterWithLayout(Type layoutType) => __builder =>
     {
-        <Router AppAssembly="@typeof(Program).Assembly">
+        <Router AppAssembly="Assembly.GetExecutingAssembly()">
             <Found Context="routeData">
                 <AuthorizeRouteView RouteData="routeData" DefaultLayout="@layoutType">
                     <NotAuthorized>

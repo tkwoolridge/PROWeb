@@ -69,7 +69,7 @@ namespace PROWeb.Data.Services.CachedData
         {
             CertificationDocuments = await context.CertificationDocuments.ToListAsync();
             ElectionTypes = await context.ElectionTypes.ToListAsync();
-            var office = await context.PROOffices.FirstAsync();
+            var office = await context.PROOffices.OrderBy(o => o.Id).FirstAsync();
             UpdateOfficeCachedData(office);
         }
 

@@ -346,6 +346,10 @@ namespace PROWeb.Office.Shared.Registrations.ViewModels
             set => RaiseAndSetIfChanged(ref _driverLicense, value);
         }
 
+        public string? TCDPhoto => $"{DriverLicense}.jpg";
+
+        public string? PROPhoto => $"{VoterId}.jpg";
+
         private string? _comment;
 
         public string? Comment

@@ -3,7 +3,7 @@
 @using PROWeb.Data.Models
 @inherits ReportFilterView
 
-<TelerikFilter Value="@Filter" ValueChanged="@OnFilterChanged">
+<TelerikFilter Value="@Filter" OnUpdate="@OnFilterUpdate">
     <FilterFields>
         <FilterField Name="@nameof(VoterView.VoterId)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@RegistryYearOperators" Label="Id" />
         <FilterField Name="@nameof(VoterView.RegistryYear)" Type="typeof(int)" DefaultOperator="@DefaultNumberAndDatesOperator" Operators="@RegistryYearOperators" Label="Election Year" />

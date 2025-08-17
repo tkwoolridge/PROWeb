@@ -1,4 +1,3 @@
-using PROWeb.WebResources.DependencyInjection;
 using PROWeb.WebResources.Endpoints;
 using PROWeb.WebService.Authentication.DependencyInjection;
 using Serilog;
@@ -15,8 +14,6 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 builder.Services.AddOpenApi();
 
 builder.Services.AddApiKeyAuthentication(builder.Configuration);
-builder.Services.AddWebResourcesOptions(builder.Configuration);
-builder.Services.AddTCDPhotosOptions(builder.Configuration);
 
 var app = builder.Build();
 

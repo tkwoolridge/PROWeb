@@ -28,7 +28,7 @@ namespace PROWeb.Data.Services.Office
 
         public async Task<PROOffice?> GetOfficeAsync()
         {
-            return await Context.PROOffices.FirstOrDefaultAsync();
+            return await Context.PROOffices.OrderBy(o => o.Id).FirstOrDefaultAsync();
         }
 
         public IQueryable<ElectionType> GetElectionTypes()

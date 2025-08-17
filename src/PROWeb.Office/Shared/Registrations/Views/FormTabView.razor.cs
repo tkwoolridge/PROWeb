@@ -12,7 +12,7 @@ namespace PROWeb.Office.Shared.Registrations.Views
         [Inject]
         protected IStateService<FormTabView, int> StateService { get; set; } = null!;
 
-        protected string PersistenceKey => Model?.VoterId.ToString() ?? "0";
+        protected string PersistenceKey => Model?.RegistrationId.ToString() ?? "0";
 
         protected int TabIndex
         {
