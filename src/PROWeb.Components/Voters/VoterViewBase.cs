@@ -26,6 +26,10 @@ namespace PROWeb.Components.Voters
         [Inject]
         private ICachedDataService _cachedDataService { get; set; } = default!;
 
+
+        [Parameter]
+        public EventCallback OnVoterSaved { get; set; }
+
         protected PROUser? User { get; private set; }
 
         [Parameter]
@@ -54,6 +58,11 @@ namespace PROWeb.Components.Voters
             else
             {
                 await AddVoterAsync(voter);
+            }
+
+            if (OnVoterSaved.HasDelegate)
+            {
+                await OnVoterSaved.InvokeAsync(null);
             }
         }
 

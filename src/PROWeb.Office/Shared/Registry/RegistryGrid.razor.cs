@@ -11,6 +11,7 @@ using PROWeb.Office.Shared.Registrations;
 using PROWeb.Office.Shared.Registrations.ViewModels;
 using System.Diagnostics;
 using Telerik.Blazor.Components;
+using Telerik.Blazor.Components.Grid;
 using Telerik.SvgIcons;
 
 namespace PROWeb.Office.Shared.Registry
@@ -29,6 +30,38 @@ namespace PROWeb.Office.Shared.Registry
         protected RegistrationViewModel? FormModel { get; set; }
 
         protected List<MenuItem> MenuItems { get; set; }
+
+        [Parameter]
+        public bool VoterViewCollapsed { get; set; } = true;
+
+        [Parameter]
+        public bool VoterViewVisible { get; set; } = true;
+
+        [Parameter]
+        public VoterViewModel? SelectedVoter { get; set; }
+
+        protected TelerikGrid<VoterViewModel>? GridRef { get; set; }
+
+        private void OnSelectionChanged(VoterViewModel voter)
+        {
+            SelectedVoter = voter.Adapt<VoterViewModel>();
+            VoterViewCollapsed = false;
+
+            StateHasChanged();
+        }
+
+        private void OnVoterSaved()
+        {
+            if (SelectedVoter is { } current &&
+                Data?.FirstOrDefault(m => m.VoterId == current.VoterId) is { } previous &&
+                Data?.IndexOf(previous) is { } index && index > -1)
+            {
+                Data?.RemoveAt(index);
+                Data?.Insert(index, current);
+
+                GridRef?.Rebind();
+            }
+        }
 
         public RegistryGrid()
         {

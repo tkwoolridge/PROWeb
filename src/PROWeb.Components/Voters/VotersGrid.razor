@@ -3,15 +3,15 @@
 @inherits PROGridComponent<FilterModel, VoterViewModel>
 
 <TelerikGrid @bind-Page="@Page"
-             PageSize="@PageSize"
-             Height="100%"
-             @ref="@GridRef"
-             TItem="VoterViewModel"
-             Pageable="true"
-             OnStateChanged="@OnStateChanged"
-             SelectionMode="@(EnableSelection ? GridSelectionMode.Single : GridSelectionMode.None)"
-             SelectedItemsChanged="@OnSelectionChanged"
-             Data="@Data">
+                PageSize="@PageSize"
+                Height="100%"
+                @ref="@GridRef"
+                TItem="VoterViewModel"
+                Pageable="true"
+                OnStateChanged="@OnStateChanged"
+                SelectionMode="@(EnableSelection ? GridSelectionMode.Single : GridSelectionMode.None)"
+                SelectedItemsChanged="@OnSelectionChanged"
+                Data="@Data">
     <GridColumns>
         @if (EnableSelection)
         {

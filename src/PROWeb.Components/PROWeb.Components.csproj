@@ -16,10 +16,10 @@
 		<PackageReference Include="CompareNETObjects" Version="4.84.0" />
 		<PackageReference Include="Humanizer.Core" Version="2.14.1" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
-		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.8" />
-		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="19.1.25.716" />
-		<PackageReference Include="Telerik.ReportViewer.BlazorNative" Version="19.1.25.716" />
-		<PackageReference Include="Telerik.UI.for.Blazor" Version="9.1.0" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.9" />
+		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="19.2.25.813" />
+		<PackageReference Include="Telerik.ReportViewer.BlazorNative" Version="19.2.25.813" />
+		<PackageReference Include="Telerik.UI.for.Blazor" Version="11.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>

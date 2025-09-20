@@ -1,0 +1,70 @@
+﻿@using PROWeb.Components.Person;
+@using PROWeb.Data.Models.Enums;
+@using PROWeb.Office.Registrations.Views;
+@using PROWeb.Office.Shared.Registrations.Views
+@using Telerik.FontIcons;
+@inherits PROComponent;
+
+<FormView Save="@OnSave" FormDescription="CHANGE REGITRATION DETAILS"
+          FormName="FORM 2">
+    <Form>
+        <ExpansionPanel Class="my-1">
+            <Header>
+                <strong>VOTER PHOTOS</strong>
+            </Header>
+            <Content>
+                <div class="d-flex justify-content-center">
+                    <FormPhotosView />
+                </div>
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1">
+            <Header>
+                <strong>VOTER DETAILS</strong>
+            </Header>
+            <Content>
+                <FormDetailsView Editable="false"
+                                 AllowLastNameEdit="true"
+                                 ShowPopulateDialogButton="true"
+                                 ShowMaidenName="true"
+                                 PopulateDialog="PopulateDetailsDialogs.Voters"
+                                 ContactInfoView="@ContactInfoViewRef"
+                                 AddressView="@AddressViewRef"
+                                 OldAddressView="@OldAddressViewRef"
+                                 FlagsView="@FormFlagsViewRef" />
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1" IsExpanded="false">
+            <Header>
+                <strong>OLD ADDRESS</strong>
+            </Header>
+            <Content>
+                <FormOldAddressView Editable="false" @ref="@OldAddressViewRef" />
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1">
+            <Header>
+                <strong>ADDRESS</strong>
+            </Header>
+            <Content>
+                <FormAddressView ShowPopulateDialogButton="true" @ref="@AddressViewRef" />
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1" IsExpanded="false">
+            <Header>
+                <strong>CONTACT INFO</strong>
+            </Header>
+            <Content>
+                <FormContactInfoView Editable="true" @ref="@ContactInfoViewRef" />
+            </Content>
+        </ExpansionPanel>
+        <ExpansionPanel Class="my-1" IsExpanded="false">
+            <Header>
+                <strong>FLAGS</strong>
+            </Header>
+            <Content>
+                <FormFlagsView @ref="FormFlagsViewRef" Editable="true" />
+            </Content>
+        </ExpansionPanel>
+    </Form>
+</FormView>

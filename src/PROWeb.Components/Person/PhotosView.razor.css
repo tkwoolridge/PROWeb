@@ -1,13 +1,4 @@
-﻿.voter-photos-view {
-    height:100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 1fr);
-    grid-template-rows: 20px 1fr;
-    grid-auto-flow: column;
-    gap: 10px 10px;
-}
-
-.photo-container {
+﻿.photo-container {
     border: 1px solid black;
     display: flex;
     width:90px;

@@ -26,15 +26,9 @@
             </Content>
         </ExpansionPanel>
     </Filter>
-    <Toolbox>
-        <TelerikButtonGroup SelectionMode="@ButtonGroupSelectionMode.Single">
-            <ButtonGroupToggleButton @bind-Selected="@GridSelected" Icon="@FontIcon.Rows"/>
-            <ButtonGroupToggleButton Icon="@FontIcon.Group" />
-        </TelerikButtonGroup>
-    </Toolbox>
     <List>
         <div class="p-container h-100">
-            @ListTemplate    
+            <RegistryGrid @ref="ListRef" />
         </div>
     </List>
     <Footer>
@@ -52,8 +46,4 @@
     private RenderFragment AdvancedFilterTemplate => @<VoterFilterAdvanced @ref="@FilterRef"></VoterFilterAdvanced>;
 
     private RenderFragment SimpleFilterTemplate => @<VoterFilterSimple @ref="@FilterRef"></VoterFilterSimple>;
-
-    private RenderFragment List => @<RegistryList @ref="ListRef" />;
-
-    private RenderFragment Grid => @<RegistryGrid @ref="ListRef" />;
 }

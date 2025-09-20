@@ -1,33 +1,51 @@
 ﻿@inherits PhotosViewBase<TPhotosViewModel>
 @typeparam TPhotosViewModel
 
-<div class="voter-photos-view">
-    @if(ShowPROPhoto)
-    {
-        <div class="d-flex justify-content-center pro-view-title">
-            <span>@PROPhotoTitle</span>
-        </div>
-    }
-    @if(ShowPROPhoto)
-    {
-        <div class="photo-container">
-            <object class="photo" data="@(PROPhotoPath + "/" + PhotosContext.PROPhoto)" type="image/png">
-                <img class="photo" src="_content/PROWeb.Components/images/user_photo.png" />
-            </object>
-        </div>
-    }
-    @if(ShowTCDPhoto)
-    {
-        <div class="d-flex justify-content-center pro-view-title">
-            <span>@TCDPhotoTitle</span>
-        </div>
-    }
-    @if (ShowTCDPhoto)
-    {
-        <div class="photo-container">
-            <object class="photo" data="@(TCDPhotoPath + "?TCDPhoto=" + PhotosContext.TCDPhoto)" type="image/png">
-                <img class="photo" src="_content/PROWeb.Components/images/user_photo.png" />
-            </object>
-        </div>
-    }
-  </div>
+<TelerikGridLayout HorizontalAlign="GridLayoutHorizontalAlign.Center">
+    <GridLayoutRows>
+        <GridLayoutRow Height="Auto"></GridLayoutRow>
+        <GridLayoutRow Height="1fr"></GridLayoutRow>
+    </GridLayoutRows>
+    <GridLayoutColumns>
+        <GridLayoutColumn Width="1fr"></GridLayoutColumn>
+        <GridLayoutColumn Width="1fr"></GridLayoutColumn>
+    </GridLayoutColumns>
+    <GridLayoutItems>
+        <GridLayoutItem>
+            @if (ShowPROPhoto)
+            {
+                <div class="d-flex justify-content-center pro-view-title">
+                    <span>@PROPhotoTitle</span>
+                </div>
+            }
+        </GridLayoutItem>
+        <GridLayoutItem>
+            @if (ShowTCDPhoto)
+            {
+                <div class="d-flex justify-content-center pro-view-title">
+                    <span>@TCDPhotoTitle</span>
+                </div>
+            }
+        </GridLayoutItem>
+        <GridLayoutItem>
+            @if (ShowPROPhoto)
+            {
+                <div class="photo-container">
+                    <object class="photo" data="@(PROPhotoPath + "/" + PhotosContext.PROPhoto)" type="image/png">
+                        <img class="photo" src="_content/PROWeb.Components/images/user_photo.png" />
+                    </object>
+                </div>
+            }
+        </GridLayoutItem>
+        <GridLayoutItem>
+            @if (ShowTCDPhoto)
+            {
+                <div class="photo-container">
+                    <object class="photo" data="@(TCDPhotoPath + "?TCDPhoto=" + PhotosContext.TCDPhoto)" type="image/png">
+                        <img class="photo" src="_content/PROWeb.Components/images/user_photo.png" />
+                    </object>
+                </div>
+            }
+        </GridLayoutItem>
+    </GridLayoutItems>
+</TelerikGridLayout>

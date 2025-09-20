@@ -7,8 +7,6 @@ namespace PROWeb.Office.Pages
 {
     public partial class VoterRegistry : PRORegistryLayout<FilterModel, VoterViewModel>
     {
-        private bool _gridSelected;
-
         private bool _simpleFilterSelected;
 
         private IList<VoterViewModel>? _data;
@@ -22,17 +20,6 @@ namespace PROWeb.Office.Pages
         public int Total { get; private set; }
 
         private int _page;
-
-        private bool GridSelected
-        {
-            get => _gridSelected;
-            set
-            {
-                _gridSelected = value;
-
-                ListTemplate = value ? Grid : List;
-            }
-        }
 
         private bool SimpleFilterSelected
         {
@@ -86,7 +73,6 @@ namespace PROWeb.Office.Pages
             base.OnInitialized();
 
             SimpleFilterSelected = true;
-            GridSelected = true;
         }
     }
 }

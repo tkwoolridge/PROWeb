@@ -122,6 +122,22 @@ namespace PROWeb.Components.Common.Views
             SetCanSave(UndoService.HasActions);
         }
 
+        public void ResetUndo()
+        {
+            Debug.Assert(LayoutRef != null);
+
+            while (UndoService.Next is { } actions)
+            {
+                foreach (PROEditableView<TViewModel> view in LayoutRef.ViewsList)
+                {
+                    view.Undo(actions);
+                }
+            }
+
+            UndoService.Reset();
+            SetCanSave(false);
+        }
+
         public virtual async Task<bool> ValidateModelAsync(bool showMessage = false)
         {
             List<string> errors = new List<string>();

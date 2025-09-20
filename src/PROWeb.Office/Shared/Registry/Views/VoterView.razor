@@ -1,0 +1,108 @@
+﻿@using PROWeb.Components.Common.Views;
+@using PROWeb.Components.Layouts;
+@using PROWeb.Components.Person;
+@using PROWeb.Components.Voters.ViewModels;
+@using PROWeb.Components.Voters;
+@using PROWeb.Data.Models.Reports
+@using Telerik.FontIcons;
+@using PROWeb.Components.Common.Layouts;
+@inherits VoterViewBase<VoterViewModel>;
+
+<ViewsLayout TViewModel="VoterViewModel" Class="p-container" @ref="@LayoutRef">
+    <Header>
+    <div class="d-flex justify-content-between py-2 px-2">
+        <div>
+            @if (Model?.LastUpdated is { } lastUpdated)
+            {
+                <span class="k-text-info">
+                    Date: @(lastUpdated.ToString("dd MMM yy hh:mm"))
+                </span>
+            }
+            else
+            {
+                <span class="k-text-error">Not Assigned</span>
+            }
+
+            <br />
+            <span>Last Updated By: </span>
+            @if (Model?.LastUpdatedBy is { } userName)
+            {
+                <span class="k-text-info">@userName</span>
+            }
+            else
+            {
+                <span class="k-text-error">Not Assigned</span>
+            }
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+            @if (Editable == true)
+            {
+                <TelerikButton OnClick="@OnUndo" Enabled="@CanUndo" Icon="FontIcon.Undo" Class="me-1"/>
+                <TelerikButton OnClick="@OnSaveAsync" Enabled="@CanSave" Class="me-1" Icon="FontIcon.Save" />
+                <TelerikButton OnClick="@OnEdit" Icon="@FontIcon.Cancel"/>
+            }
+            else
+            {
+                <TelerikButton Icon="FontIcon.FileReport" OnClick="@OnRunCertificates" Class="mx-1" />
+                <TelerikButton OnClick="@OnShowHistory" Icon="FontIcon.ClockArrowRotate" Class="me-1"/>
+                <TelerikButton OnClick="@OnEdit" Icon="@FontIcon.Pencil"/>
+            }
+        </div>
+    </div>
+    </Header>
+    <Views>
+        <div class="p-3">
+             <ExpansionPanel Class="my-1" IsExpanded="true">
+                <Header>
+                    <strong>VOTER PHOTOS</strong>
+                </Header>
+                <Content>
+                    <VoterPhotosView />
+                </Content>
+            </ExpansionPanel>
+            <ExpansionPanel Class="my-1" IsExpanded="true">
+                <Header>
+                    <strong>VOTER DETAILS</strong>
+                </Header>
+                <Content>
+                    <VoterDetailsView Editable="@Editable" Title="Voter Details:" />
+                </Content>
+            </ExpansionPanel>
+            <ExpansionPanel Class="my-1" IsExpanded="true">
+                <Header>
+                    <strong>ADDRESS</strong>
+                </Header>
+                <Content>
+                    <VoterAddressView Editable="@Editable" ShowPopulateDialogButton="true" Title="Address:" />
+                </Content>
+            </ExpansionPanel>
+            <ExpansionPanel Class="my-1" IsExpanded="true">
+                <Header>
+                    <strong>CONTACT INFO</strong>
+                </Header>
+                <Content>
+                    <VoterContactInfoView Editable="@Editable" />
+                </Content>
+            </ExpansionPanel>
+            <ExpansionPanel Class="my-1" IsExpanded="false">
+                <Header>
+                    <strong>FLAGS</strong>
+                </Header>
+                <Content>
+                    <VoterFlagsView Editable="@Editable" />
+                </Content>
+            </ExpansionPanel>
+            <ExpansionPanel Class="my-1" IsExpanded="false">
+                <Header>
+                    <strong>DOCUMENTS</strong>
+                </Header>
+                <Content>
+                    <VoterDocumentsView Editable="@Editable" />
+                </Content>
+            </ExpansionPanel>
+        </div>
+    </Views>
+</ViewsLayout>
+
+<VoterHistoryDialog RegistryYear="@Model?.RegistryYear" VoterId="@Model?.VoterId" @ref="@VoterHistoryDialogRef" />
+<CertificatesDialog ReportsFolder="reports" @ref="CertificatesDialogRef" />

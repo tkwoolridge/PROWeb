@@ -22,136 +22,18 @@
             {
                 case (FormTypes.Form1):
                 {
-                    <FormView Save="@OnSave" FormDescription="NEW REGITRATION"
-                                  FormName="FORM 1">
-                            <Form>
-                                <ExpansionPanel Class="my-1">
-                                    <Header>
-                                        <strong>VOTER PHOTOS</strong>
-                                    </Header>
-                                    <Content>
-                                        <div class="d-flex justify-content-center">
-                                            <FormPhotosView />
-                                        </div>
-                                    </Content>
-                                </ExpansionPanel>
-                                <ExpansionPanel Class="my-1">
-                                    <Header>
-                                        <strong>VOTER DETAILS</strong>
-                                    </Header>
-                                    <Content>
-                                        <FormDetailsView AddressView="AddressViewRef"
-                                                         ShowPopulateDialogButton="true"
-                                                         PopulateDialog="PopulateDetailsDialogs.EligiblePolls"
-                                                         Editable="true" />
-                                    </Content>
-                                </ExpansionPanel>
-                                <ExpansionPanel Class="my-1">
-                                    <Header>
-                                        <strong>ADDRESS</strong>
-                                    </Header>
-                                    <Content>
-                                        <FormAddressView ShowPopulateDialogButton="true" @ref="AddressViewRef" />
-                                    </Content>
-                                </ExpansionPanel>
-                                <ExpansionPanel Class="my-1" IsExpanded="false">
-                                    <Header>
-                                        <strong>CONTACT INFO</strong>
-                                    </Header>
-                                    <Content>
-                                        <FormContactInfoView Editable="true" />
-                                    </Content>
-                                </ExpansionPanel>
-                                <ExpansionPanel Class="my-1" IsExpanded="false">
-                                    <Header>
-                                        <strong>FLAGS</strong>
-                                    </Header>
-                                    <Content>
-                                        <FormFlagsView Editable="true" />
-                                    </Content>
-                                </ExpansionPanel>
-                            </Form>
-                            <FormFooter>
-                                <div class="d-flex justify-content-end mt-2 mx-2">
-                                    <TelerikButton Icon="@FontIcon.Cancel" OnClick="@OnClose">Cancel</TelerikButton>
-                                </div>
-                            </FormFooter>
-                        </FormView>
+                    <Form1View OnSave="@OnSave"/>
                     break;
                 }
                 case (FormTypes.Form2):
                 {
-                    <FormView Save="@OnSave" FormDescription="CHANGE REGITRATION DETAILS"
-                                FormName="FORM 2">
-                        <Form>
-                            <ExpansionPanel Class="my-1">
-                                <Header>
-                                    <strong>VOTER PHOTOS</strong>
-                                </Header>
-                                <Content>
-                                    <div class="d-flex justify-content-center">
-                                        <FormPhotosView />
-                                    </div>
-                                </Content>
-                            </ExpansionPanel>
-                            <ExpansionPanel Class="my-1">
-                                <Header>
-                                    <strong>VOTER DETAILS</strong>
-                                </Header>
-                                <Content>
-                                    <FormDetailsView Editable="false"
-                                                        AllowLastNameEdit="true"
-                                                        ShowPopulateDialogButton="true"
-                                                        ShowMaidenName="true"
-                                                        PopulateDialog="PopulateDetailsDialogs.Voters"
-                                                        ContactInfoView="@ContactInfoViewRef"
-                                                        AddressView="@AddressViewRef"
-                                                        OldAddressView="@OldAddressViewRef"
-                                                        FlagsView="@FormFlagsViewRef" />
-                                </Content>
-                            </ExpansionPanel>
-                            <ExpansionPanel Class="my-1" IsExpanded="false">
-                                <Header>
-                                    <strong>OLD ADDRESS</strong>
-                                </Header>
-                                <Content>
-                                    <FormOldAddressView Editable="false" @ref="@OldAddressViewRef" />
-                                </Content>
-                            </ExpansionPanel>
-                            <ExpansionPanel Class="my-1">
-                                <Header>
-                                    <strong>ADDRESS</strong>
-                                </Header>
-                                <Content>
-                                        <FormAddressView ShowPopulateDialogButton="true" @ref="@AddressViewRef" />
-                                </Content>
-                            </ExpansionPanel>
-                            <ExpansionPanel Class="my-1" IsExpanded="false">
-                                <Header>
-                                    <strong>CONTACT INFO</strong>
-                                </Header>
-                                <Content>
-                                    <FormContactInfoView Editable="true" @ref="@ContactInfoViewRef" />
-                                </Content>
-                            </ExpansionPanel>
-                            <ExpansionPanel Class="my-1" IsExpanded="false">
-                                <Header>
-                                    <strong>FLAGS</strong>
-                                </Header>
-                                <Content>
-                                    <FormFlagsView @ref="FormFlagsViewRef" Editable="true" />
-                                </Content>
-                            </ExpansionPanel>
-                        </Form>
-                        <FormFooter>
-                            <div class="d-flex justify-content-end mt-2 mx-2">
-                                <TelerikButton Icon="@FontIcon.Cancel" OnClick="@OnClose">Cancel</TelerikButton>
-                            </div>
-                        </FormFooter>
-                    </FormView>
+                    <Form2View OnSave="@OnSave"/>
                     break;
                 }
             }
+            <div class="d-flex justify-content-end mt-2">
+                <TelerikButton Icon="@FontIcon.Cancel" OnClick="@OnClose">Cancel</TelerikButton>
+            </div>
         </CascadingValue>
     </WindowContent>
 </TelerikWindow>

@@ -67,7 +67,7 @@ namespace PROWeb.Components.DependencyInjection
         public static void AddPROWebComponentsEndpoints(this WebApplication app)
         {
             app.MapControllers();
-            app.UseMiddleware<HandleTCDPhotosMiddleWare>();
+            //app.UseMiddleware<HandleTCDPhotosMiddleWare>();
         }
     }
 }
