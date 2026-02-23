@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mapster;
+using Microsoft.AspNetCore.Components;
 using PROWeb.Common.Components;
 using PROWeb.Common.Extensions;
 using PROWeb.Data.Models.Enums;
@@ -11,8 +12,40 @@ namespace PROWeb.Office.Shared.Registrations
 {
     public partial class RegistrationsGrid : PROListComponent<RegistrationFilterModel, RegistrationViewModel>
     {
+        [Parameter]
+        public bool FormViewVisible { get; set; } = true;
+
+        [Parameter]
+        public bool FormViewCollapsed { get; set; } = true;
+
+        [Parameter]
+        public RegistrationViewModel? SelectedForm { get; set; }
+
+        protected TelerikGrid<RegistrationViewModel>? GridRef { get; set; }
+
         [Inject]
         private IRegistrationServiceFactory _registrationServiceFactory { get; set; } = null!;
+
+        private void OnSelectionChanged(RegistrationViewModel form)
+        {
+            SelectedForm = form.Adapt<RegistrationViewModel>();
+            FormViewCollapsed = false;
+
+            StateHasChanged();
+        }
+
+        private void OnFormSaved()
+        {
+            if (SelectedForm is { } current &&
+                Data?.FirstOrDefault(m => m.VoterId == current.VoterId) is { } previous &&
+                Data?.IndexOf(previous) is { } index && index > -1)
+            {
+                Data?.RemoveAt(index);
+                Data?.Insert(index, current);
+
+                GridRef?.Rebind();
+            }
+        }
 
         protected override async Task<IList<RegistrationViewModel>> GetDataAsync(RegistrationFilterModel filter)
         {

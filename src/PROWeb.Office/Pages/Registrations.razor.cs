@@ -8,8 +8,6 @@ namespace PROWeb.Office.Pages
 {
     public partial class Registrations : PRORegistryLayout<RegistrationFilterModel, RegistrationViewModel>
     {
-        private bool _gridSelected;
-
         private IList<RegistrationViewModel>? _data;
 
         public int ApprovedForm1Count { get; private set; }
@@ -27,21 +25,6 @@ namespace PROWeb.Office.Pages
         public int Total { get; private set; }
 
         private int _page;
-
-        private bool GridSelected
-        {
-            get => _gridSelected;
-            set
-            {
-                _gridSelected = value;
-
-                ListTemplate = value ? Grid : List;
-            }
-        }
-
-        protected RenderFragment? FilterTemplate;
-
-        protected RenderFragment? ListTemplate;
 
         protected override void OnAfterRender(bool firstRender)
         {
@@ -79,11 +62,5 @@ namespace PROWeb.Office.Pages
         }
 
         protected override string PageTitle => "Registrations";
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            GridSelected = true;
-        }
     }
 }

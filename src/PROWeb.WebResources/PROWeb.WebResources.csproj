@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PROWeb.RestApi\PROWeb.RestApi.csproj" />
+    <ProjectReference Include="..\PROWeb.RestApi\PROWeb.RestApi.csproj" />
   </ItemGroup>
 
 </Project>

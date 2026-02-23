@@ -18,22 +18,13 @@
     </WindowActions>
     <WindowContent>
         <CascadingValue Value="@Model">
-            @switch((FormTypes)Model!.FormTypeId)
-            {
-                case (FormTypes.Form1):
-                {
-                    <Form1View OnSave="@OnSave"/>
-                    break;
-                }
-                case (FormTypes.Form2):
-                {
-                    <Form2View OnSave="@OnSave"/>
-                    break;
-                }
-            }
-            <div class="d-flex justify-content-end mt-2">
-                <TelerikButton Icon="@FontIcon.Cancel" OnClick="@OnClose">Cancel</TelerikButton>
-            </div>
+            <FormView OnSave="@OnSave">
+                <FormFooter>
+                    <div class="d-flex justify-content-end mt-2">
+                        <TelerikButton Icon="@FontIcon.Cancel" OnClick="@OnClose">Cancel</TelerikButton>
+                    </div>
+                </FormFooter>
+            </FormView>
         </CascadingValue>
     </WindowContent>
 </TelerikWindow>

@@ -27,9 +27,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROWeb.WebService", "src\PR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROWeb.WebResources", "src\PROWeb.WebResources\PROWeb.WebResources.csproj", "{61AA2966-EDD2-4DDB-B899-AE0C4DF2B28C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROWeb.RestApi", "PROWeb.RestApi\PROWeb.RestApi.csproj", "{1ACBF51F-BE9F-4F9F-945C-9206991765F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROWeb.RestApi", "src\PROWeb.RestApi\PROWeb.RestApi.csproj", "{1ACBF51F-BE9F-4F9F-945C-9206991765F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROWeb.ExternalResources", "PROWeb.ExternalResources\PROWeb.ExternalResources.csproj", "{2C978D69-1832-4D6A-9177-5F619EA5F356}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROWeb.ExternalResources", "src\PROWeb.ExternalResources\PROWeb.ExternalResources.csproj", "{2C978D69-1832-4D6A-9177-5F619EA5F356}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

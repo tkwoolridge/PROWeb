@@ -20,7 +20,7 @@ namespace PROWeb.Office.Shared.Registrations.Views
         private ICachedDataService _cachedDataService { get; set; } = default!;
 
         [Parameter]
-        public EventCallback Save { get; set; }
+        public EventCallback OnSave { get; set; }
 
         public bool CanApprove { get; private set; }
 
@@ -110,7 +110,7 @@ namespace PROWeb.Office.Shared.Registrations.Views
                 }
             }
 
-            await Save.InvokeAsync();
+            await OnSave.InvokeAsync();
 
             UpdateApproveButtonsStatus();
         }

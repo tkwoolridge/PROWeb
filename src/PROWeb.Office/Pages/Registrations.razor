@@ -18,15 +18,9 @@
             </Content>
         </ExpansionPanel>
     </Filter>
-    <Toolbox>
-        <TelerikButtonGroup SelectionMode="@ButtonGroupSelectionMode.Single">
-            <ButtonGroupToggleButton @bind-Selected="@GridSelected" Icon="@FontIcon.Rows" />
-            <ButtonGroupToggleButton Icon="@FontIcon.Group" />
-        </TelerikButtonGroup>
-    </Toolbox>
     <List>
         <div class="p-container h-100">
-            @ListTemplate
+            <RegistrationsGrid @ref="ListRef" />
         </div>
     </List>
     <Footer>
@@ -38,8 +32,3 @@
         </div>
     </Footer>
 </FilterListLayout>
-
-@code{
-    private RenderFragment List => @<RegistrationsList @ref="ListRef" />;
-    private RenderFragment Grid => @<RegistrationsGrid @ref="ListRef" />;
-}

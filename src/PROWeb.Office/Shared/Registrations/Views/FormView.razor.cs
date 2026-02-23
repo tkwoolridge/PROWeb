@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PROWeb.Data.Models.Enums;
+using PROWeb.Office.Registrations.Views;
 using System.Diagnostics;
 
 namespace PROWeb.Office.Shared.Registrations.Views
@@ -7,16 +8,19 @@ namespace PROWeb.Office.Shared.Registrations.Views
     public partial class FormView : FormViewBase
     {
         [Parameter]
-        public RenderFragment? Form { get; set; }
-
-        [Parameter]
         public RenderFragment? FormFooter { get; set; }
 
-        [Parameter]
         public string? FormDescription { get; set; }
 
-        [Parameter]
         public string? FormName { get; set; }
+
+        protected FormOldAddressView? OldAddressViewRef { get; set; }
+
+        protected FormAddressView? AddressViewRef { get; set; }
+
+        protected FormContactInfoView? ContactInfoViewRef { get; set; }
+
+        protected FormFlagsView? FormFlagsViewRef { get; set; }
 
         protected override void OnInitialized()
         {
@@ -29,11 +33,24 @@ namespace PROWeb.Office.Shared.Registrations.Views
 
             Debug.Assert(Model != null);
 
-            Class = (FormTypes)Model.FormTypeId switch
+            switch ((FormTypes)Model.FormTypeId)
             {
-                FormTypes.Form1 => "form1-background",
-                _ => "form2-background"
-            };
+                case FormTypes.Form1:
+                    Class = "form1-background";
+                    FormName = "FORM 1";
+                    FormDescription = "NEW REGITRATION";
+                    break;
+                case FormTypes.Form2:
+                    Class = "form2-background";
+                    FormName = "FORM 2";
+                    FormDescription = "CHANGE REGITRATION DETAILS";
+                    break;
+                // Add more cases as needed for other FormTypes
+                default:
+                    Class = "form2-background";
+                    // Assign default properties here
+                    break;
+            }
         }
 
         protected override Task OnAfterRenderAsync(bool firstRender)

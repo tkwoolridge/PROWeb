@@ -4,6 +4,8 @@
 	<MenuItem Name="Registry" Description="Registrations">
 		<MenuItem Name="Registry" Description="Registry" Page="/"/>
 		<MenuItem Name="Registrations" Description="Registrations" Page="/registrations"/>
+		<MenuItem Name="Assessments" Description="Assessments" Page="/assessments"/>
+		<MenuItem Name="Eligible" Description="Eligible" Page="/eligible"/>
 		<MenuItem Name="Users" Description="Users" Page="/users"/>
 		<MenuItem Name="Office" Description="Office" Page="/office"/>
 	</MenuItem>

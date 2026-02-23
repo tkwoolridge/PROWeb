@@ -23,8 +23,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\PROWeb.ExternalResources\PROWeb.ExternalResources.csproj" />
-		<ProjectReference Include="..\..\PROWeb.RestApi\PROWeb.RestApi.csproj" />
+		<ProjectReference Include="..\PROWeb.ExternalResources\PROWeb.ExternalResources.csproj" />
+		<ProjectReference Include="..\PROWeb.RestApi\PROWeb.RestApi.csproj" />
 		<ProjectReference Include="..\PROWeb.Common\PROWeb.Common.csproj" />
 		<ProjectReference Include="..\PROWeb.Data.Authentication\PROWeb.Data.Authentication.csproj" />
 		<ProjectReference Include="..\PROWeb.Data\PROWeb.Data.csproj" />
